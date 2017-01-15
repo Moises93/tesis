@@ -2,7 +2,7 @@
 
 class Model_usuario extends CI_Model
 {
-	//constructor predeterminado del modelo
+	//constructor predeterminado del  modelossss
 	function __construct()
 	{
 		parent::__construct();
