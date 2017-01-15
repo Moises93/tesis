@@ -16,12 +16,16 @@ class Cusuario extends CI_Controller
 	{
 		$param['nombre'] = $this->input->post('usuario');
     $param['clave'] = $this->input->post('password');
+    // $param['clave'] = $this->encrypt->sha1($this->input->post('password'));
 
     if(!$this->model_usuario->existe($param)){
       $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
 			return FALSE;
     }else{
+          $this->load->view('layout/header');
+            $this->load->view('layout/menu');
             $this->load->view('vPrueba');
+              $this->load->view('layout/footer');
     }
 
 	}
