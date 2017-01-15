@@ -12,8 +12,8 @@ class Model_usuario extends CI_Model
 		{
 			$data = array
 			(
-				'login' => $param['nombre'],
-				'clave' => $param['clave']
+				'usu_login' => $param['nombre'],
+				'usu_clave' => $param['clave']
 			);
 			$query = $this->db->get_where('usuario',$data);
 
