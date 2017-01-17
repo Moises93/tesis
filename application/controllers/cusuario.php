@@ -22,13 +22,40 @@ class Cusuario extends CI_Controller
       $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
 			return FALSE;
     }else{
+       // echo "ejejle".$this->model_usuario->existe($param);
+        echo 'aqui encontre algo util ' .$this->session->userdata('Login');
+        $tipo_usuario= $this->model_usuario->existe($param);
+        //intento validar que tipo de usuario es para cargar el menu
+        if($tipo_usuario='administrador'){
+            $menu='menuAdmin';
+        }
           $this->load->view('layout/header');
             $this->load->view('layout/menu');
             $this->load->view('vPrueba');
               $this->load->view('layout/footer');
+
     }
 
 	}
+
+    public function login_usuarios()
+    {
+        $param['nombre'] = $this->input->post('usuario');
+        $param['clave'] = $this->input->post('password');
+        // $param['clave'] = $this->encrypt->sha1($this->input->post('password'));
+
+        if(!$this->model_usuario->existe($param)){
+            $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
+            return FALSE;
+        }else{
+            echo "ejejle".$this->model_usuario->existe($param);
+         //   $this->load->view('layout/header');
+           // $this->load->view('layout/menu');
+           // $this->load->view('vPrueba');
+           // $this->load->view('layout/footer');
+        }
+
+    }
 
   public function index(){
     $this->load->view('vPrueba');
