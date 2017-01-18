@@ -36,7 +36,7 @@ class Cusuario extends CI_Controller
             echo 'entre al if'.$menu;
         }
             $this->load->view('layout/header');
-            $this->load->view('layout/'.$menu);
+            $this->load->view('contenido/'.$menu);
             $this->load->view('contenido/'.$contenido);
             $this->load->view('layout/footer');
 
@@ -44,25 +44,15 @@ class Cusuario extends CI_Controller
 
 	}
 
-    public function login_usuarios()
+    public function consultar_usuarios()
     {
-        $param['nombre'] = $this->input->post('usuario');
-        $param['clave'] = $this->input->post('password');
-        // $param['clave'] = $this->encrypt->sha1($this->input->post('password'));
+        $consulta= $this->model_usuario->consultar_usuarios();
 
-        if(!$this->model_usuario->existe($param)){
-            $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
-            return FALSE;
-        }else{
-            echo "ejejle".$this->model_usuario->existe($param);
-         //   $this->load->view('layout/header');
-           // $this->load->view('layout/menu');
-           // $this->load->view('vPrueba');
-           // $this->load->view('layout/footer');
-        }
-
+        return $consulta;
     }
 
+
+  
   public function index(){
     $this->load->view('vPrueba');
   }
