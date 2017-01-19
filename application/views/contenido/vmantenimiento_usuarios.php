@@ -22,7 +22,7 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example1" class="table table-bordered table-striped">
+							<!--<table id="example1" class="table table-bordered table-striped">
 								<thead>
 								<tr>
 									<th>Rendering engine</th>
@@ -71,7 +71,36 @@
 									<th>CSS grade</th>
 								</tr>
 								</tfoot>
-							</table>
+							</table>-->
+							<?php
+
+							    $this->table->set_heading('ID', 'tipo', 'login', 'clave','estatus','correo');
+								$tmp = array ( 'table_open'  => '<table id="example1" class="table table-bordered table-striped">' ); //modifica el espaciado
+								$this->table->set_template($tmp);
+							/*print_r($results);
+							exit();*/
+							if( !empty($results) ) {
+
+								foreach ($results as $dato):
+								  //  print_r($dato); exit();
+									$array['id'] = $dato->id_usuario;
+									$array['tipo'] = $dato->tipo;
+									$array['login'] = $dato->usu_login;
+									$array['clave'] = $dato->usu_clave;
+									$array['estatus'] = $dato->usu_estatus;
+									$array['email'] = mailto($dato->usu_correo, $dato->usu_correo); //esto genera un link con el mismo nombre.
+									$this->table->add_row($array); //agregamos la celda a la tabla por cada iteracion
+								endforeach;
+							}
+							// print_r($array); exit();
+								echo $this->table->generate(); //cuando termina generamos la tabla a partir del vector
+
+								//echo $this->pagination->create_links();
+
+							?>
+
+
+
 						</div>
 						<!-- /.box-body -->
 					</div>

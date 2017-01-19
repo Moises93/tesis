@@ -48,9 +48,22 @@ class Model_usuario extends CI_Model
 
 	public function consultar_usuarios()
 	{
-		$consulta = $this->db->get('tabla');
-		return $consulta;
+
+		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
+		$this->db->from('usuario u');
+		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
+		$consulta = $this->db->get();
+		$resultado = $consulta->result();
+
+
+		#$consulta = $this->db->get('usuario');
+		return $resultado;
 
 
 	}
+
+
+
+
+
 }
