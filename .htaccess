@@ -1,11 +1,32 @@
 # index file can be index.php, home.php, default.php etc.
-DirectoryIndex index.php
-
+#DirectoryIndex index.php
+#-<IfModule mod_rewrite.c>
 # Rewrite engine
-RewriteEngine On
-
+#-RewriteEngine On
+#RewriteBase /tesis/
 # condition with escaping special chars
-RewriteCond $1 !^(index\.php|robots\.txt|favicon\.ico|assets)
+#-RewriteCond $1 !^(index\.php|robots\.txt|favicon\.ico|assets\.php|application)
+#-RewriteCond %{REQUEST_FILENAME} !-f
+#-RewriteCond %{REQUEST_FILENAME} !-d
+#-RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+#-</IfModule>
+
+#-<IfModule !mod_rewrite.c>
+    # If we don't have mod_rewrite installed, all 404's
+    # can be sent to index.php, and everything works as normal.
+    # Submitted by: ElliotHaughin
+
+#-    ErrorDocument 404 /index.php
+#-</IfModule>
+
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php/$1 [L]
+
+DirectoryIndex index.php
+RewriteEngine on
+RewriteCond $1 !^(index\.php|images|css|js|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]

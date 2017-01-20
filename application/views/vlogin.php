@@ -32,7 +32,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Ingresa tus datos para iniciar sesion</p>
+    <p class="login-box-msg">Ingresa tus datos para iniciar sesiòn</p>
 
     <form action="<?php echo base_url() ?>index.php/cusuario/login" method="post">
       <div class="form-group has-feedback">

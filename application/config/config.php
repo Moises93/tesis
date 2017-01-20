@@ -24,8 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |$config['base_url'] = 'http://'.$_SERVER['SERVER_NAME'].'/tesis/';
 
 */
+HEAD
 $config['base_url']	= 'http://'.$_SERVER['SERVER_NAME'].'/tesis/';
-
+bedf8983d0bd742c2dbcc3bc83bf00999016dafe
 
 /*
 |--------------------------------------------------------------------------
@@ -51,10 +52,12 @@ $config['index_page'] = '';
 | 'REQUEST_URI'    Uses $_SERVER['REQUEST_URI']
 | 'QUERY_STRING'   Uses $_SERVER['QUERY_STRING']
 | 'PATH_INFO'      Uses $_SERVER['PATH_INFO']
+
+$config['uri_protocol']	= 'REQUEST_URI';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -316,7 +319,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'm0i5e5';
 
 /*
 |--------------------------------------------------------------------------
