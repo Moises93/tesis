@@ -43,6 +43,22 @@ class cadministrador extends CI_Controller{
 
     }
 
+    public function insertarU()
+    {
+        $login= $this->input->post('login');
+        $clave= $this->input->post('clave');
+        $tipo= $this->input->post('tipo');
+        $correo= $this->input->post('email');
+
+
+        $this->model_usuario->insertar($login,$clave,$tipo,$correo);
+
+        $this->load->view('layout/header');
+        $this->load->view('contenido/menuAdmin');
+        $this->load->view('contenido/vcrear_usuario');
+        $this->load->view('contenido/footerAdmin');
+    }
+
 
 
 }

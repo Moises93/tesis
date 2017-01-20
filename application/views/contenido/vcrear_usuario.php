@@ -9,32 +9,32 @@
 <div class="col-md-12">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">Horizontal Form</h3>
+            <h3 class="box-title">Nuevo Usuario</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form class="form-horizontal">
+        <form action="<?php echo base_url('index.php/cadministrador/insertarU'); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="box-body">
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <label for="inputEmail3" class="control-label">Login</label>
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        <label for="login" class="control-label">Login</label>
+                        <input type="text" class="form-control" id="login" name="login">
                     </div>
                     <div class="col-sm-5">
-                        <label for="inputPassword3" class="control-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        <label for="clave" class="control-label">Password</label>
+                        <input type="password" class="form-control" id="clave" name="clave" placeholder="Password">
                     </div>
 
                 </div>
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <label for="inputEmail3" class="control-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        <label for="email" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label>Tipo</label>
-                            <select class="form-control">
+                            <select class="form-control" name="tipo">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>

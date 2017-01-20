@@ -62,6 +62,18 @@ class Model_usuario extends CI_Model
 
 	}
 
+	function insertar($login,$clave,$tipo,$correo){
+		$data = array(
+			'id_tipo' => $tipo,
+			'usu_login' => $login,
+			'usu_clave' => $clave,
+			'usu_estatus' => 1,
+			'usu_correo' => $correo,
+
+		);
+
+		$this->db->insert('usuario',$data);
+	}
 
 
 
