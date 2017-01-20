@@ -24,9 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |$config['base_url'] = 'http://'.$_SERVER['SERVER_NAME'].'/tesis/';
 
 */
-HEAD
+
 $config['base_url']	= 'http://'.$_SERVER['SERVER_NAME'].'/tesis/';
-bedf8983d0bd742c2dbcc3bc83bf00999016dafe
+
 
 /*
 |--------------------------------------------------------------------------
