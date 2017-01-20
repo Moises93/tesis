@@ -69,7 +69,7 @@
     <!-- /.social-auth-links -->
 
     <a href="#">¿olvidaste tu contraseña?</a><br>
-    <a href="register.html" class="text-center">¿eres empresa? registrate aqui </a>
+    <a href="<?=base_url('empresa/registroEmpresa')?>" class="text-center">¿eres empresa? registrate aqui </a>
 
   </div>
   <!-- /.login-box-body -->
