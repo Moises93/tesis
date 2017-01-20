@@ -28,9 +28,19 @@ class cadministrador extends CI_Controller{
         exit();*/
         $this->load->view('layout/header');
         $this->load->view('contenido/menuAdmin');
-        $this->load->view('contenido/vmantenimiento_usuarios',$dato,NULL,true);
+        $this->load->view('contenido/vmantenimiento_usuarios',$dato);
         $this->load->view('contenido/footerAdmin');
         
+    }
+
+    public function crear_usuario()
+    {
+    
+        $this->load->view('layout/header');
+        $this->load->view('contenido/menuAdmin');
+        $this->load->view('contenido/vcrear_usuario');
+        $this->load->view('contenido/footerAdmin');
+
     }
 
 
