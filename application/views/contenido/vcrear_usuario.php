@@ -31,15 +31,11 @@
                         <label for="email" class="control-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
-                    <div class="col-sm-5">
+                  <div class="col-sm-5">
                         <div class="form-group">
                             <label>Tipo</label>
-                            <select class="form-control" name="tipo">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select id="cbTipo" class="form-control" name="tipo">
+                                       <option value="">seleccione:</option>
                             </select>
                         </div>
                     </div>
@@ -56,3 +52,6 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    var baseurl = "<?php echo base_url(); ?>";
+</script>

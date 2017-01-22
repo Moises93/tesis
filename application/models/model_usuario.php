@@ -52,12 +52,12 @@ class Model_usuario extends CI_Model
 		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
-		$consulta = $this->db->get();
-		$resultado = $consulta->result();
+		//$consulta = $this->db->get();
+		//$resultado = $consulta->result();
 
-
+		return $this->db->get()->result();
 		#$consulta = $this->db->get('usuario');
-		return $resultado;
+		//return $resultado;
 
 
 	}
@@ -75,7 +75,44 @@ class Model_usuario extends CI_Model
 		$this->db->insert('usuario',$data);
 	}
 
+	function getTipo() {
+		$data = array();
+		$query = $this->db->get('tipos_usuarios');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+			$query->free_result();
+			return $data;
+	}
 
+	function actualizar_usuario($id_usuario,$id_tipo,$usu_login,$usu_clave,$usu_correo){
+		$data = array(
+			'id_tipo' => $id_tipo,
+			'usu_login' => $usu_login,
+			'usu_clave' => $usu_clave,
+			'usu_correo' => $usu_correo
+		);
+			$this->db->where('id_usuario', $id_usuario);
+			return $this->db->update('usuario', $data);
+
+	}
+	
+	function valLogin($usu_login){
+		$this->db->select('u.id_usuario');
+		$this->db->from('usuario u');
+		$this->db->where('usu_login',$usu_login);
+		$resultado= $this->db->get();
+		if ($resultado->num_rows() > 0) {
+			foreach ($resultado->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$resultado->free_result();
+		
+	return $resultado;
+	}
 
 
 }

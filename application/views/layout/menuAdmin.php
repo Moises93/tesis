@@ -51,7 +51,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-          <li><a href="<?php echo base_url() ?>index.php/cadministrador/login2"><i class="fa fa-circle-o"></i>Mantenimiento de Usuarios</a></li>
+          <li><a href="<?php echo base_url() ?>cadministrador/login2"><i class="fa fa-circle-o"></i>Mantenimiento de Usuarios</a></li>
         </ul>
       </li>
 

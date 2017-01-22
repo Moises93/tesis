@@ -21,24 +21,60 @@ class cadministrador extends CI_Controller{
     {
         $this->load->library('table');
         $this->load->library('pagination');
-        $dato['results']=$this->model_usuario->consultar_usuarios();
+       // $dato['results']=$this->model_usuario->consultar_usuarios();
 /*echo "<pre>";
     print_r($dato['results']);
         echo "</pre>";
         exit();*/
         $this->load->view('layout/header');
         $this->load->view('contenido/menuAdmin');
-        $this->load->view('contenido/vmantenimiento_usuarios',$dato);
+        $this->load->view('contenido/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');
         
     }
+    public function get_usuario(){
+         $dato = $this->model_usuario->consultar_usuarios();
+         echo json_encode($dato);
 
+
+    }
+
+    public function get_tipo(){
+        $dato = $this->model_usuario->getTipo();;
+        echo json_encode($dato);
+
+
+    }
+
+    public function val_login(){
+        $usu_login = $this->input->post('login');
+        
+       $dato= $this->model_usuario->valLogin($usu_login);
+        echo json_encode($dato);
+
+    }
+    public function updUsuario(){
+        $id_usuario = $this->input->post('mhdnIdUsuario');
+        $id_tipo = $this->input->post('tipo');
+        $usu_login = $this->input->post('mtxtLogin');
+        $usu_clave = $this->input->post('mtxtClave');
+        $usu_correo = $this->input->post('mtxtCorreo');
+        $actualizar = $this->model_usuario->actualizar_usuario($id_usuario,$id_tipo,$usu_login,$usu_clave,$usu_correo);
+       echo $actualizar;
+        if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }
+    }
     public function crear_usuario()
     {
+        $data['tipo'] = $this->model_usuario->getTipo();
     
+
         $this->load->view('layout/header');
         $this->load->view('contenido/menuAdmin');
-        $this->load->view('contenido/vcrear_usuario');
+        $this->load->view('contenido/vcrear_usuario',$data);
         $this->load->view('contenido/footerAdmin');
 
     }

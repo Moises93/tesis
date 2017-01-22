@@ -1,3 +1,5 @@
+
+
 <!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -22,34 +24,21 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-				
-							<?php
 
-							    $this->table->set_heading('ID', 'tipo', 'login', 'clave','estatus','correo');
-								$tmp = array ( 'table_open'  => '<table id="example1" class="table table-bordered table-striped">' ); //modifica el espaciado
-								$this->table->set_template($tmp);
-							/*print_r($results);
-							exit();*/
-							if( !empty($results) ) {
-
-								foreach ($results as $dato):
-								  //  print_r($dato); exit();
-									$array['id'] = $dato->id_usuario;
-									$array['tipo'] = $dato->tipo;
-									$array['login'] = $dato->usu_login;
-									$array['clave'] = $dato->usu_clave;
-									$array['estatus'] = $dato->usu_estatus;
-									$array['email'] = mailto($dato->usu_correo, $dato->usu_correo); //esto genera un link con el mismo nombre.
-									$this->table->add_row($array); //agregamos la celda a la tabla por cada iteracion
-								endforeach;
-							}
-							// print_r($array); exit();
-								echo $this->table->generate(); //cuando termina generamos la tabla a partir del vector
-
-								//echo $this->pagination->create_links();
-
-							?>
-
+							<table id="tblUsuarios" class="table table-bordered table-striped">
+								<thead>
+								<tr>
+									<th>ID</th>
+									<th>tipo</th>
+									<th>login</th>
+									<th>clave</th>
+									<th>estatus</th>
+									<th>correo</th>
+									<th>accion</th>
+								</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
 
 
 						</div>
@@ -62,3 +51,76 @@
 			<!-- /.row -->
 		</section>
 		<!-- /.content -->
+
+<!-- Inicio modal-->
+<div class="modal fade" id="modalEditUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header bg-blue">
+				<button type="button" id="mbtnCerrarModal1" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Editar Persona</h4>
+			</div>
+
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<!-- parametros ocultos -->
+					<input type="hidden" id="mhdnIdUsuario">
+
+					<div class="box-body">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Tipo</label>
+							<div class="col-sm-9">
+
+								<select id="cbTipo" class="form-control" name="tipo">
+									<option value="-1">seleccione:</option>
+								</select>
+								<span  id= "tipoM" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Login</label>
+							<div class="col-sm-9">
+								<input type="text" name="mtxtLogin" class="form-control" id="mtxtLogin" value="" >
+								<span  id= "loginM" class="help-block"></span>
+								<!--<div id="mensaje1" class="form-group has-warning">
+									<label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
+									<input type="text"  name="mtxtLogin" class="form-control" id="mtxtLogin"  placeholder="Enter ...">
+									<span  class="help-block">Help block with success</span>
+								</div>-->
+								<!--<div id="mensaje1" class="help-block">Help block with success</div>-->
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Clave</label>
+							<div class="col-sm-9">
+								<input type="text" name="mtxtClave" class="form-control" id="mtxtClave">
+								<span  id= "claveM" class="help-block"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Correo</label>
+							<div class="col-sm-9">
+								<input type="email" name="mtxtCorreo" class="form-control" id="mtxtCorreo">
+								<span  id= "correoM" class="help-block"></span>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" id="mbtnCerrarModal2" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-info" id="mbtnUpdUsuario">Actualizar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Final modal-->
+<script type="text/javascript">
+	var baseurl = "<?php echo base_url(); ?>";
+</script>	

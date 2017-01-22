@@ -219,7 +219,9 @@
 <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
-<script>
+<script src="<?php echo base_url();?>assets/dist/js/usuario.js"></script>
+
+<!--<script>
   $(function () {
     $("#example1").DataTable();
     $('#example2').DataTable({
@@ -231,6 +233,6 @@
       "autoWidth": false
     });
   });
-</script>
+</script>-->
 </body>
 </html>

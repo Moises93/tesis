@@ -50,8 +50,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="<?php echo base_url() ?>index.php/cadministrador/crear_usuario"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
-          <li><a href="<?php echo base_url() ?>index.php/cadministrador/mantenimiento_usuarios"><i class="fa fa-circle-o"></i>Mantenimiento de Usuarios</a></li>
+          <li><a href="<?php echo base_url() ?>cadministrador/crear_usuario"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
+          <li><a href="<?php echo base_url() ?>cadministrador/mantenimiento_usuarios"><i class="fa fa-circle-o"></i>Mantenimiento de Usuarios</a></li>
         </ul>
       </li>
 
