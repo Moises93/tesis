@@ -86,6 +86,14 @@ class Model_usuario extends CI_Model
 			$query->free_result();
 			return $data;
 	}
+	function cambiaEstatus($idUsuario,$estatus){
+		$data = array(
+			'usu_estatus' => $estatus
+		);
+		$this->db->where('id_usuario', $idUsuario);
+		return $this->db->update('usuario', $data);
+	}
+
 
 	function actualizar_usuario($id_usuario,$id_tipo,$usu_login,$usu_clave,$usu_correo){
 		$data = array(

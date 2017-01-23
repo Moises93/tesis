@@ -33,37 +33,12 @@ $('#tblUsuarios').DataTable({
         {data: 'usu_correo'},
         {orderable: 'true',
             render: function (data,type,row) {
-                if (row.usu_estatus == 0) {
-                    return '<span class="pull-right">' +
-                        '<div class="dropdown">' +
-                        '  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">' +
-                        '    Acciones' +
-                        '  <span class="caret"></span>' +
-                        '  </button>' +
-                        '    <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">' +
-                        '    <li><a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-                        'data-target="#modalEditUsuario" ' +
-                        'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a></li>' +
-                        '    <li><a href="#" title="Habilitar Usuario" onClick="updEstadoAfiliado(' + row.idPersona + ',' + 1 + ')"><i style="color:green;" class="glyphicon glyphicon-ok"></i> Habilitar</a></li>' +
-                        '    </ul>' +
-                        '</div>' +
-                        '</span>';
-                } else if (row.usu_estatus == 1) {
-                    return '<span class="pull-right">' +
-                        '<div class="dropdown">' +
-                        '  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">' +
-                        '    Acciones' +
-                        '  <span class="caret"></span>' +
-                        '  </button>' +
-                        '    <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">' +
-                        '    <li><a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-                        'data-target="#modalEditUsuario" ' +
-                        'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a></li>' +
-                        '    <li><a href="#" title="Deshabilitar Usuario" onClick="updEstadoAfiliado(' + row.idPersona + ',' + 1 + ')"><i style="color:red;" class="glyphicon glyphicon-remove"></i> Deshabilitar</a></li>' +
-                        '    </ul>' +
-                        '</div>' +
-                        '</span>';
-                }
+
+                    return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                    'data-target="#modalEditUsuario" ' +
+                    'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
+
+                
             }
         }
     ],
@@ -74,9 +49,10 @@ $('#tblUsuarios').DataTable({
             "render": function(data, type, row) {
 
                 if (data == 0) {
-                    return "<span class='label label-danger'>Inactivo</span>";
+                    return '<a href="#" title="Habilitar Usuario" onClick="cambioEstatus(' + row.id_usuario + ',' + 1 + ')"><span class="label label-danger">Inactivo &nbsp;</span><i style="color:green; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
                 }else if (data == 1) {
-                    return "<span class='label label-success'>Activo</span>";
+                    return '<a href="#" title="Deshabilitar Usuario" onClick="cambioEstatus(' + row.id_usuario + ',' + 0 + ')"><span class="label label-success">Activo</span><i style="color:red; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+
                 }
 
             }
@@ -84,6 +60,25 @@ $('#tblUsuarios').DataTable({
     ],
     "order": [[ 1, "asc" ]],
 });
+
+
+
+cambioEstatus=function(id,estatus){
+    $.post(baseurl+"cadministrador/cambiaEstatus",
+        {
+            idUsuario:id,
+            estatus:estatus,
+  
+        },
+        function(data){
+            if (data) {
+                location.reload();
+            }
+        });
+
+};
+
+
 //con esta funcion pasamos los paremtros a los text del modal.
 selPersona = function(id,tipo, usu_login, usu_clave, usu_correo){
     $('#mhdnIdUsuario').val(id);
@@ -92,7 +87,7 @@ selPersona = function(id,tipo, usu_login, usu_clave, usu_correo){
     $('#mtxtCorreo').val(usu_correo);
 
 };
-$('')
+
 //metodo update del modal incluyendo su validacion
 $('#mbtnUpdUsuario').click(function(){
     $("#loginM").html("<span></span>");

@@ -84,12 +84,6 @@
 							<div class="col-sm-9">
 								<input type="text" name="mtxtLogin" class="form-control" id="mtxtLogin" value="" >
 								<span  id= "loginM" class="help-block"></span>
-								<!--<div id="mensaje1" class="form-group has-warning">
-									<label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
-									<input type="text"  name="mtxtLogin" class="form-control" id="mtxtLogin"  placeholder="Enter ...">
-									<span  class="help-block">Help block with success</span>
-								</div>-->
-								<!--<div id="mensaje1" class="help-block">Help block with success</div>-->
 							</div>
 						</div>
 

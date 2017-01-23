@@ -46,6 +46,15 @@ class cadministrador extends CI_Controller{
 
     }
 
+    public function cambiaEstatus(){
+        $idUsuario = $this->input->post('idUsuario');
+        $estatus=$this->input->post('estatus');
+        $dato= $this->model_usuario->cambiaEstatus($idUsuario,$estatus);
+        echo json_encode($dato);
+
+
+    }
+
     public function val_login(){
         $usu_login = $this->input->post('login');
         
