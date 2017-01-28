@@ -46,6 +46,11 @@ class cadministrador extends CI_Controller{
 
     }
 
+    public function get_menu(){
+        $dato = $this->model_usuario->getMenu();;
+        echo json_encode($dato);
+    }
+
     public function cambiaEstatus(){
         $idUsuario = $this->input->post('idUsuario');
         $estatus=$this->input->post('estatus');

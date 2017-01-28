@@ -31,7 +31,7 @@ class Cusuario extends CI_Controller
         $tipo_usuario= $this->model_usuario->existe($param);
         //intento validar que tipo de usuario es para cargar el menu
         if($tipo_usuario='administrador'){
-            $menu='menuAdmin';
+            $menu='vmenu';
             $contenido='vPrueba';
             echo 'entre al if'.$menu;
         }
