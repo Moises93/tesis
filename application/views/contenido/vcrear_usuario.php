@@ -31,16 +31,19 @@
                         <label for="email" class="control-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
-                  <div class="col-sm-5">
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <select id="cbTipo" class="form-control" name="tipo">
-                                       <option value="">seleccione:</option>
-                            </select>
-                        </div>
+                    <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select id="cbTipos" class="form-control" name="tipo" onchange="valor_select();">
+                                           <option value="">seleccione:</option>
+                                </select>
+                            </div>
                     </div>
 
                 </div>
+                <!--<div class="form-group" id="userOption">
+
+                </div>-->
 
             </div>
             <!-- /.box-body -->
@@ -50,6 +53,9 @@
             </div>
             <!-- /.box-footer -->
         </form>
+
+
+        
     </div>
 </div>
 <script type="text/javascript">
