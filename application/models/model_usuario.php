@@ -98,6 +98,18 @@ class Model_usuario extends CI_Model
 		$query->free_result();
 		return $data;
 	}
+	function getHijosMenu($id) {
+		$data = array();
+		$query = $this->db->get_where('sub_menu', array('id_menu' => $id));
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
+
 	function cambiaEstatus($idUsuario,$estatus){
 		$data = array(
 			'usu_estatus' => $estatus

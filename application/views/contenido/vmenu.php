@@ -12,6 +12,7 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
+
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
@@ -23,19 +24,46 @@
             </div>
         </form>
         <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <!-- s<idebar menu: : style can be found in sidebar.less -->
+        <?php
+       // $menu = new cadministrador();
+        $ci = &get_instance();
+        $ci->load->model("model_usuario");
+        ?>
         <div id="menuDinamico">
             <ul class="sidebar-menu" >
                 <li class="header">MAIN NAVIGATION</li>
+
+                <?php foreach ( $ci->model_usuario->getMenu() as $m): ?>
+                  
+                    <li class="treeview">
+                        <a href="<?php echo $m['url'];?>">
+                            <i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <?php foreach ( $ci->model_usuario->getHijosMenu($m['id_menu']) as $s): ?>
+                                <li><a href="<?php echo base_url() .$s['sub_url'] ?>"><i class="<?php echo $s['sub_clase'];?>"></i> <?php echo $s['sub_nombre'];?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+
+                <?php endforeach; ?>
+
                 <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+
+
+
+
+
                 <li class="header">LABELS</li>
                 <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
                 <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-                <div id="menuHijo">
-                    <ul class="treeview-menu">
-                    </ul>
-                </div>
+                <ul class="treeview-menu">
+                </ul>
             </ul>
         </div>
     </section>

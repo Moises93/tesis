@@ -26,7 +26,7 @@ class cadministrador extends CI_Controller{
     print_r($dato['results']);
         echo "</pre>";
         exit();*/
-        $this->load->view('layout/header');
+        $this->load->view('layout/header',$data);
         $this->load->view('contenido/menuAdmin');
         $this->load->view('contenido/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');
@@ -46,11 +46,18 @@ class cadministrador extends CI_Controller{
 
     }
 
-    public function get_menu(){
+    public function getMenu(){
         $dato = $this->model_usuario->getMenu();;
-        echo json_encode($dato);
+       return $dato->fetchAll();
+        //  echo json_encode($dato);
     }
-
+    public function getHijosMenu($id_menu){
+      //  $id_menu = $this->input->post('id_menu');
+        $dato = $this->model_usuario->getHijosMenu($id_menu);
+        return $dato->fetchAll();
+        //  echo json_encode($dato);
+    }
+   
     public function cambiaEstatus(){
         $idUsuario = $this->input->post('idUsuario');
         $estatus=$this->input->post('estatus');

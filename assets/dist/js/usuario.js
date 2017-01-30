@@ -166,13 +166,27 @@ $('#mbtnCerrarModal2').click(function(){
  */
 
 //Aqui lleno el data Combo de tipoUsuario
-$.post(baseurl + "cadministrador/get_menu",
+$.post(baseurl + "cadministrador/getMenu",
     function(data) {
         var p = JSON.parse(data);
         $.each(p, function (i, item) {
             //$('#cbTipo').append('<option value="'+item.id_tipo+'">'+item.tipo+'</option>'
             console.log(item);
-            $("#menuDinamico ul").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
+            if(item.tiene_hijos == "1"){
+                $("#menuDinamico ul").append('<li class="treeview" id="itemMenu"><a href="#"><i class="fa fa-user"></i> <span>'+item.nombre+'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>');
+
+                $.post(baseurl+"cadministrador/getHijosMenu",
+                    {
+                        id_menu: item.id_menu
+                    },
+                    function(data){
+                             var p = JSON.parse(data);
+                            console.log("el hijo es:",p);
+                        $("#menuDinamico ul ul").append('<ul class="treeview-menu"><li><a href="<?php echo base_url() ?>cadministrador/login2"><i class="fa fa-circle-o"></i>Mantenimiento de Usuarios</a></li></ul></li>');
+
+                    });
+            }
+
             /*$("#menuDinamico ul").append(
                 '<li class="treeview" id="itemMenu">'+
                 ' <a href="#">'+
