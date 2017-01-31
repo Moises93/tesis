@@ -36,7 +36,7 @@ class Cusuario extends CI_Controller
             echo 'entre al if'.$menu;
         }
             $this->load->view('layout/header');
-            $this->load->view('contenido/'.$menu);
+            $this->load->view('contenido/'.$menu, $menuU);
             $this->load->view('contenido/'.$contenido);
             $this->load->view('layout/footer');
 
