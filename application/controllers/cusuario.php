@@ -18,7 +18,6 @@ class Cusuario extends CI_Controller
 	{
 		$param['nombre'] = $this->input->post('usuario');
         $param['clave'] = $this->input->post('password');
-    // $param['clave'] = $this->encrypt->sha1($this->input->post('password'));
 
     if(!$this->model_usuario->existe($param)){
       $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
@@ -27,13 +26,42 @@ class Cusuario extends CI_Controller
         $menu='menu';
         $contenido='vPrueba';
        // echo "ejejle".$this->model_usuario->existe($param);
-        echo 'aqui encontre algo util ' .$this->session->userdata('Login');
+         $idUser=$this->session->userdata('id');
+         echo $idUser;
+         $permiso = $this->model_usuario->permisosUsuario($idUser);
+        echo '<pre>'; print_r($permiso); echo '</pre>';
+        foreach($permiso as $result) {
+            echo $result['id_menu'], '<br>';
+            $idMenu = $result['id_menu'];
+            $menu =  $this->model_usuario->MenuPorId($idMenu);
+
+            $submenu = $this->model_usuario->subMenus($idMenu);
+          //  echo '<pre>'; print_r($menu); echo '</pre>';
+           // $mode = current($menu); //obtengo la primera posicion de un array
+            //echo $mode['url'];
+            /*$menuUser = array(
+              'nombre' => $menu
+
+            );*/
+
+            /*$menuUser = array(
+                'nombre' => $tipo,
+                'url' => $login,
+                'usu_clave' => $clave,
+                'usu_estatus' => 1,
+                'usu_correo' => $correo,
+
+            );*/
+        }
+
+
         $tipo_usuario= $this->model_usuario->existe($param);
+        
         //intento validar que tipo de usuario es para cargar el menu
         if($tipo_usuario='administrador'){
             $menu='vmenu';
             $contenido='vPrueba';
-            echo 'entre al if'.$menu;
+
         }
             $this->load->view('layout/header');
             $this->load->view('contenido/'.$menu, $menuU);

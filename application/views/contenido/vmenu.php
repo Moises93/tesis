@@ -35,7 +35,7 @@
                 <li class="header">MAIN NAVIGATION</li>
 
                 <?php foreach ( $ci->model_usuario->getMenu() as $m): ?>
-                  
+
                     <li class="treeview">
                         <a href="<?php echo $m['url'];?>">
                             <i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span>
@@ -44,13 +44,11 @@
                           </span>
                         </a>
                         <ul class="treeview-menu">
-                            <?php foreach ( $ci->model_usuario->getHijosMenu($m['id_menu']) as $s): ?>
-                                <li><a href="<?php echo base_url() .$s['sub_url'] ?>"><i class="<?php echo $s['sub_clase'];?>"></i> <?php echo $s['sub_nombre'];?></a></li>
-                            <?php endforeach; ?>
+                        
                         </ul>
                     </li>
 
-                <?php endforeach; ?>
+                 <?php endforeach; ?>
 
                 <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
 
