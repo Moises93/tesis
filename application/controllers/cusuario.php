@@ -23,54 +23,52 @@ class Cusuario extends CI_Controller
       $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
 			return FALSE;
     }else{
+        $cont=0;
         $menu='menu';
         $contenido='vPrueba';
-       // echo "ejejle".$this->model_usuario->existe($param);
-         $idUser=$this->session->userdata('id');
-        // echo $idUser;
-         $permiso = $this->model_usuario->permisosUsuario($idUser);
-       // echo '<pre>'; print_r($permiso); echo '</pre>';
-        foreach($permiso as $result) {
-           // echo $result['id_menu'], '<br>';
+        $idUser=$this->session->userdata('id');
+        $padres = $this->model_usuario->permisosUsuarioPadres($idUser);
+        // echo '<pre>'; print_r($padres); echo '</pre>';
+        foreach($padres as $result) {
+
+            $menu =array(
+                'id_menu'    => $result['id_menu'],
+                'id_padre'   => $result['id_menu'],
+                'nombre'     => $result['nombre'],
+                'url'        => $result['url'],
+                'clase'      => $result['clase'],
+                'activo'     => $result['activo'],
+                'hijos'      => null
+
+             );
             $idMenu = $result['id_menu'];
-            $menu =  $this->model_usuario->MenuPorId($idMenu);
-
-            echo "-".$menu->id_menu;
-            echo "-".$menu->nombre;
-            //print_r($menu);
-        
-
-           // $submenu = $this->model_usuario->subMenus($idMenu);
-          //  echo '<pre>'; print_r($menu); echo '</pre>';
-           // $mode = current($menu); //obtengo la primera posicion de un array
-            //echo $mode['url'];
-            /*$menuUser = array(
-              'nombre' => $menu
-
-            );*/
-
-            /*$menuUser = array(
-                'nombre' => $tipo,
-                'url' => $login,
-                'usu_clave' => $clave,
-                'usu_estatus' => 1,
-                'usu_correo' => $correo,
-
-            );*/
+            $hijos =  $this->model_usuario->permisosUsuarioHijos($idMenu,$idUser);
+            //echo "hijos";
+            //echo '<pre>'; print_r($hijos); echo '</pre>';
+          // echo "cantidad de hijos" .count($hijos);
+            if( count($hijos) > 0){
+              $menu['hijos']=$hijos;
+            }
+            if($cont>0){
+                array_push($menuUser, $menu);
+            }else{
+                $menuUser[$cont] =$menu;
+            }
+          //  echo "menu";
+          //  echo '<pre>'; print_r($menuUser); echo '</pre>';
+            $cont= $cont+1;
+           // echo "-".$menu->id_menu;
+            //echo "-".$menu->nombre;
         }
 
 
         $tipo_usuario= $this->model_usuario->existe($param);
         
         //intento validar que tipo de usuario es para cargar el menu
-        if($tipo_usuario='administrador'){
-            $menu='vmenu';
-            $contenido='vPrueba';
-
-        }
+          $data['menu'] = $menuUser;
             $this->load->view('layout/header');
-            $this->load->view('contenido/'.$menu);
-            $this->load->view('contenido/'.$contenido);
+            $this->load->view('contenido/vmenu',$data);
+            $this->load->view('contenido/vPrueba');
             $this->load->view('layout/footer');
 
     }

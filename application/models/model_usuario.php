@@ -80,6 +80,44 @@ class Model_usuario extends CI_Model
 	   $query->free_result();
 	   return $data;
    }
+function permisosUsuarioPadres ($idUser){
+	$data = array();
+
+	$this->db->select('*');
+	$this->db->from('menu');
+	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
+	$this->db->where('permiso_usuario.id_usuario', $idUser);
+	$this->db->where('menu.id_padre',null);
+	$query = $this->db->get();
+
+	if ($query->num_rows() > 0) {
+		foreach ($query->result_array() as $row){
+			$data[] = $row;
+		}
+	}
+	$query->free_result();
+	return $data;
+}
+
+function permisosUsuarioHijos($idMenu,$idUser){
+	$data = array();
+
+	$this->db->select('*');
+	$this->db->from('menu');
+	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
+	$this->db->where('permiso_usuario.id_usuario', $idUser);
+	$this->db->where('menu.id_padre',$idMenu);
+	$query = $this->db->get();
+
+	if ($query->num_rows() > 0) {
+		foreach ($query->result_array() as $row){
+			$data[] = $row;
+		}
+	}
+	$query->free_result();
+	return $data;
+}
+
 	//Preguntar a Sandra
     function MenuPorId($idMenu){
 		$data = array();
