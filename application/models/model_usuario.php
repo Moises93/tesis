@@ -84,14 +84,14 @@ class Model_usuario extends CI_Model
     function MenuPorId($idMenu){
 		$data = array();
 		$query = $this->db->get_where('menu', array('id_menu' => $idMenu));
-
-		if ($query->num_rows() > 0) {
+		return $query->row();
+	/*	if ($query->num_rows() > 0) {
 			foreach ($query->result_array() as $row){
 				$data[] = $row;
 			}
 		}
 		$query->free_result();
-		return $data;
+		return $data;*/
 	}
 
 	function getMenu() {

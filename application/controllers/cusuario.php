@@ -27,15 +27,17 @@ class Cusuario extends CI_Controller
         $contenido='vPrueba';
        // echo "ejejle".$this->model_usuario->existe($param);
          $idUser=$this->session->userdata('id');
-         echo $idUser;
+        // echo $idUser;
          $permiso = $this->model_usuario->permisosUsuario($idUser);
-        echo '<pre>'; print_r($permiso); echo '</pre>';
+       // echo '<pre>'; print_r($permiso); echo '</pre>';
         foreach($permiso as $result) {
-            echo $result['id_menu'], '<br>';
+           // echo $result['id_menu'], '<br>';
             $idMenu = $result['id_menu'];
             $menu =  $this->model_usuario->MenuPorId($idMenu);
-
-            $submenu = $this->model_usuario->subMenus($idMenu);
+            echo "-".$menu->id_menu;
+            echo "-".$menu->nombre;
+            //print_r($menu);
+            //$submenu = $this->model_usuario->subMenus($idMenu);
           //  echo '<pre>'; print_r($menu); echo '</pre>';
            // $mode = current($menu); //obtengo la primera posicion de un array
             //echo $mode['url'];
@@ -64,7 +66,7 @@ class Cusuario extends CI_Controller
 
         }
             $this->load->view('layout/header');
-            $this->load->view('contenido/'.$menu, $menuU);
+            $this->load->view('contenido/'.$menu);
             $this->load->view('contenido/'.$contenido);
             $this->load->view('layout/footer');
 
