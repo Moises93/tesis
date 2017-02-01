@@ -34,10 +34,13 @@ class Cusuario extends CI_Controller
            // echo $result['id_menu'], '<br>';
             $idMenu = $result['id_menu'];
             $menu =  $this->model_usuario->MenuPorId($idMenu);
+
             echo "-".$menu->id_menu;
             echo "-".$menu->nombre;
             //print_r($menu);
-            //$submenu = $this->model_usuario->subMenus($idMenu);
+        
+
+           // $submenu = $this->model_usuario->subMenus($idMenu);
           //  echo '<pre>'; print_r($menu); echo '</pre>';
            // $mode = current($menu); //obtengo la primera posicion de un array
             //echo $mode['url'];
