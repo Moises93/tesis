@@ -64,7 +64,7 @@ class Cusuario extends CI_Controller
 
         }
             $this->load->view('layout/header');
-            $this->load->view('contenido/'.$menu);
+            $this->load->view('contenido/'.$menu, $menuU);
             $this->load->view('contenido/'.$contenido);
             $this->load->view('layout/footer');
 
