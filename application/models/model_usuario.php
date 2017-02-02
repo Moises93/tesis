@@ -132,6 +132,48 @@ function permisosUsuarioHijos($idMenu,$idUser){
 		return $data;*/
 	}
 
+	public function menuPermisos($idUser)
+	{
+		$cont=0;
+		$padres = $this->model_usuario->permisosUsuarioPadres($idUser);
+		// echo '<pre>'; print_r($padres); echo '</pre>';
+		foreach($padres as $result) {
+
+			$menu =array(
+				'id_menu'    => $result['id_menu'],
+				'id_padre'   => $result['id_menu'],
+				'nombre'     => $result['nombre'],
+				'url'        => $result['url'],
+				'clase'      => $result['clase'],
+				'activo'     => $result['activo'],
+				'hijos'      => null
+
+			);
+			$idMenu = $result['id_menu'];
+			$hijos =  $this->model_usuario->permisosUsuarioHijos($idMenu,$idUser);
+			//echo "hijos";
+			//echo '<pre>'; print_r($hijos); echo '</pre>';
+			// echo "cantidad de hijos" .count($hijos);
+			if( count($hijos) > 0){
+				$menu['hijos']=$hijos;
+			}
+			if($cont>0){
+				array_push($menuUser, $menu);
+			}else{
+				$menuUser[$cont] =$menu;
+			}
+			//  echo "menu";
+			//echo '<pre>'; print_r($menuUser); echo '</pre>';
+			$cont= $cont+1;
+			// echo "-".$menu->id_menu;
+			//echo "-".$menu->nombre;
+		}
+		return $menuUser;
+	}
+	
+	
+	
+	
 	function getMenu() {
 		$data = array();
 		$query = $this->db->get('menu');

@@ -21,9 +21,12 @@ class cadministrador extends CI_Controller{
     {
         $this->load->library('table');
         $this->load->library('pagination');
- 
+
+        $idUser=$this->session->userdata('id');
+
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
         $this->load->view('layout/header');
-        $this->load->view('contenido/menuAdmin');
+        $this->load->view('layout/vmenu',$data);
         $this->load->view('contenido/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');
         
@@ -84,18 +87,36 @@ class cadministrador extends CI_Controller{
             return 1;
         }
     }
+
     public function crear_usuario()
     {
         $data['tipo'] = $this->model_usuario->getTipo();
-    
 
+        $idUser=$this->session->userdata('id');
+
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
         $this->load->view('layout/header');
-        $this->load->view('contenido/menuAdmin');
+        $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vcrear_usuario',$data);
         $this->load->view('contenido/footerAdmin');
 
     }
 
+
+    public function permisos()
+    {
+
+        $idUser=$this->session->userdata('id');
+
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $this->load->view('layout/header');
+        $this->load->view('layout/vmenu',$data);
+        $this->load->view('contenido/vpermisos');
+        $this->load->view('contenido/footerAdmin');
+
+    }
+    
+    
     public function insertarU()
     {
         $login= $this->input->post('login');
@@ -106,8 +127,11 @@ class cadministrador extends CI_Controller{
 
         $this->model_usuario->insertar($login,$clave,$tipo,$correo);
 
+        $idUser=$this->session->userdata('id');
+
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
         $this->load->view('layout/header');
-        $this->load->view('contenido/menuAdmin');
+        $this->load->view('layout/vmenu',$data);
         $this->load->view('contenido/vcrear_usuario');
         $this->load->view('contenido/footerAdmin');
     }

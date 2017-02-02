@@ -50,7 +50,7 @@
                         </ul>
                     </li>
                   <?php }else{ ?>
-                    <li><a href="<?php echo $m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
+                    <li><a href="<?php echo base_url() .$m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
                   <?php } ?>
                 <?php endforeach; ?>
 
