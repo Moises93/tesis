@@ -21,7 +21,6 @@ class Model_usuario extends CI_Model
 		if ($query->num_rows() == 1) {
 			//SI EL USUARIO EXISTE CONSULTO QUE TIPO DE USUARIO ES
 			$r = $query->row();
-			echo($r->id_tipo);
 
 			$datos['id'] = $r->id_usuario;
 			$datos['Login'] = $r->usu_login;
@@ -30,16 +29,6 @@ class Model_usuario extends CI_Model
 
 			$query2 = $this->db->get_where('tipos_usuarios', array('id_tipo' => $r->id_tipo));
 			$r_tipos = $query2->row();
-			echo($r_tipos->tipo);
-			//echo ($r_tipos->tipo);
-			// esto es una forma de agregar a la session un varios atributos de un usuario
-			// $s_usuario = array(
-			// 	's_nombre' => $r->nombre,
-			// 	's_idusuario' => $r->idusuario
-			// );
-			// $this->session->userdata($s_usuario);
-			//	$moises = $r->result();
-			//$this->session->userdata('s_nombre', $moises[0]->nombre);
 			return $r_tipos->tipo;
 		} else {
 			return 0;
@@ -48,18 +37,11 @@ class Model_usuario extends CI_Model
 
 	public function consultar_usuarios()
 	{
-
 		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
-		//$consulta = $this->db->get();
-		//$resultado = $consulta->result();
 
 		return $this->db->get()->result();
-		#$consulta = $this->db->get('usuario');
-		//return $resultado;
-
-
 	}
 
 	function insertar($login,$clave,$tipo,$correo){
@@ -85,6 +67,69 @@ class Model_usuario extends CI_Model
 		}
 			$query->free_result();
 			return $data;
+	}
+   function permisosUsuario($idUser){
+	   $data = array();
+	   $query = $this->db->get_where('permiso_usuario', array('id_usuario' => $idUser));
+	  
+	   if ($query->num_rows() > 0) {
+		   foreach ($query->result_array() as $row){
+			   $data[] = $row;
+		   }
+	   }
+	   $query->free_result();
+	   return $data;
+   }
+function permisosUsuarioPadres ($idUser){
+	$data = array();
+
+	$this->db->select('*');
+	$this->db->from('menu');
+	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
+	$this->db->where('permiso_usuario.id_usuario', $idUser);
+	$this->db->where('menu.id_padre',null);
+	$query = $this->db->get();
+
+	if ($query->num_rows() > 0) {
+		foreach ($query->result_array() as $row){
+			$data[] = $row;
+		}
+	}
+	$query->free_result();
+	return $data;
+}
+
+function permisosUsuarioHijos($idMenu,$idUser){
+	$data = array();
+
+	$this->db->select('*');
+	$this->db->from('menu');
+	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
+	$this->db->where('permiso_usuario.id_usuario', $idUser);
+	$this->db->where('menu.id_padre',$idMenu);
+	$query = $this->db->get();
+
+	if ($query->num_rows() > 0) {
+		foreach ($query->result_array() as $row){
+			$data[] = $row;
+		}
+	}
+	$query->free_result();
+	return $data;
+}
+
+	//Preguntar a Sandra
+    function MenuPorId($idMenu){
+		$data = array();
+		$query = $this->db->get_where('menu', array('id_menu' => $idMenu));
+		return $query->row();
+	/*	if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;*/
 	}
 
 	function getMenu() {
