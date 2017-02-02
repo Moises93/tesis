@@ -21,12 +21,8 @@ class cadministrador extends CI_Controller{
     {
         $this->load->library('table');
         $this->load->library('pagination');
-       // $dato['results']=$this->model_usuario->consultar_usuarios();
-/*echo "<pre>";
-    print_r($dato['results']);
-        echo "</pre>";
-        exit();*/
-        $this->load->view('layout/header',$data);
+ 
+        $this->load->view('layout/header');
         $this->load->view('contenido/menuAdmin');
         $this->load->view('contenido/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');

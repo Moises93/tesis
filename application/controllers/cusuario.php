@@ -28,15 +28,20 @@ class Cusuario extends CI_Controller
         $contenido='vPrueba';
        // echo "ejejle".$this->model_usuario->existe($param);
         echo 'aqui encontre algo util ' .$this->session->userdata('Login');
-        $tipo_usuario= $this->model_usuario->existe($param);
+        $id_usuario = $this->session->userdata('id');
+        $menu = $
+       /* $tipo_usuario = $this->model_usuario->existe($param);
         //intento validar que tipo de usuario es para cargar el menu
         if($tipo_usuario='administrador'){
             $menu='vmenu';
             $contenido='vPrueba';
             echo 'entre al if'.$menu;
-        }
+        }*/
+
+
+
             $this->load->view('layout/header');
-            $this->load->view('contenido/'.$menu);
+            $this->load->view('contenido/vmenu/');
             $this->load->view('contenido/'.$contenido);
             $this->load->view('layout/footer');
 

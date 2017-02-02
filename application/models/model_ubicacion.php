@@ -36,4 +36,16 @@ class Model_ubicacion extends CI_Model
 			return array();	
 		}
 	}
+
+	public function getEstadoxPais($pais){
+		$sql = "SELECT * FROM estado WHERE ubicacion_id = ?";
+    	$rs = $this->db->query($sql,array($pais));
+	    // $this->db->where('ubicacion_id',$pais);
+		// $rs = $this->db->get('estado');
+		 if($rs->num_rows() > 0){
+			return $rs;
+		}else{
+			return false;
+		}
+	}
 }
