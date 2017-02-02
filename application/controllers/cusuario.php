@@ -26,6 +26,25 @@ class Cusuario extends CI_Controller
         $cont=0;
         $menu='menu';
         $contenido='vPrueba';
+<<<<<<< HEAD
+       // echo "ejejle".$this->model_usuario->existe($param);
+        echo 'aqui encontre algo util ' .$this->session->userdata('Login');
+        $id_usuario = $this->session->userdata('id');
+        $menu = $
+       /* $tipo_usuario = $this->model_usuario->existe($param);
+        //intento validar que tipo de usuario es para cargar el menu
+        if($tipo_usuario='administrador'){
+            $menu='vmenu';
+            $contenido='vPrueba';
+            echo 'entre al if'.$menu;
+        }*/
+
+
+
+            $this->load->view('layout/header');
+            $this->load->view('contenido/vmenu/');
+            $this->load->view('contenido/'.$contenido);
+=======
         $idUser=$this->session->userdata('id');
         $padres = $this->model_usuario->permisosUsuarioPadres($idUser);
         // echo '<pre>'; print_r($padres); echo '</pre>';
@@ -69,6 +88,7 @@ class Cusuario extends CI_Controller
             $this->load->view('layout/header');
             $this->load->view('contenido/vmenu',$data);
             $this->load->view('contenido/vPrueba');
+>>>>>>> 7bc1a20230feadb667ea43c6ce165a34cdc4d4fb
             $this->load->view('layout/footer');
 
     }
