@@ -55,7 +55,7 @@ class Cusuario extends CI_Controller
                 $menuUser[$cont] =$menu;
             }
           //  echo "menu";
-          //  echo '<pre>'; print_r($menuUser); echo '</pre>';
+           echo '<pre>'; print_r($menuUser); echo '</pre>';
             $cont= $cont+1;
            // echo "-".$menu->id_menu;
             //echo "-".$menu->nombre;
@@ -65,7 +65,7 @@ class Cusuario extends CI_Controller
         $tipo_usuario= $this->model_usuario->existe($param);
         
         //intento validar que tipo de usuario es para cargar el menu
-          $data['menu'] = $menuUser;
+            $data['menu'] = $menuUser;
             $this->load->view('layout/header');
             $this->load->view('contenido/vmenu',$data);
             $this->load->view('contenido/vPrueba');

@@ -50,11 +50,11 @@
                         </ul>
                     </li>
                   <?php }else{ ?>
-                    <li><a href="<?php echo $m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span>Documentation</span></a></li>
+                    <li><a href="<?php echo $m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
                   <?php } ?>
                 <?php endforeach; ?>
 
-                <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span><?php echo $m['nombre'];?></span></a></li>
+
 
 
 
