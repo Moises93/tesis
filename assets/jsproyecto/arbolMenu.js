@@ -21,7 +21,7 @@ $('#tblPermisos').DataTable({
         {orderable: 'true',
            render: function (data,type,row) {
                console.log("aqui",row);
-               return '<td><input id="miCheck" type="checkbox" value=1  name="miCheck" class="flat-red" checked></td>';
+               return '<td><input id="miCheck_'+row.id_menu+'" type="checkbox" value="'+row.id_menu+'"  name="miCheck_'+row.id_menu+'" class="flat-red" checked></td>';
 
            }},
         {data: 'id_menu','sClass':'dt-body-center'},
@@ -33,8 +33,8 @@ $('#tblPermisos').DataTable({
         {orderable: 'true',
             render: function (data,type,row) {
                /*/ return '<span>h</span>';*/
-                return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-                    'onClick="alertaValue();">';
+                return '<button  class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                    'onClick="alertaValue();"></button>';
 
 
             }
@@ -58,7 +58,10 @@ $('#tblPermisos').DataTable({
     ],
     "order": [[ 1, "asc" ]],
 });
-function alertaValue(){
-    alert($('#tblPermisos #miCheck').value)
+function guardarP(){
+    if( $('#miCheck_2').is(':checked') ) {
+        alert('Seleccionado '+ $('#miCheck_2').val());
+    }
+   // alert($('#miCheck_1').value)
    // alert($('#miCheck').value);
 }

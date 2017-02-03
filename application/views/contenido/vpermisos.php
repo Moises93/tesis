@@ -23,23 +23,24 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-
-                            <table id="tblPermisos" class="table table-bordered table-striped" name="tblPermisos">
-                                <thead>
-                                <tr>
-                                    <th>-</th>
-                                    <th>ID</th>
-                                    <th>nombre</th>
-                                    <th>padre</th>
-                                    <th>url</th>
-                                    <th>clase</th>
-                                    <th>estatus</th>
-                                    <th>accion</th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
+                            <form id="fpermisos" method="post">
+                                <table id="tblPermisos" class="table table-bordered table-striped" name="tblPermisos">
+                                    <thead>
+                                    <tr>
+                                        <th>-</th>
+                                        <th>ID</th>
+                                        <th>nombre</th>
+                                        <th>padre</th>
+                                        <th>url</th>
+                                        <th>clase</th>
+                                        <th>estatus</th>
+                                        <th>accion</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <button id="guardarPermiso" onclick="guardarP()">Guardar Permisos</button>
+                            </form>
 
                         </div>
                         <!-- /.box-body -->
