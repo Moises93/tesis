@@ -25,7 +25,8 @@ class Empresa extends CI_controller
 
      $data = array(
         'Paises' => $paises,
-        'Estados' =>$estados
+        'Estados' =>$estados,
+        'Habilidades' =>$habilidades
       );
 
   	 $this->load->view('layout/registerheader');
