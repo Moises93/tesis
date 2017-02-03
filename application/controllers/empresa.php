@@ -10,6 +10,7 @@ class Empresa extends CI_controller
   {
     parent::__construct();
     $this->load->model('model_ubicacion');
+    $this->load->model('model_habilidades');
     # code...paren
   }
 
@@ -22,10 +23,11 @@ class Empresa extends CI_controller
   public function registroEmpresa(){
      $paises = $this->model_ubicacion->getTodosPaises();
      $estados = $this->model_ubicacion->getTodosEstados();
-
+     $habilidades = $this->model_habilidades->getTodosHabilidadesComputacion();
      $data = array(
         'Paises' => $paises,
-        'Estados' =>$estados
+        'Estados' =>$estados,
+        'Habilidades' =>$habilidades
       );
 
   	 $this->load->view('layout/registerheader');

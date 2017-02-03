@@ -124,80 +124,6 @@ $(document).ready(function()
       <!--<a href=""><b>SIS</b>pas</a>-->
   </div>
 
- <!-- <div class="register-box-body">-->
-   <!-- <p class="login-box-msg">Registro de Empresa</p>
-
-    <form form id="register" action="<?=base_url('empresa/guardarEmpresa')?>" role="form" method="post" enctype="multipart/form-data">
-      <div class="form-group has-feedback">
-        <input type="text" id="Rif" name="Rif" class="form-control" placeholder="Numero de Registro" required>
-        <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="text" id="NombreEmpresa" name="NombreEmpresa" class="form-control" placeholder="Nombre de la Empresa" required>
-        <span class="glyphicon glyphicon-globe form-control-feedback"></span>
-      </div>
-
-      <div class="form-group">
-      <center>
-          <select class="form-control select2" style="width: 100%;" id="paisId" name="paisId" required>
-              <option value="" selected>Seleccione Pais</option>
-                   <?php foreach($Paises as $row): ?>
-                            <option value="<?=$row->id?>"><?=$row->paisnombre?></option>
-                   <?php endforeach;?>
-          </select>
-      </center>
-      </div>
-
-      <div class="form-group">
-        <center>
-          <select class="form-control select2" id="estadoId" name="estadoId" required  data-width='100%'>
-                <option value="" selected>Seleccione Estado</option>
-          </select>
-        </center>
-      </div>
-   
-      <div class="form-group has-feedback">
-        <input type="text" id="Ciudad" name="Ciudad" class="form-control" placeholder="Ciudad" required>
-            <span class="glyphicon glyphicon-plane form-control-feedback"></span>
-      </div>
-
-      <div class="form-group has-feedback">
-        <input type="text" id="Direccion" name="Direccion" class="form-control" placeholder="Direccion" required>
-        <span class="glyphicon glyphicon-road form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="text" id="Sector" name="Sector" class="form-control" placeholder="Sector" required>
-        <span class="glyphicon glyphicon-home form-control-feedback"></span>
-      </div>
-      <p class="login-box-msg">Datos Usuario</p>
-
-      <div class="form-group has-feedback">
-        <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required>
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" id="Clave" name="Clave" class="form-control" placeholder="Password" required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" id="Password" name="Password" class="form-control" placeholder="Repetir password" required>
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-      </div>
-
-      <div class="row">-->
-        <!-- /.col -->
-      <!--  <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
-        </div>-->
-        <!-- /.col -->
-     <!-- </div>
-    </form>
-
-    <a href="<?=base_url('')?>" class="text-center">Ya tengo una Cuenta</a>
-  </div>-->
-
-  <!-- /.form-box -->
-
   <div class="container">
     <div class="row">
       <section>
@@ -311,13 +237,11 @@ $(document).ready(function()
                            <div class="col-md-3 col-xs-3">
                                    <label>Escuela</label>
                                    <select class="form-control select2" style="width: 100%;">
-                                     <option selected="selected">Alabama</option>
-                                     <option>Alaska</option>
-                                     <option>California</option>
-                                     <option>Delaware</option>
-                                     <option>Tennessee</option>
-                                     <option>Texas</option>
-                                     <option>Washington</option>
+                                     <option selected="selected" value="1">Computacion</option>
+                                     <option disabled="disabled">Quimica</option>
+                                     <option disabled="disabled">Biologia</option>
+                                     <option disabled="disabled">Fisica</option>
+                                     <option disabled="disabled">Matematica</option>
                                   </select>
                                 
                               </div>
