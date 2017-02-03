@@ -74,7 +74,7 @@ class Model_usuario extends CI_Model
 	  
 	   if ($query->num_rows() > 0) {
 		   foreach ($query->result_array() as $row){
-			   $data[] = $row;
+			   $data[] = $row['id_menu'];
 		   }
 	   }
 	   $query->free_result();
@@ -169,32 +169,6 @@ function permisosUsuarioHijos($idMenu,$idUser){
 			//echo "-".$menu->nombre;
 		}
 		return $menuUser;
-	}
-	
-	
-	
-	
-	function getMenu() {
-		$data = array();
-		$query = $this->db->get('menu');
-		if ($query->num_rows() > 0) {
-			foreach ($query->result_array() as $row){
-				$data[] = $row;
-			}
-		}
-		$query->free_result();
-		return $data;
-	}
-	function getHijosMenu($id) {
-		$data = array();
-		$query = $this->db->get_where('sub_menu', array('id_menu' => $id));
-		if ($query->num_rows() > 0) {
-			foreach ($query->result_array() as $row){
-				$data[] = $row;
-			}
-		}
-		$query->free_result();
-		return $data;
 	}
 
 	function cambiaEstatus($idUsuario,$estatus){

@@ -14,6 +14,7 @@ class cadministrador extends CI_Controller{
         # code...paren
 
         $this->load->model('model_usuario');
+        $this->load->model('model_admin');
     }
 
 
@@ -44,18 +45,49 @@ class cadministrador extends CI_Controller{
 
 
     }
-
+/* lo uso para llenar la tabla del mantenimiento de menus*/
     public function getMenu(){
-        $dato = $this->model_usuario->getMenu();;
-       return $dato->fetchAll();
-        //  echo json_encode($dato);
+        $cont=0;
+        $idUser = $this->input->post('user');
+        $dato = $this->model_admin->getMenu();
+        //traerme los permisos del usuario
+        $permisos = $this->model_usuario->permisosUsuario($idUser);
+
+        foreach($dato as $result) {
+            $menu = array(
+                'id_menu' => $result['id_menu'],
+                'id_padre' => $result['id_menu'],
+                'nombre' => $result['nombre'],
+                'url' => $result['url'],
+                'clase' => $result['clase'],
+                'activo' => $result['activo'],
+                'permisos' => $permisos
+
+            );
+            if($cont>0){
+                array_push($menuUser, $menu);
+            }else{
+                $menuUser[$cont] =$menu;
+            }
+            $cont= $cont+1;
+        }
+        //$dato = $this->model_admin->getMenu();
+       //return $dato->fetchAll();
+      //  array_push($dato, $idUsere);
+          echo json_encode($menuUser);
     }
-    public function getHijosMenu($id_menu){
-      //  $id_menu = $this->input->post('id_menu');
-        $dato = $this->model_usuario->getHijosMenu($id_menu);
-        return $dato->fetchAll();
-        //  echo json_encode($dato);
+    /**/
+
+    public function nombrePadre(){
+        $idPadre = $this->input->post('idPadre');
+
+        $dato= $this->model_admin->nombrePadre($idPadre);
+
+        echo json_encode($dato);
+
+
     }
+
    
     public function cambiaEstatus(){
         $idUsuario = $this->input->post('idUsuario');
