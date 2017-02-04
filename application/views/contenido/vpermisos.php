@@ -13,7 +13,44 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <div id="tree"></div>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- /.box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Data Table With Full Features</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <form id="fpermisos" method="post">
+                                <table id="tblPermisos" class="table table-bordered table-striped" name="tblPermisos">
+                                    <thead>
+                                    <tr>
+                                        <th>-</th>
+                                        <th>ID</th>
+                                        <th>nombre</th>
+                                        <th>padre</th>
+                                        <th>url</th>
+                                        <th>clase</th>
+                                        <th>estatus</th>
+                                        <th>accion</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <button id="guardarPermiso" onclick="guardarP()">Guardar Permisos</button>
+                            </form>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
 
 
 

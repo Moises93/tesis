@@ -44,14 +44,14 @@ class Cusuario extends CI_Controller
 
         return $consulta;
     }
-
+/*sin uso po ahora , lo habia creado llenar el arbol de mantenimiento de permisos*/
     public function obtenerMenu()
     {
         $idUser=$this->session->userdata('id');
-
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        //echo json_encode($consulta);
-        return $data;
+//&data['menu']
+        $data =$this->model_usuario->menuPermisos($idUser);
+        echo json_encode($data);
+        //return $data;
     }
 
   

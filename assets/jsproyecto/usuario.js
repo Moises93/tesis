@@ -81,6 +81,8 @@ cambioEstatus=function(id,estatus){
 
 //con esta funcion pasamos los paremtros a los text del modal.
 selPersona = function(id,tipo, usu_login, usu_clave, usu_correo){
+    //console.log(tipo);
+    //$('#cbTipo').val(1);
     $('#mhdnIdUsuario').val(id);
     $('#mtxtLogin').val(usu_login);
     $('#mtxtClave').val(usu_clave);
