@@ -24,10 +24,12 @@ class Empresa extends CI_controller
      $paises = $this->model_ubicacion->getTodosPaises();
      $estados = $this->model_ubicacion->getTodosEstados();
      $habilidades = $this->model_habilidades->getTodosHabilidadesComputacion();
+     $foto = null;
      $data = array(
         'Paises' => $paises,
         'Estados' =>$estados,
-        'Habilidades' =>$habilidades
+        'Habilidades' =>$habilidades,
+        'Foto' => $foto
       );
 
   	 $this->load->view('layout/registerheader');

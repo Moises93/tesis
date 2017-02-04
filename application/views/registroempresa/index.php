@@ -167,6 +167,9 @@ $(document).ready(function()
               <form form id="register" action="<?=base_url('empresa/guardarEmpresa')?>" role="form" method="post" enctype="multipart/form-data">
                 <div class="tab-content">
                     <div class="tab-pane active" role="tabpanel" id="step1">
+                    <br>
+                         <h2>1. Ingrese Datos de la Empresa</h2>
+                              <br>
                     <center><label id="mobligrif" name="mobligrif" style="display:none;"><FONT COLOR="red">* Por favor ingrese todos los campos son de caracter obligatorio</FONT></label>  </center>
                         <div class="step1">
                             <div class="row">
@@ -229,8 +232,9 @@ $(document).ready(function()
                     <div class="tab-pane" role="tabpanel" id="step2">
                      <div class="box box-primary">
                         <div class="step2">
-                         <center>Ingrese Habilidades del Pasante que Busca</center>
-                              
+                        <br>
+                         <h2>2. Ingrese Habilidades de interes en la Empresa</h2>
+                              <br>
 
                             <div class="step-21">
                             <div class="row">
@@ -247,15 +251,13 @@ $(document).ready(function()
                               </div>
                                  <div class="col-md-9 col-xs-9">
                                    <label>Habilidades</label>
-                                      <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                        <option>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                      </select> 
+                                      
+                                      <select class="form-control select2" multiple="multiple" data-placeholder="Habilidad" style="width: 100%;" id="habilidadId" name="habilidadId" required>
+                                         
+                                               <?php foreach($Habilidades as $row): ?>
+                                           <option value="<?=$row->id_habilidad?>"><?=$row->descripcion?></option>
+                                       <?php endforeach;?>
+                                     </select>
                                   </div>        
                                 </div>
                            </div>
@@ -271,14 +273,32 @@ $(document).ready(function()
                     </div>
                     </div>
                      <div class="tab-pane" role="tabpanel" id="step3">
+                     <div class="box box-primary">
                         <div class="step33">
-                        
+                        <?php if (empty($foto)) { ?>
+                            <div class="form-group">
+                                  <label>Fotografia</label>
+                                  <div>
+                                      <img id="imagen" src= "<?=asset_url("img/NoFoto.jpg")?>" class="img-responsive img-thumbnail" width="20%" />
+                                    <input type="file" id="archivo_foto" name="archivo_foto" />
+                                   </div>
+                             </div>
+                       <?php } else { ?>
+                            <div class="form-group">
+                              <label>Fotografia</label>
+                              <div>
+                                <img id="imagen" class="img-responsive img-thumbnail" width="50%" src=<?=$foto?> />
+                                <input type="file" id="archivo_foto" name="archivo_foto" />
+                              </div>
+                            </div>
+                        <?php } ?>
                         </div>
                         <ul class="list-inline pull-right">
                             <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                             <li><button type="button" class="btn btn-default next-step">Skip</button></li>
                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                         </ul>
+                        </div>
                     </div>
 
                     <div class="tab-pane" role="tabpanel" id="complete">
