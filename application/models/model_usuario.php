@@ -34,12 +34,21 @@ class Model_usuario extends CI_Model
 			return 0;
 		}
 	}
-
+/*retorna todos los datos del usuario adicional su nombre de tipo*/
 	public function consultar_usuarios()
 	{
-		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
+		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo,u.id_tipo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
+
+		return $this->db->get()->result();
+	}
+
+	public function obtenerUsuariosTipos($idTipo)
+	{
+		$this->db->select('u.id_usuario,u.id_tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
+		$this->db->from('usuario u');
+		$this->db->where('u.id_tipo',$idTipo);
 
 		return $this->db->get()->result();
 	}

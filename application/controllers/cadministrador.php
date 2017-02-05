@@ -32,9 +32,16 @@ class cadministrador extends CI_Controller{
         $this->load->view('contenido/footerAdmin');
         
     }
+    /**/
     public function get_usuario(){
          $dato = $this->model_usuario->consultar_usuarios();
          echo json_encode($dato);
+    }
+
+    public function obtenerUsuariosTipos(){
+        $idTipo = $this->input->post('tipo');
+        $dato = $this->model_usuario->obtenerUsuariosTipos($idTipo);
+        echo json_encode($dato);
 
 
     }
@@ -56,7 +63,7 @@ class cadministrador extends CI_Controller{
         foreach($dato as $result) {
             $menu = array(
                 'id_menu' => $result['id_menu'],
-                'id_padre' => $result['id_menu'],
+                'id_padre' => $result['id_padre'],
                 'nombre' => $result['nombre'],
                 'url' => $result['url'],
                 'clase' => $result['clase'],

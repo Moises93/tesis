@@ -36,7 +36,7 @@ $('#tblUsuarios').DataTable({
 
                     return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
                     'data-target="#modalEditUsuario" ' +
-                    'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
+                    'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.id_tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
 
                 
             }
@@ -82,7 +82,7 @@ cambioEstatus=function(id,estatus){
 //con esta funcion pasamos los paremtros a los text del modal.
 selPersona = function(id,tipo, usu_login, usu_clave, usu_correo){
     //console.log(tipo);
-    //$('#cbTipo').val(1);
+    $('#cbTipo').val(tipo);
     $('#mhdnIdUsuario').val(id);
     $('#mtxtLogin').val(usu_login);
     $('#mtxtClave').val(usu_clave);

@@ -21,6 +21,28 @@
                         <div class="box-header">
                             <h3 class="box-title">Data Table With Full Features</h3>
                         </div>
+                        <!--  -->
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select id="cbTiposu" class="form-control" name="tipo" onchange="cargar_usuarios();">
+                                        <option value="">seleccione:</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select id="cbUsuarios" class="form-control" name="user">
+                                        <option value="">seleccione:</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="buscarPermiso" onclick="buscarPermiso()">Buscar</button>
+
+                        </div>
+
                         <!-- /.box-header -->
                         <div class="box-body">
                             <form id="fpermisos" method="post">
