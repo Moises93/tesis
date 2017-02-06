@@ -112,20 +112,7 @@ class cadministrador extends CI_Controller{
         echo json_encode($dato);
 
     }
-    public function updUsuario(){
-        $id_usuario = $this->input->post('mhdnIdUsuario');
-        $id_tipo = $this->input->post('tipo');
-        $usu_login = $this->input->post('mtxtLogin');
-        $usu_clave = $this->input->post('mtxtClave');
-        $usu_correo = $this->input->post('mtxtCorreo');
-        $actualizar = $this->model_usuario->actualizar_usuario($id_usuario,$id_tipo,$usu_login,$usu_clave,$usu_correo);
-       echo $actualizar;
-        if($actualizar)
-        {
-            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
-            return 1;
-        }
-    }
+
 
     public function crear_usuario()
     {
@@ -173,6 +160,22 @@ class cadministrador extends CI_Controller{
         $this->load->view('layout/vmenu',$data);
         $this->load->view('contenido/vcrear_usuario');
         $this->load->view('contenido/footerAdmin');
+    }
+
+
+    public function updMenu(){
+        $id_menu = $this->input->post('idMenu');
+        $nombre = $this->input->post('mtxtNombre');
+        $id_padre= $this->input->post('mtxtPadre');
+        $url= $this->input->post('mtxtUrl');
+        $clase = $this->input->post('mtxtClase');
+        $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
+        echo $actualizar;
+        if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }
     }
 
 

@@ -96,7 +96,7 @@ function permisosUsuarioPadres ($idUser){
 	$this->db->from('menu');
 	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
 	$this->db->where('permiso_usuario.id_usuario', $idUser);
-	$this->db->where('menu.id_padre',null);
+	$this->db->where('menu.id_padre',0);
 	$query = $this->db->get();
 
 	if ($query->num_rows() > 0) {

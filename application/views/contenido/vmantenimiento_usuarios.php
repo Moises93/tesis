@@ -107,7 +107,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" id="mbtnCerrarModal2" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-default" id="mbtnCerrarModal1" data-dismiss="modal">Cancelar</button>
 				<button type="button" class="btn btn-info" id="mbtnUpdUsuario">Actualizar</button>
 			</div>
 		</div>

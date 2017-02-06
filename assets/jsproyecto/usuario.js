@@ -92,10 +92,10 @@ selPersona = function(id,tipo, usu_login, usu_clave, usu_correo){
 
 //metodo update del modal incluyendo su validacion
 $('#mbtnUpdUsuario').click(function(){
-    $("#loginM").html("<span></span>");
-    $("#tipoM").html("<span></span>");
-    $("#claveM").html("<span></span>");
-    $("#correoM").html("<span></span>");
+  //  $("#loginM").html("<span></span>");
+  //  $("#tipoM").html("<span></span>");
+   // $("#claveM").html("<span></span>");
+   // $("#correoM").html("<span></span>");
 
     var expr = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     var idUsuario = $('#mhdnIdUsuario').val();
@@ -128,7 +128,7 @@ $('#mbtnUpdUsuario').click(function(){
                         $("#correoM").html("<span>Debe ingresar un correo valido</span>");
                         selPersona(idUsuario,tipo,login,clave,correo);
                     }else{
-                        $.post(baseurl+"cadministrador/updUsuario",
+                        $.post(baseurl+"cusuario/updUsuario",
                             {
                                 mhdnIdUsuario:idUsuario,
                                 tipo:tipo,
@@ -138,7 +138,7 @@ $('#mbtnUpdUsuario').click(function(){
                             },
                             function(data){
                                 if (data == 1) {
-                                    $('#mbtnCerrarModal').click();
+                                    $('#mbtnCerrarModal1').click();
 
                                     location.reload();
                                 }
@@ -150,12 +150,6 @@ $('#mbtnUpdUsuario').click(function(){
 });
 //funciones a hacer cuando cerramos el modal
 $('#mbtnCerrarModal1').click(function(){
-    $("#loginM").html("<span></span>");
-    $("#tipoM").html("<span></span>");
-    $("#claveM").html("<span></span>");
-    $("#correoM").html("<span></span>");
-});
-$('#mbtnCerrarModal2').click(function(){
     $("#loginM").html("<span></span>");
     $("#tipoM").html("<span></span>");
     $("#claveM").html("<span></span>");

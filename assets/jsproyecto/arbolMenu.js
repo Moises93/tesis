@@ -4,6 +4,7 @@
 /*Declaracion de Variables*/
 var idUser= null;
 var idTipo =null;
+var activadorModal=0;
 
 $('#guardarPermiso').attr("disabled", true);
 $('#buscarPermiso').attr("disabled", true);
@@ -17,9 +18,19 @@ $.post(baseurl + "cadministrador/get_tipo",
         });
     });
 
+if(activadorModal==0){
+    $(function() {
+        construirTabla();
+    });
+}
+
+/*funcion que se activa despues de escoger el tipo de usuario*/
 function cargar_usuarios() {
     //get_usuario
-      $('#cbUsuarios').empty();
+      //$('#cbUsuarios').empty(); //preguntar a sandra si hay otra forma
+   // $("#user").html("<span></span>");
+   // $('#user').val();
+
     idTipo = $("#cbTiposu option:selected").val();
 
     $.post(baseurl+"cadministrador/obtenerUsuariosTipos",
@@ -45,21 +56,10 @@ function buscarPermiso() {
     idUser =$("#cbUsuarios option:selected").val();
 
     if ( $.fn.dataTable.isDataTable( '#tblPermisos' ) ) {
-       alert("hay tabla");
-        /*table = $('#tblPermisos').DataTable( {
-            paging: false
-        } );
-
-
-        table.destroy();*/
+       //alert("hay tabla");
         var table = $('#tblPermisos').DataTable();
         table.destroy();
-        //$("#tblPermisos").remove();
-        //$("#tblPermisos").destroy();
-        //$('#tblPermisos').empty();
-        //$('#tblPermisos').dataTable()._fnAjaxUpdate();
-
-          construirTabla();
+        construirTabla();
     }
     else {
         alert("no hay tabla");
@@ -123,11 +123,14 @@ function construirTabla()
                 orderable: 'true',
                 render: function (data, type, row) {
                     /*/ return '<span>h</span>';*/
-                    return '<button  class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-                        'onClick="alertaValue();"></button>';
+                    return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                        'data-target="#modalEditPermiso" ' +
+                        'onClick="selPermiso(\'' + row.id_menu + '\',\'' + row.id_padre + '\',\'' + row.nombre + '\',\'' + row.url + '\',\'' + row.clase + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
 
 
                 }
+
+          
             }
         ],
         "columnDefs": [
@@ -136,7 +139,7 @@ function construirTabla()
                 "data": "id_padre",
                 "render": function (data, type, row) {
                     // console.log(row);
-                    if (row.id_padre == null) {
+                    if (row.id_padre == "0") {
                         return '-';
                     } else if (row.id_padre != null) {
                         return row.id_padre;
@@ -148,7 +151,59 @@ function construirTabla()
         ],
         "order": [[1, "asc"]],
     });
-
-
-
 }
+
+//con esta funcion pasamos los paremtros a los text del modal.
+function selPermiso(id,padre, nombre, url, clase){
+    activadorModal=2;
+    //console.log(tipo);
+    $('#idMenu').val(id);
+    $('#mtxtNombre').val(nombre);
+    if(padre!="0"){
+    $('#mtxtPadre').val(padre);
+    }
+    $('#mtxtUrl').val(url);
+    $('#mtxtClase').val(clase);
+};
+
+$('#mbtnUpdPermiso').click(function(){
+
+    var id=$('#idMenu').val();
+    var nombre = $('#mtxtNombre').val();
+    var padre= $('#mtxtPadre').val();
+    var url = $('#mtxtUrl').val();
+    var clase = $('#mtxtClase').val();
+    
+
+                    $.post(baseurl+"cadministrador/updMenu",
+                        {
+                            idMenu:id,
+                            mtxtNombre:nombre,
+                            mtxtPadre:padre,
+                            mtxtUrl:url,
+                            mtxtClase:clase
+                        },
+                        function(data){
+                            if (data == 1) {
+                                $('#mbtnCerrarModalP').click();
+
+                                location.reload();
+                            }
+                        });
+    
+});
+
+//funciones a hacer cuando cerramos el modal
+$('#mbtnCerrarModalP').click(function(){
+    $("#nombreP").html("<span></span>");
+    $("#padreP").html("<span></span>");
+    $("#urlP").html("<span></span>");
+    $("#claseP").html("<span></span>");
+});
+
+/* $('#cbTipo').val(tipo);
+
+ $('#mtxtClave').val(usu_clave);
+ $('#mtxtCorreo').val(usu_correo);
+ */
+
