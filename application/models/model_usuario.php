@@ -91,6 +91,7 @@ class Model_usuario extends CI_Model
    }
 function permisosUsuarioPadres ($idUser){
 	$data = array();
+//echo "permisos padres".$idUser;
 
 	$this->db->select('*');
 	$this->db->from('menu');
@@ -143,9 +144,10 @@ function permisosUsuarioHijos($idMenu,$idUser){
 
 	public function menuPermisos($idUser)
 	{
+		$menuUser=array();
 		$cont=0;
 		$padres = $this->model_usuario->permisosUsuarioPadres($idUser);
-		// echo '<pre>'; print_r($padres); echo '</pre>';
+		//echo '<pre>'; print_r($padres); echo '</pre>';
 		foreach($padres as $result) {
 
 			$menu =array(
@@ -173,6 +175,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 			}
 			//  echo "menu";
 			//echo '<pre>'; print_r($menuUser); echo '</pre>';
+
 			$cont= $cont+1;
 			// echo "-".$menu->id_menu;
 			//echo "-".$menu->nombre;

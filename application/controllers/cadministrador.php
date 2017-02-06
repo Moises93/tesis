@@ -64,6 +64,7 @@ class cadministrador extends CI_Controller{
             $menu = array(
                 'id_menu' => $result['id_menu'],
                 'id_padre' => $result['id_padre'],
+
                 'nombre' => $result['nombre'],
                 'url' => $result['url'],
                 'clase' => $result['clase'],
@@ -117,10 +118,10 @@ class cadministrador extends CI_Controller{
     public function crear_usuario()
     {
         $data['tipo'] = $this->model_usuario->getTipo();
-
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
-
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /*****************************************************************/
         $this->load->view('layout/header');
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vcrear_usuario',$data);
@@ -132,12 +133,27 @@ class cadministrador extends CI_Controller{
     public function permisos()
     {
 
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
-
         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /*******************************************************/
         $this->load->view('layout/header');
         $this->load->view('layout/vmenu',$data);
         $this->load->view('contenido/vpermisos');
+        $this->load->view('contenido/footerAdmin');
+
+    }
+
+    public function mtoMenu()
+    {
+
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $idUser=$this->session->userdata('id');
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /*******************************************************/
+        $this->load->view('layout/header');
+        $this->load->view('layout/vmenu',$data);
+        $this->load->view('contenido/vmtoMenu');
         $this->load->view('contenido/footerAdmin');
 
     }
@@ -153,9 +169,12 @@ class cadministrador extends CI_Controller{
 
         $this->model_usuario->insertar($login,$clave,$tipo,$correo);
 
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
-
         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /************************ */
+
+
         $this->load->view('layout/header');
         $this->load->view('layout/vmenu',$data);
         $this->load->view('contenido/vcrear_usuario');

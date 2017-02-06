@@ -26,8 +26,10 @@ class Cusuario extends CI_Controller
        // echo "ejejle".$this->model_usuario->existe($param);
        // echo 'aqui encontre algo util ' .$this->session->userdata('Login');
             $idUser=$this->session->userdata('id');
-
+         //  echo($idUser);
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+            print_r($data);
+    
             $this->load->view('layout/header');
             $this->load->view('layout/vmenu',$data);
             $this->load->view('contenido/vPrueba');
