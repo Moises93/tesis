@@ -28,7 +28,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>SHA '-' </b>GPA</a>
+     <img src="<?=asset_url("img/SIS.jpg")?>" width="230" height="110">
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
