@@ -32,4 +32,17 @@ class Model_admin extends CI_Model
         $query= $this->db->get();
         return $query->row();
     }
+
+
+    function actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase){
+        $data = array(
+            'id_padre' => $id_padre,
+            'nombre' => $nombre,
+            'url' => $url,
+            'clase' => $clase
+        );
+        $this->db->where('id_menu', $id_menu);
+        return $this->db->update('menu', $data);
+
+    }
 }

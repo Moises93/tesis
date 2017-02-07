@@ -223,6 +223,7 @@
 <script src="<?php echo base_url();?>assets/jsproyecto/usuario.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/crearusuario.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/arbolMenu.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/mtoMenu.js"></script>
 
 <!--<script>
   $(function () {

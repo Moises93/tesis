@@ -34,12 +34,21 @@ class Model_usuario extends CI_Model
 			return 0;
 		}
 	}
-
+/*retorna todos los datos del usuario adicional su nombre de tipo*/
 	public function consultar_usuarios()
 	{
-		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
+		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo,u.id_tipo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
+
+		return $this->db->get()->result();
+	}
+
+	public function obtenerUsuariosTipos($idTipo)
+	{
+		$this->db->select('u.id_usuario,u.id_tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo');
+		$this->db->from('usuario u');
+		$this->db->where('u.id_tipo',$idTipo);
 
 		return $this->db->get()->result();
 	}
@@ -82,12 +91,13 @@ class Model_usuario extends CI_Model
    }
 function permisosUsuarioPadres ($idUser){
 	$data = array();
+//echo "permisos padres".$idUser;
 
 	$this->db->select('*');
 	$this->db->from('menu');
 	$this->db->join('permiso_usuario', 'menu.id_menu = permiso_usuario.id_menu');
 	$this->db->where('permiso_usuario.id_usuario', $idUser);
-	$this->db->where('menu.id_padre',null);
+	$this->db->where('menu.id_padre',0);
 	$query = $this->db->get();
 
 	if ($query->num_rows() > 0) {
@@ -134,9 +144,10 @@ function permisosUsuarioHijos($idMenu,$idUser){
 
 	public function menuPermisos($idUser)
 	{
+		$menuUser=array();
 		$cont=0;
 		$padres = $this->model_usuario->permisosUsuarioPadres($idUser);
-		// echo '<pre>'; print_r($padres); echo '</pre>';
+		//echo '<pre>'; print_r($padres); echo '</pre>';
 		foreach($padres as $result) {
 
 			$menu =array(
@@ -164,6 +175,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 			}
 			//  echo "menu";
 			//echo '<pre>'; print_r($menuUser); echo '</pre>';
+
 			$cont= $cont+1;
 			// echo "-".$menu->id_menu;
 			//echo "-".$menu->nombre;
