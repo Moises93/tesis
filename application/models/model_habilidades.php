@@ -26,4 +26,11 @@ class Model_habilidades extends CI_Model
 			return array();	
 		}
 	}
+	public function crearHabilidadEmpresa($data){
+
+			$this->db->insert('habilidad_empresa', $data);
+
+			return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
+
+	}
 }

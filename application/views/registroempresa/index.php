@@ -260,9 +260,9 @@ $(document).ready(function()
 
                             <div class="step-21">
                             <div class="row">
-                           <div class="col-md-3 col-xs-3">
+                            <div class="col-md-3 col-xs-3">
                                    <label>Escuela</label>
-                                   <select class="form-control select2" style="width: 100%;">
+                                   <select class="form-control select2" id="escuelaId" name="escuelaId" style="width: 100%;">
                                      <option selected="selected" value="1">Computacion</option>
                                      <option disabled="disabled">Quimica</option>
                                      <option disabled="disabled">Biologia</option>
@@ -274,9 +274,8 @@ $(document).ready(function()
                                  <div class="col-md-9 col-xs-9">
                                    <label>Habilidades</label>
                                       
-                                      <select class="form-control select2" multiple="multiple" data-placeholder="Habilidad" style="width: 100%;" id="habilidadId" name="habilidadId" required>
-                                         
-                                               <?php foreach($Habilidades as $row): ?>
+                                      <select class="form-control select2" multiple="multiple" data-placeholder="Habilidad" style="width: 100%;" id="habilidadId" name="habilidadId[]" required>
+                                          <?php foreach($Habilidades as $row): ?>
                                            <option value="<?=$row->id_habilidad?>"><?=$row->descripcion?></option>
                                        <?php endforeach;?>
                                      </select>
@@ -349,7 +348,7 @@ $(document).ready(function()
                             <br>
                                 <h3>!Gracias por Ingresar Tus Datos¡</h3>
                                  <br>
-                                <li><button type="submit" class="btn btn-primary">Confirmar Subscripcion</button></li>
+                                <h2>Te contactaremos</h2>
                                  <br>
                              <br>
 

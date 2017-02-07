@@ -48,4 +48,12 @@ class Model_ubicacion extends CI_Model
 			return false;
 		}
 	}
+
+	public function crearUbicacion($data){
+
+			$this->db->insert('ubicacion', $data);
+
+			return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
+
+	}
 }
