@@ -86,10 +86,10 @@ class cadministrador extends CI_Controller{
     }
     /**/
 
-    public function nombrePadre(){
-        $idPadre = $this->input->post('idPadre');
+    public function obtenerPadres(){
 
-        $dato= $this->model_admin->nombrePadre($idPadre);
+
+        $dato= $this->model_admin->obtenerPadres();
 
         echo json_encode($dato);
 
@@ -189,6 +189,23 @@ class cadministrador extends CI_Controller{
         $url= $this->input->post('mtxtUrl');
         $clase = $this->input->post('mtxtClase');
         $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
+        echo $actualizar;
+        if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }
+    }
+
+
+    public function crearMenu(){
+       
+        
+        $nombre = $this->input->post('nombre');
+        $id_padre= $this->input->post('padre');
+        $url= $this->input->post('url');
+        $clase = $this->input->post('clase');
+        $actualizar = $this->model_admin->crearMenu($nombre,$id_padre,$url,$clase);
         echo $actualizar;
         if($actualizar)
         {

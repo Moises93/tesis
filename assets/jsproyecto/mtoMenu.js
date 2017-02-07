@@ -33,8 +33,8 @@ function recargarTabla() {
         idUser=0;
         $('#tblMto').DataTable({
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
-            'paging': true,
-            'info': true,
+            'paging': false,
+            'info': false,
             'filter': true,
             'stateSave': true,
 
@@ -47,25 +47,6 @@ function recargarTabla() {
                 },
                 dataSrc: ''
             }, 'columns': [
-                {
-                    orderable: 'true',
-                    render: function (data, type, row) {
-                        //  console.log("aqui",row);
-                        var id = row.id_menu;
-                        var checkPermiso = false;
-                        for (var i = 0; i <= row.permisos.length; i++) {
-
-                            if (row.permisos[i] == id) {
-                                checkPermiso = true;
-                            }
-                        }
-                        if (checkPermiso == true) {
-                            return '<td><input id="miCheck_' + row.id_menu + '" type="checkbox" value="' + row.id_menu + '"  name="miCheck_' + row.id_menu + '" class="flat-red" checked></td>';
-                        } else {
-                            return '<td><input id="miCheck_' + row.id_menu + '" type="checkbox" value="' + row.id_menu + '"  name="miCheck_' + row.id_menu + '" class="flat-red" ></td>';
-                        }
-                    }
-                },
                 {data: 'id_menu', 'sClass': 'dt-body-center'},
                 {data: 'nombre'},
                 {data: 'id_padre'},
@@ -76,10 +57,26 @@ function recargarTabla() {
                     orderable: 'true',
                     render: function (data, type, row) {
                         /*/ return '<span>h</span>';*/
-                        return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                       /* return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
                             'data-target="#modalEditPermiso" ' +
                             'onClick="selPermiso(\'' + row.id_menu + '\',\'' + row.id_padre + '\',\'' + row.nombre + '\',\'' + row.url + '\',\'' + row.clase + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
 
+*/
+                        return '<span class="pull-right">' +
+                            '<div class="dropdown">' +
+                            '  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">' +
+                            '    Acciones' +
+                            '  <span class="caret"></span>' +
+                            '  </button>' +
+                            '    <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">' +
+
+                            '    <li><a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                            '    data-target="#modalEditPermiso" onClick="selPermiso(\'' + row.id_menu + '\',\'' + row.id_padre + '\',\'' + row.nombre + '\',\'' + row.url + '\',\'' + row.clase + '\');"> ' +
+                            '    <i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a></li>' +
+                            '    <li><a href="#" title="Desaprobar afiliado" onClick="updEstadoAfiliado('+row.idPersona+','+2+')"><i style="color:red;" class="glyphicon glyphicon-remove"></i> Eliminar</a></li>' +
+                            '    </ul>' +
+                            '</div>' +
+                            '</span>';
 
                     }
 
@@ -161,3 +158,45 @@ function recargarTabla() {
      $('#mtxtCorreo').val(usu_correo);
      */
 
+//Aqui lleno el data Combo de Padres Menus
+$.post(baseurl + "cadministrador/obtenerPadres",
+    function(data) {
+        var p = JSON.parse(data);
+        console.log(p);
+        $.each(p, function (i, item) {
+
+            $('#cbPadre').append('<option value="'+item.id_menu+'">'+item.nombre+'</option>'
+            );
+        });
+    });
+
+
+
+$('#agregarMenu').click(function () {
+
+    var nombre = $('#nombreM').val();
+    var padre = $('select[name=padreM]').val();
+    var url = $('#url').val();
+    var clase = $('#clase').val();
+    //var clase = $('#mtxtClase').val();
+
+alert(nombre);
+    alert(padre);
+    alert(clase);
+    alert(url);
+    $.post(baseurl + "cadministrador/crearMenu",
+        {
+            nombre: nombre,
+            padre: padre,
+            url: url,
+            clase: clase
+        },
+        function (data) {
+            if (data == 1) {
+                //$('#mbtnCerrarModalP').click();
+
+                location.reload();
+            }
+        });
+
+});

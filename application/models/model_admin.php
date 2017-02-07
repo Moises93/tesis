@@ -25,12 +25,18 @@ class Model_admin extends CI_Model
         $query->free_result();
         return $data;
     }
-    function nombrePadre($idPadre){
-        $this->db->select('m.nombre');
+    function obtenerPadres(){
+        $data = array();
+        $this->db->select('m.id_menu,m.nombre');
         $this->db->from('menu m');
-        $this->db->where('id_menu',$idPadre);
+        $this->db->where('id_padre',"0");
         $query= $this->db->get();
-        return $query->row();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
     }
 
 
@@ -43,6 +49,21 @@ class Model_admin extends CI_Model
         );
         $this->db->where('id_menu', $id_menu);
         return $this->db->update('menu', $data);
+
+    }
+
+    function crearMenu($nombre,$id_padre,$url,$clase){
+
+        $activo=1;
+        $data = array(
+            'id_padre' => $id_padre,
+            'nombre' => $nombre,
+            'url' => $url,
+            'clase' => $clase,
+            'activo' =>$activo
+        );
+         return $this->db->insert('menu',$data);
+
 
     }
 }
