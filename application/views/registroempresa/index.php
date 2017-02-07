@@ -113,6 +113,27 @@ $(document).ready(function()
 });
 
 
+    function cargarimagen(evt) {
+        var files = evt.target.files;
+        
+        // Obtenemos la imagen del campo "file". 
+        f = files[0];
+        
+        // Solo admitimos imágenes.
+        if (!f.type.match('image.*')) {
+            return;
+        }
+        
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {
+                document.getElementById("imagen").src = e.target.result;
+                document.getElementById("empresa_foto").value = e.target.result;
+            };
+        })(f);
+        reader.readAsDataURL(f);
+    };
+
 </script>
 
 
@@ -120,7 +141,7 @@ $(document).ready(function()
 <div>
   <div class="register-logo">
     <!--<a href=""><b>SIS</b>pas</a>-->
-    <img src="<?=asset_url("img/SIS.jpg")?>" width="250" height="130">
+    <img src="<?=asset_url("img/SIS.jpg")?>" width="230" height="110">
       <!--<a href=""><b>SIS</b>pas</a>-->
   </div>
 
@@ -165,9 +186,10 @@ $(document).ready(function()
             </div>
 
               <form form id="register" action="<?=base_url('empresa/guardarEmpresa')?>" role="form" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="empresa_foto" name="empresa_foto" value="<?=$Foto?>" /> 
                 <div class="tab-content">
                     <div class="tab-pane active" role="tabpanel" id="step1">
-                    <br>
+                    
                          <h2>1. Ingrese Datos de la Empresa</h2>
                               <br>
                     <center><label id="mobligrif" name="mobligrif" style="display:none;"><FONT COLOR="red">* Por favor ingrese todos los campos son de caracter obligatorio</FONT></label>  </center>
@@ -232,7 +254,7 @@ $(document).ready(function()
                     <div class="tab-pane" role="tabpanel" id="step2">
                      <div class="box box-primary">
                         <div class="step2">
-                        <br>
+                        
                          <h2>2. Ingrese Habilidades de interes en la Empresa</h2>
                               <br>
 
@@ -260,6 +282,15 @@ $(document).ready(function()
                                      </select>
                                   </div>        
                                 </div>
+                                 <h2>3. Correo Electronico de Contacto</h2>
+                                 <div class="row">
+                                <div class="col-md-3 col-xs-3">
+                                     <input type="text" id="Email" name="Email" class="form-control" placeholder="Correo Electronico" required>
+                                
+                                  </div>
+                                       
+                                </div>
+
                            </div>
                             <div class="step-22">
                             
@@ -275,37 +306,57 @@ $(document).ready(function()
                      <div class="tab-pane" role="tabpanel" id="step3">
                      <div class="box box-primary">
                         <div class="step33">
-                        <?php if (empty($foto)) { ?>
+                        
+                         <h2>4. Ingrese Logo de la Empresa</h2>
+                              <br>
+                        <?php if (empty($Foto)) { ?>
                             <div class="form-group">
-                                  <label>Fotografia</label>
+                            <center>
                                   <div>
                                       <img id="imagen" src= "<?=asset_url("img/NoFoto.jpg")?>" class="img-responsive img-thumbnail" width="20%" />
                                     <input type="file" id="archivo_foto" name="archivo_foto" />
                                    </div>
+                                   </center>
                              </div>
                        <?php } else { ?>
                             <div class="form-group">
-                              <label>Fotografia</label>
+                            <center>
+                              <label>Logo Empresa</label>
                               <div>
-                                <img id="imagen" class="img-responsive img-thumbnail" width="50%" src=<?=$foto?> />
+                                <img id="imagen" class="img-responsive img-thumbnail" width="50%" src=<?=$Foto?> />
                                 <input type="file" id="archivo_foto" name="archivo_foto" />
                               </div>
+                            </center>
                             </div>
                         <?php } ?>
-                        </div>
+                        <script>
+                            document.getElementById('archivo_foto').addEventListener('change', cargarimagen, false);
+                        </script>
+                       
                         <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                            <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="buttom" class="btn btn-primary next-step">Guardar y Continuar</button></li>
                         </ul>
-                        </div>
+                         </div>
+                         </div>
                     </div>
 
                     <div class="tab-pane" role="tabpanel" id="complete">
+                      <div class="box box-primary">
                         <div class="step44">
-                            <h5>Completed</h5>
+                      
+                            <center>  <img id="imagen" src= "<?=asset_url("img/check.png")?>" class="img-responsive img-thumbnail" width="60" height="60" />
+                            <br>
+                                <h3>!Gracias por Ingresar Tus Datos¡</h3>
+                                 <br>
+                                <li><button type="submit" class="btn btn-primary">Confirmar Subscripcion</button></li>
+                                 <br>
+                             <br>
+
+
+                            </center>
                             
-                          
+                          </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>

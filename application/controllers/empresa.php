@@ -11,6 +11,7 @@ class Empresa extends CI_controller
     parent::__construct();
     $this->load->model('model_ubicacion');
     $this->load->model('model_habilidades');
+     $this->load->model('model_empresa');
     # code...paren
   }
 
@@ -60,18 +61,28 @@ class Empresa extends CI_controller
             $data = array();
             foreach($_POST as $key => $value) {   
                $data[$key] = $value; 
-               $sax = $value; 
             }
+        
+               $nueva_empresa['emp_rif'] = $data['numregistro'];
+               $nueva_empresa['emp_nombre'] = $data['NombreEmpresa'];
+               $nueva_empresa['emp_acceso'] = 1;
+               $nueva_empresa['emp_foto'] = $data['empresa_foto'];
+               $nueva_empresa['emp_email_contacto'] = $data ['Email'];
             
-            $hola1 = count($data);
+           $id_empresa = $this->model_empresa->crearEmpresa($nueva_empresa);
+           /* $hola1 = count($data);
             $array = array_keys($data); 
             $hola = count($array); 
-            $casa = $array[0];
-            $perro = $data[$casa];
-           // $this->load->view('main/main_header');
-        //$this->load->view('main/main_topbar',$userData);
-        $this->load->view('registroempresa/' + $hola1);
-       // $this->load->view('main/main_footer');
+            $casa = $array[9];
+            $perro = $data[$casa];*/
+
+             $data1 = array(
+        'Paises' => $data
+      );
+      
+       $this->load->view('layout/registerheader');
+        $this->load->view('registroempresa/prueba',$data1);
+      
     }
 }
 
