@@ -78,6 +78,8 @@ function guardarP(){
 
 function construirTablaP()
 {
+    //$('#tblPermisos thead').show();
+    //$('#head').css('display', 'block');
     $('#tblPermisos').DataTable({
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
         'paging': true,

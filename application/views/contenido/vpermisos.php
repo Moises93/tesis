@@ -49,7 +49,7 @@
                         <div class="box-body">
                             <form id="fpermisos" method="post">
                                 <table id="tblPermisos"  class="table table-bordered table-striped" name="tblPermisos">
-                                    <thead>
+                                 <thead id="head" >
                                     <tr>
                                         <th>-</th>
                                         <th>ID</th>
@@ -61,7 +61,9 @@
                                 
                                     </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    <tr><td colspan="7">Debe seleccionar xxxx</td></tr>
+                                    </tbody>
                                 </table>
                                 <button id="guardarPermiso" onclick="guardarP()">Guardar Permisos</button>
                             </form>
