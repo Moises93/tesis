@@ -19,10 +19,11 @@ class Cusuario extends CI_Controller
 		$param['nombre'] = $this->input->post('usuario');
         $param['clave'] = $this->input->post('password');
 
-    if(!$this->model_usuario->existe($param)){
-      $this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
-			return FALSE;
-    }else{
+     if(!$this->model_usuario->existe($param)){
+       /*$this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
+			return FALSE;*/
+        redirect('/cusuario/vlogin/error');
+     }else{
        // echo "ejejle".$this->model_usuario->existe($param);
        // echo 'aqui encontre algo util ' .$this->session->userdata('Login');
             $idUser=$this->session->userdata('id');
@@ -39,6 +40,13 @@ class Cusuario extends CI_Controller
     }
 
 	}
+
+    public function vlogin(){
+        $data["message"] = NULL;
+        @$data["message"]=$this->uri->segment(3);
+        $s = $this->uri->segment(3);
+        $this->load->view('vlogin',$data);
+    }
 
     public function consultar_usuarios()
     {

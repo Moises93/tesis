@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="es">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <base href="<?php echo base_url() ?>" />
-  <title>AdminLTE 2 | Log in</title>
+  <title>SisPas | Log in</title>
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.css">
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -17,6 +19,10 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/iCheck/square/blue.css">
+  <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+  <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,11 +36,22 @@
   <div class="login-logo">
      <img src="<?=asset_url("img/SIS.jpg")?>" width="230" height="110">
   </div>
+   <?php 
+      if($message=='error'){
+    ?>
+      <script>
+      $(document).ready(function(e) {
+        toastr.error('Usuario o contraseña inválidos, si el problema persiste consulte al administrador del sitio.');
+      });
+     </script>
+    <?php 
+     }
+    ?>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Ingresa tus datos para iniciar sesiòn</p>
-
-    <form action="<?php echo base_url() ?>index.php/cusuario/login" method="post">
+   
+    <form action="<?php echo base_url() ?>cusuario/login" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Usuario" name="usuario">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -82,6 +99,8 @@
 <script src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="<?php echo base_url();?>assets/plugins/iCheck/icheck.min.js"></script>
+
+
 <script>
   $(function () {
     $('input').iCheck({
