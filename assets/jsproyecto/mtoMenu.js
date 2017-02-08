@@ -73,7 +73,7 @@ function recargarTabla() {
                             '    <li><a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
                             '    data-target="#modalEditPermiso" onClick="selPermiso(\'' + row.id_menu + '\',\'' + row.id_padre + '\',\'' + row.nombre + '\',\'' + row.url + '\',\'' + row.clase + '\');"> ' +
                             '    <i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a></li>' +
-                            '    <li><a href="#" title="Desaprobar afiliado" onClick="updEstadoAfiliado('+row.idPersona+','+2+')"><i style="color:red;" class="glyphicon glyphicon-remove"></i> Eliminar</a></li>' +
+                            '    <li><a href="#" title="Desaprobar afiliado" onClick="eliminarMenu('+row.id_menu+')"><i style="color:red;" class="glyphicon glyphicon-remove"></i> Eliminar</a></li>' +
                             '    </ul>' +
                             '</div>' +
                             '</span>';
@@ -115,6 +115,38 @@ function recargarTabla() {
         }
         $('#mtxtUrl').val(url);
         $('#mtxtClase').val(clase);
+    };
+
+    function eliminarMenu(id){
+
+        $.post(baseurl + "cadministrador/obtenerHijosDePadre",
+            {
+                id: id,
+            },
+            function (data) {
+                var p = JSON.parse(data);
+                console.log("ejele",p);
+                console.log("data ",p.length);
+                if (p.length>0) {
+                  alert("tiene hijos no puede eliminar");
+                }else{
+                    var idMenu=id;
+                    console.log("antes",idMenu);
+                    console.log("despues",id);
+                    $.post(baseurl + "cadministrador/eliminarMenu",
+                        {
+                            idMenu: id,
+                        },
+                        function (data) {
+                            console.log("la data",data);
+                            if (data == 1) {
+                                location.reload();
+                            }
+                        });
+               
+                
+                }
+            });
     };
 
     $('#mbtnUpdPermiso').click(function () {

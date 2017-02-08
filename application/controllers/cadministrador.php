@@ -87,15 +87,26 @@ class cadministrador extends CI_Controller{
     /**/
 
     public function obtenerPadres(){
-
-
         $dato= $this->model_admin->obtenerPadres();
-
         echo json_encode($dato);
-
-
     }
 
+    public function obtenerHijosDePadre(){
+        $id_menu=$this->input->post('id');
+        $dato= $this->model_admin->obtenerHijosDePadre($id_menu);
+        echo json_encode($dato);
+    }
+
+    public function eliminarMenu(){
+        $id_menu=$this->input->post('idMenu');
+        $this->model_admin->eliminarMenu($id_menu);
+      //  if($dato)
+        //{
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+          //  return 1;
+        //}
+        return $id_menu;
+    }
    
     public function cambiaEstatus(){
         $idUsuario = $this->input->post('idUsuario');
@@ -189,7 +200,7 @@ class cadministrador extends CI_Controller{
         $url= $this->input->post('mtxtUrl');
         $clase = $this->input->post('mtxtClase');
         $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
-        echo $actualizar;
+       // echo $actualizar;
         if($actualizar)
         {
             //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');

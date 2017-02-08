@@ -39,6 +39,23 @@ class Model_admin extends CI_Model
         return $data;
     }
 
+    function obtenerHijosDePadre($id_menu){
+  
+        $data = array();
+        $this->db->select('m.id_menu,m.nombre');
+        $this->db->from('menu m');
+        $this->db->where('id_padre',$id_menu);
+        $query= $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+    
+         return $data;
+    }
+
+
 
     function actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase){
         $data = array(
@@ -64,6 +81,16 @@ class Model_admin extends CI_Model
         );
          return $this->db->insert('menu',$data);
 
+
+    }
+    
+    function eliminarMenu($id_menu){
+      
+      //$this->db->where('id_menu', $id_menu);
+       // $this->db->delete('menu');
+
+        //$this->db->delete('menu',array('id_menu'=>$id_menu));
+        return TRUE;
 
     }
 }
