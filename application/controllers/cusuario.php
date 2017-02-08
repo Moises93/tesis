@@ -18,33 +18,23 @@ class Cusuario extends CI_Controller
 	{
 		$param['nombre'] = $this->input->post('usuario');
         $param['clave'] = $this->input->post('password');
-
-     if(!$this->model_usuario->existe($param)){
-       /*$this->form_validation->set_message('login','Combinación de <strong>Nr de Identificacion</strong> y <strong>Contraseña</strong> inválida');
-			return FALSE;*/
-        redirect('/cusuario/vlogin/error');
-     }else{
-       // echo "ejejle".$this->model_usuario->existe($param);
-       // echo 'aqui encontre algo util ' .$this->session->userdata('Login');
+        if(!$this->model_usuario->existe($param)){
+          redirect('/cusuario/vlogin/error');//Llamo a la funcion vlogin con una variable de error
+        }else{
             $idUser=$this->session->userdata('id');
-         //  echo($idUser);
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-            print_r($data);
-    
+            //print_r($this->session->userdata());
             $this->load->view('layout/header');
             $this->load->view('layout/vmenu',$data);
             $this->load->view('contenido/vPrueba');
-
             $this->load->view('layout/footer');
-
-    }
-
+        }
 	}
 
+    /*Funcion Vlogin que direcciona a la pagina de registro */
     public function vlogin(){
         $data["message"] = NULL;
-        @$data["message"]=$this->uri->segment(3);
-        $s = $this->uri->segment(3);
+        @$data["message"]=$this->uri->segment(3);//capturo variable de error por get
         $this->load->view('vlogin',$data);
     }
 

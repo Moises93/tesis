@@ -146,7 +146,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	{
 		$menuUser=array();
 		$cont=0;
-		$padres = $this->model_usuario->permisosUsuarioPadres($idUser);
+		$padres = $this->permisosUsuarioPadres($idUser);
 		//echo '<pre>'; print_r($padres); echo '</pre>';
 		foreach($padres as $result) {
 
