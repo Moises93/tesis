@@ -224,6 +224,7 @@
 <script src="<?php echo base_url();?>assets/jsproyecto/crearusuario.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/arbolMenu.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/mtoMenu.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
 <!--<script>
   $(function () {

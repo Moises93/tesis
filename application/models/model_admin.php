@@ -85,12 +85,25 @@ class Model_admin extends CI_Model
     }
     
     function eliminarMenu($id_menu){
-      
-      //$this->db->where('id_menu', $id_menu);
-       // $this->db->delete('menu');
-
-        //$this->db->delete('menu',array('id_menu'=>$id_menu));
-        return TRUE;
+        $this->db->where('id_menu', $id_menu);
+        return $this->db->delete('menu');
 
     }
+
+
+    function menuEnUso($id_menu){
+        $data = array();
+        $this->db->select('per.id_menu,per.id_usuario');
+        $this->db->from('permiso_usuario per');
+        $this->db->where('id_menu',$id_menu);
+        $query= $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
+
 }

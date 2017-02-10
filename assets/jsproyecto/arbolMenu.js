@@ -69,9 +69,31 @@ function buscarPermiso() {
 }
 /*guardar permisos */
 function guardarP(){
-    if( $('#miCheck_2').is(':checked') ) {
-        alert('Seleccionado '+ $('#miCheck_2').val());
-    }
+var i=1;
+    var menus = [];
+  alert("el usuario:"+idUser);
+    $("#tblPermisos tbody tr").each(function (index)
+    {
+        if( $('#miCheck_'+i).is(':checked') ) {
+            alert('Seleccionado '+ $('#miCheck_'+i).val());
+            val=$('#miCheck_'+i).val();
+            menus.push(val);
+        }
+            i=i+1;
+
+    })
+alert("los menus permisos son: "+menus);
+
+    $.post(baseurl+"cadministrador/guardarPermisos",
+        {
+            id: idUser,
+            menus: menus
+        },
+        function(data){
+            //var p = JSON.parse(data);
+          
+        });
+    
    // alert($('#miCheck_1').value)
    // alert($('#miCheck').value);
 }

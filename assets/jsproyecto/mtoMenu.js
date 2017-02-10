@@ -85,7 +85,7 @@ function recargarTabla() {
             ],
             "columnDefs": [
                 {
-                    "targets": [3],
+                    "targets": [2],
                     "data": "id_padre",
                     "render": function (data, type, row) {
                         // console.log(row);
@@ -106,7 +106,7 @@ function recargarTabla() {
 
 //con esta funcion pasamos los paremtros a los text del modal.
     function selPermiso(id, padre, nombre, url, clase) {
-        activadorModal = 2;
+
         //console.log(tipo);
         $('#idMenu').val(id);
         $('#mtxtNombre').val(nombre);
@@ -128,21 +128,38 @@ function recargarTabla() {
                 console.log("ejele",p);
                 console.log("data ",p.length);
                 if (p.length>0) {
-                  alert("tiene hijos no puede eliminar");
+                    $(document).ready(function(e) {
+                        toastr.error('No puede Eliminar. Este menu aun tiene hijos asociados');
+                    });
                 }else{
-                    var idMenu=id;
-                    console.log("antes",idMenu);
-                    console.log("despues",id);
-                    $.post(baseurl + "cadministrador/eliminarMenu",
+
+                    $.post(baseurl + "cadministrador/menuEnUso",
                         {
                             idMenu: id,
                         },
                         function (data) {
-                            console.log("la data",data);
-                            if (data == 1) {
-                                location.reload();
+                            var mu = JSON.parse(data);
+                            if (mu.length>0) {
+                                alert("tiene permisos no puede eliminar");
+                            }else{
+                                var idMenu=id;
+                                console.log("antes",idMenu);
+                                console.log("despues",id);
+                                $.post(baseurl + "cadministrador/eliminarMenu",
+                                    {
+                                        idMenu: id,
+                                    },
+                                    function (data) {
+                                        console.log("la data",data);
+                                        if (data) {
+                                            location.reload();
+                                        }
+                                    });
                             }
+
                         });
+
+
                
                 
                 }
@@ -167,7 +184,7 @@ function recargarTabla() {
                 mtxtClase: clase
             },
             function (data) {
-                if (data == 1) {
+                if (data) {
                     $('#mbtnCerrarModalP').click();
 
                     location.reload();
@@ -213,9 +230,9 @@ $('#agregarMenu').click(function () {
     //var clase = $('#mtxtClase').val();
 
 alert(nombre);
-    alert(padre);
+   /* alert(padre);
     alert(clase);
-    alert(url);
+    alert(url);*/
     $.post(baseurl + "cadministrador/crearMenu",
         {
             nombre: nombre,

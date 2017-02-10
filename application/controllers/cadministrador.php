@@ -98,14 +98,16 @@ class cadministrador extends CI_Controller{
     }
 
     public function eliminarMenu(){
+    
         $id_menu=$this->input->post('idMenu');
-        $this->model_admin->eliminarMenu($id_menu);
-      //  if($dato)
-        //{
-            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
-          //  return 1;
-        //}
-        return $id_menu;
+       return  $this->model_admin->eliminarMenu($id_menu);
+    }
+
+    public function menuEnUso(){
+
+        $id_menu=$this->input->post('idMenu');
+       $dato= $this->model_admin->menuEnUso($id_menu);
+        echo json_encode($dato);
     }
    
     public function cambiaEstatus(){
@@ -208,6 +210,22 @@ class cadministrador extends CI_Controller{
         }
     }
 
+
+    public function guardarPermisos(){
+        $id_user = $this->input->post('id');
+        $menu = $this->input->post('menu');
+
+       echo("user c".$id_user);
+        echo("menu c".$menu);
+        exit();
+       // $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
+        // echo $actualizar;
+       /* if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }*/
+    }
 
     public function crearMenu(){
        
