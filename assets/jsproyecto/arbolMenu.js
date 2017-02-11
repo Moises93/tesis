@@ -75,23 +75,24 @@ var i=1;
     $("#tblPermisos tbody tr").each(function (index)
     {
         if( $('#miCheck_'+i).is(':checked') ) {
-            alert('Seleccionado '+ $('#miCheck_'+i).val());
+            //alert('Seleccionado '+ $('#miCheck_'+i).val());
             val=$('#miCheck_'+i).val();
             menus.push(val);
         }
             i=i+1;
 
     })
-alert("los menus permisos son: "+menus);
+//alert("los menus permisos son: "+menus);
+    var jsonString = JSON.stringify(menus);
 
     $.post(baseurl+"cadministrador/guardarPermisos",
         {
             id: idUser,
-            menus: menus
+            menu: jsonString
         },
         function(data){
             //var p = JSON.parse(data);
-          
+          console.log("data",data);
         });
     
    // alert($('#miCheck_1').value)

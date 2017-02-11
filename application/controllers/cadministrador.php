@@ -213,12 +213,38 @@ class cadministrador extends CI_Controller{
 
     public function guardarPermisos(){
         $id_user = $this->input->post('id');
-        $menu = $this->input->post('menu');
+        $data = $this->input->post('menu');
+        $menu=json_decode($data);
+       //echo("user gc".$id_user);
+        //echo($id_user);
+        print_r($menu);
+        $menus = count($menu);
+        echo($menus);
+        $permisos = $this->model_usuario->permisosUsuario($id_user);
+        $resultado = count($permisos);
 
-       echo("user c".$id_user);
-        echo("menu c".$menu);
-        exit();
-       // $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
+        print_r($menu);
+        $menus = count($menu);
+        echo($menus);
+        print_r($permisos);
+        echo($resultado);
+      
+
+      if($menus>0){
+            if($resultado >0 ){
+                $this->model_admin->eliminarPermisos($id_user);
+            }
+            foreach($menu as $d){
+                echo $d;
+                $this->model_admin->guardarPermisos($id_user,$d);
+            }
+      }else{
+          if($resultado >0 ){
+              $this->model_admin->eliminarPerminos($id_user);
+          }
+      }
+
+        // $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
         // echo $actualizar;
        /* if($actualizar)
         {

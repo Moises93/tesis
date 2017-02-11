@@ -104,6 +104,22 @@ class Model_admin extends CI_Model
         }
         return $data;
     }
+    function eliminarPermisos($id_user){
+    
+        $this->db->where('id_usuario', $id_user);
+        return $this->db->delete('permiso_usuario');
 
+    }
+
+    function guardarPermisos($id_usuario,$id_menu){
+        $data = array(
+            'id_menu' => $id_menu,
+            'id_usuario' => $id_usuario
+            
+        );
+        return $this->db->insert('permiso_usuario',$data);
+
+
+    }
 
 }
