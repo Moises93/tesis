@@ -8,36 +8,94 @@
 ?>
 
 
+
+
 <section class="content">
             <div class="row">
                 <div class="col-xs-12">
                     <!-- /.box -->
-                    <div class="box">
-                        <div class="box-header">
-                            <h3 class="box-title">Data Table With Full Features</h3>
-                        </div>
-                        <!--  -->
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <form id="fpermisos" method="post">
-                                <table id="tblMto"  class="table table-bordered table-striped" name="tblPermisos">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>nombre</th>
-                                        <th>padre</th>
-                                        <th>url</th>
-                                        <th>clase</th>
-                                        <th>estatus</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </form>
 
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#fa-icons" data-toggle="tab">Mto. Menus</a></li>
+                            <li><a href="#nuevoM" data-toggle="tab">Nuevo Menu</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!-- Font Awesome Icons -->
+                            <div class="tab-pane active" id="fa-icons">
+
+                                       <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Data Table With Full Features</h3>
+                                            </div>
+                                            <!--  -->
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <form id="fpermisos" method="post">
+                                                    <table id="tblMto"  class="table table-bordered table-striped" name="tblPermisos">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>nombre</th>
+                                                            <th>padre</th>
+                                                            <th>url</th>
+                                                            <th>clase</th>
+                                                            <th>estatus</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </form>
+
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                            </div>
+                            <div class="tab-pane" id="nuevoM">
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="login" class="control-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombreM" name="nombreM">
+                                            <span  id= "nombreM" class="help-block"></span>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Padre</label>
+                                                <select id="cbPadre" class="form-control" name="padreM">
+                                                    <option value="0">seleccione:</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="email" class="control-label">Url</label>
+                                            <input type="text" class="form-control" id="url" name="url" placeholder="url">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <label for="clave" class="control-label">Clase</label>
+                                            <input type="text" class="form-control" id="clase" name="clase" placeholder="clase">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <!--<button type="submit" class="btn btn-default">Cancel</button>-->
+                                    <button type="submit" class="btn btn-info pull-right" id="agregarMenu">Agregar</button>
+
+                                </div>
+                             </div>
                         </div>
-                        <!-- /.box-body -->
+
                     </div>
                     <!-- /.box -->
                 </div>
@@ -45,48 +103,11 @@
             </div>
 
 
-        <div class="box-body">
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <label for="login" class="control-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombreM" name="nombreM">
-                    <span  id= "nombreM" class="help-block"></span>
-                </div>
 
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <label>Padre</label>
-                        <select id="cbPadre" class="form-control" name="padreM">
-                            <option value="0">seleccione:</option>
-                        </select>
-                       
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <label for="email" class="control-label">Url</label>
-                    <input type="text" class="form-control" id="url" name="url" placeholder="url">
-                </div>
-                <div class="col-sm-5">
-                    <label for="clave" class="control-label">Clase</label>
-                    <input type="text" class="form-control" id="clase" name="clase" placeholder="clase">
-                </div>
-
-            </div>
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-            <!--<button type="submit" class="btn btn-default">Cancel</button>-->
-            <button type="submit" class="btn btn-info pull-right" id="agregarMenu">Agregar</button>
-    
-        </div>
         <!-- /.box-footer -->
 
             <!-- /.row -->
-        </section>
+</section>
 
 <!---Inicio modal-->
 

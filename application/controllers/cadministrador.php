@@ -143,6 +143,20 @@ class cadministrador extends CI_Controller{
     }
 
 
+
+    public function crearPasante()
+    {
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $idUser=$this->session->userdata('id');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /*****************************************************************/
+        $this->load->view('layout/header');
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('contenido/vcrearPasante');
+        $this->load->view('contenido/footerUser');
+
+    }
+
     public function permisos()
     {
 
