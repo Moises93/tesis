@@ -228,6 +228,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	return $resultado;
 	}
 
+
     /* Desarrollada el 13-02-2017*/
 	public function obtener_todousuarioEmpresa($id){
         $this->db->select('us.id_usuario, us.id_tipo, us.usu_login, 
@@ -247,4 +248,35 @@ function permisosUsuarioHijos($idMenu,$idUser){
 				$this->session->sess_destroy();
 				return true;
 	}
+
+	public function obtenerIdUsuarios($login)
+	{
+		$this->db->select('u.id_usuario');
+		$this->db->from('usuario u');
+		$this->db->where('u.usu_login',$login);
+		$resultado= $this->db->get();
+		return $resultado->row();
+		/*if ($resultado->num_rows() > 0) {
+			foreach ($resultado->result_array() as $row){
+				$data['id'] = $row;
+			}
+		}
+		return $data;*/
+	}
+
+public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
+	$data = array(
+		'pas_cedula' => $cedula,
+		'pas_nombre' => $nombre,
+		'pas_apellido' => $apellido,
+		'pas_sexo' => $sexo,
+		'id_usuario' => $data,
+		'id_escuela' =>$escuela
+
+	);
+
+	$this->db->insert('pasante',$data);
+}
+
+
 }

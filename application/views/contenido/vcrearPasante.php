@@ -13,7 +13,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form action="<?php echo base_url('index.php/cadministrador/insertarU'); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+
             <div class="box-body">
                 <div class="form-group">
                     <div class="col-sm-5">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-sm-5">
                         <label for="nombre" class="control-label">Nombre</label>
-                        <input type="password" class="form-control" id="nombre" name="nombre" placeholder="nombre">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre">
                     </div>
 
                 </div>
@@ -53,7 +53,7 @@
 
                     <div class="col-sm-5">
                         <label for="escuela" class="control-label">Escuela</label>
-                        <input type="password" class="form-control" id="clave" name="clave" placeholder="Password">
+                        <input type="text" class="form-control" id="escuela" name="escuela" placeholder="Password">
                     </div>
 
 
@@ -79,10 +79,10 @@
             <!-- /.box-body -->
                 <div class="box-footer">
                     <!--<button type="submit" class="btn btn-default">Cancel</button>-->
-                    <button type="submit" class="btn btn-info pull-right">Agregar</button>
+                    <button type="submit" class="btn btn-info pull-right" id="agregarPasante">Agregar</button>
                 </div>
             <!-- /.box-footer -->
-        </form>
+
 
 
         
