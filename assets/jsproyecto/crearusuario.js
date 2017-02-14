@@ -32,3 +32,41 @@ function valor_select() {
 
 
 }
+
+
+
+$('#agregarPasante').click(function () {
+
+    var cedula = $('#cedula').val();
+    var nombre = $('#nombre').val();
+    var apellido = $('#apellido').val();
+    var sexo = $('select[name=sexo]').val();
+    var email = $('#email').val();
+    var escuela = $('#escuela').val();
+    var login = $('#login').val();
+    var clave = $('#clave').val();
+    //var clase = $('#mtxtClase').val();
+
+
+ 
+    $.post(baseurl + "cadministrador/agregarPasante",
+        {
+            cedula: cedula,
+            nombre: nombre,
+            apellido: apellido,
+            sexo: sexo,
+            email: email,
+            escuela: escuela,
+            login: login,
+            clave: clave
+        },
+        function (data) {
+            console.log(data);
+            if (data) {
+                //$('#mbtnCerrarModalP').click();
+
+             //   location.reload();
+            }
+        });
+    
+});

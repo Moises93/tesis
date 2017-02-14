@@ -283,6 +283,41 @@ class cadministrador extends CI_Controller{
         }
     }
 
+    public function agregarPasante()
+    {
+        $cedula= $this->input->post('cedula');
+        $nombre= $this->input->post('nombre');
+        $apellido= $this->input->post('apellido');
+        $sexo= $this->input->post('sexo');
+        $correo= $this->input->post('email');
+        $escuela= $this->input->post('escuela');
+        $login= $this->input->post('login');
+        $clave= $this->input->post('clave');
+
+        $tipo=4; //QUITAR HARCODEO Y CONSULTAR EL ID DEL PASANTE
+
+        $this->model_usuario->insertar($login,$clave,$tipo,$correo);
+
+        $data =$this->model_usuario->obtenerIdUsuarios($login);
+
+        echo($cedula);
+        echo($nombre);
+        echo($apellido);
+        echo($sexo);
+        echo($correo);
+        echo($escuela);
+        echo($login);
+        echo($clave);
+
+   print_r($data[id_usuario] );
+
+
+        exit();
+
+        return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data);
+    }
+
+
 
 
 }
