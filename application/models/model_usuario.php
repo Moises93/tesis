@@ -25,6 +25,7 @@ class Model_usuario extends CI_Model
 			$datos['id'] = $r->id_usuario;
 			$datos['Login'] = $r->usu_login;
 			$datos['Name'] = $r->id_tipo;
+
 			$this->session->set_userdata($datos);
 
 			$query2 = $this->db->get_where('tipos_usuarios', array('id_tipo' => $r->id_tipo));
@@ -34,6 +35,14 @@ class Model_usuario extends CI_Model
 			return 0;
 		}
 	}
+	/* Desarrollada el 13-02-2017*/
+	public function obtener_usuario($id){
+               $this->db->select('*');
+               $this->db->from('usuario u');
+               $this->db->where('u.id_usuario',$id);
+               return $this->db->get()->result();
+	}
+	
 /*retorna todos los datos del usuario adicional su nombre de tipo*/
 	public function consultar_usuarios()
 	{
@@ -219,5 +228,23 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	return $resultado;
 	}
 
-
+    /* Desarrollada el 13-02-2017*/
+	public function obtener_todousuarioEmpresa($id){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_login, 
+           	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, 
+            ue.uem_nombre as Nombre, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
+            e.emp_foto');
+		$this->db->from('usuario us');
+		$this->db->join('usuario_empresa ue', 'us.id_usuario = ue.id_usuario');
+		$this->db->join('tipo_uempresa tue', 'ue.tuem_id = tue.tuem_id');
+		$this->db->join('empresa e', 'ue.emp_id = e.emp_id');
+		$this->db->where('us.id_usuario',$id);
+        return $this->db->get()->result();
+	}
+	
+    /* Desarrollada el 13-02-2017*/
+    public function signOutUser(){
+				$this->session->sess_destroy();
+				return true;
+	}
 }

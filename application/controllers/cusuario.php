@@ -22,15 +22,23 @@ class Cusuario extends CI_Controller
           redirect('/cusuario/vlogin/error');//Llamo a la funcion vlogin con una variable de error
         }else{
             $idUser=$this->session->userdata('id');
+            if($this->session->userdata('Name')==5){
+            $rsu = $this->model_usuario->obtener_todousuarioEmpresa($idUser);
+            }else{
+             $rsu = $this->model_usuario->obtener_usuario($idUser);
+            }
+            $userData = array(
+               'user' => $rsu
+            );
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
             //print_r($this->session->userdata());
-            $this->load->view('layout/header');
+            $this->load->view('layout/header',$userData);
             $this->load->view('layout/vmenu',$data);
             $this->load->view('contenido/vPrueba');
             $this->load->view('layout/footer');
         }
 	}
-
+    
     /*Funcion Vlogin que direcciona a la pagina de registro */
     public function vlogin(){
         $data["message"] = NULL;
@@ -74,7 +82,10 @@ class Cusuario extends CI_Controller
         }
     }
 
-
+    public function logout(){
+        $this->model_usuario->signOutUser();
+        redirect('/cusuario/vlogin');
+    }
 }
 
 
