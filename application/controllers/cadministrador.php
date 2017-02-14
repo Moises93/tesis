@@ -300,21 +300,22 @@ class cadministrador extends CI_Controller{
 
         $data =$this->model_usuario->obtenerIdUsuarios($login);
 
-        echo($cedula);
-        echo($nombre);
-        echo($apellido);
-        echo($sexo);
-        echo($correo);
-        echo($escuela);
-        echo($login);
-        echo($clave);
+     //   echo($cedula);
+     //   echo($nombre);
+     //   echo($apellido);
+     //   echo($sexo);
+     //   echo($correo);
+      //  echo($escuela);
+      //  echo($login);
+       // echo($clave);
+       // echo "-->".$data->id_usuario;
+        $id_usuario =$data->id_usuario;
+       // print_r($data );
 
-   print_r($data[id_usuario] );
 
 
-        exit();
 
-        return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data);
+        return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,4,$id_usuario);
     }
 
 
