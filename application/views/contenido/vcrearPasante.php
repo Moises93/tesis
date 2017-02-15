@@ -19,6 +19,7 @@
                     <div class="col-sm-5">
                         <label for="cedula" class="control-label">Cedula</label>
                         <input type="text" class="form-control" id="cedula" name="cedula" placeholder="cedula">
+                        <div  id= "cedulaP"></div>
                     </div>
                     <div class="col-sm-5">
                         <label for="nombre" class="control-label">Nombre</label>
@@ -52,8 +53,11 @@
                     </div>
 
                     <div class="col-sm-5">
-                        <label for="escuela" class="control-label">Escuela</label>
-                        <input type="text" class="form-control" id="escuela" name="escuela" placeholder="Password">
+                        <label>Escuela</label>
+                        <select id="escuela" class="form-control" name="escuela" >
+                            <option value="">seleccione:</option>
+                            <option value="1">Computaciòn</option>
+                        </select>
                     </div>
 
 

@@ -33,7 +33,11 @@ function valor_select() {
 
 }
 
-
+$('#cedula').focusout(function () {
+    if($(this).val().length > 0 ){
+        $('#cedulaP').html("<span style='color:#D81B60; '>CEDULA INCORRECTA</span>");
+    }
+});
 
 $('#agregarPasante').click(function () {
 
@@ -65,7 +69,7 @@ $('#agregarPasante').click(function () {
             if (data) {
                 //$('#mbtnCerrarModalP').click();
 
-             //   location.reload();
+                 location.reload();
             }
         });
     
