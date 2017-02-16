@@ -32,6 +32,7 @@ function valor_select() {
 
 
 }
+$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
 $('#cedula').focusout(function () {
     if($(this).val().length > 0 ){

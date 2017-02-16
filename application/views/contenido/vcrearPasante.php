@@ -46,11 +46,24 @@
 
 
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-5">
-                        <label for="email" class="control-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <div class="control-group">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <input type="email" id="email" name="email" placeholder="Email"  >
+                        <p class="help-block"></p>
                     </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="control-group">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            <input type="email" id="email" name="email" placeholder="Email"  >
+                            <p class="help-block"></p>
+                         </div>
+
+                    </div>
+
 
                     <div class="col-sm-5">
                         <label>Escuela</label>
@@ -94,4 +107,5 @@
 </div>
 <script type="text/javascript">
     var baseurl = "<?php echo base_url(); ?>";
+   
 </script>

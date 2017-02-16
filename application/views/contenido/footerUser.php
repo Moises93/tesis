@@ -222,7 +222,7 @@
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/usuario.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/crearusuario.js"></script>
-
+<script src="<?php echo base_url();?>assets/jsproyecto/jqBootstrapValidation.js"></script>
 
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
