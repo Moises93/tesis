@@ -32,12 +32,42 @@ function valor_select() {
 
 
 }
-$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+/*$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );*/
 
-$('#cedula').focusout(function () {
-    if($(this).val().length > 0 ){
-        $('#cedulaP').html("<span style='color:#D81B60; '>CEDULA INCORRECTA</span>");
+
+$('#pasanteForm').bootstrapValidator({
+
+    message: 'Este valor no es valido',
+
+    feedbackIcons: {
+
+        valid: 'glyphicon glyphicon-ok',
+
+        invalid: 'glyphicon glyphicon-remove',
+
+        validating: 'glyphicon glyphicon-refresh'
+
+    },
+
+    fields: {
+
+        cedula: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'La Cedula del usuario es requerida'
+
+                }
+
+            }
+
+        }
+
+
     }
+
 });
 
 $('#agregarPasante').click(function () {
