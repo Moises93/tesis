@@ -49,7 +49,7 @@ class Model_usuario extends CI_Model
 		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo,u.id_tipo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
-
+        $this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
 		return $this->db->get()->result();
 	}
 
@@ -233,12 +233,54 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	public function obtener_todousuarioEmpresa($id){
         $this->db->select('us.id_usuario, us.id_tipo, us.usu_login, 
            	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, 
-            ue.uem_nombre as Nombre, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
+            CONCAT(ue.uem_nombre," ",ue.uem_apellido) as NOMBRECOMPLETO, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
             e.emp_foto');
 		$this->db->from('usuario us');
 		$this->db->join('usuario_empresa ue', 'us.id_usuario = ue.id_usuario');
 		$this->db->join('tipo_uempresa tue', 'ue.tuem_id = tue.tuem_id');
 		$this->db->join('empresa e', 'ue.emp_id = e.emp_id');
+		$this->db->where('us.id_usuario',$id);
+        return $this->db->get()->result();
+	}
+
+	 /* Desarrollada el 16-02-2017*/
+	public function obtener_todousuarioAdministrador($id){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto,
+        CONCAT(ua.uadm_nombre," ",ua.uadm_apellido) AS NOMBRECOMPLETO');
+		$this->db->from('usuario us');
+		$this->db->join('usuario_administrador ua', 'us.id_usuario = ua.id_usuario');
+		$this->db->where('us.id_usuario',$id);
+        return $this->db->get()->result();
+	}
+
+	 /* Desarrollada el 16-02-2017*/
+	public function obtener_todousuarioCoordinador($id){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto,
+   CONCAT(uc.ucor_nombre," ",uc.ucor_apellido) AS NOMBRECOMPLETO, es.esc_nombre');
+		$this->db->from('usuario us');
+		$this->db->join('usuario_coordinador uc', 'us.id_usuario = uc.id_usuario');
+		$this->db->join('escuela es', 'es.id_escuela = uc.id_escuela');
+		$this->db->where('us.id_usuario',$id);
+        return $this->db->get()->result();
+	}
+		 /* Desarrollada el 16-02-2017*/
+	public function obtener_todousuarioProfesor($id){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto,
+        CONCAT(prf.pro_nombre," ",prf.pro_apellido) as NOMBRECOMPLETO, es.esc_nombre, tp.pro_tipo');
+		$this->db->from('usuario us');
+		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
+		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');
+		$this->db->join('tipos_profesor tp', 'prf.id_tipo = tp.id_tipo');
+		$this->db->where('us.id_usuario',$id);
+        return $this->db->get()->result();
+	}
+		 /* Desarrollada el 16-02-2017*/
+	public function obtener_todousuarioPasante($id){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto,
+CONCAT(pas.pas_nombre," ",pas.pas_apellido) as NOMBRECOMPLETO, es.esc_nombre');
+		$this->db->from('usuario us');
+		$this->db->join('pasante pas', 'us.id_usuario = pas.id_usuario');
+		$this->db->join('escuela es', 'pas.id_escuela = es.id_escuela');
 		$this->db->where('us.id_usuario',$id);
         return $this->db->get()->result();
 	}

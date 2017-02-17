@@ -260,7 +260,7 @@
                     <?php } else { ?>
                         <img src="<?=$user[0]->usu_foto?>" class="img-circle" width="20" height="20" alt=""> 
                     <?php } ?>
-             <!-- <span class="hidden-xs"><?=$user[0]->Nombre?></span>-->
+              <span class="hidden-xs"><?=$user[0]->NOMBRECOMPLETO?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -272,7 +272,7 @@
                     <?php } ?>
                
                 <p>
-                  <!--<?=$user[0]->Nombre?> - <?=$user[0]->Institucion?>-->
+                  <?=$user[0]->NOMBRECOMPLETO?> 
                   <small>sispas</small>
                 </p>
               </li>
