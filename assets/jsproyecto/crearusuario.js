@@ -189,25 +189,28 @@ $('#agregarPasante').click(function () {
     //var clase = $('#mtxtClase').val();
 
 
- 
-    $.post(baseurl + "cadministrador/agregarPasante",
-        {
-            cedula: cedula,
-            nombre: nombre,
-            apellido: apellido,
-            sexo: sexo,
-            email: email,
-            escuela: escuela,
-            login: login,
-            clave: clave
-        },
-        function (data) {
-            console.log(data);
-            if (data) {
-                //$('#mbtnCerrarModalP').click();
+    if(cedula != '' && nombre != '') {
+        $.post(baseurl + "cadministrador/agregarPasante",
+            {
+                cedula: cedula,
+                nombre: nombre,
+                apellido: apellido,
+                sexo: sexo,
+                email: email,
+                escuela: escuela,
+                login: login,
+                clave: clave
+            },
+            function (data) {
+                console.log(data);
+                if (data) {
+                    //$('#mbtnCerrarModalP').click();
 
-                 location.reload();
-            }
-        });
+                    location.reload();
+                }
+            });
+    }else{
+        alert("debe rellenar todos los datos!");
+    }
     
 });

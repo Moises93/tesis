@@ -83,14 +83,11 @@ class Model_admin extends CI_Model
 
 
     }
-    
     function eliminarMenu($id_menu){
         $this->db->where('id_menu', $id_menu);
         return $this->db->delete('menu');
 
     }
-
-
     function menuEnUso($id_menu){
         $data = array();
         $this->db->select('per.id_menu,per.id_usuario');
