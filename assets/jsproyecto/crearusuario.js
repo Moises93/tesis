@@ -57,7 +57,113 @@ $('#pasanteForm').bootstrapValidator({
 
                 notEmpty: {
 
-                    message: 'La Cedula del usuario es requerida'
+                    message: 'La Cedula es requerida'
+
+                }
+
+            }
+
+        },
+
+        nombre: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El nombre es requerido'
+
+                }
+
+            }
+
+        },
+        apellido: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El apellido es requerido'
+
+                }
+
+            }
+
+        },
+        email: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El correo es requerido y no puede ser vacio'
+
+                },
+
+                emailAddress: {
+
+                    message: 'El correo electronico no es valido'
+
+                }
+
+            }
+
+        },
+        sexo: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El sexo es requerido'
+
+                }
+
+            }
+
+        },
+        escuela: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'La Escuela es requerido'
+
+                }
+
+            }
+
+        },
+        login: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El sexo es requerido'
+
+                }
+
+            }
+
+        },
+        clave: {
+
+            validators: {
+
+                notEmpty: {
+
+                    message: 'El password es requerido y no puede ser vacio'
+
+                },
+
+                stringLength: {
+
+                    min: 6,
+
+                    message: 'El password debe contener al menos 8 caracteres'
 
                 }
 
