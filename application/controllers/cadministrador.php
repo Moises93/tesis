@@ -20,14 +20,17 @@ class cadministrador extends CI_Controller{
 
     public function mantenimiento_usuarios()
     {
-        $this->load->library('table');
-        $this->load->library('pagination');
-
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
         $idUser=$this->session->userdata('id');
-
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        $this->load->view('layout/header');
-        $this->load->view('layout/vmenu',$data);
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');
         
@@ -131,11 +134,15 @@ class cadministrador extends CI_Controller{
     public function crear_usuario()
     {
         $data['tipo'] = $this->model_usuario->getTipo();
-        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
         $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
         /*****************************************************************/
-        $this->load->view('layout/header');
+        $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vcrear_usuario',$data);
         $this->load->view('contenido/footerAdmin');
@@ -148,9 +155,16 @@ class cadministrador extends CI_Controller{
     {
         /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
         /*****************************************************************/
-        $this->load->view('layout/header');
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+
+
+
+        $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vcrearPasante');
         $this->load->view('contenido/footerUser');
@@ -160,12 +174,17 @@ class cadministrador extends CI_Controller{
     public function permisos()
     {
 
-        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
         $idUser=$this->session->userdata('id');
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        /*******************************************************/
-        $this->load->view('layout/header');
-        $this->load->view('layout/vmenu',$data);
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vpermisos');
         $this->load->view('contenido/footerAdmin');
 
@@ -174,12 +193,17 @@ class cadministrador extends CI_Controller{
     public function mtoMenu()
     {
 
-        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
         $idUser=$this->session->userdata('id');
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        /*******************************************************/
-        $this->load->view('layout/header');
-        $this->load->view('layout/vmenu',$data);
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vmtoMenu');
         $this->load->view('contenido/footerAdmin');
 
@@ -196,14 +220,17 @@ class cadministrador extends CI_Controller{
 
         $this->model_usuario->insertar($login,$clave,$tipo,$correo);
 
-        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
         $idUser=$this->session->userdata('id');
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        /************************ */
-
-
-        $this->load->view('layout/header');
-        $this->load->view('layout/vmenu',$data);
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/vcrear_usuario');
         $this->load->view('contenido/footerAdmin');
     }
@@ -303,6 +330,27 @@ class cadministrador extends CI_Controller{
         $id_usuario =$data->id_usuario;
 
         return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$id_usuario);
+    }
+
+
+    public function crearEmpresa()
+    {
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        /*****************************************************************/
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+
+
+
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('contenido/vcrearEmpresa');
+        $this->load->view('contenido/footerUser');
+
     }
 
 

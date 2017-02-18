@@ -24,7 +24,7 @@ class Model_usuario extends CI_Model
 
 			$datos['id'] = $r->id_usuario;
 			$datos['Login'] = $r->usu_login;
-			$datos['Name'] = $r->id_tipo;
+			$datos['tipo'] = $r->id_tipo;
 
 			$this->session->set_userdata($datos);
 
@@ -35,6 +35,25 @@ class Model_usuario extends CI_Model
 			return 0;
 		}
 	}
+
+	public  function obtenerDataHeader($tipo,$idUser){
+		if($tipo==1){
+			$rsu = $this->model_usuario->obtener_todousuarioAdministrador($idUser);
+		}elseif($tipo==2){
+			$rsu = $this->model_usuario->obtener_todousuarioCoordinador($idUser);
+		}elseif($tipo==3){
+			$rsu = $this->model_usuario->obtener_todousuarioProfesor($idUser);
+		}elseif($tipo==4){
+			$rsu = $this->model_usuario->obtener_todousuarioPasante($idUser);
+		}elseif($tipo==5){
+			$rsu = $this->model_usuario->obtener_todousuarioEmpresa($idUser);
+		}else{
+			$rsu = $this->model_usuario->obtener_usuario($idUser);
+		}
+		return $rsu;
+	}
+
+
 	/* Desarrollada el 13-02-2017*/
 	public function obtener_usuario($id){
                $this->db->select('*');
@@ -49,7 +68,6 @@ class Model_usuario extends CI_Model
 		$this->db->select('u.id_usuario,tu.tipo, u.usu_login, u.usu_clave, u.usu_estatus,u.usu_correo,u.id_tipo');
 		$this->db->from('usuario u');
 		$this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
-        $this->db->join('tipos_usuarios tu', 'u.id_tipo = tu.id_tipo');
 		return $this->db->get()->result();
 	}
 

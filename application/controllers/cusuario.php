@@ -21,23 +21,14 @@ class Cusuario extends CI_Controller
         if(!$this->model_usuario->existe($param)){
           redirect('/cusuario/vlogin/error');//Llamo a la funcion vlogin con una variable de error
         }else{
+            
             $idUser=$this->session->userdata('id');
-            if($this->session->userdata('Name')==1){
-                $rsu = $this->model_usuario->obtener_todousuarioAdministrador($idUser);
-            }elseif($this->session->userdata('Name')==2){
-                $rsu = $this->model_usuario->obtener_todousuarioCoordinador($idUser);
-            }elseif($this->session->userdata('Name')==3){
-                $rsu = $this->model_usuario->obtener_todousuarioProfesor($idUser);
-            }elseif($this->session->userdata('Name')==4){
-                $rsu = $this->model_usuario->obtener_todousuarioPasante($idUser);
-            }elseif($this->session->userdata('Name')==5){
-                $rsu = $this->model_usuario->obtener_todousuarioEmpresa($idUser);
-            }else{
-                $rsu = $this->model_usuario->obtener_usuario($idUser);
-            }
+            $tipo =$this->session->userdata('tipo');
+            $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
             $userData = array(
                'user' => $rsu
             );
+            
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
             //print_r($this->session->userdata());
             $this->load->view('layout/header',$userData);
