@@ -14,6 +14,9 @@ $.post(baseurl + "cadministrador/get_tipo",
     });
 //Aqui lleno la Tabla de usuarios
 $('#tblUsuarios').DataTable({
+     "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
     'paging': true,
     'info': true,

@@ -337,6 +337,14 @@ public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
 
 	$this->db->insert('pasante',$data);
 }
-
+    /*Obtener Profesores */ 
+    public function obtener_Profesores(){
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre, prf.pro_apellido, prf.pro_id, prf.pro_cedula, prf.pro_sexo, es.esc_nombre, tp.pro_tipo');
+		$this->db->from('usuario us');
+		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
+		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');
+		$this->db->join('tipos_profesor tp', 'prf.id_tipo = tp.id_tipo');
+        return $this->db->get()->result();
+	}
 
 }
