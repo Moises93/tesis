@@ -104,6 +104,7 @@ $('#mbtnUpdUsuario').click(function(){
     var idUsuario = $('#mhdnIdUsuario').val();
     var tipo= $('select[name=tipo]').val();
     var login = $('#mtxtLogin').val();
+    var loginTemp = $('#mtxtLogin').val();
     var clave = $('#mtxtClave').val();
     var correo = $('#mtxtCorreo').val();
    
@@ -121,9 +122,9 @@ $('#mbtnUpdUsuario').click(function(){
             function(data){
                 var p = JSON.parse(data);
                 console.log(p);
-                if (p.num_rows>1) {
-                    $("#loginM").html("<span>Este Login ya esta en uso</span>");
-                    selPersona(idUsuario,tipo,login,clave,correo);
+                if (p.num_rows>0 && p.result_array[0].id_usuario != idUsuario) {
+                        $("#loginM").html("<span>Este Login ya esta en uso</span>");
+                        selPersona(idUsuario,tipo,login,clave,correo);
                 }else if(clave.length < 5 ) {
                     $("#claveM").html("<span>Debe ingresar una clave mayor a 4 caracteres</span>");
                     selPersona(idUsuario,tipo,login,clave,correo);
