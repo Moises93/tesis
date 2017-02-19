@@ -51,36 +51,84 @@
 						     </div>
 						     <div class="tab-pane" id="nuevoP">
 						     	<div class="box-body">
+						     	<form>
                                     <div class="form-group">
                                         <div class="col-sm-5">
-                                            <label for="login" class="control-label">Cedula</label>
-                                            <input type="text" class="form-control" id="cedulaP" placeholder="Cedula" name="cedulaP">
+                                            <label for="cedulaP" class="control-label">Cedula</label>
+                                            <input type="text" class="form-control" id="cedulaP" placeholder="Cedula" name="cedulaP" required>
                                             <span  id= "cedulaP" class="help-block"></span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <label for="login" class="control-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombreP" placeholder="Nombre" name="nombreP">
+                                            <label for="nombreP" class="control-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombreP" placeholder="Nombre" name="nombreP" required>
                                             <span  id= "nombreP" class="help-block"></span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <label for="login" class="control-label">Apellido</label>
-                                            <input type="text" class="form-control" id="apellidoP" placeholder="Apellido" name="apellidoP">
+                                            <label for="apellidoP" class="control-label">Apellido</label>
+                                            <input type="text" class="form-control" id="apellidoP" placeholder="Apellido" name="apellidoP" required>
                                             <span  id= "apellidoP" class="help-block"></span>
                                         </div>
-
-                                       <!-- <div class="col-sm-5">
+                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                <label>Padre</label>
-                                                <select id="cbPadre" class="form-control" name="padreM">
-                                                    <option value="0">seleccione:</option>
+                                                <label>Sexo</label>
+                                                <select id="sexo" class="form-control" name="sexo">
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Femenino</option>
                                                 </select>
 
                                             </div>
-                                        </div>-->
+                                         </div>
+                                         <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Escuela</label>
+                                                <select id="sexo" class="form-control" name="sexo">
+                                                    <option value="1">Computacion</option>
+                                                </select>
 
+                                            </div>
+                                         </div>
+                                         <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Tipo Profesor</label>
+                                                <select id="tProfesor" class="form-control" name="tProfesor">
+                                                </select>
 
+                                            </div>
+                                         </div>
+                                        <div class="col-sm-5">
+                                            <label for="emailP" class="control-label">Email</label>
+                                            <input type="email" class="form-control" id="emailP" placeholder="direccion de correo electronio" name="emailP" required>
+                                            <span  id= "apellidoP" class="help-block"></span>
+                                        </div>
+
+                                        <br>
                                     </div>
-                                
+                                    <br>
+                                     <div class="form-group">
+                                        <div class="col-sm-10">
+                                     <center><h3>Ingrese Datos de Acceso</h3></center>
+                                     </div>
+                                     </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="loginP" class="control-label">Login</label>
+                                            <input type="text" class="form-control" id="loginP" placeholder="login" name="loginP" required>
+                                            <span  id= "loginP" class="help-block"></span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <label for="pswP" class="control-label">Password</label>
+                                            <input type="password" class="form-control" id="pswP" placeholder="contraseña" name="pswP" required>
+                                            <span  id= "pswP" class="help-block"></span>
+                                        </div>
+                                    </div>
+                                        <div class="col-sm-10">
+                                     <div class="box-footer">
+                                    <!--<button type="submit" class="btn btn-default">Cancel</button>-->
+                                    <button type="submit" class="btn btn-info pull-right" id="agregarProfesor">Agregar</button>
+
+                                      </div>
+                                      </div>
+                                </form>
                                 </div>
                                 
                              </div>

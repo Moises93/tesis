@@ -50,8 +50,48 @@ $('#tblProfesor').DataTable({
     ],
     "order": [[ 1, "asc" ]],*/
 });
-$(document).ready(function() {
-    $('#example').DataTable( {
-        
-    } );
-} );
+$(document).ready(function(e) {
+//Lleno el datacombo de Tipo Profesor
+$.post(baseurl + "profesor/get_tipoProfesor",
+    function(data) {
+        var p = JSON.parse(data);
+        console.log(p);
+        $.each(p, function (i, item) {
+
+            $('#tProfesor').append('<option value="'+item.id_tipo+'">'+item.pro_tipo+'</option>'
+            );
+        });
+});
+});
+
+$('#agregarProfesor').click(function () {
+
+   var cedula = $('#cedulaP').val();
+   var nombre = $('#nombreP').val();
+   var apellido = $('#apellidoP').val();
+   var sexo = $('#sexo').val();
+   var escuela = $('#escuela').val();
+   var tipo = $('#tProfesor').val();
+   var email = $('#emailP').val();
+   var login = $('#loginP').val();
+   var password = $('#pswP').val();
+   alert(nombre);
+   /* alert(padre);
+    alert(clase);
+    alert(url);*/
+    $.post(baseurl + "profesor/crearProfesor",
+        {
+            nombre: nombre,
+            padre: padre,
+            url: url,
+            clase: clase
+        },
+        function (data) {
+            if (data == 1) {
+                //$('#mbtnCerrarModalP').click();
+
+                location.reload();
+            }
+        });
+
+});

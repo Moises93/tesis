@@ -13,6 +13,7 @@ class Profesor extends CI_controller
      $this->load->model('model_habilidades');
      $this->load->model('model_empresa');
       $this->load->model('model_usuario');
+      $this->load->model('model_tipoprofesor');
   }
 
    public function gestionProfesor() {
@@ -35,6 +36,25 @@ class Profesor extends CI_controller
          $dato = $this->model_usuario->obtener_Profesores();
          echo json_encode($dato);
   }
+
+  public function get_tipoProfesor(){
+        $dato = $this->model_tipoprofesor->obtenerTiposProfesor();
+         echo json_encode($dato); 
+  }
+
+   public function crearProfesor(){
+       /* $nombre = $this->input->post('nombre');
+        $id_padre= $this->input->post('padre');
+        $url= $this->input->post('url');
+        $clase = $this->input->post('clase');
+        $actualizar = $this->model_admin->crearMenu($nombre,$id_padre,$url,$clase);
+        echo $actualizar;
+        if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }*/
+   }
 }
 
 ?>
