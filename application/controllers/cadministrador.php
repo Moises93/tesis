@@ -15,6 +15,8 @@ class cadministrador extends CI_Controller{
 
         $this->load->model('model_usuario');
         $this->load->model('model_admin');
+        $this->load->model('model_ubicacion');
+        $this->load->model('model_habilidades');
     }
 
 
@@ -31,7 +33,7 @@ class cadministrador extends CI_Controller{
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vmantenimiento_usuarios');
+        $this->load->view('usuario/vmantenimiento_usuarios');
         $this->load->view('contenido/footerAdmin');
         
     }
@@ -144,7 +146,7 @@ class cadministrador extends CI_Controller{
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vcrear_usuario',$data);
+        $this->load->view('usuario/vcrear_usuario',$data);
         $this->load->view('contenido/footerAdmin');
 
     }
@@ -166,7 +168,7 @@ class cadministrador extends CI_Controller{
 
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vcrearPasante');
+        $this->load->view('pasante/vcrearPasante');
         $this->load->view('contenido/footerUser');
 
     }
@@ -185,7 +187,7 @@ class cadministrador extends CI_Controller{
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vpermisos');
+        $this->load->view('menu/vpermisos');
         $this->load->view('contenido/footerAdmin');
 
     }
@@ -204,7 +206,7 @@ class cadministrador extends CI_Controller{
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vmtoMenu');
+        $this->load->view('menu/vmtoMenu');
         $this->load->view('contenido/footerAdmin');
 
     }
@@ -231,7 +233,7 @@ class cadministrador extends CI_Controller{
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vcrear_usuario');
+        $this->load->view('usuario/vcrear_usuario');
         $this->load->view('contenido/footerAdmin');
     }
 
@@ -285,13 +287,7 @@ class cadministrador extends CI_Controller{
           }
       }
 
-        // $actualizar = $this->model_admin->actualizar_menu($id_menu,$nombre,$id_padre,$url,$clase);
-        // echo $actualizar;
-       /* if($actualizar)
-        {
-            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
-            return 1;
-        }*/
+
     }
 
     public function crearMenu(){
@@ -343,12 +339,23 @@ class cadministrador extends CI_Controller{
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        /*esto solo para empresa*/
+        $paises = $this->model_ubicacion->getTodosPaises();
+        $estados = $this->model_ubicacion->getTodosEstados();
+        $habilidades = $this->model_habilidades->getTodosHabilidadesComputacion();
+        $foto = null;
+        $data = array(
+            'Paises' => $paises,
+            'Estados' =>$estados,
+            'Habilidades' =>$habilidades,
+            'Foto' => $foto
+        );
 
 
 
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('contenido/vcrearEmpresa');
+        $this->load->view('empresa/vcrearEmpresa',$data);
         $this->load->view('contenido/footerUser');
 
     }

@@ -62,8 +62,10 @@ class Empresa extends CI_controller
             foreach($_POST as $key => $value) {   
                $data[$key] = $value; 
             }
+             print_r($data);
+         exit();
         
-               $nueva_empresa['emp_rif'] = $data['numregistro'];
+               /*$nueva_empresa['emp_rif'] = $data['numregistro'];
                $nueva_empresa['emp_nombre'] = $data['NombreEmpresa'];
                $nueva_empresa['emp_acceso'] = 1;
                $nueva_empresa['emp_foto'] = $data['empresa_foto'];
@@ -85,10 +87,10 @@ class Empresa extends CI_controller
           
              $data1 = array(
         'Paises' => $data
-      );
+      );*/
       
        //$this->load->view('layout/registerheader');
-        $this->load->view('login',$data1);
+      //  $this->load->view('login',$data1);
       
     }
 }

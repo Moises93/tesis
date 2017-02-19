@@ -225,6 +225,7 @@
 <!--<script src="<?php /*echo base_url();*/?>assets/jsproyecto/jqBootstrapValidation.js"></script>-->
 <script src="<?php echo base_url();?>assets/jsproyecto/validator.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/bootstrapValidator.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/select2/select2.full.min.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/crearusuario.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
@@ -241,5 +242,12 @@
     });
   });
 </script>-->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+  });
+</script>
 </body>
 </html>
