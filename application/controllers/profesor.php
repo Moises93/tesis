@@ -8,20 +8,21 @@ class Profesor extends CI_controller
 
   function __construct()
   {
-     parent::__construct();
-     $this->load->model('model_ubicacion');
-     $this->load->model('model_habilidades');
-     $this->load->model('model_empresa');
+      parent::__construct();
+      $this->load->model('model_ubicacion');
+      $this->load->model('model_habilidades');
+      $this->load->model('model_empresa');
       $this->load->model('model_usuario');
       $this->load->model('model_tipoprofesor');
+      $this->load->model('model_profesor');
   }
 
    public function gestionProfesor() {
-    /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+      /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
       $idUser=$this->session->userdata('id');
       $tipo =$this->session->userdata('tipo');
       $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
-       $userData = array(
+      $userData = array(
        'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
       );
     /*****************************************************************/
@@ -43,17 +44,30 @@ class Profesor extends CI_controller
   }
 
    public function crearProfesor(){
-       /* $nombre = $this->input->post('nombre');
-        $id_padre= $this->input->post('padre');
-        $url= $this->input->post('url');
-        $clase = $this->input->post('clase');
-        $actualizar = $this->model_admin->crearMenu($nombre,$id_padre,$url,$clase);
-        echo $actualizar;
+      $cedula = $this->input->post('cedula');
+      $nombre = $this->input->post('nombre');
+      $apellido = $this->input->post('apellido');
+      $sexo = $this->input->post('sexo');
+      $escuela = $this->input->post('escuela');
+      $tipo = $this->input->post('tipo');
+      $email = $this->input->post('email');
+      $login = $this->input->post('login');
+      $password = $this->input->post('password');
+      $idUser = $this->model_usuario->insertar2($login,$password,3,$email);
+      $data = array(
+        'pro_cedula' => $cedula,
+        'pro_nombre' => $nombre,
+        'pro_apellido' => $apellido,
+        'pro_sexo' =>$sexo,
+        'id_usuario' =>$idUser,
+        'id_escuela' =>$escuela,
+        'id_tipo'=>$tipo
+        );
+        $actualizar = $this->model_profesor->crearProfesor($data);
         if($actualizar)
         {
-            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
             return 1;
-        }*/
+        }
    }
 }
 

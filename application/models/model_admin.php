@@ -80,8 +80,6 @@ class Model_admin extends CI_Model
             'activo' =>$activo
         );
          return $this->db->insert('menu',$data);
-
-
     }
     function eliminarMenu($id_menu){
         $this->db->where('id_menu', $id_menu);

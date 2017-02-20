@@ -87,10 +87,19 @@ class Model_usuario extends CI_Model
 			'usu_clave' => $clave,
 			'usu_estatus' => 1,
 			'usu_correo' => $correo,
-
 		);
-
-		$this->db->insert('usuario',$data);
+		return $this->db->insert('usuario',$data);
+	}
+	function insertar2($login,$clave,$tipo,$correo){
+		$data = array(
+			'id_tipo' => $tipo,
+			'usu_login' => $login,
+			'usu_clave' => $clave,
+			'usu_estatus' => 1,
+			'usu_correo' => $correo,
+		);
+		 $this->db->insert('usuario',$data);
+		 return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
 	}
 
 	function getTipo() {

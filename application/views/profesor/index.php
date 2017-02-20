@@ -81,7 +81,7 @@
                                          <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label>Escuela</label>
-                                                <select id="sexo" class="form-control" name="sexo">
+                                                <select id="escuela" class="form-control" name="escuela">
                                                     <option value="1">Computacion</option>
                                                 </select>
 
@@ -100,7 +100,6 @@
                                             <input type="email" class="form-control" id="emailP" placeholder="direccion de correo electronio" name="emailP" required>
                                             <span  id= "apellidoP" class="help-block"></span>
                                         </div>
-
                                         <br>
                                     </div>
                                     <br>
