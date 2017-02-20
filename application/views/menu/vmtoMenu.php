@@ -7,7 +7,20 @@
  */
 ?>
 
-
+<section class="content-header">
+    <h1>
+        Gestion Menu
+        <small>sispas</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> inicio</a></li>
+        <li><a href="#">Menus</a></li>
+        <li class="active">Gestion Menu</li>
+    </ol>
+</section>
+<center>
+    <img  src="<?php echo base_url();?>assets/img/menu.png"  width=178 HEIGHT=180 BORDER=2 ALT="Obra de K. Haring">
+</center>
 
 
 <section class="content">

@@ -136,6 +136,14 @@ class Empresa extends CI_controller
 
     }
 
+
+    public function getUsuarioEmpresa(){
+        $dato = $this->model_empresa->getUsuarioEmpresa();
+        echo json_encode($dato);
+
+
+    }
+
  public function agregarUsuarioE(){
      $cedula= $this->input->post('cedula');
      $nombre= $this->input->post('nombre');
@@ -157,7 +165,21 @@ class Empresa extends CI_controller
 
      return $this->model_empresa->agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$id_usuario,$tipoUe);
  }
+    public function updUsuarioE(){
 
+        $idusuario_empresa = $this->input->post('id');
+        $uem_sexo = $this->input->post('sexo');
+        $uem_cedula= $this->input->post('cedula');
+        $uem_nombre = $this->input->post('nombre');
+        $uem_apellido = $this->input->post('apellido');
+        $actualizar = $this->model_empresa->updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_sexo);
+        echo $actualizar;
+        if($actualizar)
+        {
+            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
+            return 1;
+        }
+    }
 
 
 }

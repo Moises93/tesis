@@ -70,3 +70,79 @@ $('#paisId').change(function(e) {
  }*/
 
 //});
+
+$('#tblEmpresa').DataTable({
+    "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+    },
+    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+    'paging': true,
+    'info': true,
+    'filter': true,
+    'stateSave': true,
+
+    'ajax': {
+        "url":baseurl+"empresa/getEmpresa",
+        "type":"POST",
+        dataSrc: ''
+    },'columns': [
+        {data: 'emp_id','sClass':'dt-body-center'},
+        {data: 'emp_rif'},
+        {data: 'emp_nombre'},
+        {data: 'emp_nombre'},
+        {data: 'emp_acceso'},
+        {data: 'emp_email_contacto'},
+        {orderable: 'true',
+            render: function (data,type,row) {
+                console.log(row);
+                return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                    'data-target="#modalEditEmpresa" ' +
+                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editars</a>';
+
+
+            }
+        }
+    ],
+    "columnDefs": [
+        {
+            "targets": [3],
+            "data": "emp_foto",
+            "render": function(data, type, row) {
+
+                    //return '<img src="data:image/jpg;base64,<?php echo base64_encode(\'' + row.emp_foto + '\'); ?>" />';
+                return '<img src="'+row.emp_foto +'" />';
+
+
+
+            }
+        }
+    ],
+    "columnDefs": [
+        {
+            "targets": [4],
+            "data": "emp_acceso",
+            "render": function(data, type, row) {
+
+                if (data == 0) {
+                    return '<a href="#" title="Habilitar Usuario" onClick="cambioEstatus(' + row.emp_id + ',' + 1 + ')"><span class="label label-danger">Inactivo &nbsp;</span><i style="color:green; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+                }else if (data == 1) {
+                    return '<a href="#" title="Deshabilitar Usuario" onClick="cambioEstatus(' + row.emp_id + ',' + 0 + ')"><span class="label label-success">Activo</span><i style="color:red; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+
+                }
+
+            }
+        }
+    ],
+    "order": [[ 1, "asc" ]],
+});
+
+//con esta funcion pasamos los paremtros a los text del modal.
+selEmpresa= function(id,rif, nombre, foto, correo){
+    console.log("este es ek correo",correo);
+    $('#idEmpresa').val(id);
+    $('#rifE').val(rif);
+    $('#nameE').val(nombre);
+   // $('#fotoE').val(nombre);//error con foto
+    $('#correoE').val(correo);
+
+};

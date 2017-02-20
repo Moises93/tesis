@@ -36,6 +36,18 @@ class Model_empresa extends CI_Model
 		return $data;
 	}
 
+	function getUsuarioEmpresa() {
+		$data = array();
+		$query = $this->db->get('usuario_empresa');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
+
 	public function agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$data,$tipo){
 		$data = array(
 			'uem_nombre' => $nombre,
@@ -49,5 +61,17 @@ class Model_empresa extends CI_Model
 		);
 
 		$this->db->insert('usuario_empresa',$data);
+	}
+
+	function updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_sexo){
+		$data = array(
+			'uem_nombre' => $uem_nombre,
+			'uem_cedula' => $uem_cedula,
+			'uem_apellido' => $uem_apellido,
+			'uem_sexo' => $uem_sexo
+		);
+		$this->db->where('idusuario_empresa', $idusuario_empresa);
+		return $this->db->update('usuario_empresa', $data);
+
 	}
 }
