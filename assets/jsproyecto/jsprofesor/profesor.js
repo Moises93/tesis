@@ -75,16 +75,21 @@ $('#agregarProfesor').click(function () {
    var email = $('#emailP').val();
    var login = $('#loginP').val();
    var password = $('#pswP').val();
-   alert(nombre);
+   //alert(nombre);
    /* alert(padre);
     alert(clase);
     alert(url);*/
     $.post(baseurl + "profesor/crearProfesor",
         {
+            cedula: cedula,
             nombre: nombre,
-            padre: padre,
-            url: url,
-            clase: clase
+            apellido: apellido,
+            sexo: sexo,
+            escuela: escuela,
+            tipo: tipo,
+            email: email,
+            login: login,
+            password: password,
         },
         function (data) {
             if (data == 1) {
