@@ -169,7 +169,7 @@ class cadministrador extends CI_Controller{
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('pasante/vcrearPasante');
-        $this->load->view('contenido/footerUser');
+        $this->load->view('pasante/footerPasante');
 
     }
 
