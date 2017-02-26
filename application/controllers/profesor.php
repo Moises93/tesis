@@ -26,15 +26,24 @@ class Profesor extends CI_controller
        'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
       );
     /*****************************************************************/
-   
+    $profesores = $this->model_usuario->obtener_Profesores();
+    $cant = count($profesores);
+        $data = array(
+           'Profesores' => $profesores,
+           'Cantidad' =>$cant
+         );
+        $data["message"] = NULL;
+        @$data["message"]=$this->uri->segment(2);
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('profesor/index');
+        $this->load->view('profesor/index',$data);
         $this->load->view('profesor/footerProfesor');
   }
    /*Actualizada el 18-02-2017*/
   public function get_profesores(){
          $dato = $this->model_usuario->obtener_Profesores();
+         header('Content-Type: application/json');
+
          echo json_encode($dato);
   }
 
@@ -68,6 +77,20 @@ class Profesor extends CI_controller
         {
             return 1;
         }
+   }
+
+   public function update_profesor(){
+      
+    $columna = $_POST["column"];
+    $valor = $_POST["editval"];
+    $id = $_POST["id"];
+    
+    $this->model_profesor->updateProfesor($columna,$valor,$id);
+     /*if($resultado){
+         redirect('/profesor/gestionProfesor/ok');
+      }else{
+         redirect('/profesor/gestionProfesor/fail');
+      }*/
    }
 }
 

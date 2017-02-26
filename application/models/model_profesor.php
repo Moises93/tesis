@@ -20,5 +20,11 @@ class Model_profesor extends CI_Model
 		$this->db->insert('profesor', $data);
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
-
+    public function updateProfesor($c,$v,$i){
+    	$data = array(
+          $c => $v
+    	);
+    	$this->db->where('pro_id',$i);
+    	$this->db->update('profesor',$data);
+    }
 }

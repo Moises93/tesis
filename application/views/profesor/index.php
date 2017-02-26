@@ -1,3 +1,25 @@
+<?php 
+     if($message=='ok'):
+ ?>
+     <script>
+              $(document).ready(function(e) {
+                 toastr.success('Se han realizado los cambios satisfactoriamente.');
+                 }); 
+               </script>
+                <?php 
+                  endif;
+                   ?>
+                 <?php 
+                    if($message=='fail'):
+                    ?>
+                    <script>
+                        $(document).ready(function(e) {
+                            toastr.error('Ha ocurrido algún problema realizando los cambios.');
+                        });
+                    </script>
+<?php 
+endif;
+?>
 
 <!-- Content Header (Page header) -->
 		<section class="content-header">
@@ -33,6 +55,7 @@
 								<table id="tblProfesor" class="table table-bordered table-striped">
 									<thead>
 									<tr>
+                                        <th></th>
 										<th>ID</th>
 										<th>Cedula</th>
 										<th>Nombre</th>
@@ -43,7 +66,21 @@
 										<th>Usuario</th>
 									</tr>
 									</thead>
-									<tbody></tbody>
+                                    <tbody>
+                                     <?php foreach($Profesores as $row): ?>
+                                         <tr> 
+                                                <td></td>
+                                                <td class="hidden-xs"><?=$row->pro_id?></td>
+                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_cedula','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_cedula?></td>
+                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_nombre','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_nombre?></td>
+                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_apellido','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_apellido?></td>
+                                                <td class="hidden-xs"><?=$row->pro_sexo?></td>
+                                                <td class="hidden-xs"><?=$row->esc_nombre?></td>
+                                                <td class="hidden-xs"><?=$row->pro_tipo?></td>
+                                                <td class="hidden-xs"><?=$row->id_usuario?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                        </tbody>
 								</table>
 
 
@@ -139,8 +176,6 @@
 			<!-- /.row -->
 		</section>
 		<!-- /.content -->
-
-
 <!-- Final modal-->
 <script type="text/javascript">
 	var baseurl = "<?php echo base_url(); ?>";
