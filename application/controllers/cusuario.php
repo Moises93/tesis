@@ -33,7 +33,12 @@ class Cusuario extends CI_Controller
             //print_r($this->session->userdata());
             $this->load->view('layout/header',$userData);
             $this->load->view('layout/vmenu',$data);
-            $this->load->view('contenido/vPrueba');
+            if($tipo==4){
+                $this->load->view('contenido/vpasante');
+            }else{
+                $this->load->view('contenido/vPrueba');
+            }
+            
             $this->load->view('layout/footer');
         }
 	}

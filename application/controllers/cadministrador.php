@@ -260,15 +260,15 @@ class cadministrador extends CI_Controller{
         $menu=json_decode($data);
        //echo("user gc".$id_user);
         //echo($id_user);
-        print_r($menu);
+        //print_r($menu);
         $menus = count($menu);
-        echo($menus);
+     //   echo($menus);
         $permisos = $this->model_usuario->permisosUsuario($id_user);
         $resultado = count($permisos);
 
-        print_r($menu);
+       // print_r($menu);
         $menus = count($menu);
-        echo($menus);
+      //  echo($menus);
         print_r($permisos);
         echo($resultado);
       
