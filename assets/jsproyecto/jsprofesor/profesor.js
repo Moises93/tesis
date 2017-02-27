@@ -1,6 +1,45 @@
 function showEdit(editableObj) {
             $(editableObj).css("background","#CCDCE6");
         } 
+
+function saveToDatabaseSexo(obj,editableObj,column,id) {
+            $(obj).css("background","#FFFFFF no-repeat right");
+             
+           var sexo = document.getElementById(editableObj).value;      
+            $.ajax({
+                url: baseurl+"profesor/update_profesor",
+                type: "POST",
+                data:'column='+column+'&editval='+sexo+'&id='+id,
+                success: function(data){
+                  
+                  $(obj).css("background","#FDFDFD");
+                     $('td:nth-child(7)').hide();
+                     $('th:nth-child(7)').hide(); 
+                     $('td:nth-child(6)').show();
+                     $('th:nth-child(6)').show(); 
+                 location.reload();//Recargar Pagina 
+                }        
+           });
+}
+function saveToDatabaseTipo(obj,editableObj,column,id) {
+            $(obj).css("background","#FFFFFF no-repeat right");
+             
+           var tipo = document.getElementById(editableObj).value;      
+            $.ajax({
+                url: baseurl+"profesor/update_profesor",
+                type: "POST",
+                data:'column='+column+'&editval='+tipo+'&id='+id,
+                success: function(data){
+                  
+                  $(obj).css("background","#FDFDFD");
+                     $('td:nth-child(10)').hide();
+                     $('th:nth-child(10)').hide(); 
+                     $('td:nth-child(9)').show();
+                     $('th:nth-child(9)').show(); 
+                 location.reload();//Recargar Pagina 
+                }        
+           });
+}
 function saveToDatabase(editableObj,column,id) {
             $(editableObj).css("background","#FFFFFF no-repeat right");
             $.ajax({
@@ -18,11 +57,19 @@ $(document).ready(function(e) {
 $.post(baseurl + "profesor/get_tipoProfesor",
     function(data) {
         var p = JSON.parse(data);
+        var cantidad = 5;//cantidad de profesores
        // console.log(p);
         $.each(p, function (i, item) {
 
             $('#tProfesor').append('<option value="'+item.id_tipo+'">'+item.pro_tipo+'</option>'
             );
+            for (var i = 0; i < cantidad; i++) {
+              $('#'+i+'tipoProfesor').append('<option value="'+item.id_tipo+'">'+item.pro_tipo+'</option>'
+              );
+            }
+           /* $('#'+j+'tipoProfesor').append('<option value="'+item.id_tipo+'">'+item.pro_tipo+'</option>'
+            );
+           */
         });
 });
 });

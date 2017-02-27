@@ -20,7 +20,27 @@
 <?php 
 endif;
 ?>
+<script>
+function showEditSexo() {
+           
+             $('td:nth-child(6)').hide();
+             $('th:nth-child(6)').hide(); 
+             $('td:nth-child(7)').show();
+             $('th:nth-child(7)').show(); 
+      
+             //document.getElementById('sexo').style.display='block';
+} 
+function showEditTipo() {
+           
+             $('td:nth-child(9)').hide();
+             $('th:nth-child(9)').hide(); 
+             $('td:nth-child(10)').show();
+             $('th:nth-child(10)').show(); 
+      
+             //document.getElementById('sexo').style.display='block';
+} 
 
+</script>
 <!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -61,25 +81,46 @@ endif;
 										<th>Nombre</th>
 										<th>Apellido</th>
 										<th>Sexo</th>
+                    <th  style="display:none;">Sexo</th>
 										<th>Escuela</th>
 										<th>Tipo</th>
+                    <th  style="display:none;">Tipo</th>
 										<th>Usuario</th>
 									</tr>
 									</thead>
                                     <tbody>
-                                     <?php foreach($Profesores as $row): ?>
+                                     <?php 
+                                       $j= 0;
+                                     foreach($Profesores as $row):?>
+
                                          <tr> 
                                                 <td></td>
                                                 <td class="hidden-xs"><?=$row->pro_id?></td>
                                                 <td contenteditable="true" onBlur="saveToDatabase(this,'pro_cedula','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_cedula?></td>
                                                 <td contenteditable="true" onBlur="saveToDatabase(this,'pro_nombre','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_nombre?></td>
                                                 <td contenteditable="true" onBlur="saveToDatabase(this,'pro_apellido','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_apellido?></td>
-                                                <td class="hidden-xs"><?=$row->pro_sexo?></td>
+                                                <td class="hidden-xs" contenteditable="true"  onClick="showEditSexo();" ><label><?=$row->pro_sexo?></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                   <select id="<?=$j."sexo"?>" class="form-control" name="<?=$j."sexo"?>"  onBlur="saveToDatabaseSexo(this,'<?=$j."sexo"?>','pro_sexo','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" > 
+                                                        <option value="M">Masculino</option>
+                                                        <option value="F">Femenino</option>
+                                                      </select>
+                                                </td>
                                                 <td class="hidden-xs"><?=$row->esc_nombre?></td>
-                                                <td class="hidden-xs"><?=$row->pro_tipo?></td>
+                                                <td class="hidden-xs" contenteditable="true"  onClick="showEditTipo();">
+                                                     <label><?=$row->pro_tipo?></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                     <select id="<?=$j."tipoProfesor"?>" class="form-control" name="<?=$j."tipoProfesor"?>" onBlur="saveToDatabaseTipo(this,'<?=$j."tipoProfesor"?>','id_tipo','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);">
+                                                     </select>
+                                                </td>
                                                 <td class="hidden-xs"><?=$row->id_usuario?></td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php
+                                       $j = $j + 1; 
+                                    endforeach; 
+                                    ?>
                         </tbody>
 								</table>
 
