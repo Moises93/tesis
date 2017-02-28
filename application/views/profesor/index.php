@@ -1,27 +1,5 @@
-<?php 
-     if($message=='ok'):
- ?>
-     <script>
-              $(document).ready(function(e) {
-                 toastr.success('Se han realizado los cambios satisfactoriamente.');
-                 }); 
-               </script>
-                <?php 
-                  endif;
-                   ?>
-                 <?php 
-                    if($message=='fail'):
-                    ?>
-                    <script>
-                        $(document).ready(function(e) {
-                            toastr.error('Ha ocurrido algún problema realizando los cambios.');
-                        });
-                    </script>
-<?php 
-endif;
-?>
 <script>
-function showEditSexo() {
+ function showEditSexo() {
            
              $('td:nth-child(6)').hide();
              $('th:nth-child(6)').hide(); 
@@ -44,6 +22,7 @@ function showEditTipo() {
 <!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
+
 				Gestion Profesor
 				<small>sispas</small>
 			</h1>
@@ -53,6 +32,7 @@ function showEditTipo() {
 				<li class="active">Gestion Profesor</li>
 			</ol>
 		</section>
+
             <center>
                  <img  src="<?php echo base_url();?>assets/img/icoprofesor.png"  width=178 HEIGHT=180 BORDER=2 ALT="Obra de K. Haring">
             </center>
@@ -63,16 +43,22 @@ function showEditTipo() {
 					<div class="nav-tabs-custom">
 					    <ul class="nav nav-tabs">
                             <li class="active"><a href="#fa-icons" data-toggle="tab">Mto. Profesores</a></li>
+                             <li><a href="#cargaP" data-toggle="tab">Carga Masiva</a></li>
                             <li><a href="#nuevoP" data-toggle="tab">Nuevo Profesor</a></li>
                         </ul>
                         <div class="tab-content">
+                                <div class=class="form-group">
+                                      <button type="button" id="exportar" class="btn btn-success pull-right"> Exportar <i class="fa fa-download "></i></button>
+                                </div>
 							<div class="tab-pane active" id="fa-icons">
 							   <div class="box-header">
 								 <h3 class="box-title"> Totalidad de Profesores dentro del sistema</h3>
 							   </div>
+                            
+
 							   <div class="box-body">
 
-								<table id="tblProfesor" class="table table-bordered table-striped">
+								<table id="tblProfesor"  class="table table-bordered table-striped">
 									<thead>
 									<tr>
                                         <th></th>
@@ -127,6 +113,8 @@ function showEditTipo() {
 
 						       </div>
 						     </div>
+                             <div class="tab-pane" id="cargaP">
+                             </div>
 						     <div class="tab-pane" id="nuevoP">
 						     	<div class="box-body">
 						     	<form>

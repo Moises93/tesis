@@ -53,6 +53,22 @@ function saveToDatabase(editableObj,column,id) {
 }
 
 $(document).ready(function(e) {
+   $('#tblProfesor').DataTable({
+     "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+    },
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+    });
+      $('#exportar').click(function(e) {
+      var path    =  baseurl + "profesor/profesor_list_csv";
+      window.open(path,'_blank');
+    });
+  
 //Lleno el datacombo de Tipo Profesor
 $.post(baseurl + "profesor/get_tipoProfesor",
     function(data) {
@@ -74,7 +90,7 @@ $.post(baseurl + "profesor/get_tipoProfesor",
 });
 });
  
-
+  
 
 $('#agregarProfesor').click(function () {
 
