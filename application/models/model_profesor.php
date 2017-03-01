@@ -35,4 +35,13 @@ class Model_profesor extends CI_Model
 		return $data;
 	}
 
+
+	public function updateProfesor($c,$v,$i){
+		$data = array(
+			$c => $v
+		);
+		$this->db->where('pro_id',$i);
+		$this->db->update('profesor',$data);
+	}
+
 }
