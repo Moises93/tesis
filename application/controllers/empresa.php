@@ -143,6 +143,13 @@ class Empresa extends CI_controller
 
 
     }
+    public function getUsuarioDeEmpresa(){
+        $EmpId= $this->input->post('empId');
+        $dato = $this->model_empresa->getUsuarioDeEmpresa($EmpId);
+        echo json_encode($dato);
+
+
+    }
 
  public function agregarUsuarioE(){
      $cedula= $this->input->post('cedula');

@@ -137,7 +137,7 @@
                                             <th>Sexo</th>
                                             <th>Escuela</th>
                                             <th>Correo</th>
-                                            <th>Id acceso</th>
+                                            <th>Login</th>
                                             <th>accion</th>
                                         </tr>
                                         </thead>

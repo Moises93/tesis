@@ -47,6 +47,20 @@ class Model_empresa extends CI_Model
 		$query->free_result();
 		return $data;
 	}
+	function getUsuarioDeEmpresa($EmpId){
+		$data = array();
+		$this->db->where('emp_id',$EmpId);
+		$query= $this->db->get('usuario_empresa');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+		
+	}
+
 
 	public function agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$data,$tipo){
 		$data = array(

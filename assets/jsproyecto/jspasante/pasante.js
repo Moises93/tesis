@@ -193,7 +193,7 @@ $('#tblPasantes').DataTable({
     'stateSave': true,
 
     'ajax': {
-        "url":baseurl+"cpasante/get_pasantes",
+        "url":baseurl+"cpasante/getEstudiantes",
         "type":"POST",
         dataSrc: ''
     },'columns': [
@@ -202,8 +202,9 @@ $('#tblPasantes').DataTable({
         {data: 'pas_nombre'},
         {data: 'pas_apellido'},
         {data: 'pas_sexo'},
-        {data: 'id_usuario'},//,
-        {data: 'id_escuela'}//,
+        {data: 'esc_nombre'},
+        {data: 'usu_correo'},//,
+        {data: 'usu_login'}//,
         /*{orderable: 'true',
          render: function (data,type,row) {
 

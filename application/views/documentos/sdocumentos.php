@@ -25,8 +25,7 @@
                 <td><input type="text" name="titulo"></td>
             </tr>
             <tr>
-                <td><label>Descripcion</label></td>
-                <td><textarea name="descripcion"></textarea></td>
+                <td><input type=hidden name="descripcion" value="archivoPrueba"></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="file" name="archivo"></td>

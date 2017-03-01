@@ -12,9 +12,14 @@ class Model_pasante extends CI_Model
         parent::__construct();
     }
 
-
-    function getPasante() {
-        $data = array();
+/*mejorar con inner para traerme datos de usuario*/
+    function getEstudiantes() {
+        $this->db->select('*');
+        $this->db->from('pasante pas ');
+        $this->db->join('usuario usu', 'pas.id_usuario = usu.id_usuario');
+        $this->db->join('escuela esc', 'esc.id_escuela = pas.id_escuela');
+        return $this->db->get()->result();
+       /* $data = array();
         $query = $this->db->get('pasante');
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row){
@@ -22,7 +27,31 @@ class Model_pasante extends CI_Model
             }
         }
         $query->free_result();
-        return $data;
+        return $data;*/
     }
-   
+    /*busco aquellos que no aparezcan en la tabla pasantia y me traigo datos de usuario para el login*/
+    function getPostulados() {
+       /* $this->db->select('pas.pas_id,pas.pas_nombre,pas.pas_apellido,usu.usu_login');
+        $this->db->from('pasante pas');
+        $this->db->join('usuario usu', 'pas.id_usuario = usu.id_usuario','left');
+        $this->db->join('pasantia pa', 'pas.pas_id = pa.pas_id','left');
+        $this->db->where('pas.pas_id IS NULL',null,false);
+        $this->db->get()->result();*/
+        $sql = "SELECT pas.pas_id, pas.pas_cedula, pas.pas_nombre, pas.pas_sexo, pas.id_usuario, pas.id_escuela,us.id_usuario, us.usu_correo, us.usu_foto, us.usu_estatus, us.usu_login from pasante as pas";
+        $sql = $sql . " left join usuario us on us.id_usuario = pas.id_usuario";
+        $sql = $sql . " left join pasantia pasan on pas.pas_id = pasan.pas_id";
+        $sql = $sql . " where pasan.pas_id is null";
+
+// Ejecuta Consulta
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }
+        else{
+            return array();
+        }
+
+
+
+    }
 }

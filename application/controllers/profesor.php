@@ -43,6 +43,13 @@ class Profesor extends CI_controller
          echo json_encode($dato); 
   }
 
+    public function get_ProfesoresTipo(){
+        $idEscuela = $this->input->post('idEscuela');
+        $idTipo = $this->input->post('idTipo');
+        $dato = $this->model_profesor->get_ProfesoresTipo($idEscuela,$idTipo);
+        echo json_encode($dato);
+    }
+
    public function crearProfesor(){
       $cedula = $this->input->post('cedula');
       $nombre = $this->input->post('nombre');

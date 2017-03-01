@@ -39,13 +39,14 @@ class Cdocumentos extends CI_controller
     public function cargar_archivo() {
         
         
-        $titulo=$this->input->post('titulo');
-
+        $titulo=$this->input->post('descripcion');
+        $login=$this->session->userdata('Login');
         $idUser=$this->session->userdata('id');
         $archivo = 'archivo';
         $config['upload_path'] = "documentos/";
-        $config['file_name'] = $titulo;
+        $config['file_name'] = $login.$titulo;
         $config['allowed_types'] = "*";
+        $config['overwrite']=true; //sobreescrie archivos
         $config['max_size'] = "50000";
         $config['max_width'] = "2000";
         $config['max_height'] = "2000";
@@ -64,7 +65,7 @@ class Cdocumentos extends CI_controller
         $data['uploadSuccess'] = $this->upload->data();
         $tipo= $data['uploadSuccess']['file_type'];
         $size= $data['uploadSuccess']['file_size'];
-       // print_r($data['uploadSuccess']);
+        print_r($data['uploadSuccess']);
        // echo $data['uploadSuccess']['file_size'];
 
        $datas = array(
@@ -78,7 +79,7 @@ class Cdocumentos extends CI_controller
         print_r($datas);
         $this->model_documentos->guardarDocumento($datas);
 
-        redirect('/cdocumentos/subir_documentos', 'refresh');
+        //redirect('/cdocumentos/subir_documentos', 'refresh');
 
 
     }

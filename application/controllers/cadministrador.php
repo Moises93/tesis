@@ -339,7 +339,7 @@ class cadministrador extends CI_Controller{
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
-        /*esto solo para empresa*/
+        /*esto solo para empresa para cargar los data combos de paises, estados y habiliades */
         $paises = $this->model_ubicacion->getTodosPaises();
         $estados = $this->model_ubicacion->getTodosEstados();
         $habilidades = $this->model_habilidades->getTodosHabilidadesComputacion();
@@ -350,7 +350,7 @@ class cadministrador extends CI_Controller{
             'Habilidades' =>$habilidades,
             'Foto' => $foto
         );
-
+        /*hasta aqui , mando la data a la vista para procesarla*/
 
 
         $this->load->view('layout/header',$userData);

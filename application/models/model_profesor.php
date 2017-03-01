@@ -21,4 +21,18 @@ class Model_profesor extends CI_Model
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
 
+	public function get_ProfesoresTipo($idEscuela,$idTipo){
+		$data = array();
+		$this->db->where('id_escuela',$idEscuela);
+		$this->db->where('id_tipo',$idTipo);
+		$query= $this->db->get('profesor');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
+
 }

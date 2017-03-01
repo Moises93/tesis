@@ -34,7 +34,7 @@ class Cusuario extends CI_Controller
             $this->load->view('layout/header',$userData);
             $this->load->view('layout/vmenu',$data);
             if($tipo==4){
-                $this->load->view('contenido/vpasante');
+                $this->load->view('pasante/vpasante');
             }else{
                 $this->load->view('contenido/vPrueba');
             }
