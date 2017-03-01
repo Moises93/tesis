@@ -54,4 +54,13 @@ class Model_pasante extends CI_Model
 
 
     }
+    
+    function esPasante($idPas){
+        $this->db->select('*');
+        $this->db->from('pasante pas ');
+        $this->db->join('pasantia pa', 'pas.pas_id=pa.pas_id');
+        $this->db->where('pa.pas_id', $idPas);
+        return $this->db->get()->result();
+
+    }
 }

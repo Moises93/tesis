@@ -39,29 +39,95 @@ $('#agregarPasantia').click(function () {
     var fecha = $('#reservation').val().split('-');
     var fechaIni=fecha[0].replace("/","-");
     var fechaFin=fecha[1].replace("/","-");
+  /*  $.post(baseurl + "cpasante/esPasante",
+        {
+            estudiante: estudiante,
 
-        $.post(baseurl + "cpasantia/agregarPasantia",
-            {
-                modalidad: modalidad,
-                empresa: empresa,
-                tutorE: tutorE,
-                tutorA: tutorA,
-                escuela: escuela,
-                estudiante: estudiante,
-                fechaIni: fechaIni,
-                fechaFin: fechaFin
-            },
-            function (data) {
-                console.log(data);
-                if (data) {
-                    //$('#mbtnCerrarModalP').click();
-                   alert("Insercion exitosa");
-                    location.reload();
-                }
-            });
-
+        },
+        function (data) {
+            console.log(data);
+            if(data == 0){
+                alert("Ya el estudiante esta realizando una Pasantia");
+            }else if(data == 1){*/
+                $.post(baseurl + "cpasantia/agregarPasantia",
+                    {
+                        modalidad: modalidad,
+                        empresa: empresa,
+                        tutorE: tutorE,
+                        tutorA: tutorA,
+                        escuela: escuela,
+                        estudiante: estudiante,
+                        fechaIni: fechaIni,
+                        fechaFin: fechaFin
+                    },
+                    function (data) {
+                        console.log(data);
+                        if (data) {
+                            //$('#mbtnCerrarModalP').click();
+                            alert("Insercion exitosa");
+                            location.reload();
+                        }
+                    });
+            //}
+        //});
 
 });
+
+    $('#tabPasantias').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "Todos"]],
+        'paging': true,
+        'info': true,
+        'filter': true,
+        'stateSave': true,
+
+        'ajax': {
+            "url":baseurl+"cpasantia/getPasantia",
+            "type":"POST",
+            dataSrc: ''
+        },'columns': [
+            {data: 'id_pasantia','sClass':'dt-body-center'},
+            {data: 'estatus'},
+            {data: 'usu_login'},
+            {data: 'fecha_inicio'},
+            {data: 'fecha_final'},
+            {data: 'modalidad'},
+            {data: 'emp_nombre'},//,
+            {data: 'uem_nombre'},//,
+            {data: 'pro_nombre'},
+            {data: 'esc_nombre'}//,
+            /*{orderable: 'true',
+             render: function (data,type,row) {
+
+             return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+             'data-target="#modalEditUsuario" ' +
+             'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.id_tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
+
+
+             }
+             }*/
+        ]//,
+        /*"columnDefs": [
+         {
+         "targets": [4],
+         "data": "usu_estatus",
+         "render": function(data, type, row) {
+
+         if (data == 0) {
+         return '<a href="#" title="Habilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 1 + ')"><span class="label label-danger">Inactivo &nbsp;</span><i style="color:green; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+         }else if (data == 1) {
+         return '<a href="#" title="Deshabilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 0 + ')"><span class="label label-success">Activo</span><i style="color:red; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+
+         }
+
+         }
+         }
+         ],
+         "order": [[ 1, "asc" ]],*/
+    });
+
 
 });
 function cargarTutorE() {

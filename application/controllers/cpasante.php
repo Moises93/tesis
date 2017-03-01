@@ -138,7 +138,15 @@ class Cpasante extends CI_controller
         force_download($name,$data);
 
     }
-
+    public function esPasante(){
+        $idPas= $this->input->post('estudiante');
+        $resul=$this->model_pasante->esPasante($idPas);
+        if (isset($resul)){
+           return 1;
+        }else{
+            return 0;
+        }
+    }
 }
 
 

@@ -35,7 +35,14 @@ class Model_pasantia extends CI_Model
     }
 
     function getPasantia() {
-        $this->db->get('pasantia');
+        $this->db->select('*');
+        $this->db->from('pasantia pas ');
+        $this->db->join('usuario_empresa uem', 'pas.idusuario_empresa = uem.idusuario_empresa');
+        $this->db->join('pasante pa', 'pas.pas_id= pa.pas_id');
+        $this->db->join('usuario usu', 'usu.id_usuario= pa.id_usuario');
+        $this->db->join('empresa emp', 'pas.emp_id=emp.emp_id');
+        $this->db->join('profesor prof', 'pas.pro_id=prof.pro_id');
+        $this->db->join('escuela esc', 'pas.id_escuela=esc.id_escuela');
         return $this->db->get()->result();
     }
 }

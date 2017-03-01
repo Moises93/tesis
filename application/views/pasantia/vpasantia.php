@@ -26,18 +26,18 @@ Gestion Pasantias
 				<div class="col-xs-12">
 					<div class="nav-tabs-custom">
 					    <ul class="nav nav-tabs">
-                            <li class="active"><a href="#fa-icons" data-toggle="tab">Mto. Pasant&iacute;a</a></li>
+                            <li class="active"><a href="#pasantias" data-toggle="tab">Mto. Pasant&iacute;a</a></li>
                             <li><a href="#nuevoP" data-toggle="tab">Nueva Pasant&iacute;a</a></li>
                         </ul>
                         
                         <div class="tab-content">
-                            <div class="tab-pane active" id="fa-icons">
+                            <div class="tab-pane active" id="pasantias">
                                        <div class="box-header">
                                          <h3 class="box-title"> Totalidad de Pasan&iacute;as dentro del sistema</h3>
                                        </div>
                                        <div class="box-body">
         
-                                        <table id="" class="table table-bordered table-striped">
+                                        <table id="tabPasantias" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
