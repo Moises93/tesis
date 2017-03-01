@@ -33,7 +33,8 @@
                 </div>
                 <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
+        <!-- /.info-box -->
     </div>
+
 </section>
 
