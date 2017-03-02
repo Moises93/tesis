@@ -1,12 +1,12 @@
 <section class="content-header">
     <h1>
-        Gestion Pasante
+        Gestion Estudiante
         <small>sispas</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> inicio</a></li>
         <li><a href="#">Usuarios</a></li>
-        <li class="active">Gestion Pasante</li>
+        <li class="active">Gestion Estudiante</li>
     </ol>
 </section>
 <center>
@@ -17,8 +17,9 @@
 <div class="col-md-12">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#RegistrarP" data-toggle="tab">Registrar Pasante</a></li>
-            <li><a href="#mtoPas" data-toggle="tab">Gestion Pasante</a></li>
+            <li class="active"><a href="#RegistrarP" data-toggle="tab">Registrar Estudiante</a></li>
+            <li><a href="#mtoPas" data-toggle="tab">Gestion Estudiante</a></li>
+            <li><a href="#subirCSV" data-toggle="tab">Carga Masiva</a></li>
 
         </ul>
         <div class="tab-content">
@@ -27,7 +28,7 @@
 
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Nuevo Pasante</h3>
+                            <h3 class="box-title">Nuevo Estudiante</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -155,6 +156,13 @@
                     <!-- /.row -->
                 </section>
 
+            </div>
+            <div class="tab-pane " id="subirCSV">
+                <h2>Importar Estudiantes CSV</h2>
+                <form method="post" action="<?php echo base_url() ?>cadministrador/importcsv" enctype="multipart/form-data">
+                    <input type="file" name="userfile" ><br><br>
+                    <input type="submit" name="submit" value="UPLOAD" class="btn btn-primary">
+                </form>
             </div>
         </div>
     </div>

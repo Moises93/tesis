@@ -17,6 +17,7 @@ class cadministrador extends CI_Controller{
         $this->load->model('model_admin');
         $this->load->model('model_ubicacion');
         $this->load->model('model_habilidades');
+        $this->load->library('csvimport');
     }
 
 
@@ -153,7 +154,7 @@ class cadministrador extends CI_Controller{
 
 
 
-    public function crearPasante()
+    public function gestionEstudiante()
     {
         /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
@@ -327,7 +328,41 @@ class cadministrador extends CI_Controller{
 
         return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$id_usuario);
     }
+/*Agregar pasantes por CSV */
+    function importcsv() {
+        $data['error'] = '';    //initialize image upload error array to empty
+        $config['upload_path'] = "documentos/";
+        $config['allowed_types'] = 'csv';
+        $config['max_size'] = '1000';
+        $config['overwrite']=true; //sobreescribe archivos
+        $tipo=4;
+        $this->load->library('upload', $config);
+        $this->load->library('csvimport');
+        // If upload failed, display error
+        if (!$this->upload->do_upload()) {
+            $data['error'] = $this->upload->display_errors();
+            $this->load->view('pasante/vcrearPasante');
+        } else {
+            $file_data = $this->upload->data();
+            $file_path =  'documentos/'.$file_data['file_name'];
 
+            if ($this->csvimport->get_array($file_path)) {
+                $csv_array = $this->csvimport->get_array($file_path);
+                foreach ($csv_array as $row) {
+                  $this->model_usuario->insertar($row['login'],$row['clave'],$tipo,$row['correo']);
+                    $data =$this->model_usuario->obtenerIdUsuarios($row['login']);
+                    $id_usuario =$data->id_usuario;
+                    $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
+                                                         $row['escuela'],$id_usuario);
+                }
+                $this->session->set_flashdata('success', 'Csv Data Imported Succesfully');
+                redirect(base_url().'cadministrador/gestionEstudiante');
+                //echo "<pre>"; print_r($insert_data);
+            } else
+                $data['error'] = "Error occured";
+        }
+
+    }
 
     public function crearEmpresa()
     {
