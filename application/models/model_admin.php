@@ -117,4 +117,14 @@ class Model_admin extends CI_Model
 
     }
 
+    function getRequisitos() {
+        
+        $this->db->select('*');
+        $this->db->from('documentos_requeridos docr ');
+        $this->db->join('usuario usu', 'docr.id_usuario = usu.id_usuario');
+        return $this->db->get()->result();
+        
+       
+    }
+
 }

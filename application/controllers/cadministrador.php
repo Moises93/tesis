@@ -395,6 +395,28 @@ class cadministrador extends CI_Controller{
 
     }
 
+    public function verRequisitos()
+    {
+
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('contenido/verRequisitos');
+        $this->load->view('contenido/footerAdmin');
+
+    }
+    
+    public function getRequisitos(){
+        $dato= $this->model_admin->getRequisitos();
+        echo json_encode($dato);
+    }
 
 
 
