@@ -18,6 +18,8 @@ $('#verRequisitos').DataTable({
     },'columns': [
         {data: 'usu_login'},
         {data: 'requisito'},
+        {data: 'nombre_archivo'} ]
+    /*,
         {orderable: 'true',
          render: function (data,type,row) {
 

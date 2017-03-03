@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <!-- search form -->
+        <!-- search form 
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -22,7 +22,7 @@
               </button>
             </span>
             </div>
-        </form>
+        </form>-->
         <!-- /.search form -->
         <!-- s<idebar menu: : style can be found in sidebar.less -->
         <?php
@@ -32,7 +32,7 @@
         ?>
         <div id="menuDinamico">
             <ul class="sidebar-menu" >
-                <li class="header">MAIN NAVIGATION</li>
+                <li class="header">MENU PRINCIPAL</li>
 
                 <?php foreach ( $menu as $m): ?>
                   <?php if($m['hijos'] != null){ ?>

@@ -76,7 +76,7 @@
                                         </div>
                                         <h4 class="box-title">Datos de Acceso al Sistema</h4>
                                         <div class="form-group">
-                                            <label for="login" class="control-label">Login</label>
+                                            <label for="login" class="control-label">Usuario</label>
                                             <input type="text" class="form-control" id="login" name="login">
                                             <p class="help-block"></p>
                                         </div>
@@ -94,8 +94,8 @@
                                         </div>
                                         <h4 class="box-title">&nbsp;</h4>
                                         <div class="form-group">
-                                            <label for="clave" class="control-label">Password</label>
-                                            <input type="password" class="form-control" id="clave" name="clave" placeholder="Password">
+                                            <label for="clave" class="control-label">Clave</label>
+                                            <input type="password" class="form-control" id="clave" name="clave" placeholder="clave">
                                             <p class="help-block"></p>
                                         </div>
 
@@ -161,7 +161,7 @@
                 <h2>Importar Estudiantes CSV</h2>
                 <form method="post" action="<?php echo base_url() ?>cadministrador/importcsv" enctype="multipart/form-data">
                     <input type="file" name="userfile" ><br><br>
-                    <input type="submit" name="submit" value="UPLOAD" class="btn btn-primary">
+                    <input type="submit" name="submit" value="SUBIR" class="btn btn-primary">
                 </form>
             </div>
         </div>

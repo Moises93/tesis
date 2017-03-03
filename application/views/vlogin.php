@@ -63,9 +63,7 @@
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Recordar
-            </label>
+                 
           </div>
         </div>
         <!-- /.col -->
