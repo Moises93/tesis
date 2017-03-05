@@ -138,7 +138,7 @@ $('#tblEmpresa').DataTable({
 
 //con esta funcion pasamos los paremtros a los text del modal.
 selEmpresa= function(id,rif, nombre, foto, correo){
-    console.log("este es ek correo",correo);
+  
     $('#idEmpresa').val(id);
     $('#rifE').val(rif);
     $('#nameE').val(nombre);

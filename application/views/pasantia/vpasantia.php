@@ -48,8 +48,8 @@ Gestion Pasantias
                                                 <th>modalidad</th>
                                                 <th>Empresa</th>
                                                 <th>Tutor Empresarial</th>
-                                                <th>Escuela</th>
                                                 <th>Tutor Academico</th>
+                                                <th>Escuela</th>
                                             </tr>
                                             </thead>
                                             <tbody></tbody>
