@@ -10,6 +10,7 @@ $('#verRequisitos').DataTable({
     'info': true,
     'filter': true,
     'stateSave': true,
+    'autoWidth': false,
 
     'ajax': {
         "url":baseurl+"cadministrador/getRequisitos",
@@ -18,11 +19,16 @@ $('#verRequisitos').DataTable({
     },'columns': [
         {data: 'usu_login'},
         {data: 'requisito'},
-        {data: 'nombre_archivo'} ]
+        {"render": function ( data, type, row ) {
+            return '<span>' + row.nombre_archivo +'</span>&emsp;' +
+
+           ' <a href='+ baseurl+'cpasante/downloads/'+row.nombre_archivo+''+row.formato+'  /> Descargar</a>';
+        }}
+    ]
     /*,
         {orderable: 'true',
          render: function (data,type,row) {
-
+     '<a href="#" onClick="descargarArchivo(\'' + row.nombre_archivo + '\');">Descargar</a>';
          return '<a href= "baseurl + '/cpasante/downloads/'+row.nombre_archivo +" >hola</a>';
 
          }
@@ -46,4 +52,15 @@ $('#verRequisitos').DataTable({
      ],
      "order": [[ 1, "asc" ]],*/
 });
+
+descargarArchivo = function(nombre){
+    $.post(baseurl+"coordinador/downloads",
+        {
+            archivo: nombre,
+        },
+        function(data){
+
+        });
+
+}
 

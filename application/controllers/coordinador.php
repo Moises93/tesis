@@ -14,6 +14,7 @@ class Coordinador extends CI_controller
         # code...paren
         $this->load->model('model_usuario');
         $this->load->model('model_pasantia');
+        $this->load->helper('download');
     }
 
 
@@ -66,6 +67,12 @@ class Coordinador extends CI_controller
         }else{
             echo "Ha ocurrido un error inesperado";
         }
+    }
+    public function downloads(){
+        $archivo= $this->input->post('archivo');
+        $data = file_get_contents(base_url().'documentos/'.$archivo);
+        force_download($archivo,$data);
+
     }
 }
 
