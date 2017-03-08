@@ -56,7 +56,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?=asset_url("cusuario/login")?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -85,7 +85,7 @@
                     <?php } else { ?>
                         <img src="<?=$user[0]->usu_foto?>" class="img-circle" width="20" height="20" alt=""> 
                     <?php } ?>
-              <span class="hidden-xs"><?=$user[0]->NOMBRECOMPLETO?></span>
+              <span class="hidden-xs"><?=$user[0]->Nombre?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -97,7 +97,7 @@
                     <?php } ?>
                
                 <p>
-                  <?=$user[0]->NOMBRECOMPLETO?> 
+                  <?=$user[0]->Nombre?> 
                   <small>sispas</small>
                 </p>
               </li>
@@ -119,7 +119,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  <a href="<?=base_url('cusuario/perfil')?>"  class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?=base_url('cusuario/logout')?>" class="btn btn-default btn-flat">Salir</a>

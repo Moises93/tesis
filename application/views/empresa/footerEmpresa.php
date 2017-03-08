@@ -216,6 +216,9 @@
 <script src="<?php echo base_url();?>assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url();?>assets/plugins/fastclick/fastclick.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url();?>assets/plugins/list/list.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -243,6 +246,15 @@
     });
   });
 </script>-->
+  <script>
+  $(document).ready(function(e) {
+    var monkeyList = new List('test-list', {
+    valueNames: ['name'],
+    page: 3,
+    pagination: true
+    });
+  });
+  </script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -250,5 +262,6 @@
 
   });
 </script>
+ 
 </body>
 </html>
