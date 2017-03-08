@@ -83,8 +83,8 @@ function showEditTipo() {
                                                 <td></td>
                                                 <td class="hidden-xs"><?=$row->pro_id?></td>
                                                 <td contenteditable="true" onBlur="saveToDatabase(this,'pro_cedula','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_cedula?></td>
-                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_nombre','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_nombre?></td>
-                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_apellido','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->pro_apellido?></td>
+                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_nombre','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->Nombre?></td>
+                                                <td contenteditable="true" onBlur="saveToDatabase(this,'pro_apellido','<?php echo $row->pro_id; ?>')" onClick="showEdit(this);" class="hidden-xs"><?=$row->Apellido?></td>
                                                 <td class="hidden-xs" contenteditable="true"  onClick="showEditSexo();" ><label><?=$row->pro_sexo?></label>
                                                 </td>
                                                 <td style="display:none;">
