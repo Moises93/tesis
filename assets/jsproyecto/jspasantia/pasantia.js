@@ -2,6 +2,11 @@
  * Created by Moises on 28-02-2017.
  */
 $(document).ready(function(e) {
+
+    document.getElementById('escuelao').style.display='none';
+    document.getElementById('labOrg').style.display='none';
+    document.getElementById('cbEmpresa').style.display='none';
+
 $.post(baseurl + "empresa/getEmpresa",
     function(data) {
         var p = JSON.parse(data);
@@ -31,45 +36,38 @@ $.post(baseurl + "empresa/getEmpresa",
 $('#agregarPasantia').click(function () {
 
     var modalidad = $('#modalidad').val();
-    var empresa = $('select[name=cbEmpresa]').val();
-    var tutorE = $('select[name=cbTEmpresa]').val();
     var escuela = $('select[name=escuela]').val();
-    var tutorA =$('select[name=cbTutorA]').val();
     var estudiante =$('select[name=cbPostulados]').val();
+    var empresa = $('select[name=cbEmpresa]').val();
+    var orgaca =$('select[name=escuelao]').val();
     var fecha = $('#reservation').val().split('-');
     var fechaIni=fecha[0].replace("/","-");
     var fechaFin=fecha[1].replace("/","-");
-  /*  $.post(baseurl + "cpasante/esPasante",
-        {
-            estudiante: estudiante,
 
-        },
-        function (data) {
-            console.log(data);
-            if(data == 0){
-                alert("Ya el estudiante esta realizando una Pasantia");
-            }else if(data == 1){*/
-                $.post(baseurl + "cpasantia/agregarPasantia",
-                    {
-                        modalidad: modalidad,
-                        empresa: empresa,
-                        tutorE: tutorE,
-                        tutorA: tutorA,
-                        escuela: escuela,
-                        estudiante: estudiante,
-                        fechaIni: fechaIni,
-                        fechaFin: fechaFin
-                    },
-                    function (data) {
-                        console.log(data);
-                        if (data) {
-                            //$('#mbtnCerrarModalP').click();
-                            alert("Insercion exitosa");
-                            location.reload();
-                        }
-                    });
-            //}
-        //});
+        if(empresa<0){
+            empresa=null;
+        }
+    
+        if(orgaca<0){
+            orgaca=null;
+        }
+    
+        $.post(baseurl + "cpasantia/agregarPasantia",
+            {
+                modalidad: modalidad,
+                empresa: empresa,
+                orgaca: orgaca,
+                escuela: escuela,
+                estudiante: estudiante,
+                fechaIni: fechaIni,
+                fechaFin: fechaFin
+            },
+            function (data) {
+                if (data) {
+                    alert("Insercion exitosa");
+                    location.reload();
+                }
+            });
 
 });
 
@@ -90,10 +88,21 @@ $('#agregarPasantia').click(function () {
         },'columns': [
             {data: 'id_pasantia','sClass':'dt-body-center'},
             {data: 'estatus'},
-            {data: 'usu_login'},
-            {data: 'fecha_inicio'},
-            {data: 'fecha_final'},
-            {data: 'modalidad'},
+            {"render": function ( data, type, row ) {
+                return '<span>' + row.pas_nombre +' ' +row.pas_apellido+'</span>';
+            }},
+            {"render": function ( data, type, row ) {
+                return '<span>' + row.fecha_inicio +'-' +row.fecha_final+'</span>';
+            }},
+            
+            {"render": function ( data, type, row ) {
+                if(row.orgaca == null){
+                    return '<span>' + row.emp_nombre +'</span>';
+                }else{
+                    return '<span>Universidad de Carabobo </span>&emsp;' ;
+                }
+            }},
+          
             {data: 'emp_nombre'},//,
             {data: 'uem_nombre'},//,
             {data: 'pro_nombre'},
@@ -130,6 +139,22 @@ $('#agregarPasantia').click(function () {
 
 
 });
+function  mostrarOrg() {
+    idOrg=$("#cbOrganizacion option:selected").val();
+    if(idOrg == 1){
+        document.getElementById('escuelao').style.display='none';
+        document.getElementById('cbEmpresa').style.display='block';
+        document.getElementById('labOrg').style.display='block';
+    }else if(idOrg == 2){
+         document.getElementById('cbEmpresa').style.display='none';
+        document.getElementById('escuelao').style.display='block';
+        document.getElementById('labOrg').style.display='block';
+    }else if(idOrg<0){
+        document.getElementById('escuelao').style.display='none';
+        document.getElementById('labOrg').style.display='none';
+        document.getElementById('cbEmpresa').style.display='none';
+    }
+}
 function cargarTutorE() {
 
     idEmp = $("#cbEmpresa option:selected").val();

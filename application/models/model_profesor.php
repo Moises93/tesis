@@ -34,8 +34,31 @@ class Model_profesor extends CI_Model
 		$query->free_result();
 		return $data;
 	}
+	public function obtProfesorPorEscuela($idEscuela){
+		$data = array();
+		$this->db->where('id_escuela',$idEscuela);
+		$query= $this->db->get('profesor');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	} 
 
-
+	function getProfesor($pro_id){
+		$data = array();
+		$this->db->where('pro.pro_id', $pro_id);
+		$query = $this->db->get('profesor pro');
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
 	public function updateProfesor($c,$v,$i){
 		$data = array(
 			$c => $v

@@ -53,12 +53,57 @@ class Coordinador extends CI_controller
         $this->load->view('coordinador/footerCoordinador');
 
     }
+
+    public function tutorOganizacional()
+    {
+
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('coordinador/tutorOrganizacional');
+        $this->load->view('coordinador/footerCoordinador');
+
+    }
+    /*Actualiza e inserta */
     public function agregarTutorA(){
         $idPasantia= $this->input->post('idPasantia');
         $tutorA= $this->input->post('tutorA');
+        $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
         $data = array(
             'pro_id' => $tutorA,
-            'id_pasantia'=>$idPasantia
+            'id_pasantia'=>$idPasantia,
+            'tipo' =>$tipo
+        );
+        $consulta= $this->model_pasantia->consultarTutor($data);
+
+
+        if(count($consulta)==0) {
+            $val= $this->model_pasantia->insertarTutorA($data);
+        }else{
+            $val = $this->model_pasantia->actualizarTutorA($data);
+        }
+        if($val != FALSE)
+        {
+            echo "Operación exitosa";
+        }else{
+            echo "Ha ocurrido un error inesperado";
+        }
+    }
+    public function insertarTutorProfesor(){
+        $idPasantia= $this->input->post('idPasantia');
+        $tutorA= $this->input->post('tutorA');
+        $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
+        $data = array(
+            'pro_id' => $tutorA,
+            'id_pasantia'=>$idPasantia,
+            'tipo' =>$tipo
         );
         $val = $this->model_pasantia->actualizarTutorA($data);
         if($val != FALSE)

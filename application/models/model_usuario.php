@@ -211,7 +211,6 @@ function permisosUsuarioHijos($idMenu,$idUser){
 			}
 			//  echo "menu";
 			//echo '<pre>'; print_r($menuUser); echo '</pre>';
-
 			$cont= $cont+1;
 			// echo "-".$menu->id_menu;
 			//echo "-".$menu->nombre;

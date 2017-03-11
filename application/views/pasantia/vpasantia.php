@@ -43,12 +43,9 @@ Gestion Pasantias
                                                 <th>ID</th>
                                                 <th>Estatus</th>
                                                 <th>Pasante</th>
-                                                <th>fechaIni</th>
-                                                <th>fechaFin</th>
+                                                <th>Periodo</th>
                                                 <th>modalidad</th>
-                                                <th>Empresa</th>
-                                                <th>Tutor Empresarial</th>
-                                                <th>Tutor Academico</th>
+                                                <th>Organizacion</th>
                                                 <th>Escuela</th>
                                             </tr>
                                             </thead>
@@ -92,50 +89,52 @@ Gestion Pasantias
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
-                                                <label >Empresa</label>
-                                                <select id="cbEmpresa" class="form-control" name="cbEmpresa" onchange="cargarTutorE();" required>
-                                                    <option value="">seleccione:</option>
-                                                </select>
-                                                <span  id= "nombreP" class="help-block"></span>
-
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <label>Tutor Empresarial</label>
-                                                <select id="cbTEmpresa" class="form-control" name="cbTEmpresa" required>
-                                                    <option value="-1">seleccione:</option>
-                                                </select>
-                                                <span  id= "apellidoP" class="help-block"></span>
-                                            </div>
-                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Escuela</label>
-                                                    <select id="escuela" class="form-control" name="escuela" onchange="cargarTutorA();" required>
+                                                    <select id="escuela" class="form-control" name="escuela" onchange="" required>
                                                         <option value="-1">seleccione:</option>
                                                         <option value="1">Computacion</option>
                                                     </select>
 
                                                 </div>
-                                             </div>
-                                             <div class="col-sm-5">
-                                                <div class="form-group">
-                                                    <label>Tutor Academico</label>
-                                                    <select id="cbTutorA" class="form-control" name="cbTutorA" required>
-                                                        <option value="-1">seleccione:</option>
-                                                    </select>
+                                            </div>
 
-                                                </div>
-                                             </div>
-                                             <div class="col-sm-5">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Estudiante</label>
                                                     <select id="cbPostulados" class="form-control" name="cbPostulados" required>
                                                         <option value="-1">seleccione:</option>
                                                     </select>
-    
-                                                </div>
-                                             </div>
 
-                                            </br>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label >Tipo Organizacion</label>
+                                                        <select id="cbOrganizacion" class="form-control" name="cbOrganizacion" onchange="mostrarOrg();" required>
+                                                            <option value="-1">seleccione:</option>
+                                                            <option value="1">Empresa</option>
+                                                            <option value="2">Universidad</option>
+                                                        </select>
+                                                    <span  id= "nombreP" class="help-block"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-5">
+                                                <label id="labOrg">Organización</label>
+                                                <select id="cbEmpresa" class="form-control" name="cbEmpresa" required>
+                                                    <option value="-1">seleccione:</option>
+                                                </select>
+                                                <select id="escuelao" class="form-control" name="escuelao"required>
+                                                    <option value="-1">seleccione:</option>
+                                                    <option value="1">Universidad de Carabobo</option>
+                                                </select>
+
+                                                <span  id= "nombreP" class="help-block"></span>
+
+                                            </div>
+
                                         </div>
                                           <div class="col-sm-10">
                                                  <div class="box-footer">

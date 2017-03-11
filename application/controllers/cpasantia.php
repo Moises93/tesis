@@ -37,8 +37,7 @@ class Cpasantia extends CI_controller
     {
         $modalidad= $this->input->post('modalidad');
         $empresa= $this->input->post('empresa');
-        $tutorE= $this->input->post('tutorE');
-        $tutorA= $this->input->post('tutorA');
+        $orgaca= $this->input->post('orgaca');
         $escuela= $this->input->post('escuela');
         $estudiante= $this->input->post('estudiante');
         $fechaIni= $this->input->post('fechaIni');
@@ -46,7 +45,7 @@ class Cpasantia extends CI_controller
 
         $estatus=1; //por defecto inserto estatus 1 =iniciada
 
-        return $this->model_pasantia->agregarPasantia($modalidad,$empresa,$tutorE,$tutorA,$escuela,
+        return $this->model_pasantia->agregarPasantia($modalidad,$empresa,$orgaca,$escuela,
         $estudiante,$fechaIni,$fechaFin,$estatus);
 
        
@@ -55,6 +54,55 @@ class Cpasantia extends CI_controller
     public function getPasantia(){
         $dato = $this->model_pasantia->getPasantia();
         echo json_encode($dato);
+    }
+
+    public function getIntegrantesPasantia(){
+
+        $integrantesPas=array();
+        $cont=0;
+        $pasantias = $this->model_pasantia->getPasantiaActiva();
+
+        foreach($pasantias as $result) {
+
+            $pasantia =array(
+                'id_pasantia'    => $result['id_pasantia'],
+                'cedula'         => $result['pas_cedula'],
+                'nombre'         => $result['pas_nombre'],
+                'apellido'       => $result['pas_apellido'],
+                'login'          => $result['usu_login'],
+                'escuela'        => $result['esc_nombre'],
+                'orgaca'         => $result['orgaca'],
+                'empresa_id'     => $result['emp_id'],
+                'empresa'        => $result['emp_nombre'],
+                'id_escuela'     => $result['id_escuela'],
+                'integrantes'    => null
+
+            );
+            $idPas = $result['id_pasantia'];
+            $integrantes =  $this->model_pasantia->getIntegrantesPas($idPas);
+            //echo "hijos";
+            //echo '<pre>'; print_r($hijos); echo '</pre>';
+            // echo "cantidad de hijos" .count($hijos);
+            if( count($integrantes) > 0){
+                $pasantia['integrantes']=$integrantes;
+            }
+            if($cont>0){
+                array_push($integrantesPas, $pasantia);
+            }else{
+                $integrantesPas[$cont] =$pasantia;
+            }
+            //  echo "menu";
+            //echo '<pre>'; print_r($menuUser); echo '</pre>';
+            $cont= $cont+1;
+            // echo "-".$menu->id_menu;
+            //echo "-".$menu->nombre;
+        }
+
+
+      /*   print_r($integrantesPas);
+         exit();*/
+
+        echo json_encode($integrantesPas);
     }
     
 }
