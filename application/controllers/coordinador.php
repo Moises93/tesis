@@ -96,6 +96,30 @@ class Coordinador extends CI_controller
             echo "Ha ocurrido un error inesperado";
         }
     }
+    public function agregarTutorO(){
+        $idPasantia= $this->input->post('idPasantia');
+        $tutorA= $this->input->post('tutorO');
+        $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
+        $data = array(
+            'idusuario_empresa' => $tutorA,
+            'id_pasantia'=>$idPasantia,
+            'tipo' =>$tipo
+        );
+        $consulta= $this->model_pasantia->consultarTutor($data);
+
+
+        if(count($consulta)==0) {
+            $val= $this->model_pasantia->insertarTutorA($data);
+        }else{
+            $val = $this->model_pasantia->actualizarTutorA($data);
+        }
+        if($val != FALSE)
+        {
+            echo "Operación exitosa";
+        }else{
+            echo "Ha ocurrido un error inesperado";
+        }
+    }
     public function insertarTutorProfesor(){
         $idPasantia= $this->input->post('idPasantia');
         $tutorA= $this->input->post('tutorA');

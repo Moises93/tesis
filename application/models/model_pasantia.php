@@ -84,7 +84,7 @@ class Model_pasantia extends CI_Model
     }
     function consultarTutor($data){
         if(!empty($data)){
-            $this->db->select('pro_id');
+            $this->db->select('pro_id,idusuario_empresa');
             $this->db->from('integrantes_pasantia');
             $this->db->where('id_pasantia', $data['id_pasantia']);
             $this->db->where('tipo', $data['tipo']);
