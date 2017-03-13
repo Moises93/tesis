@@ -52,7 +52,7 @@ function recargarTabla() {
                 {data: 'id_padre'},
                 {data: 'url'},
                 {data: 'clase'},
-                {data: 'activo'},
+                {data: 'clave'},
                 {
                     orderable: 'true',
                     render: function (data, type, row) {

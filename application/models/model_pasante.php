@@ -63,4 +63,17 @@ class Model_pasante extends CI_Model
         return $this->db->get()->result();
 
     }
+
+    function actualizar_telefono($pas_id,$pas_telefono){
+        $data = array(
+            'pas_telefono' => $pas_telefono
+        );
+        if(!empty($data))
+        {
+            $this->db->where('pas_id', $pas_id);
+            $this->db->update('pasante', $data);
+            return TRUE;
+        }
+        return FALSE;
+    }
 }

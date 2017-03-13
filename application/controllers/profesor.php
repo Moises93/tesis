@@ -6,8 +6,8 @@
 class Profesor extends CI_controller
 {
 
-  function __construct()
-  {
+    function __construct()
+    {
       parent::__construct();
       $this->load->library('Excel');
       $this->load->model('model_ubicacion');
@@ -16,10 +16,10 @@ class Profesor extends CI_controller
       $this->load->model('model_usuario');
       $this->load->model('model_tipoprofesor');
       $this->load->model('model_profesor');
+      $this->load->model('model_admin');
     
-  }
-
-   public function gestionProfesor() {
+    }
+    public function gestionProfesor() {
       /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
       $idUser=$this->session->userdata('id');
       $tipo =$this->session->userdata('tipo');
@@ -40,15 +40,49 @@ class Profesor extends CI_controller
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('profesor/index',$data);
         $this->load->view('profesor/footerProfesor');
-  }
+    }
    /*Actualizada el 18-02-2017*/
-  public function get_profesores(){
+    public function get_profesores(){
          $dato = $this->model_usuario->obtener_Profesores();
          header('Content-Type: application/json');
-
-         echo json_encode($dato);
-  }
     
+         echo json_encode($dato);
+    }
+    /*esta funcion cambia el estatus de un profesor de tutor a coordinador
+    valida ademas que no se encuentre otro coordinador activo */
+    public function asignarCoordinador(){
+        /*El profesor coordinador tiene permiso para asignar tutores academicos los agrego automaticamente*/
+        $clave='tutAcad'; //la clave es unica no debe cambiar en la BD
+        $idEscuela = $this->input->post('idEscuela');
+        $idPro = $this->input->post('idPro');
+        $idUser = $this->input->post('idUser');
+
+        $dato = $this->model_profesor->buscarCoordinadorActivo($idEscuela); //valido que no haya otro coordinador activo
+        if(count($dato)==0) {
+            $this->model_profesor->asignarCoordinador($idPro);
+            $idMen=$this->model_admin->obtenerMenuId($clave); //consulto el idMenu por la clave
+            $menu=$idMen->id_menu;
+            $this->model_admin->guardarPermisos($idUser,$menu);
+            echo "Operación exitosa";
+        }else{
+            echo "Ya Existe un coordinador activo para esta escuela";
+        }
+       
+    }
+   public function quitarCoordinador(){
+        $clave='tutAcad'; //la clave es unica no debe cambiar en la BD
+        $idPro = $this->input->post('idPro');
+        $idUser = $this->input->post('idUser');
+
+        $this->model_profesor->desasignarCoordinador($idPro);
+        $idMen=$this->model_admin->obtenerMenuId($clave); //consulto el idMenu por la clave
+        $menu=$idMen->id_menu;
+        $this->model_admin->quitarPermiso($idUser,$menu);
+        echo "Operación exitosa";
+
+    }
+
+
     public function getProfesor($pro_id){
         $dato = $this->model_profesor->getProfesor($pro_id);
         echo json_encode($dato);

@@ -74,7 +74,7 @@ class cadministrador extends CI_Controller{
                 'nombre' => $result['nombre'],
                 'url' => $result['url'],
                 'clase' => $result['clase'],
-                'activo' => $result['activo'],
+                'clave' => $result['clave'],
                 'permisos' => $permisos
 
             );
@@ -364,7 +364,7 @@ class cadministrador extends CI_Controller{
 
     }
 
-    public function crearEmpresa()
+    public function gestionEmpresa()
     {
         /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');

@@ -102,10 +102,7 @@ $('#agregarPasantia').click(function () {
                     return '<span>Universidad de Carabobo </span>&emsp;' ;
                 }
             }},
-          
-            {data: 'emp_nombre'},//,
-            {data: 'uem_nombre'},//,
-            {data: 'pro_nombre'},
+            
             {data: 'esc_nombre'}//,
             /*{orderable: 'true',
              render: function (data,type,row) {
@@ -139,22 +136,7 @@ $('#agregarPasantia').click(function () {
 
 
 });
-function  mostrarOrg() {
-    idOrg=$("#cbOrganizacion option:selected").val();
-    if(idOrg == 1){
-        document.getElementById('escuelao').style.display='none';
-        document.getElementById('cbEmpresa').style.display='block';
-        document.getElementById('labOrg').style.display='block';
-    }else if(idOrg == 2){
-         document.getElementById('cbEmpresa').style.display='none';
-        document.getElementById('escuelao').style.display='block';
-        document.getElementById('labOrg').style.display='block';
-    }else if(idOrg<0){
-        document.getElementById('escuelao').style.display='none';
-        document.getElementById('labOrg').style.display='none';
-        document.getElementById('cbEmpresa').style.display='none';
-    }
-}
+
 function cargarTutorE() {
 
     idEmp = $("#cbEmpresa option:selected").val();

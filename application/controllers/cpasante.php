@@ -55,8 +55,6 @@ class Cpasante extends CI_controller
 
     public function cargar_requisito() {
 
-
-
         $requisito=$this->input->post('requisito');
 
         $idUser=$this->session->userdata('id');
@@ -163,6 +161,23 @@ class Cpasante extends CI_controller
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('pasante/estudiantes');
         $this->load->view('contenido/footerAdmin');
+    }
+
+    public function updEstudiante(){
+        $idUser=$this->input->post('usuario');
+        $correo =$this->input->post('correo');
+        $telefono =$this->input->post('telefono');
+        $idpas =$this->input->post('idpas');
+
+
+        $usu=$this->model_usuario->actualizar_correo($idUser,$correo);
+        $pas=$this->model_pasante->actualizar_telefono($idpas,$telefono);
+
+        if ($usu != FALSE && $pas != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
     }
 
 }

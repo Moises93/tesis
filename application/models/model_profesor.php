@@ -20,7 +20,25 @@ class Model_profesor extends CI_Model
 		$this->db->insert('profesor', $data);
 		return ($this->db->affected_rows() != 1) ? false : true;
 	}
+	public function obtProfesoresCoordinadores($idTipo){
+		$this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as nombre, prf.pro_apellido as apellido, prf.pro_id, prf.pro_cedula, prf.pro_sexo, es.esc_nombre, es.id_escuela,tp.pro_tipo');
+		$this->db->from('usuario us');
+		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
+		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');
+		$this->db->join('tipos_profesor tp', 'prf.id_tipo = tp.id_tipo');
+		$this->db->where('prf.id_tipo',$idTipo);
+		return $this->db->get()->result();
+	}
+	public function buscarCoordinadorActivo($idEscuela){
+		$this->db->select('*');
+		$this->db->from('profesor prf');
+		$this->db->join('usuario us', 'us.id_usuario = prf.id_usuario');
+		$this->db->where('prf.id_tipo',2);
+		$this->db->where('prf.id_escuela',$idEscuela);
+		$this->db->where('us.usu_estatus',1);
+		return $this->db->get()->result();
 
+	}
 	public function get_ProfesoresTipo($idEscuela,$idTipo){
 		$data = array();
 		$this->db->where('id_escuela',$idEscuela);
@@ -64,6 +82,22 @@ class Model_profesor extends CI_Model
 			$c => $v
 		);
 		$this->db->where('pro_id',$i);
+		$this->db->update('profesor',$data);
+	}
+
+	public function  asignarCoordinador($idPro){
+		$data = array(
+			'id_tipo' => 2
+		);
+		$this->db->where('pro_id',$idPro);
+		$this->db->update('profesor',$data);
+	}
+	
+	public function  desasignarCoordinador($idPro){
+		$data = array(
+			'id_tipo' => 1
+		);
+		$this->db->where('pro_id',$idPro);
 		$this->db->update('profesor',$data);
 	}
 

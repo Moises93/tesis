@@ -130,7 +130,7 @@ class Empresa extends CI_controller
 
 
     public function getEmpresa(){
-        $dato = $this->model_empresa->getEmpresa();;
+        $dato = $this->model_empresa->getEmpresa();
         echo json_encode($dato);
 
 

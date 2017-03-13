@@ -95,10 +95,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="escuela" class="control-label">Escuela</label>
-                                            <select class="form-control " id="escuelaId" name="escuelaId" style="width: 100%;" required>
+                                            <select class="form-control select2" multiple="multiple" id="escuelaId" name="escuelaId" style="width: 100%;" required>
                                                 <option selected="selected" value="1">Computacion</option>
-                                                <option disabled="disabled">Quimica</option>
-                                                <option disabled="disabled">Biologia</option>
+                                                <option selected="selected" value="2">Quimica</option>
+                                                <option selected="selected" value="3">Biologia</option>
                                                 <option disabled="disabled">Fisica</option>
                                                 <option disabled="disabled">Matematica</option>
                                             </select>
@@ -283,8 +283,8 @@
                                             <th>ID</th>
                                             <th>Rif</th>
                                             <th>Nombre</th>
-                                            <th>Foto</th>
-                                            <th>Acceso</th>
+                                            <th>Telefono</th>
+                                            <th>Direccion</th>
                                             <th>Correo</th>
                                             <th>accion</th>
                                         </tr>

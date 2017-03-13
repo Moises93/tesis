@@ -143,7 +143,7 @@ function construirTablaP()
             {data: 'id_padre'},
             {data: 'url'},
             {data: 'clase'},
-            {data: 'activo'}
+            {data: 'clave'}
 
         ],
         "columnDefs": [

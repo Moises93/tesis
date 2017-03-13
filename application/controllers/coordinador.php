@@ -14,6 +14,7 @@ class Coordinador extends CI_controller
         # code...paren
         $this->load->model('model_usuario');
         $this->load->model('model_pasantia');
+        $this->load->model('model_profesor');
         $this->load->helper('download');
     }
 
@@ -36,6 +37,20 @@ class Coordinador extends CI_controller
 
     }
 
+    /**
+     * param tipo
+     * return json_infoProf (devuelve toda la informacion del profesor de acuerdo su tipo)
+     *  usada  para llenar tablas de coordinador
+     */
+    public function obtProfesoresInfo(){
+        $idTipo = $_POST['tipo'];
+       // $idTipo = $this->input->post('tipo');
+        $dato = $this->model_profesor->obtProfesoresCoordinadores($idTipo);
+
+        echo json_encode($dato);
+    }
+
+ 
     public function asignarTutores()
     {
 

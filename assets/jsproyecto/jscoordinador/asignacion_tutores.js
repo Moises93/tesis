@@ -101,6 +101,8 @@ $(document).ready(function(e) {
         ]
 
     });
+    
+    
 });
 /************************Asignar Tutor Academico*******************************/
 /*con esta funcion pasamos los paremtros a los text del modal.
