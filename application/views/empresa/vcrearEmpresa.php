@@ -95,12 +95,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="escuela" class="control-label">Escuela</label>
-                                            <select class="form-control select2" multiple="multiple" id="escuelaId" name="escuelaId" style="width: 100%;" required>
-                                                <option selected="selected" value="1">Computacion</option>
-                                                <option selected="selected" value="2">Quimica</option>
-                                                <option selected="selected" value="3">Biologia</option>
-                                                <option disabled="disabled">Fisica</option>
-                                                <option disabled="disabled">Matematica</option>
+                                            <select class="form-control select2" multiple="multiple" id="escuelaId" name="escuelaId[]" style="width: 100%;" required>
+                                                <?php foreach($Escuela as $row): ?>
+                                                    <option value="<?=$row->id_escuela?>"><?=$row->esc_nombre?></option>
+                                                <?php endforeach;?>
                                             </select>
                                             <p class="help-block"></p>
                                         </div>
@@ -124,8 +122,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <h4 class="box-title">&nbsp;</h4>
-                                            </br>
+                                            <label for="telefono" class="control-label">Telefono</label>
+                                            <input class="form-control"  type="text"  id="telefono" name="telefono" placeholder="Telefono" required>
+                                            <p class="help-block"></p>
                                         </div>
 
                                     </div>
@@ -216,14 +215,11 @@
                                             
                                         </select>
                                     </div>
-                                    <h4 class="box-title">&nbsp;</h4>
                                     <div class="form-group">
-                                        <h4 class="box-title">&nbsp;</h4>
-                                        </br>
+                                        <label for="telefono" class="control-label">Telefono</label>
+                                        <input class="form-control"  type="text"  id="telefonoUe" name="telefonoUe" placeholder="Telefono" required>
+                                        <p class="help-block"></p>
                                     </div>
-
-
-
 
                                 </div>
 
@@ -384,10 +380,10 @@
                                                 <th>Cedula</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
-                                                <th>Sexo</th>
-                                                <th>Tipo</th>
+                                                <th>Telefono</th>
+                                                <th>Correo</th>
                                                 <th>Empresa</th>
-                                                <th>ID acceso</th>
+                                                <th>Estatus</th>
                                                 <th>accion</th>
                                             </tr>
                                             </thead>
@@ -418,7 +414,8 @@
                                 <form class="form-horizontal">
                                     <!-- parametros ocultos -->
                                     <input type="hidden" id="idUEmpresam">
-
+                                    <input type="hidden" id="idUsuario">
+                                    <!-- Fin de parametros ocultos -->
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Cedula</label>
@@ -445,14 +442,18 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Sexo</label>
+                                            <label class="col-sm-3 control-label">Telefono</label>
                                             <div class="col-sm-9">
-                                                <select id="sexoUem" class="form-control" name="sexoUem" required>
-                                                    <option value="">seleccione:</option>
-                                                    <option value="m">Masculino</option>
-                                                    <option value="f">Femenino</option>
-                                                </select>
-                                                <span  id= "sexoUeM" class="help-block"></span>
+                                                <input type="text" name="uemTelefono" class="form-control" id="uemTelefono" value=""required>
+                                                <span  id= "telefonoUem" class="help-block"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Correo</label>
+                                            <div class="col-sm-9">
+                                                <input type="email" name="uemCorreo" class="form-control" id="uemCorreo" value=""required>
+                                                <span  id= "correoUem" class="help-block"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -467,9 +468,50 @@
                     </div>
                 </div>
                 <!-- Fin modal-->
+                <!--incio modal de edicion clave -->
+                <div class="modal fade" id="modalEditClave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
 
+                            <div class="modal-header bg-blue">
+                                <button type="button" id="mbtnCerrarModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Nueva Clave</h4>
+                            </div>
 
-            </div>
+                            <div class="modal-body">
+                                <form id="nuevaClave" class="form-horizontal">
+                                    <!-- parametros ocultos -->
+                                    <input type="hidden" id="idUsuarioc">
+                                    <!-- Fin de parametros ocultos minlength="6"  maxlength="15" -->
+                                    <div class="box-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Clave</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" class="form-control" id="clave" name="clave" minlength="6"  >
+                                                <span  class="help-block"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Confirmar</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" class="form-control" id="clavec" name="clavec"  >
+                                                <span  class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-info" id="mbtnUpdClave">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--FIN modal de edicion clave -->
+
+        </div>
 
 
 

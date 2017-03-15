@@ -160,7 +160,7 @@ $('#nuevaClave').bootstrapValidator({
     excluded: ':disabled', //limpia las validaciones al cerrar el modal
     fields: {
 
-        clave: {
+        clavee: {
 
             validators: {
                 notEmpty: {
@@ -191,10 +191,10 @@ $('#nuevaClave').bootstrapValidator({
 
                 },
                 identical: {
-                    field: 'clave',
+                    field: 'clavee',
                     message: 'La clave debe ser la misma'
                 },
-               
+
 
             }
 
@@ -299,7 +299,7 @@ selEstudiante = function(idPas,telefono,correo,idUser){
 selClave = function(idUser){
     $('#idUsuarioc').val(idUser);
     $('#nuevaClave').bootstrapValidator('resetForm', true);
-    $("input[type='password']").val('');
+    $("input[type='password']").val(''); //asignacion de clave a un input tipo ppassword , le asigno vacio para limpiar
 
 };
 
@@ -335,5 +335,20 @@ $('#mbtnUpdEstudiante').click(function(){
 });
 
 $('#mbtnUpdClave').click(function(){
-  alert("hola");
+    var idUsuario = $('#idUsuarioc').val();
+    var clave = $('#clavee').val();
+    var clavec = $('#clavec').val();
+    if((clave==clavec)&&(clave!='')&&(clave.length>6)){
+        $.post(baseurl + "cusuario/cambiarClave",
+            {
+                id: idUsuario,
+                clave: clave
+            },
+            function (data) {
+                alert(data);
+                $('#mbtnCerrarModal').click();
+                location.reload();
+
+            });
+    }
 });

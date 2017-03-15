@@ -164,13 +164,14 @@ class Cpasante extends CI_controller
     }
 
     public function updEstudiante(){
-        $idUser=$this->input->post('usuario');
+        $idUsu=$this->input->post('usuario');
         $correo =$this->input->post('correo');
+        
         $telefono =$this->input->post('telefono');
         $idpas =$this->input->post('idpas');
 
 
-        $usu=$this->model_usuario->actualizar_correo($idUser,$correo);
+        $usu=$this->model_usuario->actualizar_correo($idUsu,$correo);
         $pas=$this->model_pasante->actualizar_telefono($idpas,$telefono);
 
         if ($usu != FALSE && $pas != FALSE){

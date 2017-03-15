@@ -58,7 +58,8 @@ class Empresa extends CI_controller
   }
 
      public function guardarEmpresa(){
-
+echo 'aqui ';
+         exit();
             $data = array();
             foreach($_POST as $key => $value) {   
                $data[$key] = $value; 
@@ -96,7 +97,7 @@ class Empresa extends CI_controller
     }
 
     public function registrarEmpresa(){
-
+        echo 'alla ';
         $data = array();
         foreach($_POST as $key => $value) {
             $data[$key] = $value;
@@ -109,6 +110,7 @@ class Empresa extends CI_controller
             $nueva_empresa['emp_foto'] = $data['empresa_foto'];
         }
         $nueva_empresa['emp_email_contacto'] = $data ['Email'];
+        $nueva_empresa['emp_telefono'] = $data['telefono'];
         $id_empresa = $this->model_empresa->crearEmpresa($nueva_empresa);
 
         foreach ($data['habilidadId'] as $row) {
@@ -116,6 +118,13 @@ class Empresa extends CI_controller
             $datos['id_habilidad'] = $row;
             $this->model_habilidades->crearHabilidadEmpresa($datos);
         }
+
+        foreach ($data['escuelaId'] as $row) {
+            $escuela['emp_id'] = $id_empresa;
+            $escuela['id_escuela'] = $row;
+            $this->model_empresa->crearEscuelaEmpresa($escuela);
+        }
+        
         $ubicacion['emp_id'] = $id_empresa;
         $ubicacion['ciudad'] = $data['Ciudad'];
         $ubicacion['sector'] = $data['Sector'];
@@ -123,7 +132,7 @@ class Empresa extends CI_controller
         $ubicacion['pais_id'] = $data['paisId'];
         $ubicacion['estado_id'] = $data['estadoId'];
         $this->model_ubicacion->crearUbicacion($ubicacion);
-        header("Location: http://localhost/tesis/cadministrador/crearEmpresa");
+        header("Location: http://localhost/tesis/cadministrador/gestionEmpresa");
 
     }
 
@@ -158,6 +167,7 @@ class Empresa extends CI_controller
      $sexo= $this->input->post('sexo');
      $correo= $this->input->post('email');
      $empresa= $this->input->post('empresa');
+     $telefono= $this->input->post('telefono');
      $tipoUe= $this->input->post('tipo');
      $login= $this->input->post('login');
      $clave= $this->input->post('clave');
@@ -170,21 +180,25 @@ class Empresa extends CI_controller
 
      $id_usuario =$data->id_usuario;
 
-     return $this->model_empresa->agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$id_usuario,$tipoUe);
+     return $this->model_empresa->agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$id_usuario,$tipoUe,$telefono);
  }
     public function updUsuarioE(){
 
         $idusuario_empresa = $this->input->post('id');
-        $uem_sexo = $this->input->post('sexo');
+        $uem_telefono = $this->input->post('telefono');
         $uem_cedula= $this->input->post('cedula');
         $uem_nombre = $this->input->post('nombre');
         $uem_apellido = $this->input->post('apellido');
-        $actualizar = $this->model_empresa->updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_sexo);
-        echo $actualizar;
-        if($actualizar)
-        {
-            //$this->session->set_flashdata('actualizado', 'El mensaje se actualizó correctamente');
-            return 1;
+        $idUser=$this->input->post('usuario');
+        $correo =$this->input->post('correo');
+        
+        $usu=$this->model_usuario->actualizar_correo($idUser,$correo);
+        $actualizar = $this->model_empresa->updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_telefono);
+
+        if ($usu != FALSE && $actualizar != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
         }
     }
 

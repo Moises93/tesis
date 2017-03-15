@@ -230,7 +230,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Clave</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="clave" name="clave" minlength="6"  >
+                                <input type="password" class="form-control" id="clavee" name="clavee" minlength="6"  >
                                 <span  class="help-block"></span>
                             </div>
                         </div>
@@ -245,8 +245,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-info" id="mbtnUpdClave">Actualizar</button>
+                <button type="button" class="btn btn-info" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-default" id="mbtnUpdClave">Actualizar</button>
             </div>
         </div>
     </div>

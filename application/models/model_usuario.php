@@ -252,6 +252,21 @@ function permisosUsuarioHijos($idMenu,$idUser){
 		}
 		return FALSE;	
 	}
+
+	function cambiarClave($id_usuario,$clave){
+		$data = array(
+			'usu_clave' => $clave
+		);
+
+		if(!empty($data))
+		{
+			 $this->db->where('id_usuario', $id_usuario);
+			 $this->db->update('usuario', $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	
 	function valLogin($usu_login){
 		$this->db->select('u.id_usuario');

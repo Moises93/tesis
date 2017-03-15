@@ -140,4 +140,15 @@ class Model_admin extends CI_Model
        
     }
 
+    public function getTodasEscuela(){
+        $sql = "SELECT * FROM escuela";
+        $rs = $this->db->query($sql);
+        if($rs->num_rows() > 0){
+            return $rs->result();
+        }
+        else{
+            return array();
+        }
+    }
+
 }

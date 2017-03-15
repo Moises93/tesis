@@ -378,12 +378,14 @@ class cadministrador extends CI_Controller{
         $paises = $this->model_ubicacion->getTodosPaises();
         $estados = $this->model_ubicacion->getTodosEstados();
         $habilidades = $this->model_habilidades->getTodosHabilidadesComputacion();
+        $escuelas = $this->model_admin->getTodasEscuela();
         $foto = null;
         $data = array(
             'Paises' => $paises,
             'Estados' =>$estados,
             'Habilidades' =>$habilidades,
-            'Foto' => $foto
+            'Foto' => $foto,
+            'Escuela' => $escuelas
         );
         /*hasta aqui , mando la data a la vista para procesarla*/
 

@@ -99,9 +99,9 @@ $('#tblEmpresa').DataTable({
         {orderable: 'true',
             render: function (data,type,row) {
                 console.log(row);
-                return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                return '<a href="#" data-toggle="modal" ' +
                     'data-target="#modalEditEmpresa" ' +
-                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editars</a>';
+                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><span class="glyphicon glyphicon-edit" </span></a>';
 
 
             }
