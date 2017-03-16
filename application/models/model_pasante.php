@@ -37,10 +37,11 @@ class Model_pasante extends CI_Model
         $this->db->join('pasantia pa', 'pas.pas_id = pa.pas_id','left');
         $this->db->where('pas.pas_id IS NULL',null,false);
         $this->db->get()->result();*/
-        $sql = "SELECT pas.pas_id, pas.pas_cedula, pas.pas_nombre, pas.pas_sexo, pas.id_usuario, pas.id_escuela,us.id_usuario, us.usu_correo, us.usu_foto, us.usu_estatus, us.usu_login from pasante as pas";
+        $sql = "SELECT pas.pas_id, pas.pas_cedula, pas.pas_nombre,pas.pas_apellido ,pas.pas_sexo, pas.id_usuario, es.esc_nombre as Escuela ,us.id_usuario, us.usu_correo, us.usu_foto, us.usu_estatus, us.usu_login from pasante as pas";
+        $sql = $sql . " join escuela es on pas.id_escuela = es.id_escuela ";
         $sql = $sql . " left join usuario us on us.id_usuario = pas.id_usuario";
-        $sql = $sql . " left join pasantia pasan on pas.pas_id = pasan.pas_id";
-        $sql = $sql . " where pasan.pas_id is null";
+        $sql = $sql . " left join integrantes_pasantia pasan on pas.pas_id = pasan.pas_id";
+        $sql = $sql . " where pasan.pas_id is null and us.usu_estatus = 1";
 
 // Ejecuta Consulta
         $query = $this->db->query($sql);

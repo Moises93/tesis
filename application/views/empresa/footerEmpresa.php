@@ -4,7 +4,7 @@
    <div class="pull-right hidden-xs">
      <b>Version</b> 2.3.6
    </div>
-   <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+   <strong>Copyright &copy; 2014-2018 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
    reserved.
  </footer>
 
@@ -218,7 +218,9 @@
 <script src="<?php echo base_url();?>assets/plugins/fastclick/fastclick.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url();?>assets/plugins/list/list.min.js"></script>
+<!-- Hover -->
 
+<script src="<?php echo base_url();?>assets/plugins/CaptionHover/js/toucheffects.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
