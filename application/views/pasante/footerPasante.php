@@ -220,6 +220,7 @@
 <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/bootstrapValidator.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/jspasante/pasante.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 

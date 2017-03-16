@@ -1,7 +1,7 @@
 /**
  * Created by eheredia on 23/02/2017.
  */
-/*$('#pasanteForm').bootstrapValidator({
+$('#pasanteForm').bootstrapValidator({
 
     message: 'Este valor no es valido',
 
@@ -140,7 +140,67 @@
 
     }
 
-});*/
+});
+/**
+ * Created by eheredia on 23/02/2017.
+ */
+$('#nuevaClave').bootstrapValidator({
+
+    message: 'Este valor no es valido',
+
+    feedbackIcons: {
+
+        valid: 'glyphicon glyphicon-ok',
+
+        invalid: 'glyphicon glyphicon-remove',
+
+        validating: 'glyphicon glyphicon-refresh'
+
+    },
+    excluded: ':disabled', //limpia las validaciones al cerrar el modal
+    fields: {
+
+        clavee: {
+
+            validators: {
+                notEmpty: {
+
+                    message: 'El clave es requerida'
+
+                },
+                identical: {
+                    field: 'clavec',
+                    message: 'La clave debe ser la misma'
+                },
+                stringLength: {
+
+                    min: 8,
+
+                    message: 'La clave debe contener al menos 8 caracteres'
+
+                }
+            }
+
+        },
+        clavec: {
+
+            validators: {
+                notEmpty: {
+
+                    message: 'La clave es requerida'
+
+                },
+                identical: {
+                    field: 'clavee',
+                    message: 'La clave debe ser la misma'
+                },
+
+
+            }
+
+        }
+    }
+});
 
 $('#agregarPasante').click(function () {
 
@@ -155,7 +215,7 @@ $('#agregarPasante').click(function () {
     //var clase = $('#mtxtClase').val();
 
 
-    if(cedula != '' && nombre != '') {
+    if(cedula != '' && nombre != '' && nombre != 'clave') {
         $.post(baseurl + "cadministrador/agregarPasante",
             {
                 cedula: cedula,
@@ -199,39 +259,96 @@ $('#tblPasantes').DataTable({
     },'columns': [
         {data: 'pas_id','sClass':'dt-body-center'},
         {data: 'pas_cedula'},
-        {data: 'pas_nombre'},
-        {data: 'pas_apellido'},
+        {
+            "render": function (data, type, row) {
+                return '<span>' + row.pas_nombre + ' ' + row.pas_apellido + '</span>';
+            }
+        },
         {data: 'pas_sexo'},
         {data: 'esc_nombre'},
-        {data: 'usu_correo'},//,
-        {data: 'usu_login'}//,
-        /*{orderable: 'true',
-         render: function (data,type,row) {
+        {data: 'usu_correo'},
+        {data: 'pas_telefono'},
+        {orderable: 'true',
+             render: function (data,type,row) {
 
-         return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-         'data-target="#modalEditUsuario" ' +
-         'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.id_tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
+             return '<a href="#"  data-toggle="modal" ' +
+             'data-target="#modalEditEstudiante" ' +
+             'onClick="selEstudiante(\'' + row.pas_id + '\',\'' + row.pas_telefono + '\',\'' + row.usu_correo + '\',\'' + row.id_usuario + '\');"><span class="glyphicon glyphicon-edit" </span></a>'+
 
+             '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
+             'data-target="#modalEditClave" ' +
+             'onClick="selClave(\'' + row.id_usuario + '\');"><i class="fa fa-key" aria-hidden="true"></i></a>';/*+
 
+             '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
+             'data-target="#modalEditEstudiante" ' +
+             'onClick="selEstudiante(\'' + row.pas_id + '\',\'' + row.pas_telefono + '\',\'' + row.usu_correo + '\',\'' + row.id_usuario + '\');"><span class="glyphicon glyphicon-edit" </span></a>';*/
+            }
          }
-         }*/
-    ]//,
-    /*"columnDefs": [
-     {
-     "targets": [4],
-     "data": "usu_estatus",
-     "render": function(data, type, row) {
+    ]
+});
+selEstudiante = function(idPas,telefono,correo,idUser){
 
-     if (data == 0) {
-     return '<a href="#" title="Habilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 1 + ')"><span class="label label-danger">Inactivo &nbsp;</span><i style="color:green; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
-     }else if (data == 1) {
-     return '<a href="#" title="Deshabilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 0 + ')"><span class="label label-success">Activo</span><i style="color:red; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+    $('#idPasante').val(idPas);
+    $('#idUsuario').val(idUser);
+    $('#correo').val(correo);
+    $('#telefono').val(telefono);
 
-     }
 
-     }
-     }
-     ],
-     "order": [[ 1, "asc" ]],*/
+};
+
+selClave = function(idUser){
+    $('#idUsuarioc').val(idUser);
+    $('#nuevaClave').bootstrapValidator('resetForm', true);
+    $("input[type='password']").val(''); //asignacion de clave a un input tipo ppassword , le asigno vacio para limpiar
+
+};
+
+$('#mbtnUpdEstudiante').click(function(){
+
+
+    var expr        = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+    var idpas       = $('#idPasante').val();
+    var telefono    = $('#telefono').val();
+    var correo      = $('#correo').val();
+    var usuario     = $('#idUsuario').val();
+
+                if(correo == "" || !expr.test(correo)) {
+                    $("#correoM").html("<span>Debe ingresar un correo valido</span>");
+                    selEstudiante(idpas,telefono,correo);
+                }else{
+                    $.post(baseurl+"cpasante/updEstudiante",
+                        {
+                            usuario:usuario,
+                            correo:correo,
+                            telefono:telefono,
+                            idpas:idpas
+                        },
+                        function(data){
+                            alert(data);
+                            $('#mbtnCerrarModal').click();
+                            location.reload();
+                        });
+                }
+
+
+
 });
 
+$('#mbtnUpdClave').click(function(){
+    var idUsuario = $('#idUsuarioc').val();
+    var clave = $('#clavee').val();
+    var clavec = $('#clavec').val();
+    if((clave==clavec)&&(clave!='')&&(clave.length>6)){
+        $.post(baseurl + "cusuario/cambiarClave",
+            {
+                id: idUsuario,
+                clave: clave
+            },
+            function (data) {
+                alert(data);
+                $('#mbtnCerrarModal').click();
+                location.reload();
+
+            });
+    }
+});

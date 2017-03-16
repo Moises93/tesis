@@ -105,7 +105,20 @@ class Model_admin extends CI_Model
         return $this->db->delete('permiso_usuario');
 
     }
+    function quitarPermiso($idUser,$menu){
 
+        $this->db->where('id_usuario', $idUser);
+        $this->db->where('id_menu', $menu);
+        return $this->db->delete('permiso_usuario');
+
+    }
+    function  obtenerMenuId($clave){
+        $this->db->select('id_menu');
+        $this->db->from('menu');
+        $this->db->where('clave',$clave);
+        $query = $this->db->get();
+        return $query->row();
+    }
     function guardarPermisos($id_usuario,$id_menu){
         $data = array(
             'id_menu' => $id_menu,
@@ -125,6 +138,17 @@ class Model_admin extends CI_Model
         return $this->db->get()->result();
         
        
+    }
+
+    public function getTodasEscuela(){
+        $sql = "SELECT * FROM escuela";
+        $rs = $this->db->query($sql);
+        if($rs->num_rows() > 0){
+            return $rs->result();
+        }
+        else{
+            return array();
+        }
     }
 
 }

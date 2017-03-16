@@ -25,8 +25,14 @@ class Model_empresa extends CI_Model
 	}
 
 	function getEmpresa() {
+
 		$data = array();
-		$query = $this->db->get('empresa');
+		$this->db->select('*');
+		$this->db->from('empresa emp');
+		$this->db->join('ubicacion ubi', 'emp.emp_id = ubi.emp_id');
+		$this->db->join('pais pai', 'ubi.pais_id = pai.id');
+		$this->db->join('estado est', 'ubi.estado_id=est.id');
+		$query =  $this->db->get();
 		if ($query->num_rows() > 0) {
 			foreach ($query->result_array() as $row){
 				$data[] = $row;
@@ -38,7 +44,11 @@ class Model_empresa extends CI_Model
 
 	function getUsuarioEmpresa() {
 		$data = array();
-		$query = $this->db->get('usuario_empresa');
+		$this->db->select('*');
+		$this->db->from('usuario_empresa uemp');
+		$this->db->join('usuario usu', 'uemp.id_usuario = usu.id_usuario');
+		$this->db->join('empresa emp', 'uemp.emp_id = emp.emp_id');
+		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			foreach ($query->result_array() as $row){
 				$data[] = $row;
@@ -62,7 +72,7 @@ class Model_empresa extends CI_Model
 	}
 
 
-	public function agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$data,$tipo){
+	public function agregarUsuarioE($cedula,$nombre,$apellido,$sexo,$empresa,$data,$tipo,$telefono){
 		$data = array(
 			'uem_nombre' => $nombre,
 			'uem_cedula' => $cedula,
@@ -70,22 +80,35 @@ class Model_empresa extends CI_Model
 			'tuem_id' => $tipo,
 			'emp_id' => $empresa,
 			'uem_apellido' =>$apellido,
-			'uem_sexo' =>$sexo
+			'uem_sexo' =>$sexo,
+			'uem_telefono' =>$telefono
 
 		);
 
 		$this->db->insert('usuario_empresa',$data);
 	}
 
-	function updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_sexo){
+	function updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_telefono){
 		$data = array(
 			'uem_nombre' => $uem_nombre,
 			'uem_cedula' => $uem_cedula,
 			'uem_apellido' => $uem_apellido,
-			'uem_sexo' => $uem_sexo
+			'uem_telefono' => $uem_telefono
 		);
-		$this->db->where('idusuario_empresa', $idusuario_empresa);
-		return $this->db->update('usuario_empresa', $data);
+		if(!empty($data))
+		{
+			$this->db->where('idusuario_empresa', $idusuario_empresa);
+		    $this->db->update('usuario_empresa', $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	public function crearEscuelaEmpresa($data){
+
+		$this->db->insert('empresa_escuela', $data);
+
+		return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
 
 	}
 }

@@ -41,8 +41,10 @@ $('#agregarPasantia').click(function () {
     var empresa = $('select[name=cbEmpresa]').val();
     var orgaca =$('select[name=escuelao]').val();
     var fecha = $('#reservation').val().split('-');
-    var fechaIni=fecha[0].replace("/","-");
-    var fechaFin=fecha[1].replace("/","-");
+    var fechaIni=fecha[0];
+    var fechaFin=fecha[1];
+    /*var fechaIni=fecha[0].replace("/","-");
+    var fechaFin=fecha[1].replace("/","-");*/
 
         if(empresa<0){
             empresa=null;
@@ -96,49 +98,48 @@ $('#agregarPasantia').click(function () {
             }},
             
             {"render": function ( data, type, row ) {
-                if(row.orgaca == null){
+                if(row.orgaca == null || row.orgaca =='' || row.orgaca == 'undefined'){
                     return '<span>' + row.emp_nombre +'</span>';
                 }else{
                     return '<span>Universidad de Carabobo </span>&emsp;' ;
                 }
             }},
-          
-            {data: 'emp_nombre'},//,
-            {data: 'uem_nombre'},//,
-            {data: 'pro_nombre'},
-            {data: 'esc_nombre'}//,
-            /*{orderable: 'true',
-             render: function (data,type,row) {
+            
+            {data: 'esc_nombre'},
+            {
+                orderable: 'true',
+                render: function (data, type, row) {
 
-             return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
-             'data-target="#modalEditUsuario" ' +
-             'onClick="selPersona(\'' + row.id_usuario + '\',\'' + row.id_tipo + '\',\'' + row.usu_login + '\',\'' + row.usu_clave + '\',\'' + row.usu_correo + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editar</a>';
+                    return '<a href="#"  data-toggle="modal" ' +
+                        'data-target="#modalEditPasantia" ' +
+                        'onClick="selPasantia(\'' + row.pas_telefono + '\',\'' + row.usu_correo + '\',\'' + row.id_usuario + '\');">' +
+                        '<span class="glyphicon glyphicon-edit" </span></a>';
+                }
+            }
 
+        ],
+        "columnDefs": [
+            {
+                "targets": [1],
+                "data": "estatus",
+                "render": function(data, type, row) {
 
-             }
-             }*/
-        ]//,
-        /*"columnDefs": [
-         {
-         "targets": [4],
-         "data": "usu_estatus",
-         "render": function(data, type, row) {
+                    if (data == 1) {
+                        return '<i style="color:purple;" class="fa fa-spinner" aria-hidden="true"></i>';
+                    }else if (data == 2) {
+                        return '<i class="fa fa-check" aria-hidden="true"></i>';
 
-         if (data == 0) {
-         return '<a href="#" title="Habilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 1 + ')"><span class="label label-danger">Inactivo &nbsp;</span><i style="color:green; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
-         }else if (data == 1) {
-         return '<a href="#" title="Deshabilitar Usuario" onClick="cambioEstatus(' + row.pro_id + ',' + 0 + ')"><span class="label label-success">Activo</span><i style="color:red; padding-left: 1.8em;" class="glyphicon glyphicon-refresh"></i></a>';
+                    }
 
-         }
+                }
+            }
+        ],
 
-         }
-         }
-         ],
-         "order": [[ 1, "asc" ]],*/
     });
 
 
 });
+
 function  mostrarOrg() {
     idOrg=$("#cbOrganizacion option:selected").val();
     if(idOrg == 1){
@@ -146,7 +147,7 @@ function  mostrarOrg() {
         document.getElementById('cbEmpresa').style.display='block';
         document.getElementById('labOrg').style.display='block';
     }else if(idOrg == 2){
-         document.getElementById('cbEmpresa').style.display='none';
+        document.getElementById('cbEmpresa').style.display='none';
         document.getElementById('escuelao').style.display='block';
         document.getElementById('labOrg').style.display='block';
     }else if(idOrg<0){

@@ -14,6 +14,7 @@ class Coordinador extends CI_controller
         # code...paren
         $this->load->model('model_usuario');
         $this->load->model('model_pasantia');
+        $this->load->model('model_profesor');
         $this->load->helper('download');
     }
 
@@ -36,6 +37,20 @@ class Coordinador extends CI_controller
 
     }
 
+    /**
+     * param tipo
+     * return json_infoProf (devuelve toda la informacion del profesor de acuerdo su tipo)
+     *  usada  para llenar tablas de coordinador
+     */
+    public function obtProfesoresInfo(){
+        $idTipo = $_POST['tipo'];
+       // $idTipo = $this->input->post('tipo');
+        $dato = $this->model_profesor->obtProfesoresCoordinadores($idTipo);
+
+        echo json_encode($dato);
+    }
+
+ 
     public function asignarTutores()
     {
 
@@ -78,6 +93,30 @@ class Coordinador extends CI_controller
         $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
         $data = array(
             'pro_id' => $tutorA,
+            'id_pasantia'=>$idPasantia,
+            'tipo' =>$tipo
+        );
+        $consulta= $this->model_pasantia->consultarTutor($data);
+
+
+        if(count($consulta)==0) {
+            $val= $this->model_pasantia->insertarTutorA($data);
+        }else{
+            $val = $this->model_pasantia->actualizarTutorA($data);
+        }
+        if($val != FALSE)
+        {
+            echo "Operación exitosa";
+        }else{
+            echo "Ha ocurrido un error inesperado";
+        }
+    }
+    public function agregarTutorO(){
+        $idPasantia= $this->input->post('idPasantia');
+        $tutorA= $this->input->post('tutorO');
+        $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
+        $data = array(
+            'idusuario_empresa' => $tutorA,
             'id_pasantia'=>$idPasantia,
             'tipo' =>$tipo
         );

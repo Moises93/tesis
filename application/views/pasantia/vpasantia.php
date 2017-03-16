@@ -44,9 +44,9 @@ Gestion Pasantias
                                                 <th>Estatus</th>
                                                 <th>Pasante</th>
                                                 <th>Periodo</th>
-                                                <th>modalidad</th>
-                                                <th>Organizacion</th>
+                                                <th>Empresa</th>
                                                 <th>Escuela</th>
+                                                <th>Accion</th>
                                             </tr>
                                             </thead>
                                             <tbody></tbody>

@@ -89,35 +89,26 @@ $('#tblEmpresa').DataTable({
         {data: 'emp_id','sClass':'dt-body-center'},
         {data: 'emp_rif'},
         {data: 'emp_nombre'},
-        {data: 'emp_nombre'},
-        {data: 'emp_acceso'},
+        {data: 'emp_telefono'},
+        {
+            "render": function (data, type, row) {
+                return '<span>' + row.paisnombre + '/' + row.estadonombre + '/' + row.ciudad + '</span>';
+            }
+        },
         {data: 'emp_email_contacto'},
         {orderable: 'true',
             render: function (data,type,row) {
                 console.log(row);
-                return '<a href="#" class="btn btn-block btn-primary btn-sm" style="width: 80%;" data-toggle="modal" ' +
+                return '<a href="#" data-toggle="modal" ' +
                     'data-target="#modalEditEmpresa" ' +
-                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><i style="color:#555;" class="glyphicon glyphicon-edit"></i> Editars</a>';
+                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><span class="glyphicon glyphicon-edit" </span></a>';
 
 
             }
         }
     ],
-    "columnDefs": [
-        {
-            "targets": [3],
-            "data": "emp_foto",
-            "render": function(data, type, row) {
 
-                    //return '<img src="data:image/jpg;base64,<?php echo base64_encode(\'' + row.emp_foto + '\'); ?>" />';
-                return '<img src="'+row.emp_foto +'" />';
-
-
-
-            }
-        }
-    ],
-    "columnDefs": [
+   /* "columnDefs": [
         {
             "targets": [4],
             "data": "emp_acceso",
@@ -132,7 +123,7 @@ $('#tblEmpresa').DataTable({
 
             }
         }
-    ],
+    ],*/
     "order": [[ 1, "asc" ]],
 });
 

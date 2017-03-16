@@ -33,7 +33,8 @@
 <script src="<?php echo base_url();?>assets/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
-<script src="<?php echo base_url();?>assets/jsproyecto/jscoordinador/coordinador.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/jscoordinador/asignacion_tutores.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/jscoordinador/gestion.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
 <!--<script>

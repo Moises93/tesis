@@ -54,7 +54,7 @@
                                                             <th>padre</th>
                                                             <th>url</th>
                                                             <th>clase</th>
-                                                            <th>estatus</th>
+                                                            <th>clave</th>
                                                             <th></th>
                                                         </tr>
                                                         </thead>

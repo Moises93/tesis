@@ -1,8 +1,9 @@
 /**
  * Created by Moises on 04-03-2017.
  */
+/*Atencion: etsar atennto a los comentario las funciones aqui cumplen un papel importante y especifico*/
 $(document).ready(function(e) {
-
+/*Llenado de la tabla Asignar Tutores Academicos*/
     $('#tblAsignarTutores').DataTable({
         "language": {
             "url": baseurl + "/assets/json/Spanish.json"
@@ -100,28 +101,14 @@ $(document).ready(function(e) {
         ]
 
     });
+    
+    
 });
-function cargarTutorOp() {
-    idEscu = $("#cbEscuela option:selected").val();
-
-    $.post(baseurl+"profesor/obtProfesorPorEscuela",
-        {
-            idEscuela: idEscu,
-        },
-        function(data){
-            var p = JSON.parse(data);
-            $.each(p, function (i, item) {
-                $('#cbTutorOp').append('<option value="'+item.pro_id+'">'+item.pro_nombre+' '+item.pro_apellido+'</option>'
-                );
-            });
-
-        });
-
-}
-selTutorOrgAca = function(idPro,idPasantia){
-
-}
-//con esta funcion pasamos los paremtros a los text del modal.
+/************************Asignar Tutor Academico*******************************/
+/*con esta funcion pasamos los paremtros a los text del modal.
+  - se carga los profesores que pertenecen a la escuela del pasante
+  - tomar en cuenta que un coordinador de escuela puede ser tutor academico
+  */
 selTutor = function(idPro,idPasantia,escuela){
 
     idEsc=escuela;
@@ -145,33 +132,16 @@ selTutor = function(idPro,idPasantia,escuela){
         });
 
 };
+/*Accion del boton Actualizar en el modal asignar Tutores Academicos.
+ - nota: Siempre va ser Tipo 1 que significa tutor acadmeico en la tabla integrantes_pasantias
+ - la funcion coordinador/agregarTutorA aplica para insert y update en la tabla integrantes pasantias
+   por esta razon se llama al mismo modal ya se que se inserte tutor o se cambie.
+ */
 
-selTutorOrg =function (idOrg, idPasantia,idEmp,empresa) {
-    
-    $('#organizacion').val(empresa);
-    idEmpre= idEmp;
-
-         $.post(baseurl+"empresa/getUsuarioDeEmpresa",
-        {
-            empId: idEmpre,
-        },
-        function(data){
-            var p = JSON.parse(data);
-            $.each(p, function (i, item) {
-                $('#cbTutorO').append('<option value="'+item.idusuario_empresa+'">'+item.uem_nombre+' '+item.uem_apellido+'</option>'
-                );
-            });
-            if(idOrg != "null" && idOrg != '' ){
-                $('#cbTutorO').val(idOrg);
-            }
-        });
-   
-}
-/*Accion del boton Actualizar en el modal asignarTutores*/
 $('#mbtnUpdTutor').click(function () {
     var idPasantia = $('#idPasantia').val();
     var tutorA =$('select[name=cbTutorA]').val();
-    var tipo= 1; // siempre va ser 1 porque 1 significa tutorAcademico en la tabla integrantes_pasantias(aplica para esta funcion)
+    var tipo= 1; // nota
     if(tutorA=='-1'){
         alert('Debe ingresar un tutor o cancelar la operación');
     }else{
@@ -191,4 +161,104 @@ $('#mbtnUpdTutor').click(function () {
     }
 
 });
+
+/**************************Asignar Tutor Organizacional***************************************************/
+
+/*En caso de que la pasania sea en la universidad, se carga un modal epecifico para este caso*/
+function cargarTutorOp() {
+    idEscu = $("#cbEscuela option:selected").val();
+    $('#cbTutorOp').empty().append('<option value="-1">seleccione:</option>');
+    $.post(baseurl+"profesor/obtProfesorPorEscuela",
+        {
+            idEscuela: idEscu,
+        },
+        function(data){
+            var p = JSON.parse(data);
+            $.each(p, function (i, item) {
+                $('#cbTutorOp').append('<option value="'+item.pro_id+'">'+item.pro_nombre+' '+item.pro_apellido+'</option>'
+                );
+            });
+
+        });
+
+}
+/*se inicializa el valor de idPasantia en el modal*/
+selTutorOrgAca = function(idPro,idPasantia){
+    $('#idPasantia').val(idPasantia); //imput oculto en el modal
+
+}
+/*asignamos un profesor como tutor organizacional */
+$('#mbtnUpdTutorOp').click(function () {
+    var idPasantia = $('#idPasantia').val();
+    var tutorA =$('select[name=cbTutorOp]').val();
+    var tipo= 2; // siempre va ser 2 porque 2 significa tutorAcademico en la tabla integrantes_pasantias(aplica para esta funcion)
+    if(tutorA=='-1'){
+        alert('Debe ingresar un tutor o cancelar la operación');
+    }else{
+        $.post(baseurl + "coordinador/agregarTutorA",
+            {
+                idPasantia: idPasantia,
+                tutorA: tutorA,
+                tipo:tipo
+            },
+            function (data) {
+                if (data) {
+                    $('#mbtnCerrarModal').click();
+                    alert(data);
+                    location.reload();
+                }
+            });
+    }
+
+});
+
+/**Para el caso donde el tutor organizacional pertenece a una empresa*/
+$('#mbtnUpdTutorO').click(function () {
+    var idPasantia = $('#idPasantia').val();
+    var tutorO =$('select[name=cbTutorO]').val();
+    var tipo= 2; // siempre va ser 2 porque 2 significa tutorOrganizacional en la tabla integrantes_pasantias(aplica para esta funcion)
+    if(tutorO=='-1'){
+        alert('Debe ingresar un tutor o cancelar la operación');
+    }else{
+        $.post(baseurl + "coordinador/agregarTutorO",
+            {
+                idPasantia: idPasantia,
+                tutorO: tutorO,
+                tipo:tipo
+            },
+            function (data) {
+                if (data) {
+                    $('#mbtnCerrarModal').click();
+                    alert(data);
+                    location.reload();
+                }
+            });
+    }
+
+});
+
+/*se inicializan los campos del modal tomando en cuenta la empresa donde se realiza la pasantia para cargar los tutores*/
+selTutorOrg =function (idOrg, idPasantia,idEmp,empresa) {
+    $('#idPasantia').val(idPasantia);
+    $('#organizacion').val(empresa);
+    idEmpre= idEmp;
+
+         $.post(baseurl+"empresa/getUsuarioDeEmpresa",
+        {
+            empId: idEmpre,
+        },
+        function(data){
+            var p = JSON.parse(data);
+            $.each(p, function (i, item) {
+                $('#cbTutorO').append('<option value="'+item.idusuario_empresa+'">'+item.uem_nombre+' '+item.uem_apellido+'</option>'
+                );
+            });
+            if(idOrg != "null" && idOrg != '' ){
+                $('#cbTutorO').val(idOrg);
+            }
+        });
+   
+}
+
+
 

@@ -192,7 +192,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 				'nombre'     => $result['nombre'],
 				'url'        => $result['url'],
 				'clase'      => $result['clase'],
-				'activo'     => $result['activo'],
+				'clave'     => $result['clave'],
 				'hijos'      => null
 
 			);
@@ -238,6 +238,35 @@ function permisosUsuarioHijos($idMenu,$idUser){
 			return $this->db->update('usuario', $data);
 
 	}
+
+	function actualizar_correo($id_usuario,$usu_correo){
+		$data = array(
+			'usu_correo' => $usu_correo
+		);
+		
+		if(!empty($data))
+		{
+			 $this->db->where('id_usuario', $id_usuario);
+			 $this->db->update('usuario', $data);
+			return TRUE;
+		}
+		return FALSE;	
+	}
+
+	function cambiarClave($id_usuario,$clave){
+		$data = array(
+			'usu_clave' => $clave
+		);
+
+		if(!empty($data))
+		{
+			 $this->db->where('id_usuario', $id_usuario);
+			 $this->db->update('usuario', $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	
 	function valLogin($usu_login){
 		$this->db->select('u.id_usuario');

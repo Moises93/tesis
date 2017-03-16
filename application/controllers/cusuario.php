@@ -119,6 +119,19 @@ class Cusuario extends CI_Controller
         $this->model_usuario->signOutUser();
         redirect('/cusuario/vlogin');
     }
+    
+    public function cambiarClave(){
+        $idUsu=$this->input->post('id');
+        $clave =$this->input->post('clave');
+        $dato= $this->model_usuario->cambiarClave($idUsu,$clave);
+        
+        if ($dato != FALSE ){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
+    }
+    
 }
 
 
