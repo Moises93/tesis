@@ -160,4 +160,20 @@ class Model_pasantia extends CI_Model
 
         return $data;
     }
+
+    function actualizarPasantia($pasantia,$empresa,$orgaca,$fechaIni,$fechaFin){
+        $data = array(
+            'fecha_inicio' => $fechaIni,
+            'fecha_final' => $fechaFin,
+            'orgaca' => $orgaca,
+            'emp_id' => $empresa
+        );
+        if(!empty($data))
+        {
+            $this->db->where('id_pasantia', $pasantia);
+            $this->db->update('pasantia', $data);
+            return TRUE;
+        }
+        return FALSE;
+    }
 }

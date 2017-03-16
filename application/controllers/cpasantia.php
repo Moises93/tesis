@@ -104,6 +104,23 @@ class Cpasantia extends CI_controller
 
         echo json_encode($integrantesPas);
     }
+
+    public function actualizarPasantia(){
+        
+        $empresa= $this->input->post('empresa');
+        $orgaca=  $this->input->post('orgaca');
+        $fechaIni= $this->input->post('fechaIni');
+        $fechaFin= $this->input->post('fechaFin');
+        $pasantia= $this->input->post('idPasantia');
+
+        $pas=$this->model_pasantia->actualizarPasantia($pasantia,$empresa,$orgaca,$fechaIni,$fechaFin);
+
+        if ($pas != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
+    }
     
 }
 ?>

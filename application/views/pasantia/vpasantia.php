@@ -158,7 +158,7 @@ Gestion Pasantias
 
 <!--incio modal de edicion pasantia -->
 <div class="modal fade" id="modalEditPasantia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-blue">
@@ -169,7 +169,7 @@ Gestion Pasantias
             <div class="modal-body">
                 <form class="form-horizontal">
                     <!-- parametros ocultos -->
-                    <input type="hidden" id="idPasante">
+                    <input type="hidden" id="idPasantia">
                     <input type="hidden" id="idUsuario">
                     <!-- Fin de parametros ocultos -->
                     <div class="box-body">
@@ -186,7 +186,7 @@ Gestion Pasantias
                         </div>
                         <div class="form-group">
                             <label >Tipo Organizacion</label>
-                            <select id="cbOrganizacion" class="form-control" name="cbOrganizacion" onchange="mostrarOrg();" required>
+                            <select id="cbOrganizacionm" class="form-control" name="cbOrganizacionm" onchange="mostrarOrgm();" required>
                                 <option value="-1">seleccione:</option>
                                 <option value="1">Empresa</option>
                                 <option value="2">Universidad</option>
@@ -212,13 +212,57 @@ Gestion Pasantias
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-info" id="mbtnUpdEstudiante">Actualizar</button>
+                <button type="button" class="btn btn-info" id="actualizarPasantia">Actualizar</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Final modal-->
+<!-- Inicio  modal Pasantia-->
+<div class="modal fade bs-example-modal-lg" id="modalInfoPasantia" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <button type="button" id="mbtnCerrarModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Informaci&oacute;n Pasantia</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label >Organizacion :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+                <div class="col-md-4">
+                    <label >Pasante :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+                <div class="col-md-4">
+                    <label >Escuela :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label >Periodo :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+                <div class="col-md-4">
+                    <label >Estatus :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+                <div class="col-md-4">
+                    <label >Tutores :</label>
+                    <span  id= "empresaInfo" ></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Fin  modal Pasantia-->
 <script type="text/javascript">
 	var baseurl = "<?php echo base_url(); ?>";
 </script>

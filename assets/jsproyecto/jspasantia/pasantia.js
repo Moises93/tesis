@@ -16,6 +16,8 @@ $.post(baseurl + "empresa/getEmpresa",
             );
         });
     });
+
+
 //$('#cbPostulados').empty().append('<option value="-1">seleccione:</option>');
 /*muestro el login de acces del pasante que es Unico y evitar confuncion por nombres repetidos*/
 
@@ -121,8 +123,12 @@ $('#agregarPasantia').click(function () {
 
                     return '<a href="#"  data-toggle="modal" ' +
                         'data-target="#modalEditPasantia" ' +
-                        'onClick="selPasantia(\'' + row.pas_telefono + '\',\'' + row.usu_correo + '\',\'' + row.id_usuario + '\');">' +
-                        '<span class="glyphicon glyphicon-edit" </span></a>';
+                        'onClick="selPasantia(\'' + row.id_pasantia + '\');">' +
+                        '<span class="glyphicon glyphicon-edit" </span></a>' +
+
+                        '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
+                        'data-target="#modalInfoPasantia" ' +
+                        'onClick="selInfo(\'' + row.pas_nombre + '\',\'' + row.pas_apellido + '\',\'' + row.fecha_inicio + '\',\'' + row.fecha_final + '\',\'' + row.emp_nombre + '\');"><i class="fa fa-search" aria-hidden="true"></i></a>';
                 }
             }
 
@@ -149,12 +155,9 @@ $('#agregarPasantia').click(function () {
 
 });
 
-selPasantia = function(idPas,telefono,correo,idUser){
+selPasantia = function(idPas){
 
-    $('#idPasante').val(idPas);
-    $('#idUsuario').val(idUser);
-    $('#correo').val(correo);
-    $('#telefono').val(telefono);
+    $('#idPasantia').val(idPas);
 
     document.getElementById('escuelam').style.display='none';
     document.getElementById('labOrgm').style.display='none';
@@ -163,6 +166,23 @@ selPasantia = function(idPas,telefono,correo,idUser){
 
 };
 
+selInfo = function(nombre,apellido,fechaI,fechaF,empresa){
+
+    //$('#idPasantia').val(idPas);
+    $("#empresaInfo").html("<span>"+empresa+"</span>");
+    
+
+};
+
+$.post(baseurl + "empresa/getEmpresa",
+    function(data) {
+        var p = JSON.parse(data);
+        $.each(p, function (i, item) {
+            $('#cbEmpresam').append('<option value="'+item.emp_id+'">'+item.emp_nombre+'</option>'
+
+            );
+        });
+    });
 
 function  mostrarOrg() {
     idOrg=$("#cbOrganizacion option:selected").val();
@@ -180,6 +200,62 @@ function  mostrarOrg() {
         document.getElementById('cbEmpresa').style.display='none';
     }
 }
+/*esta funcion la uso para el modal de edicion*/
+function  mostrarOrgm() {
+    idOrg=$("#cbOrganizacionm option:selected").val();
+    if(idOrg == 1){
+        document.getElementById('escuelam').style.display='none';
+        document.getElementById('cbEmpresam').style.display='block';
+        document.getElementById('labOrgm').style.display='block';
+    }else if(idOrg == 2){
+        document.getElementById('cbEmpresam').style.display='none';
+        document.getElementById('escuelam').style.display='block';
+        document.getElementById('labOrgm').style.display='block';
+    }else if(idOrg<0){
+        document.getElementById('escuelam').style.display='none';
+        document.getElementById('labOrgm').style.display='none';
+        document.getElementById('cbEmpresam').style.display='none';
+    }
+}
+
+$('#actualizarPasantia').click(function(){
+    var idPasantia = $('#idPasantia').val();
+
+    var empresa = $('select[name=cbEmpresam]').val();
+    var orgaca =$('select[name=escuelam]').val();
+    var fecha = $('#duracion').val().split('-');
+    var fechaIni=fecha[0];
+    var fechaFin=fecha[1];
+
+
+    if(empresa<0){
+        empresa=null;
+    }
+
+    if(orgaca<0){
+        orgaca=null;
+    }
+
+    $.post(baseurl + "cpasantia/actualizarPasantia",
+        {
+            empresa: empresa,
+            orgaca: orgaca,
+            fechaIni: fechaIni,
+            fechaFin: fechaFin,
+            idPasantia:idPasantia
+        },
+        function(data){
+            alert(data);
+            $('#mbtnCerrarModal').click();
+            location.reload();
+        });
+});
+
+
+
+
+
+
 function cargarTutorE() {
 
     idEmp = $("#cbEmpresa option:selected").val();
