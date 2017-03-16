@@ -1,0 +1,5 @@
+cedula;nombre;apellido;sexo;correo;escuela;login;clave;tipo
+v123456;victor;hernandez;f;m@g.com;1;hernandez;123456;pasante
+v123456;laura;bullones;f;m@g.com;1;lbullones;123456;profesor
+v123456;pedro;carmona;m;m@g.com;1;pcarmoa;123456;profesor
+v111111;jose;castaneda;m;c@g.com;1;jcastaneda;123456;profesor

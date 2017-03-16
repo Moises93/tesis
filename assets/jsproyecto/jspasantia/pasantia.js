@@ -30,6 +30,15 @@ $.post(baseurl + "empresa/getEmpresa",
             });
         });
 
+    $('#duracion').daterangepicker(
+        {
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        },
+        function(start, end, label) {
+            alert("A new date range was chosen: " + start.format('DD-MM-YYY') + ' to ' + end.format('DD-MM-YYY'));
+        });
 
 
 
@@ -139,6 +148,21 @@ $('#agregarPasantia').click(function () {
 
 
 });
+
+selPasantia = function(idPas,telefono,correo,idUser){
+
+    $('#idPasante').val(idPas);
+    $('#idUsuario').val(idUser);
+    $('#correo').val(correo);
+    $('#telefono').val(telefono);
+
+    document.getElementById('escuelam').style.display='none';
+    document.getElementById('labOrgm').style.display='none';
+    document.getElementById('cbEmpresam').style.display='none';
+
+
+};
+
 
 function  mostrarOrg() {
     idOrg=$("#cbOrganizacion option:selected").val();

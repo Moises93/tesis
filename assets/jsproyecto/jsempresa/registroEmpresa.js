@@ -29,47 +29,6 @@ $('#paisId').change(function(e) {
     });
 });
 
-/*$('#agregarEmpresa').click(function () {
- /*esta validando el formulario porque la etiqueta form de la vista sigue siendo pasanteForm cambiarlo y validar nuevo o 
- colocar etiqueta generica*/
-/*  var rif = $('#rif').val();
- var nombre = $('#nombreE').val();
- var email = $('#emailE').val();
- var login = $('#loginE').val();
- var clave = $('#claveE').val();
- var foto = $('#foto').val();
- //var clase = $('#mtxtClase').val();
- alert(foto);
- /*alert(nombre);
- alert(email);
- alert(login);
- alert(clave);*/
-
-/*if(cedula != '' && nombre != '') {
- $.post(baseurl + "cadministrador/agregarPasante",
- {
- cedula: cedula,
- nombre: nombre,
- apellido: apellido,
- sexo: sexo,
- email: email,
- escuela: escuela,
- login: login,
- clave: clave
- },
- function (data) {
- console.log(data);
- if (data) {
- //$('#mbtnCerrarModalP').click();
-
- location.reload();
- }
- });
- }else{
- alert("debe rellenar todos los datos!");
- }*/
-
-//});
 
 $('#tblEmpresa').DataTable({
     "language": {
@@ -95,13 +54,13 @@ $('#tblEmpresa').DataTable({
                 return '<span>' + row.paisnombre + '/' + row.estadonombre + '/' + row.ciudad + '</span>';
             }
         },
-        {data: 'emp_email_contacto'},
+        {data: 'emp_correo'},
         {orderable: 'true',
             render: function (data,type,row) {
                 console.log(row);
                 return '<a href="#" data-toggle="modal" ' +
                     'data-target="#modalEditEmpresa" ' +
-                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_foto + '\',\'' + row.emp_email_contacto + '\');"><span class="glyphicon glyphicon-edit" </span></a>';
+                    'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_telefono + '\',\'' + row.emp_correo + '\');"><span class="glyphicon glyphicon-edit" </span></a>';
 
 
             }
@@ -128,12 +87,45 @@ $('#tblEmpresa').DataTable({
 });
 
 //con esta funcion pasamos los paremtros a los text del modal.
-selEmpresa= function(id,rif, nombre, foto, correo){
+selEmpresa= function(id,rif, nombre, telefono, correo){
   
     $('#idEmpresa').val(id);
     $('#rifE').val(rif);
     $('#nameE').val(nombre);
-   // $('#fotoE').val(nombre);//error con foto
     $('#correoE').val(correo);
+    $('#telefonoE').val(telefono);
 
 };
+
+$('#actualizarEmpresa').click(function(){
+    var expr = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+    var id =   $('#idEmpresa').val();
+    var telefono= $('#telefonoE').val();
+    var rif = $('#rifE').val();
+    var nombre =  $('#nameE').val();
+    var correo = $('#correoE').val();
+
+    if(correo == "" || !expr.test(correo)) {
+        $("#correoeM").html("<span>Debe ingresar un correo valido</span>");
+        selEmpresa(id,rif, nombre, telefono,correo);
+    }else {
+        $.post(baseurl + "empresa/actualizarEmpresa",
+            {
+                id: id,
+                telefono: telefono,
+                rif: rif,
+                nombre: nombre,
+                correo: correo,
+            },
+            function (data) {
+                $('#mbtnCerrarModal1').click();
+                alert(data);
+
+                location.reload();
+
+            });
+    }
+
+
+
+});

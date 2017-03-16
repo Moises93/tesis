@@ -112,13 +112,24 @@ class Model_admin extends CI_Model
         return $this->db->delete('permiso_usuario');
 
     }
-    function  obtenerMenuId($clave){
+    function obtenerMenuId($clave){
         $this->db->select('id_menu');
         $this->db->from('menu');
         $this->db->where('clave',$clave);
         $query = $this->db->get();
         return $query->row();
     }
+
+
+    function consultarTipoUsuario($tipo){
+        $this->db->select('id_tipo');
+        $this->db->from('tipos_usuarios');
+        $this->db->where('tipo',$tipo);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+
     function guardarPermisos($id_usuario,$id_menu){
         $data = array(
             'id_menu' => $id_menu,

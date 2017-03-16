@@ -111,4 +111,20 @@ class Model_empresa extends CI_Model
 		return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
 
 	}
+
+	function actualizarEmpresa($id,$rif,$nombre,$correo,$telefono){
+		$data = array(
+			'emp_nombre' => $nombre,
+			'emp_rif' => $rif,
+			'emp_correo' => $correo,
+			'emp_telefono' => $telefono
+		);
+		if(!empty($data))
+		{
+			$this->db->where('emp_id', $id);
+			$this->db->update('empresa', $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
 }

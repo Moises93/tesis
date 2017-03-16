@@ -101,4 +101,32 @@ class Model_profesor extends CI_Model
 		$this->db->update('profesor',$data);
 	}
 
+	function actualizar_telefono($pro,$telefono){
+		$data = array(
+			'pro_telefono' => $telefono
+		);
+		if(!empty($data))
+		{
+			$this->db->where('pro_id', $pro);
+			$this->db->update('profesor', $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	public function agregarProfesor($cedula,$nombre,$apellido,$sexo,$escuela,$data){
+		$data = array(
+			'pro_cedula' => $cedula,
+			'pro_nombre' => $nombre,
+			'pro_apellido' => $apellido,
+			'pro_sexo' => $sexo,
+			'id_usuario' => $data,
+			'id_escuela' =>$escuela,
+			'id_tipo' =>1,
+
+		);
+
+		$this->db->insert('profesor',$data);
+	}
+
 }

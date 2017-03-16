@@ -156,6 +156,67 @@ Gestion Pasantias
 		</section>
 		<!-- /.content -->
 
+<!--incio modal de edicion pasantia -->
+<div class="modal fade" id="modalEditPasantia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-blue">
+                <button type="button" id="mbtnCerrarModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar Tutor</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <!-- parametros ocultos -->
+                    <input type="hidden" id="idPasante">
+                    <input type="hidden" id="idUsuario">
+                    <!-- Fin de parametros ocultos -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Duracion Pasant&iacute;a:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="duracion" required>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="form-group">
+                            <label >Tipo Organizacion</label>
+                            <select id="cbOrganizacion" class="form-control" name="cbOrganizacion" onchange="mostrarOrg();" required>
+                                <option value="-1">seleccione:</option>
+                                <option value="1">Empresa</option>
+                                <option value="2">Universidad</option>
+                            </select>
+                            <span  id= "nombreP" class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label id="labOrgm">Organización</label>
+                            <select id="cbEmpresam" class="form-control" name="cbEmpresam" required>
+                                <option value="-1">seleccione:</option>
+                            </select>
+                            <select id="escuelam" class="form-control" name="escuelam"required>
+                                <option value="-1">seleccione:</option>
+                                <option value="1">Universidad de Carabobo</option>
+                            </select>
+
+                            <span  id= "nombreP" class="help-block"></span>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-info" id="mbtnUpdEstudiante">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Final modal-->
 <script type="text/javascript">

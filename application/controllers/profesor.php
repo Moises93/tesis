@@ -38,7 +38,7 @@ class Profesor extends CI_controller
         @$data["message"]=$this->uri->segment(2);
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('profesor/index',$data);
+        $this->load->view('profesor/vprofesor');
         $this->load->view('profesor/footerProfesor');
     }
    /*Actualizada el 18-02-2017*/
@@ -187,6 +187,28 @@ class Profesor extends CI_controller
        $this->load->view('profesor/index');
 
    }
+
+    public function actualizarProfesor(){
+        $idUsu=$this->input->post('usuario');
+        $correo =$this->input->post('correo');
+    
+        $telefono =$this->input->post('telefono');
+        $idpro =$this->input->post('idpro');
+    
+    
+        $usu=$this->model_usuario->actualizar_correo($idUsu,$correo);
+        $pas=$this->model_profesor->actualizar_telefono($idpro,$telefono);
+    
+        if ($usu != FALSE && $pas != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
+    }
+
+
+
+
 }
 
 ?>

@@ -215,7 +215,7 @@
 
 <script src="<?php echo base_url();?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="<?php echo base_url();?>assets/plugins/datableselect/dataTables.editor.min.js"></script>
+<!--<script src="<?php echo base_url();?>assets/plugins/datableselect/dataTables.editor.min.js"></script> -->
 <script src="<?php echo base_url();?>assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url();?>assets/plugins/fastclick/fastclick.js"></script>

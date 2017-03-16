@@ -15,6 +15,7 @@ class cadministrador extends CI_Controller{
 
         $this->load->model('model_usuario');
         $this->load->model('model_admin');
+        $this->load->model('model_profesor');
         $this->load->model('model_ubicacion');
         $this->load->model('model_habilidades');
         $this->load->library('csvimport');
@@ -335,7 +336,7 @@ class cadministrador extends CI_Controller{
         $config['allowed_types'] = 'csv';
         $config['max_size'] = '1000';
         $config['overwrite']=true; //sobreescribe archivos
-        $tipo=4;
+        $rediret=0;
         $this->load->library('upload', $config);
         $this->load->library('csvimport');
         // If upload failed, display error
@@ -349,15 +350,27 @@ class cadministrador extends CI_Controller{
             if ($this->csvimport->get_array($file_path)) {
                 $csv_array = $this->csvimport->get_array($file_path);
                 foreach ($csv_array as $row) {
-                  $this->model_usuario->insertar($row['login'],$row['clave'],$tipo,$row['correo']);
+                    $tipo=  $this->model_admin->consultarTipoUsuario($row['tipo']);
+                    $tipou=$tipo->id_tipo;
+                    
+                    $this->model_usuario->insertar($row['login'],$row['clave'],$tipou,$row['correo']);
                     $data =$this->model_usuario->obtenerIdUsuarios($row['login']);
                     $id_usuario =$data->id_usuario;
-                    $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
+                    if($row['tipo']=='pasante'){
+                        $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
                                                          $row['escuela'],$id_usuario);
+                    }else if($row['tipo']=='profesor'){
+                        $this->model_profesor->agregarProfesor($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
+                            $row['escuela'],$id_usuario);
+                        $rediret=1;
+                    }
                 }
                 $this->session->set_flashdata('success', 'Csv Data Imported Succesfully');
-                redirect(base_url().'cadministrador/gestionEstudiante');
-                //echo "<pre>"; print_r($insert_data);
+               if($rediret==0){
+                    redirect(base_url().'cadministrador/gestionEstudiante');
+               }else{
+                   redirect(base_url().'profesor/gestionProfesor');
+               }//echo "<pre>"; print_r($insert_data);
             } else
                 $data['error'] = "Error occured";
         }

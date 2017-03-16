@@ -58,7 +58,7 @@ class Empresa extends CI_controller
   }
 
      public function guardarEmpresa(){
-echo 'aqui ';
+
          exit();
             $data = array();
             foreach($_POST as $key => $value) {   
@@ -69,7 +69,7 @@ echo 'aqui ';
                $nueva_empresa['emp_nombre'] = $data['NombreEmpresa'];
                $nueva_empresa['emp_acceso'] = 1;
                $nueva_empresa['emp_foto'] = $data['empresa_foto'];
-               $nueva_empresa['emp_email_contacto'] = $data ['Email'];
+               $nueva_empresa['emp_correo'] = $data ['Email'];
                $id_empresa = $this->model_empresa->crearEmpresa($nueva_empresa);
 
                foreach ($data['habilidadId'] as $row) {
@@ -97,7 +97,7 @@ echo 'aqui ';
     }
 
     public function registrarEmpresa(){
-        echo 'alla ';
+
         $data = array();
         foreach($_POST as $key => $value) {
             $data[$key] = $value;
@@ -109,7 +109,7 @@ echo 'aqui ';
         if (isset($data['empresa_foto'])) {
             $nueva_empresa['emp_foto'] = $data['empresa_foto'];
         }
-        $nueva_empresa['emp_email_contacto'] = $data ['Email'];
+        $nueva_empresa['emp_correo'] = $data ['Email'];
         $nueva_empresa['emp_telefono'] = $data['telefono'];
         $id_empresa = $this->model_empresa->crearEmpresa($nueva_empresa);
 
@@ -196,6 +196,23 @@ echo 'aqui ';
         $actualizar = $this->model_empresa->updUsuarioE($idusuario_empresa,$uem_nombre,$uem_cedula,$uem_apellido,$uem_telefono);
 
         if ($usu != FALSE && $actualizar != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
+    }
+
+    public function actualizarEmpresa(){
+
+        $id = $this->input->post('id');
+        $telefono = $this->input->post('telefono');
+        $rif= $this->input->post('rif');
+        $nombre = $this->input->post('nombre');
+        $correo =$this->input->post('correo');
+
+        $actualizar = $this->model_empresa->actualizarEmpresa($id,$rif,$nombre,$correo,$telefono);
+
+        if ($actualizar != FALSE){
             echo('Actualización Exitosa!!');
         }else{
             echo('Ocurrio un error');

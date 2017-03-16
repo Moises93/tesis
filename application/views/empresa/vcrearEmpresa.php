@@ -300,14 +300,14 @@
                 </section>        <!-- Main content -->
         
                 <!-- /.content -->
-                <!-- Inicio modal-->
+                <!-- Inicio modal EDITAR EMPRESA-->
                 <div class="modal fade" id="modalEditEmpresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
 
                             <div class="modal-header bg-blue">
                                 <button type="button" id="mbtnCerrarModal1" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Editar Persona</h4>
+                                <h4 class="modal-title" id="myModalLabel">Editar Empresa</h4>
                             </div>
 
                             <div class="modal-body">
@@ -333,10 +333,10 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Foto</label>
+                                            <label class="col-sm-3 control-label">Telefono</label>
                                             <div class="col-sm-9">
-                                                <input type="file" name="fotoE" class="form-control" id="fotoE">
-                                                <span  id= "fotoEm" class="help-block"></span>
+                                                <input type="text" name="telefonoE" class="form-control" id="telefonoE" value="" >
+                                                <span  id= "telefonoe" class="help-block"></span>
                                             </div>
                                         </div>
 
@@ -344,7 +344,7 @@
                                             <label class="col-sm-3 control-label">Correo</label>
                                             <div class="col-sm-9">
                                                 <input type="email" name="correoE" class="form-control" id="correoE">
-                                                <span  id= "correoM" class="help-block"></span>
+                                                <span  id= "correoeM" class="help-block"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -353,7 +353,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" id="mbtnCerrarModal1" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-info" id="mbtnUpdEmpresa">Actualizar</button>
+                                <button type="button" class="btn btn-info" id="actualizarEmpresa">Actualizar</button>
                             </div>
                         </div>
                     </div>
