@@ -40,7 +40,7 @@ class Model_pasante extends CI_Model
         $sql = "SELECT pas.pas_id, pas.pas_cedula, pas.pas_nombre,pas.pas_apellido ,pas.pas_sexo, pas.id_usuario, es.esc_nombre as Escuela ,us.id_usuario, us.usu_correo, us.usu_foto, us.usu_estatus, us.usu_login from pasante as pas";
         $sql = $sql . " join escuela es on pas.id_escuela = es.id_escuela ";
         $sql = $sql . " left join usuario us on us.id_usuario = pas.id_usuario";
-        $sql = $sql . " left join integrantes_pasantia pasan on pas.pas_id = pasan.pas_id";
+        $sql = $sql . " left join pasantia pasan on pas.pas_id = pasan.pas_id";
         $sql = $sql . " where pasan.pas_id is null and us.usu_estatus = 1";
 
 // Ejecuta Consulta
