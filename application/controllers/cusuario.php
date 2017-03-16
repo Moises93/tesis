@@ -12,49 +12,52 @@ class Cusuario extends CI_Controller
     parent::__construct();
     $this->load->library('form_validation');
  		$this->load->model('model_usuario');
-        $this->load->model('model_pasante');
+    $this->load->model('model_pasante');
   }
 
-  public function login()
-	{
-		$param['nombre'] = $this->input->post('usuario');
+
+  public function inicio(){
+     $idUser=$this->session->userdata('id');
+     $tipo =$this->session->userdata('tipo');
+     $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+      $userData = array(
+               'user' => $rsu
+      );
+            
+      $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+      $data['user'] = $rsu;
+      //print_r($this->session->userdata());
+      $this->load->view('layout/header',$userData);
+      $this->load->view('layout/vmenu',$data);
+      if($tipo==4){
+          //deberias aqui llamar a un modelo que te traiga todas las empresasy mandar
+          //esa informacion como un array a la vista    $this->load->view('pasante/vpasante',ARRAY); 
+          $this->load->view('pasante/vpasante');
+          $this->load->view('layout/footer');
+      }elseif($tipo==5){
+          $rsu=$this->model_pasante->getPostulados();
+          $pasantes = array(
+              'Pasantes' => $rsu
+          );
+          $this->load->view('empresa/dashboardEmpresa',$pasantes);
+          $this->load->view('empresa/footerEmpresa');
+          }elseif(true){ 
+          $this->load->view('contenido/vPrueba');
+          $this->load->view('layout/footer');
+        }   
+  }
+    public function login()
+  {
+        $param['nombre'] = $this->input->post('usuario');
         $param['clave'] = $this->input->post('password');
         if(!$this->model_usuario->existe($param)){
           redirect('/cusuario/vlogin/error');//Llamo a la funcion vlogin con una variable de error
         }else{
             
-            $idUser=$this->session->userdata('id');
-            $tipo =$this->session->userdata('tipo');
-            $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
-            $userData = array(
-               'user' => $rsu
-            );
-            
-            $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-            $data['user'] = $rsu;
-            //print_r($this->session->userdata());
-            $this->load->view('layout/header',$userData);
-            $this->load->view('layout/vmenu',$data);
-            if($tipo==4){
-                //deberias aqui llamar a un modelo que te traiga todas las empresasy mandar
-                //esa informacion como un array a la vista    $this->load->view('pasante/vpasante',ARRAY); 
-                $this->load->view('pasante/vpasante');
-                    $this->load->view('layout/footer');
-            }elseif($tipo==5){
-                $rsu=$this->model_pasante->getPostulados();
-                $pasantes = array(
-               'Pasantes' => $rsu
-                 );
-                $this->load->view('empresa/dashboardEmpresa',$pasantes);
-                    $this->load->view('empresa/footerEmpresa');
-            }elseif(true){ 
-                  $this->load->view('contenido/vPrueba');
-                      $this->load->view('layout/footer');
-           }
-        
+             redirect('/cusuario/inicio');
             
         }
-	}
+  }
     
     /*Funcion Vlogin que direcciona a la pagina de registro */
     public function vlogin(){

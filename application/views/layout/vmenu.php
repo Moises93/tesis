@@ -8,9 +8,9 @@
            <div class="pull-left ">
                 <!--<img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">  width="50" height="50"-->
                 <?php if (empty($user[0]->usu_foto)) { ?>
-                       <img src="<?=asset_url("img/noPerfil.png")?>" width="50" height="50" alt="User Image" class="img-circle"> 
+                       <a title="Inicio" href="<?php echo base_url();?>"><img src="<?=asset_url("img/noPerfil.png")?>" width="50" height="50" alt="User Image" class="img-circle"> </a>
                     <?php } else { ?>
-                        <img src="<?=$user[0]->usu_foto?>" width="50" height="50" alt="User Image" class="img-circle"> 
+                          <a title="Inicio" href="<?php echo base_url();?>"> <img src="<?=$user[0]->usu_foto?>" width="50" height="50" alt="User Image" class="img-circle"> </a>
                     <?php } ?>
             </div>
             <div class="pull-left info">

@@ -11,9 +11,9 @@ class Empresa extends CI_controller
     parent::__construct();
     $this->load->model('model_ubicacion');
     $this->load->model('model_habilidades');
-     $this->load->model('model_empresa');
-      $this->load->model('model_usuario');
-    # code...paren
+    $this->load->model('model_empresa');
+    $this->load->model('model_usuario');
+    $this->load->model('model_pasante');
   }
 
   public function index(){
@@ -219,6 +219,26 @@ class Empresa extends CI_controller
         }
     }
 
+    //Ultima actualizacion el dia 15-03-2017//
+    public function misPasantes(){
+            $idUser=$this->session->userdata('id');
+            $tipo =$this->session->userdata('tipo');
+            $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+            $userData = array(
+               'user' => $rsu
+            );
+
+            $rsul = $this->model_pasante->getPasantesporEmpresa($rsu[0]->Id);
+            $pasantes = array(
+               'Pasantes' => $rsul
+            );
+             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+             $data['user'] = $rsu;
+            $this->load->view('layout/header',$userData);
+            $this->load->view('layout/vmenu',$data);
+            $this->load->view('empresa/dashboardEmpresa',$pasantes);
+            $this->load->view('empresa/footerEmpresa');
+    }
 
 }
 ?>
