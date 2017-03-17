@@ -129,4 +129,6 @@ class Model_profesor extends CI_Model
 		$this->db->insert('profesor',$data);
 	}
 
+
+
 }

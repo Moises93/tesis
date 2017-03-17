@@ -44,7 +44,9 @@ class Cpasantia extends CI_controller
         $fechaFin= $this->input->post('fechaFin');
 
         $estatus=1; //por defecto inserto estatus 1 =iniciada
-
+        if($empresa < 0 ){
+            $empresa=null;
+        }
         return $this->model_pasantia->agregarPasantia($modalidad,$empresa,$orgaca,$escuela,
         $estudiante,$fechaIni,$fechaFin,$estatus);
 
@@ -112,7 +114,10 @@ class Cpasantia extends CI_controller
         $fechaIni= $this->input->post('fechaIni');
         $fechaFin= $this->input->post('fechaFin');
         $pasantia= $this->input->post('idPasantia');
-
+        if($empresa < 0 ){
+            $empresa=null;
+        }
+        
         $pas=$this->model_pasantia->actualizarPasantia($pasantia,$empresa,$orgaca,$fechaIni,$fechaFin);
 
         if ($pas != FALSE){

@@ -227,6 +227,7 @@
 <script src="<?php echo base_url();?>assets/plugins/datableselect/dataTables.buttons.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/jsprofesor/profesor.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/jsprofesor/evaluar.js"></script>
 
 <script>
 

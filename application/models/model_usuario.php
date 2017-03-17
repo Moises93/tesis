@@ -317,7 +317,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	}
 		 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioProfesor($id){
-        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, es.esc_nombre, tp.pro_tipo');
+        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, prf.pro_id,es.esc_nombre, tp.pro_tipo');
 		$this->db->from('usuario us');
 		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
 		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');

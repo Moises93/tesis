@@ -94,7 +94,8 @@ class Coordinador extends CI_controller
         $data = array(
             'pro_id' => $tutorA,
             'id_pasantia'=>$idPasantia,
-            'tipo' =>$tipo
+            'tipo' =>$tipo,
+            'idusuario_empresa' => null
         );
         $consulta= $this->model_pasantia->consultarTutor($data);
 
@@ -116,6 +117,7 @@ class Coordinador extends CI_controller
         $tutorA= $this->input->post('tutorO');
         $tipo= $this->input->post('tipo'); //el tipo me va a diferenciar entre tutor academico y tutor organizacional profesor
         $data = array(
+            'pro_id' => null,
             'idusuario_empresa' => $tutorA,
             'id_pasantia'=>$idPasantia,
             'tipo' =>$tipo

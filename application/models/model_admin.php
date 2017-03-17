@@ -71,13 +71,13 @@ class Model_admin extends CI_Model
 
     function crearMenu($nombre,$id_padre,$url,$clase){
 
-        $activo=1;
+
         $data = array(
             'id_padre' => $id_padre,
             'nombre' => $nombre,
             'url' => $url,
-            'clase' => $clase,
-            'activo' =>$activo
+            'clase' => $clase
+
         );
          return $this->db->insert('menu',$data);
     }

@@ -17,7 +17,8 @@ class Profesor extends CI_controller
       $this->load->model('model_tipoprofesor');
       $this->load->model('model_profesor');
       $this->load->model('model_admin');
-    
+      $this->load->model('model_pasantia');
+
     }
     public function gestionProfesor() {
       /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
@@ -204,6 +205,73 @@ class Profesor extends CI_controller
         }else{
             echo('Ocurrio un error');
         }
+    }
+
+    public function evaluarPasantes(){
+        $resultado=array();
+        $resul=array(
+            'id_pasantia' => null,
+            'pas_nombre' => null,
+            'pas_apellido' => null,
+            'emp_nombre' => null,
+            'orgaca' => null,
+            'estatus' => null,
+            'pas_id' => null,
+            'requisitos' => null
+        );
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+        $idPro= $rsu[0]->pro_id;
+
+        $pas=$this->model_pasantia->obtenerPasantiasAcademicas($idPro);
+
+        foreach ($pas as $pas => $row){
+            $idPas=$row->pas_id;
+            $requisitos=$this->model_pasantia->consultarRequisitos($idPas);
+            $resul['id_pasantia']=$row->id_pasantia;
+            $resul['pas_nombre']=$row->pas_nombre;
+            $resul['pas_apellido']=$row->pas_apellido;
+            $resul['emp_nombre']=$row->emp_nombre;
+            $resul['orgaca']=$row->orgaca;
+            $resul['estatus']=$row->estatus;
+            $resul['pas_id']=$row->pas_id;
+            if(count($requisitos)>0) {
+                $resul['requisitos']=$requisitos;
+            }
+            array_push($resultado, $resul);
+        }
+        echo json_encode($resultado);
+       /* if(count($pas)>0) {
+            echo json_encode($pas);
+        }else{
+            echo 'Usted no tiene pasantes asignados ';
+        }*/
+
+
+    }
+    
+    public function evaluar(){
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $profesores = $this->model_usuario->obtener_Profesores();
+        $cant = count($profesores);
+        $data = array(
+            'Profesores' => $profesores,
+            'Cantidad' =>$cant
+        );
+        $data["message"] = NULL;
+        @$data["message"]=$this->uri->segment(2);
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('profesor/evaluar');
+        $this->load->view('profesor/footerProfesor');
     }
 
 

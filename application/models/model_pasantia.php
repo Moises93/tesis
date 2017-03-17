@@ -176,4 +176,58 @@ class Model_pasantia extends CI_Model
         }
         return FALSE;
     }
+
+    /*Dado el id de un profesor retorna el ID de las pasantias , en la que es tutor academico*/
+    public function obtenerPasantiasAcademicas($idPro){
+        $resul=array(
+        );
+        $this->db->select('pa.id_pasantia,pas.pas_nombre,pas.pas_apellido,emp.emp_nombre,pa.orgaca,pa.estatus,pas.pas_id');
+        $this->db->from('pasantia pa');
+        $this->db->join('integrantes_pasantia ipa', 'ipa.id_pasantia = pa.id_pasantia');
+        $this->db->join('pasante pas', 'pa.pas_id = pas.pas_id');
+        $this->db->join('empresa emp', 'pa.emp_id = emp.emp_id','left');
+        $this->db->where('ipa.pro_id',$idPro);
+        $this->db->where('ipa.tipo',1);
+        $query= $this->db->get()->result();
+        /*foreach ($query as $query => $row){
+            $idPas=$row->pas_id;
+            $requisitos=$this->consultarRequisitos($idPas);
+            array_push($resul, $row);
+            if(count($requisitos)>0) {
+
+                array_push($resul, $requisitos);
+            }
+        }*/
+        return $query;
+    }
+    /*Dado el id de un profesor retorna el ID de las pasantias , en la que es tutor academico*/
+    public function obtenerPasantiasEmpresariales($idPro){
+        $resul=array();
+        $this->db->select('pa.id_pasantia');
+        $this->db->from('pasantia pa');
+        $this->db->join('integrantes_pasantia ipa', 'ipa.id_pasantia = pa.id_pasantia');
+        $this->db->where('ipa.pro_id',$idPro);
+        $this->db->where('ipa.tipo',2);
+        $query= $this->db->get()->result();
+        foreach ($query as $query => $row){
+
+            array_push($resul,$row->id_pasantia);
+        }
+        return $resul;
+    }
+
+    public  function consultarRequisitos($idPas){
+        $resul=array();
+        $this->db->select('dre.requisito,dre.nombre_archivo');
+        $this->db->from('documentos_requeridos dre');
+        $this->db->join('usuario usu', 'usu.id_usuario=dre.id_usuario');
+        $this->db->join('pasante pas', 'pas.id_usuario = usu.id_usuario');
+        $this->db->where('pas.pas_id',$idPas);
+        $query= $this->db->get()->result();
+        foreach ($query as $query => $row){
+
+            array_push($resul,$row);
+        }
+        return $resul;
+    }
 }

@@ -73,22 +73,22 @@ $(document).ready(function(e) {
             {
                 "render": function (data, type, row) {
                     if (row.integrantes.organizacional == null) {
-                        if(row.orgaca == null){
+                        if(row.orgaca == null|| row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0){
                             return '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorO" ' +
                                 'onClick="selTutorOrg(\'' + null + '\',\'' + row.id_pasantia + '\',\'' + row.empresa_id + '\',\'' + row.empresa + '\');">Asignar</a>';
-                        }else if(row.orgaca != null){
+                        }else if(row.orgaca != 0){
                             return '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorOp" ' +
                                 'onClick="selTutorOrgAca(\'' + null + '\',\'' + row.id_pasantia + '\');">Asignar</a>';
                         }
                     } else {
-                        if(row.orgaca == null) {
+                        if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0) {
                             return '<span>' + row.integrantes.organizacional.info.nombre + ' ' + row.integrantes.organizacional.info.apellido + '</span>&emsp;' +
                                 '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorO" ' +
                                 'onClick="selTutorOrg(\'' + row.integrantes.organizacional.info.id + '\',\'' + row.id_pasantia + '\',\'' + row.empresa_id + '\',\'' + row.empresa + '\');">Cambiar</a>';
-                        }else if(row.orgaca != null){
+                        }else if(row.orgaca != 0 ){
                             return '<span>' + row.integrantes.organizacional.info.nombre + ' ' + row.integrantes.organizacional.info.apellido + '</span>&emsp;' +
                                 '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorOp" ' +

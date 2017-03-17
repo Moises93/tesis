@@ -57,9 +57,7 @@ $('#agregarPasantia').click(function () {
     /*var fechaIni=fecha[0].replace("/","-");
     var fechaFin=fecha[1].replace("/","-");*/
 
-        if(empresa<0){
-            empresa=null;
-        }
+    
     
         if(orgaca<0){
             orgaca=null;
@@ -109,7 +107,7 @@ $('#agregarPasantia').click(function () {
             }},
             
             {"render": function ( data, type, row ) {
-                if(row.orgaca == null || row.orgaca =='' || row.orgaca == 'undefined'){
+                if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0){
                     return '<span>' + row.emp_nombre +'</span>';
                 }else{
                     return '<span>Universidad de Carabobo </span>&emsp;' ;
@@ -120,7 +118,7 @@ $('#agregarPasantia').click(function () {
             {
                 orderable: 'true',
                 render: function (data, type, row) {
-
+                      
                     return '<a href="#"  data-toggle="modal" ' +
                         'data-target="#modalEditPasantia" ' +
                         'onClick="selPasantia(\'' + row.id_pasantia + '\');">' +
@@ -129,25 +127,10 @@ $('#agregarPasantia').click(function () {
                         '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
                         'data-target="#modalInfoPasantia" ' +
                         'onClick="selInfo(\'' + row.pas_nombre + '\',\'' + row.pas_apellido + '\',\'' + row.fecha_inicio + '\',\'' + row.fecha_final + '\',\'' + row.emp_nombre + '\');"><i class="fa fa-search" aria-hidden="true"></i></a>';
+                        
                 }
             }
 
-        ],
-        "columnDefs": [
-            {
-                "targets": [1],
-                "data": "estatus",
-                "render": function(data, type, row) {
-
-                    if (data == 1) {
-                        return '<i style="color:purple;" class="fa fa-spinner" aria-hidden="true"></i>';
-                    }else if (data == 2) {
-                        return '<i class="fa fa-check" aria-hidden="true"></i>';
-
-                    }
-
-                }
-            }
         ],
 
     });
@@ -227,10 +210,7 @@ $('#actualizarPasantia').click(function(){
     var fechaIni=fecha[0];
     var fechaFin=fecha[1];
 
-
-    if(empresa<0){
-        empresa=null;
-    }
+    
 
     if(orgaca<0){
         orgaca=null;
