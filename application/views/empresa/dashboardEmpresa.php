@@ -22,9 +22,9 @@
 
 </style>
 <section class="content">
-    <h2>Empresas</h2>
-  
-  <table>
+    <h2>Estudiantes</h2>
+  <div class="table-responsive">
+  <table class="table">
       <tbody>
         <?php $j = 0; foreach($Pasantes as $row){?>
                <?php if($j % 5 == 0){ ?>
@@ -60,4 +60,5 @@
         <?php $j++; } ?>
      </tbody>
    </table>
+   </div>
 </section>
