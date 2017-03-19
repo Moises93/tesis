@@ -23,7 +23,7 @@ $(document).ready(function(e) {
             {data: 'cedula', 'sClass': 'dt-body-center'},
             {
                 "render": function (data, type, row) {
-                    return '<span>' + row.nombre + ' ' + row.apellido + '</span>';
+                    return '<span>' + row.apellido + ' ' + row.nombre + ' </span>';
                 }
             },
             {data: 'escuela', 'sClass': 'dt-body-center'},
@@ -34,7 +34,7 @@ $(document).ready(function(e) {
                             'data-target="#modalAsignarTutor" ' +
                             'onClick="selTutor(\'' + null + '\',\'' + row.id_pasantia + '\',\'' + row.id_escuela + '\');">Asignar</a>';
                     } else {
-                        return '<span>' + row.integrantes.academico.info.pro_nombre + ' ' + row.integrantes.academico.info.pro_apellido + '</span>&emsp;' +
+                        return '<span>' + row.integrantes.academico.info.pro_apellido + ' ' + row.integrantes.academico.info.pro_nombre + ' </span>&emsp;' +
                             '<a href="#"  data-toggle="modal" ' +
                             'data-target="#modalAsignarTutor" ' +
                             'onClick="selTutor(\'' + row.integrantes.academico.info.pro_id + '\',\'' + row.id_pasantia + '\',\'' + row.id_escuela + '\');">Cambiar</a>';
@@ -66,7 +66,7 @@ $(document).ready(function(e) {
             {data: 'cedula', 'sClass': 'dt-body-center'},
             {
                 "render": function (data, type, row) {
-                    return '<span>' + row.nombre + ' ' + row.apellido + '</span>';
+                    return '<span>' + row.apellido + ' ' + row.nombre + ' </span>';
                 }
             },
             {data: 'escuela', 'sClass': 'dt-body-center'},
@@ -84,12 +84,12 @@ $(document).ready(function(e) {
                         }
                     } else {
                         if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0) {
-                            return '<span>' + row.integrantes.organizacional.info.nombre + ' ' + row.integrantes.organizacional.info.apellido + '</span>&emsp;' +
+                            return '<span>' + row.integrantes.organizacional.info.apellido + ' ' + row.integrantes.organizacional.info.nombre + ' </span>&emsp;' +
                                 '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorO" ' +
                                 'onClick="selTutorOrg(\'' + row.integrantes.organizacional.info.id + '\',\'' + row.id_pasantia + '\',\'' + row.empresa_id + '\',\'' + row.empresa + '\');">Cambiar</a>';
                         }else if(row.orgaca != 0 ){
-                            return '<span>' + row.integrantes.organizacional.info.nombre + ' ' + row.integrantes.organizacional.info.apellido + '</span>&emsp;' +
+                            return '<span>' + row.integrantes.organizacional.info.apellido + ' ' + row.integrantes.organizacional.info.nombre + ' </span>&emsp;' +
                                 '<a href="#"  data-toggle="modal" ' +
                                 'data-target="#modalAsignarTutorOp" ' +
                                 'onClick="selTutorOrgAca(\'' + row.integrantes.organizacional.info.id + '\',\'' + row.id_pasantia + '\');">Cambiar</a>';

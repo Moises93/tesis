@@ -44,6 +44,15 @@ class Model_pasantia extends CI_Model
         $this->db->join('escuela esc', 'pas.id_escuela=esc.id_escuela');
         return $this->db->get()->result();
     }
+
+    function existePasantia($idUser){
+        $this->db->select('pas.id_pasantia,pas.estatus');
+        $this->db->from('pasantia pas ');
+        $this->db->join('pasante pa', 'pas.pas_id= pa.pas_id');
+        $this->db->join('usuario usu', 'usu.id_usuario= pa.id_usuario');
+        $this->db->where('usu.id_usuario',$idUser);
+        return $this->db->get()->result();
+    }
     /*Consulto las pasantias con estatus ativo , esta funcion la uso para asignar los tutores*/
     function getPasantiaActiva() {
         $data = array();
@@ -215,7 +224,8 @@ class Model_pasantia extends CI_Model
         }
         return $resul;
     }
-
+    
+   
     public  function consultarRequisitos($idPas){
         $resul=array();
         $this->db->select('dre.requisito,dre.nombre_archivo');
@@ -229,5 +239,14 @@ class Model_pasantia extends CI_Model
             array_push($resul,$row);
         }
         return $resul;
+    }
+
+    function  actualizarEstatusPasantia($idPas,$estatus){
+        $data= array(
+            'estatus' => $estatus
+        );
+        $this->db->where('id_pasantia',$idPas);
+        $this->db->update('pasantia', $data);
+
     }
 }

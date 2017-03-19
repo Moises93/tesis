@@ -38,57 +38,71 @@ if( isset ($mensaje )) {
 </div>
 
 <div class="container">
-    <h2>Subir requisitos</h2>
-    <p><strong>Note:</strong> The <strong>data-parent</strong> attribute makes sure that all collapsible elements under the specified parent will be closed when one of the collapsible item is shown.</p>
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">Paso 1</a>
-                </h4>
-            </div>
-            <div id="collapse11" class="panel-collapse collapse in">
+    <div class="row form-group">
+        <div class="col-xs-12">
+            <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                <li class="active"><a href="#step-1">
+                        <h4 class="list-group-item-heading">CV</h4>
+                        <p class="list-group-item-text">First step description</p>
+                    </a></li>
+                <li class="disabled"><a href="#step-2">
+                        <h4 class="list-group-item-heading">Carta de Aceptacion</h4>
+                        <p class="list-group-item-text">Second step description</p>
+                    </a></li>
+                <li class="disabled"><a href="#step-3">
+                        <h4 class="list-group-item-heading">Plan de Actividades</h4>
+                        <p class="list-group-item-text">Third step description</p>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-12 well setup-content text-center" id="step-1">
+                <h1 class="text-center"> PASO 1</h1>
                 <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
-                la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
+                    la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
                         <table>
                             <tr>
-                                <td><input type=hidden name="requisito" value="cartaPostulacion"></td>
+                                <td><input type=hidden name="requisito" value="cv"></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><input type="file" name="requisitos"></td></br>
                             </tr>
                             <?php
-                                if($postulacion != "0") {
-                                    echo "<tr>";
-                                    echo " <td><input type='submit' value='cambiar' ></td>";
-                                    ?>
-                                    <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $postulacion;?>"><?php echo $postulacion;?> Descargar</a></td>
-                                    <?php
-                                    echo "</tr>";
+                            if($cv != "0") {
+                                echo "<tr>";
+                                echo " <td><input type='submit' value='cambiar' ></td>";?>
 
+                                <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $cv;?>"><?php echo $cv;?> Descargar</a></td>
+                                <?php
+                                echo "</tr>";
+                            }else{
+                                ?>
+                                <input type="hidden" id="paso1" value="<?php echo $cv;?>">;
+                                <?php
 
-                                }else{
-                                    echo" <tr>";
-                                    echo " <td><input type='submit' value='subir' ></td>";
-                                    echo   "</tr>";
-                                }
-                           ?>
+                                echo" <tr>";
+                                echo " <td><input type='submit' value='subir' ></td>";
+                                echo   "</tr>";
+                            }
+                            ?>
 
-                         </table>
+                        </table>
 
 
                     </form>
                 </div>
+
+                <button id="activate-step-2" class="btn btn-primary btn-lg">Avanzar al siguiente paso</button>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">paso 2</a>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-12 well setup-content text-center" id="step-2">
+                <h1 class="text-center"> PASO 2</h1>
                 <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
                     la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
@@ -102,13 +116,17 @@ if( isset ($mensaje )) {
                             <?php
                             if($aceptacion != "0") {
                                 echo "<tr>";
-                                echo " <td><input type='submit' value='cambiar' ></td>";?>
-                            <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $aceptacion;?>"><?php echo $aceptacion;?> Descargar</a></td>
-                               <?php
+                                echo " <td><input type='submit' value='cambiar' ></td>";
+                                ?>
+                                <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $aceptacion;?>"><?php echo $aceptacion;?> Descargar</a></td>
+                                <?php
                                 echo "</tr>";
 
 
                             }else{
+                                ?>
+                                <input type="hidden" id="paso2" value="<?php echo $aceptacion;?>">;
+                                <?php
                                 echo" <tr>";
                                 echo " <td><input type='submit' value='subir' ></td>";
                                 echo   "</tr>";
@@ -120,15 +138,15 @@ if( isset ($mensaje )) {
 
                     </form>
                 </div>
+
+                <button id="activate-step-3" class="btn btn-primary btn-lg">Activate Step 3</button>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Paso 3</a>
-                </h4>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-md-12 well setup-content text-center" id="step-3">
+                <h1 class="text-center"> PASO 3</h1>
                 <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
                     la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
@@ -143,10 +161,11 @@ if( isset ($mensaje )) {
                             if($actividades != "0") {
                                 echo "<tr>";
                                 echo " <td><input type='submit' value='cambiar' ></td>";?>
-
-                               <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $actividades;?>"><?php echo $actividades;?> Descargar</a></td>
+                                <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $actividades;?>"><?php echo $actividades;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";
+
+
                             }else{
                                 echo" <tr>";
                                 echo " <td><input type='submit' value='subir' ></td>";
@@ -163,5 +182,3 @@ if( isset ($mensaje )) {
         </div>
     </div>
 </div>
-
-

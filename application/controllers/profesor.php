@@ -221,11 +221,14 @@ class Profesor extends CI_controller
         );
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
-        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
-        $idPro= $rsu[0]->pro_id;
+        if($tipo == 3){
+          $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+          $idPro= $rsu[0]->pro_id;
 
-        $pas=$this->model_pasantia->obtenerPasantiasAcademicas($idPro);
-
+          $pas=$this->model_pasantia->obtenerPasantiasAcademicas($idPro);
+        }else if ($tipo==1){
+            $pas=$this->model_pasantia->getPasantia();
+        }
         foreach ($pas as $pas => $row){
             $idPas=$row->pas_id;
             $requisitos=$this->model_pasantia->consultarRequisitos($idPas);

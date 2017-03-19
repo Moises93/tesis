@@ -261,7 +261,7 @@ $('#tblPasantes').DataTable({
         {data: 'pas_cedula'},
         {
             "render": function (data, type, row) {
-                return '<span>' + row.pas_nombre + ' ' + row.pas_apellido + '</span>';
+                return '<span>' + row.pas_apellido + ' ' + row.pas_nombre + ' </span>';
             }
         },
         {data: 'pas_sexo'},

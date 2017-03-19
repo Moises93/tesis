@@ -40,6 +40,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="<?=asset_url("plugins/select2/select2.min.css")?>">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/progresBar.css">
     <script src="<?php echo base_url();?>assets/plugins/CaptionHover/js/modernizr.custom.js"></script>
   <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 

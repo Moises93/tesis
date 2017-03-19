@@ -15,6 +15,7 @@ class Cpasante extends CI_controller
         $this->load->model('model_usuario');
         $this->load->model('model_pasante');
         $this->load->model('model_documentos');
+        $this->load->model('model_pasantia');
         $this->load->helper('download');
     }
    /*obtengo todos los estudiantes pasantes y no pasantes*/
@@ -101,13 +102,29 @@ class Cpasante extends CI_controller
            // print_r($datas);
 
             $val=$this->model_documentos->existeRequisito($idUser,$requisito);
-            echo $val;
+
 
             if($val == 1){
                 $nombre=$requisito."-".$login;
                 $this->model_documentos->actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser);
+
             }else {
+
                 $this->model_documentos->guardarDocumento($datas);
+                 if($requisito =='planActividades'){
+                     $valo=$this->model_pasantia->existePasantia($idUser);
+                     if(count($valo)>0) {
+                         $idPas=$valo[0]->id_pasantia;
+                         $estatusActual=$valo[0]->estatus;
+                         /*En caso de que ya exista el registro en pasantia debo verificar su estatus si es 1 aumento a 2 de lo contrario
+                         dejo el estatus actual,valido: para el caso en que el estudiante cambie el plan de actividades despues de haber
+                         avanzado con el informe u evaluaciones*/
+                         if($estatusActual<2){
+                             $estatus=2;
+                         }else{$estatus=$estatusActual;}
+                         $this->model_pasantia->actualizarEstatusPasantia($idPas, $estatus); //validar si existe la pasantia,en caso que exista validar que eñ estatus sea menor a 2
+                     }
+                 }
             }
 
 

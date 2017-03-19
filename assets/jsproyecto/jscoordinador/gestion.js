@@ -27,7 +27,7 @@ $(document).ready(function(e) {
         }, 'columns': [
             {
                 "render": function (data, type, row) {
-                    return '<span>' + row.nombre + ' ' + row.apellido + '</span>';
+                    return '<span>' + row.apellido + ' ' + row.nombre + ' </span>';
                 }
             },
             {data: 'esc_nombre', 'sClass': 'dt-body-center'},

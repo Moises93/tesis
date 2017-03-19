@@ -72,7 +72,11 @@ $(document).ready(function(e) {
             {data: 'pro_cedula'},
             {
                 "render": function (data, type, row) {
-                    return '<span>' + row.Nombre + ' ' + row.Apellido + '</span>';
+                    if(row.pro_tipo =='Coordinador'){
+                        return '<span>' + row.Apellido + ' ' + row.Nombre +' ('+ row.pro_tipo +')</span>';
+                    }else{
+                        return '<span>' + row.Apellido + ' ' + row.Nombre +' </span>';
+                    }
                 }
             },
             {data: 'esc_nombre'},
@@ -80,7 +84,6 @@ $(document).ready(function(e) {
             {data: 'pro_telefono'},
             {orderable: 'true',
                 render: function (data,type,row) {
-                    console.log(row);
                     return '<a href="#" data-toggle="modal" ' +
                         'data-target="#modalEditProfesor" ' +
                         'onClick="selProfesor(\'' + row.pro_id + '\',\'' + row.usu_correo + '\',\'' + row.pro_telefono + '\',\'' + row.id_usuario + '\');"><span class="glyphicon glyphicon-edit" </span></a>';

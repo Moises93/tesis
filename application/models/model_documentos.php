@@ -25,7 +25,7 @@ class Model_documentos extends CI_Model
 
         $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
         $this->db->where('doc.id_usuario', $idUser);
-        $this->db->where("(doc.requisito='cartaPostulacion')",NULL,FALSE);
+        $this->db->where("(doc.requisito='cartaAceptacion')",NULL,FALSE);
         $query = $this->db->get('documentos_requeridos doc');
 
 
@@ -33,24 +33,11 @@ class Model_documentos extends CI_Model
 
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key => $object) {
-                $postulacion =  $object['name'];
-            }
-        }else{
-            $postulacion=0;
-        }
-        $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
-        $this->db->where('doc.id_usuario', $idUser);
-        $this->db->where("(doc.requisito='cartaAceptacion')",NULL,FALSE);
-        $query = $this->db->get('documentos_requeridos doc');
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $key => $object) {
                 $aceptacion =   $object['name'];
             }
-
         }else{
             $aceptacion=0;
         }
-
         $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
         $this->db->where('doc.id_usuario', $idUser);
         $this->db->where("(doc.requisito='planActividades')",NULL,FALSE);
@@ -59,13 +46,26 @@ class Model_documentos extends CI_Model
             foreach ($query->result_array() as $key => $object) {
                 $actividades =   $object['name'];
             }
+
         }else{
             $actividades=0;
         }
+
+        $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
+        $this->db->where('doc.id_usuario', $idUser);
+        $this->db->where("(doc.requisito='cv')",NULL,FALSE);
+        $query = $this->db->get('documentos_requeridos doc');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key => $object) {
+                $cv =   $object['name'];
+            }
+        }else{
+            $cv=0;
+        }
         $array = array(
-            "postulacion" => $postulacion,
             "aceptacion" => $aceptacion,
-            "actividades" => $actividades
+            "actividades" => $actividades,
+            "cv" => $cv
         );
         return $array;
 

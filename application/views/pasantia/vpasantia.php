@@ -41,7 +41,7 @@ Gestion Pasantias
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Estatus</th>
+                                                <th>Progreso</th>
                                                 <th>Pasante</th>
                                                 <th>Periodo</th>
                                                 <th>Empresa</th>

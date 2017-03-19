@@ -81,7 +81,7 @@ $('#agregarPasantia').click(function () {
             });
 
 });
-
+   var estatus=0;
     $('#tabPasantias').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -98,9 +98,42 @@ $('#agregarPasantia').click(function () {
             dataSrc: ''
         },'columns': [
             {data: 'id_pasantia','sClass':'dt-body-center'},
-            {data: 'estatus'},
             {"render": function ( data, type, row ) {
-                return '<span>' + row.pas_nombre +' ' +row.pas_apellido+'</span>';
+               var estatus=parseInt(row.estatus);
+                if(estatus==1){
+                    /*pasante consigue pasantias y carga plan*/
+                    return '<div class="progress" style="background-color: burlywood" >'+
+                    '<div style="width: 10%;background-color: red; " aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" role="progressbar" ' +
+                    'class="red progress-bar">'+
+                    '<span style=" margin-left:10px;color: #000; text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff, -1px 1px 0 #fff,1px 1px 0 #fff;">10%</span> </div> </div>';
+                }else if(estatus==2){
+                    //pasante sube Cv y foto
+                    return '<div class="progress" style="background-color: burlywood" >'+
+                        '<div style="width: 30%;background-color: orangered; " aria-valuemax="100" aria-valuemin="0" aria-valuenow="30" role="progressbar" ' +
+                        'class="progress-bar">'+
+                        '<span style=" margin-left:10px;color: #000; text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff, -1px 1px 0 #fff,1px 1px 0 #fff;">30%</span> </div> </div>';
+                }else if(estatus==3){
+                    //pasante sube informe final
+                    return '<div class="progress" style="background-color: burlywood" >'+
+                        '<div style="width: 60%;background-color: orange; " aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" ' +
+                        'class="progress-bar">'+
+                        '<span style=" margin-left:10px;color: #000; text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff, -1px 1px 0 #fff,1px 1px 0 #fff;">60%</span> </div> </div>';
+                }else if(estatus==4){
+                    //tutor empresarial evalua
+                    return '<div class="progress" style="background-color: burlywood" >'+
+                        '<div style="width: 80%;background-color: yellow; " aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" ' +
+                        'class="progress-bar">'+
+                        '<span style=" margin-left:80px;color: #000; text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff, -1px 1px 0 #fff,1px 1px 0 #fff;">80%</span> </div> </div>';
+                }else if(estatus==5){
+                    //tutor academico aprueba
+                    return '<div class="progress" style="background-color: burlywood" >'+
+                        '<div style="width: 100%;background-color: forestgreen; " aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" ' +
+                        'class=" progress-bar">'+
+                        '<span style=" margin-left:10px;color: #000; text-shadow: -1px -1px 0 #fff,1px -1px 0 #fff, -1px 1px 0 #fff,1px 1px 0 #fff;">100%</span> </div> </div>';
+                }
+            }},
+            {"render": function ( data, type, row ) {
+                return '<span>' +row.pas_apellido+' ' + row.pas_nombre +' </span>';
             }},
             {"render": function ( data, type, row ) {
                 return '<span>' + row.fecha_inicio +'-' +row.fecha_final+'</span>';
