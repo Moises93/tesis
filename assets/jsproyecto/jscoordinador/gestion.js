@@ -98,8 +98,13 @@ asignarCoordinador = function(idEscuela,proId,idUser){
             idUser:user
         },
         function(data){
-            alert(data);
-            location.reload();
+            data=data.trim();
+            if(data =='true'){
+                alert('operacion Exitosa');
+                location.reload();
+            }else if(data == 'false'){
+                alert('Ya existe un coordinador asignado a esta escuela')
+            }
         });
 
 };

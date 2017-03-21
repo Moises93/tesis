@@ -17,6 +17,7 @@ class Cpasantia extends CI_controller
         $this->load->model('model_ubicacion');
         $this->load->model('model_habilidades');
         $this->load->model('model_pasantia');
+        $this->load->model('model_documentos');
     }
 
     public function gestionPasantia(){
@@ -43,7 +44,14 @@ class Cpasantia extends CI_controller
         $fechaIni= $this->input->post('fechaIni');
         $fechaFin= $this->input->post('fechaFin');
 
-        $estatus=1; //por defecto inserto estatus 1 =iniciada
+        $requisitos=$this->model_documentos->requisitosPasante($estudiante);
+
+        if(count($requisitos)>2) {
+            $estatus=2; //requisitos, carta Aceptacion, actividades y cv listos.
+        }else{
+            $estatus=1; //por defecto inserto estatus 1 =iniciada
+        }
+
         if($empresa < 0 ){
             $empresa=null;
         }
@@ -55,6 +63,7 @@ class Cpasantia extends CI_controller
     
     public function getPasantia(){
         $dato = $this->model_pasantia->getPasantia();
+        
         echo json_encode($dato);
     }
 
@@ -68,12 +77,21 @@ class Cpasantia extends CI_controller
 
             $pasantia =array(
                 'id_pasantia'    => $result['id_pasantia'],
+                'modalidad'    => $result['modalidad'],
+                'estatus'        => $result['estatus'],
+                'fecha_inicio'   => $result['fecha_inicio'],
+                'fecha_final'    => $result['fecha_final'],
                 'cedula'         => $result['pas_cedula'],
+                'sexo'           => $result['pas_sexo'],
                 'nombre'         => $result['pas_nombre'],
                 'apellido'       => $result['pas_apellido'],
+                'telefono'       => $result['pas_telefono'],
                 'login'          => $result['usu_login'],
+                'correo'          => $result['usu_correo'],
+                'foto'          => $result['usu_foto'],
                 'escuela'        => $result['esc_nombre'],
                 'orgaca'         => $result['orgaca'],
+                'universidad'    => 'Universidad de Carabobo',
                 'empresa_id'     => $result['emp_id'],
                 'empresa'        => $result['emp_nombre'],
                 'id_escuela'     => $result['id_escuela'],

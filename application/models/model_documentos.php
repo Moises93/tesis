@@ -95,6 +95,14 @@ class Model_documentos extends CI_Model
         $this->db->where('requisito', $requisito);
         return $this->db->update('documentos_requeridos', $datas);
     }
-        
+
+    public function requisitosPasante($pasId){
+        $this->db->select('dre.docrId');
+        $this->db->from('documentos_requeridos dre ');
+        $this->db->join('usuario usu', 'dre.id_usuario = usu.id_usuario');
+        $this->db->join('pasante pas', 'pas.id_usuario=usu.id_usuario');
+        $this->db->where('pas.pas_id', $pasId);
+        return $this->db->get()->result();
+    }
 
 }

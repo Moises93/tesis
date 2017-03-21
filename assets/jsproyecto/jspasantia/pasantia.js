@@ -81,7 +81,9 @@ $('#agregarPasantia').click(function () {
             });
 
 });
-   var estatus=0;
+    var estatus=0;
+    var tutorA='';
+    var tutorE='';
     $('#tabPasantias').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -93,7 +95,7 @@ $('#agregarPasantia').click(function () {
         'stateSave': true,
 
         'ajax': {
-            "url":baseurl+"cpasantia/getPasantia",
+            "url":baseurl+"cpasantia/getIntegrantesPasantia",
             "type":"POST",
             dataSrc: ''
         },'columns': [
@@ -133,7 +135,7 @@ $('#agregarPasantia').click(function () {
                 }
             }},
             {"render": function ( data, type, row ) {
-                return '<span>' +row.pas_apellido+' ' + row.pas_nombre +' </span>';
+                return '<span>' +row.apellido+' ' + row.nombre +' </span>';
             }},
             {"render": function ( data, type, row ) {
                 return '<span>' + row.fecha_inicio +'-' +row.fecha_final+'</span>';
@@ -141,17 +143,27 @@ $('#agregarPasantia').click(function () {
             
             {"render": function ( data, type, row ) {
                 if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0){
-                    return '<span>' + row.emp_nombre +'</span>';
+                    return '<span>' + row.empresa +'</span>';
                 }else{
-                    return '<span>Universidad de Carabobo </span>&emsp;' ;
+                    return '<span>' + row.universidad +' </span>&emsp;' ;
                 }
             }},
             
-            {data: 'esc_nombre'},
+            {data: 'escuela'},
             {
                 orderable: 'true',
                 render: function (data, type, row) {
-                      
+
+                      if(row.integrantes.academico!=null){
+                          tutorA=row.integrantes.academico.info.pro_apellido +' '+ row.integrantes.academico.info.pro_nombre;
+                      }else{
+                          tutorA="No asignado";
+                      }
+                    if(row.integrantes.organizacional!=null){
+                        tutorE=row.integrantes.organizacional.info.apellido +' '+ row.integrantes.organizacional.info.nombre;
+                    }else{
+                        tutorE="No asignado";
+                    }
                     return '<a href="#"  data-toggle="modal" ' +
                         'data-target="#modalEditPasantia" ' +
                         'onClick="selPasantia(\'' + row.id_pasantia + '\');">' +
@@ -159,7 +171,11 @@ $('#agregarPasantia').click(function () {
 
                         '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
                         'data-target="#modalInfoPasantia" ' +
-                        'onClick="selInfo(\'' + row.pas_nombre + '\',\'' + row.pas_apellido + '\',\'' + row.fecha_inicio + '\',\'' + row.fecha_final + '\',\'' + row.emp_nombre + '\');"><i class="fa fa-search" aria-hidden="true"></i></a>';
+                        'onClick="selInfo(\'' + row.cedula + '\',\'' + row.nombre + '\',\'' + row.apellido + '\',\'' + row.sexo + '\',' +
+                        '\'' + row.fecha_inicio + '\',\'' + row.fecha_final + '\',\'' + row.correo + '\',\'' + row.empresa + '\',' +
+                        '\'' + tutorA + '\',\'' + tutorE + '\',\'' + row.telefono + '\',\'' + row.escuela + '\',' +
+                        '\'' + row.universidad + '\',\'' + row.modalidad + '\',\'' + row.estatus + '\',\'' + row.foto + '\');">'+
+                        '<i class="fa fa-search" aria-hidden="true"></i></a>';
                         
                 }
             }
@@ -182,10 +198,57 @@ selPasantia = function(idPas){
 
 };
 
-selInfo = function(nombre,apellido,fechaI,fechaF,empresa){
+selInfo = function(cedula,nombre,apellido,sexo,fechaI,fechaF,correo,empresa,tutorA,tutorE,telefono,escuela,universidad,modalidad,estatus,foto){
+    var progreso=parseInt(estatus);
+    var iconSexo='';
+    var avance='';
+    var pendiente='';
+    var actividades='Plan de Actividades';
+    var informe='Informe Final';
+    var evaluaE='Evaluación Tutor Empresarial';
+    var evaluaP='Aprobación Tutor Academico';
+    if(sexo =='f' || sexo =='F'){
+       iconSexo='fa fa-female';
+    }else if (sexo == 'm' || sexo == 'M'){
+        iconSexo='fa fa-male';
+    }
+    if(empresa == null || empresa =='null'){
+        empresa=universidad;
+    }
+    if(progreso == 1){
+        avance='10%';
+        pendiente=actividades+','+informe+','+evaluaE+','+evaluaP;
+    }else if(progreso == 2){
+        avance='30%';
+        pendiente=informe+','+evaluaE+','+evaluaP;
+    }else if(progreso == 3){
+        avance='60%';
+        pendiente=evaluaE+','+evaluaP;
+    }else if(progreso == 4){
+        avance='80%';
+        pendiente=evaluaP;
+    }else if(progreso == 5){
+        avance='100%';
+        pendiente='Culminada';
+    }
 
-    //$('#idPasantia').val(idPas);
-    $("#empresaInfo").html("<span>"+empresa+"</span>");
+    if(foto =='null'){
+        foto='http://lorempixel.com/150/150/technics/';
+    }
+    $('.modal-title').html('<i class="'+iconSexo+'"></i> <strong>'+apellido+' '+nombre+'</strong>');  //  $('strong.modal-title').text('text'+nombre+' ');
+    $("#cedula").text(''+cedula+'');
+    $("#correo").text(''+correo+'');
+    $("#telefono").text(''+telefono+'');
+    $("#escuelac").text(''+escuela+'');
+    $("#empresa").text(''+empresa+'');
+    $("#tutorA").text(''+tutorA+''); 
+    $("#tutorE").text(''+tutorE+'');
+    $("#modalidadp").text(''+modalidad+'');
+    $("#periodop").text(''+fechaI+'-'+fechaF+'');
+    document.getElementById('img').setAttribute( 'src', ''+foto+'');
+
+
+    
     
 
 };

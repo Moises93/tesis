@@ -74,12 +74,13 @@ if( isset ($mensaje )) {
                             if($cv != "0") {
                                 echo "<tr>";
                                 echo " <td><input type='submit' value='cambiar' ></td>";?>
-
+                                <input type="hidden" id="pasos1" value="1">;
                                 <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $cv;?>"><?php echo $cv;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";
                             }else{
                                 ?>
+                              
                                 <input type="hidden" id="paso1" value="<?php echo $cv;?>">;
                                 <?php
 
@@ -116,8 +117,10 @@ if( isset ($mensaje )) {
                             <?php
                             if($aceptacion != "0") {
                                 echo "<tr>";
+                                
                                 echo " <td><input type='submit' value='cambiar' ></td>";
                                 ?>
+                                <input type="hidden" id="pasos2" value="1">;
                                 <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $aceptacion;?>"><?php echo $aceptacion;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";

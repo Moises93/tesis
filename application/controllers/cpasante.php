@@ -57,6 +57,7 @@ class Cpasante extends CI_controller
     public function cargar_requisito() {
 
         $requisito=$this->input->post('requisito');
+        $validador=$this->input->post('validaror');
 
         $idUser=$this->session->userdata('id');
         $login=$this->session->userdata('Login');

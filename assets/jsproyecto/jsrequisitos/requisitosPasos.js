@@ -3,7 +3,8 @@
 * autor:http://bootsnipp.com/snippets/yAV1 by palmdeezy
  */
 $(document).ready(function() {
-
+    var pas=parseInt($('#pasos1').val());
+    var pas2=parseInt($('#pasos2').val());
     var navListItems = $('ul.setup-panel li a'),
         allWells = $('.setup-content');
 
@@ -23,6 +24,17 @@ $(document).ready(function() {
         }
     });
 
+    if(pas==1){
+        $('ul.setup-panel li:eq(1)').removeClass('disabled');
+        // $(this).remove();
+        $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+        $('#activate-step-2').remove();
+    }
+    if(pas2==1){
+        $('ul.setup-panel li:eq(2)').removeClass('disabled');
+        $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+        $('#activate-step-3').remove();
+    }
     $('ul.setup-panel li.active a').trigger('click');
 
     // DEMO ONLY //

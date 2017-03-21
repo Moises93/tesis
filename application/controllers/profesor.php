@@ -64,9 +64,11 @@ class Profesor extends CI_controller
             $idMen=$this->model_admin->obtenerMenuId($clave); //consulto el idMenu por la clave
             $menu=$idMen->id_menu;
             $this->model_admin->guardarPermisos($idUser,$menu);
-            echo "Operación exitosa";
+           // echo "Operación exitosa";
+            echo "true";
         }else{
-            echo "Ya Existe un coordinador activo para esta escuela";
+            echo "false";
+           // echo "Ya Existe un coordinador activo para esta escuela";
         }
        
     }

@@ -53,7 +53,7 @@ class Model_pasantia extends CI_Model
         $this->db->where('usu.id_usuario',$idUser);
         return $this->db->get()->result();
     }
-    /*Consulto las pasantias con estatus ativo , esta funcion la uso para asignar los tutores*/
+    /*Consulto las pasantias con estatus ativo del PASANTE, esta funcion la uso para asignar los tutores y para la gestion de pasantias*/
     function getPasantiaActiva() {
         $data = array();
         $this->db->select('*');
@@ -62,7 +62,7 @@ class Model_pasantia extends CI_Model
         $this->db->join('usuario usu', 'usu.id_usuario= pa.id_usuario');
         $this->db->join('empresa emp', 'pas.emp_id=emp.emp_id','left'); //left join pora que traiga lo que aun no tienen tutores
         $this->db->join('escuela esc', 'pas.id_escuela=esc.id_escuela');
-        $this->db->where('pas.estatus',1);
+       $this->db->where('usu.usu_estatus',1);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
