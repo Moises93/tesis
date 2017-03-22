@@ -223,6 +223,7 @@ class Profesor extends CI_controller
         );
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
+        /*Si es tipo prfesor muestro solo sus pasantes y si es usauario admin traigo todos*/
         if($tipo == 3){
           $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
           $idPro= $rsu[0]->pro_id;
@@ -255,7 +256,88 @@ class Profesor extends CI_controller
 
 
     }
-    
+ /* Esta funcion me retorna las pasantias especificas a los que el profesor en tutor*/
+    public function obtenerPasantesDeTutor(){
+        $resultado=array();
+        $tutorE=array();
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        /*Si es tipo prfesor muestro solo sus pasantes y si es usauario admin traigo todos*/
+        if($tipo == 3){
+            $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+            $idPro= $rsu[0]->pro_id;
+
+            $pas=$this->model_pasantia->obtenerPasantiasAcademicas($idPro);
+
+            $emp=$this->model_pasantia->obtenerPasantiasEmpresariales($idPro);
+            if( count($emp) > 0){
+                foreach ($emp as $row){
+                    array_push($pas, $row);
+                    array_push($tutorE, $row['id_pasantia']);
+                }
+
+                //$tutorEmpresarial=$emp
+            }
+           // print_r($pas);
+            //print_r($tutorE);
+        }else if ($tipo==1){
+            $pas=$this->model_pasantia->getPasantiaActiva(); //buscar un metodo mas optimo que traiga solo id
+
+        }
+        foreach ($pas as $pas => $row){
+            $idPa=$row['pas_id']; //obtener Id-pasante
+            $idPas=$row['id_pasantia'];  //obtener Id_Pasantia
+            $result=$this->model_pasantia->obtenerPasantiaActiva($idPas);
+            $pasantia =array(
+                'id_pasantia'    => $result['id_pasantia'],
+                'modalidad'      => $result['modalidad'],
+                'estatus'        => $result['estatus'],
+                'fecha_inicio'   => $result['fecha_inicio'],
+                'fecha_final'    => $result['fecha_final'],
+                'cedula'         => $result['pas_cedula'],
+                'sexo'           => $result['pas_sexo'],
+                'nombre'         => $result['pas_nombre'],
+                'apellido'       => $result['pas_apellido'],
+                'telefono'       => $result['pas_telefono'],
+                'login'          => $result['usu_login'],
+                'correo'         => $result['usu_correo'],
+                'foto'           => $result['usu_foto'],
+                'escuela'        => $result['esc_nombre'],
+                'orgaca'         => $result['orgaca'],
+                'universidad'    => 'Universidad de Carabobo',
+                'empresa_id'     => $result['emp_id'],
+                'empresa'        => $result['emp_nombre'],
+                'id_escuela'     => $result['id_escuela'],
+                'TutorEmp'       => null,
+                'integrantes'    => null,
+                'requisitos'     => null
+
+            );
+
+            $requisitos=$this->model_pasantia->consultarRequisitos($idPa);
+            $integrantes =  $this->model_pasantia->getIntegrantesPas($idPas);
+            if(count($requisitos)>0) {
+                $pasantia['requisitos']=$requisitos;
+            }
+            if(count($tutorE)>0) {
+                foreach ($tutorE as $val){
+                    if($result['id_pasantia']==$val){
+                        $pasantia['TutorEmp']=$val;
+                        //$acumulador = $val s eme ocurre ir gaurdando en un acumulador y validar que ya no este 
+                    }
+                    
+                }
+
+            }
+            if( count($integrantes) > 0){
+                $pasantia['integrantes']=$integrantes;
+            }
+            array_push($resultado, $pasantia);
+        }
+       echo json_encode($resultado);
+
+    }
+
     public function evaluar(){
         /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');

@@ -74,6 +74,27 @@ class Model_pasantia extends CI_Model
         return $data;
     }
 
+    function obtenerPasantiaActiva($idPas) {
+        $data = array();
+        $this->db->select('*');
+        $this->db->from('pasantia pas ');
+        $this->db->join('pasante pa', 'pas.pas_id= pa.pas_id');
+        $this->db->join('usuario usu', 'usu.id_usuario= pa.id_usuario');
+        $this->db->join('empresa emp', 'pas.emp_id=emp.emp_id','left'); //left join pora que traiga lo que aun no tienen tutores
+        $this->db->join('escuela esc', 'pas.id_escuela=esc.id_escuela');
+        $this->db->where('usu.usu_estatus',1);
+        $this->db->where('pas.id_pasantia',$idPas);
+        $query = $this->db->get();
+        //return $query->row(); debe haber alguna forma de evitarme el ciclo
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data = $row; //hago esto porque espero recibir una sola sola pasantia ya que consulto por id especifico
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
     function actualizarTutorA($data){
         if(!empty($data)){
             $this->db->where('id_pasantia', $data['id_pasantia']);
@@ -190,45 +211,50 @@ class Model_pasantia extends CI_Model
     public function obtenerPasantiasAcademicas($idPro){
         $resul=array(
         );
-        $this->db->select('pa.id_pasantia,pas.pas_nombre,pas.pas_apellido,emp.emp_nombre,pa.orgaca,pa.estatus,pas.pas_id');
+        $this->db->select('pa.id_pasantia,pas.pas_id');
         $this->db->from('pasantia pa');
         $this->db->join('integrantes_pasantia ipa', 'ipa.id_pasantia = pa.id_pasantia');
         $this->db->join('pasante pas', 'pa.pas_id = pas.pas_id');
         $this->db->join('empresa emp', 'pa.emp_id = emp.emp_id','left');
         $this->db->where('ipa.pro_id',$idPro);
         $this->db->where('ipa.tipo',1);
-        $query= $this->db->get()->result();
-        /*foreach ($query as $query => $row){
-            $idPas=$row->pas_id;
-            $requisitos=$this->consultarRequisitos($idPas);
-            array_push($resul, $row);
-            if(count($requisitos)>0) {
-
-                array_push($resul, $requisitos);
+        $query = $this->db->get();
+        //return $query->row(); debe haber alguna forma de evitarme el ciclo
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row; //hago esto porque espero recibir una sola sola pasantia ya que consulto por id especifico
             }
-        }*/
-        return $query;
+        }
+        $query->free_result();
+        return $data;
+
     }
     /*Dado el id de un profesor retorna el ID de las pasantias , en la que es tutor academico*/
     public function obtenerPasantiasEmpresariales($idPro){
-        $resul=array();
-        $this->db->select('pa.id_pasantia');
+        $resul=array(
+        );
+        $this->db->select('pa.id_pasantia,pas.pas_id');
         $this->db->from('pasantia pa');
         $this->db->join('integrantes_pasantia ipa', 'ipa.id_pasantia = pa.id_pasantia');
+        $this->db->join('pasante pas', 'pa.pas_id = pas.pas_id');
+        $this->db->join('empresa emp', 'pa.emp_id = emp.emp_id','left');
         $this->db->where('ipa.pro_id',$idPro);
         $this->db->where('ipa.tipo',2);
-        $query= $this->db->get()->result();
-        foreach ($query as $query => $row){
-
-            array_push($resul,$row->id_pasantia);
+        $query = $this->db->get();
+        //return $query->row(); debe haber alguna forma de evitarme el ciclo
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row; //hago esto porque espero recibir una sola sola pasantia ya que consulto por id especifico
+            }
         }
-        return $resul;
+        $query->free_result();
+        return $data;
     }
     
    
     public  function consultarRequisitos($idPas){
         $resul=array();
-        $this->db->select('dre.requisito,dre.nombre_archivo');
+        $this->db->select('dre.requisito,dre.nombre_archivo,dre.formato,dre.size');
         $this->db->from('documentos_requeridos dre');
         $this->db->join('usuario usu', 'usu.id_usuario=dre.id_usuario');
         $this->db->join('pasante pas', 'pas.id_usuario = usu.id_usuario');

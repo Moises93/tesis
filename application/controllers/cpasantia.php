@@ -77,7 +77,7 @@ class Cpasantia extends CI_controller
 
             $pasantia =array(
                 'id_pasantia'    => $result['id_pasantia'],
-                'modalidad'    => $result['modalidad'],
+                'modalidad'      => $result['modalidad'],
                 'estatus'        => $result['estatus'],
                 'fecha_inicio'   => $result['fecha_inicio'],
                 'fecha_final'    => $result['fecha_final'],
@@ -87,35 +87,41 @@ class Cpasantia extends CI_controller
                 'apellido'       => $result['pas_apellido'],
                 'telefono'       => $result['pas_telefono'],
                 'login'          => $result['usu_login'],
-                'correo'          => $result['usu_correo'],
-                'foto'          => $result['usu_foto'],
+                'correo'         => $result['usu_correo'],
+                'foto'           => $result['usu_foto'],
                 'escuela'        => $result['esc_nombre'],
                 'orgaca'         => $result['orgaca'],
                 'universidad'    => 'Universidad de Carabobo',
                 'empresa_id'     => $result['emp_id'],
                 'empresa'        => $result['emp_nombre'],
                 'id_escuela'     => $result['id_escuela'],
-                'integrantes'    => null
+                'integrantes'    => null,
+                'requisitos'     => null
 
             );
+            /*Consulto los Requisitos de la tabla Documentos Requeridos*/
+            $idPa=$result['pas_id'];
+            $requisitos=$this->model_pasantia->consultarRequisitos($idPa);
+            /*Consulto los Integrantes o Tutores de la Pasantia*/
             $idPas = $result['id_pasantia'];
             $integrantes =  $this->model_pasantia->getIntegrantesPas($idPas);
-            //echo "hijos";
-            //echo '<pre>'; print_r($hijos); echo '</pre>';
-            // echo "cantidad de hijos" .count($hijos);
+            /*agrego los requisitos al array pasantia*/
+            if(count($requisitos)>0) {
+                $pasantia['requisitos']=$requisitos;
+            }
+            /*agrego los Integrantes al array pasantia*/
             if( count($integrantes) > 0){
                 $pasantia['integrantes']=$integrantes;
             }
+            /*esto lo hago para que l aprimera vez que se ejecute no sobreescriba y agregue en la primera posicion*/
             if($cont>0){
                 array_push($integrantesPas, $pasantia);
             }else{
                 $integrantesPas[$cont] =$pasantia;
             }
-            //  echo "menu";
-            //echo '<pre>'; print_r($menuUser); echo '</pre>';
+
             $cont= $cont+1;
-            // echo "-".$menu->id_menu;
-            //echo "-".$menu->nombre;
+
         }
 
 

@@ -222,7 +222,7 @@ Gestion Pasantias
 <!-- Inicio  modal Pasantia
 <div class="modal fade bs-example-modal-lg" id="modalInfoPasantia" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">-->
 
-    <div class="modal"  id="modalInfoPasantia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal  bs-example-modal-lg"  id="modalInfoPasantia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -287,14 +287,20 @@ Gestion Pasantias
                             <td id="periodop" class="h5">periodo</td>
                         </tr>
 
+                        <!--<tr>
+                            <td class="h6"><strong>Pendiente</strong></td>
+                            <td> </td>
+                            <td id="pendiente" class="h5">pendiente</td>
+                        </tr>
+
                         <tr>
                             <td class="btn-mais-info text-primary">
                                 <i class="open_info fa fa-plus-square-o"></i>
-                                <i class="open_info hide fa fa-minus-square-o"></i> informações
+                                <i class="open_info hide fa fa-minus-square-o"></i> Pendiente
                             </td>
                             <td> </td>
-                            <td class="h5"></td>
-                        </tr>
+                            <td  id="pendiente"  class="h5"></td>
+                        </tr>-->
 
                         </tbody>
                     </table>
@@ -310,9 +316,14 @@ Gestion Pasantias
 
                 <div class="modal-footer">
 
+                    <div class="text-left pull-left col-md-1" style="width: 350px;">
+                        <strong> Pendiente: </strong><br/>
+                        <span id="pendiente" class=""><strong> 30%</strong></span></span>
+                    </div>
+
                     <div class="text-right pull-right col-md-3">
-                        Progreso: <br/>
-                        <span class="h3 text-muted"><strong> 30%</strong></span></span>
+                        <strong>Progreso: </strong><br/>
+                        <span id="progreso" class="h3 text-muted"><strong> 30%</strong></span></span>
                     </div>
 
                    <!-- <div class="text-right pull-right col-md-3">

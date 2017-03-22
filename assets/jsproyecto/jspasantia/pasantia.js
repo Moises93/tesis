@@ -205,8 +205,8 @@ selInfo = function(cedula,nombre,apellido,sexo,fechaI,fechaF,correo,empresa,tuto
     var pendiente='';
     var actividades='Plan de Actividades';
     var informe='Informe Final';
-    var evaluaE='Evaluación Tutor Empresarial';
-    var evaluaP='Aprobación Tutor Academico';
+    var evaluaE='Evaluación Tutor Empresarial'; // Tutor Empresarial Aprobación Tutor Academico
+    var evaluaP='Aprobación Tutor Academico.';
     if(sexo =='f' || sexo =='F'){
        iconSexo='fa fa-female';
     }else if (sexo == 'm' || sexo == 'M'){
@@ -246,7 +246,8 @@ selInfo = function(cedula,nombre,apellido,sexo,fechaI,fechaF,correo,empresa,tuto
     $("#modalidadp").text(''+modalidad+'');
     $("#periodop").text(''+fechaI+'-'+fechaF+'');
     document.getElementById('img').setAttribute( 'src', ''+foto+'');
-
+    $('#progreso').html('<strong>'+avance+'</strong>');
+    $('#pendiente').html(''+pendiente+'');
 
     
     
