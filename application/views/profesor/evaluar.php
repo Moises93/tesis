@@ -24,10 +24,11 @@
                             <table id="tblEvaluar" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Progreso</th>
                                     <th>Pasante</th>
                                     <th>Empresa</th>
-                                    <th>Requisitos</th>
+                                    <th>Escuela</th>
                                     <th><em class="fa fa-cog"></em></th>
                                 </tr>
                                 </thead>
@@ -159,4 +160,44 @@
     </div>
 
 
+</div>
+
+<!-- Modal de evaluacion-->
+<div class="modal  bs-example-modal-lg"  id="modalEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"   >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="pid1"><span class="label label-warning" id="qid1">1</span> Califica la habilidad para utilizar los recursos asignados</h3>
+                <h3 id="pid2"><span class="label label-warning" id="qid2">2</span> Califica el compromiso que asume el evaluado a fin de cumplir oportuna y adecuadamente con las funciones encomendadas</h3>
+                <h3 id="pid3"><span class="label label-warning" id="qid3">3</span> Califica el grado de la actuación laboral espontánea sin necesidad de instrucciones y supervisión</h3>
+                <h3 id="finish"> GRACIAS </h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-3 col-xs-offset-5">
+                    <div id="loadbar" style="display: none;">
+                        <div class="blockG" id="rotateG_01"></div>
+                        <div class="blockG" id="rotateG_02"></div>
+                        <div class="blockG" id="rotateG_03"></div>
+                        <div class="blockG" id="rotateG_04"></div>
+                        <div class="blockG" id="rotateG_05"></div>
+                        <div class="blockG" id="rotateG_06"></div>
+                        <div class="blockG" id="rotateG_07"></div>
+                        <div class="blockG" id="rotateG_08"></div>
+                    </div>
+                </div>
+
+                <div class="quiz" id="quiz" data-toggle="buttons">
+                    <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="1">DEFICIENTE</label>
+                    <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">REGULAR</label>
+                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">BUENO</label>
+                    <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">MUY BUENO </label>
+                    <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="5">EXCELENTE</label>
+                </div>
+                <h3 id="resultado"> El Resultado de la Evaluacion Fue : Muy Bueno  </h3>
+            </div>
+            <div class="modal-footer text-muted">
+                <span id="answer"></span>
+            </div>
+        </div>
+    </div>
 </div>

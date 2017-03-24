@@ -209,7 +209,7 @@ class Model_pasantia extends CI_Model
 
     /*Dado el id de un profesor retorna el ID de las pasantias , en la que es tutor academico*/
     public function obtenerPasantiasAcademicas($idPro){
-        $resul=array(
+        $data=array(
         );
         $this->db->select('pa.id_pasantia,pas.pas_id');
         $this->db->from('pasantia pa');
@@ -271,8 +271,11 @@ class Model_pasantia extends CI_Model
         $data= array(
             'estatus' => $estatus
         );
-        $this->db->where('id_pasantia',$idPas);
-        $this->db->update('pasantia', $data);
-
+        if(!empty($data)){
+            $this->db->where('id_pasantia',$idPas);
+            $this->db->update('pasantia', $data);
+            return TRUE;
+        }
+        return FALSE;
     }
 }

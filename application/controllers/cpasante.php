@@ -150,10 +150,19 @@ class Cpasante extends CI_controller
 
     public function downloads($name){
 
-        $data = file_get_contents(base_url().'documentos/'.$name);
-        force_download($name,$data);
+       // $data = file_get_contents(base_url().'documentos/'.$name);
+        //force_download($name,$data);
+       //  header('content-type: application/pdf');
+       // readfile(base_url().'documentos/'.$name);
 
+        $filename = "test.pdf";
+        $route = base_url().'documentos/'.$name;
+
+            header('Content-type: application/pdf');
+            readfile($route);
+       
     }
+
     public function esPasante(){
         $idPas= $this->input->post('estudiante');
         $resul=$this->model_pasante->esPasante($idPas);

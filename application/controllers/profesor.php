@@ -308,7 +308,7 @@ class Profesor extends CI_controller
                 'empresa_id'     => $result['emp_id'],
                 'empresa'        => $result['emp_nombre'],
                 'id_escuela'     => $result['id_escuela'],
-                'TutorEmp'       => null,
+                'TutorEmp'       => 0,
                 'integrantes'    => null,
                 'requisitos'     => null
 
@@ -323,7 +323,8 @@ class Profesor extends CI_controller
                 foreach ($tutorE as $val){
                     if($result['id_pasantia']==$val){
                         $pasantia['TutorEmp']=$val;
-                        //$acumulador = $val s eme ocurre ir gaurdando en un acumulador y validar que ya no este 
+                        /*$acumulador = $val s eme ocurre ir gaurdando en un acumulador y validar que ya no este  no me acuerdo(hasta ahora sirve)
+                    */
                     }
                     
                 }

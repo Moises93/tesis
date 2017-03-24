@@ -150,6 +150,21 @@ class Cpasantia extends CI_controller
             echo('Ocurrio un error');
         }
     }
-    
+    public function  aprobarPasantia(){
+
+        $idPas= $this->input->post('idPasantia');
+        $estatus=  $this->input->post('estatus');
+        
+        if($estatus>3){
+            $pas=$this->model_pasantia->actualizarEstatusPasantia($idPas,5);
+        }else{
+            $pas=FALSE;
+        }
+        if ($pas != FALSE){
+            echo('Actualización Exitosa!!');
+        }else{
+            echo('Ocurrio un error');
+        }
+    }
 }
 ?>
