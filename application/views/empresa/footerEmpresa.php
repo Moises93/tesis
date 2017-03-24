@@ -256,7 +256,7 @@
     }
     
     $TableFilter = function(id, value){
-        var rows = document.querySelectorAll(id + ' tbody tr');
+        var rows = document.querySelectorAll(id + ' tbody td');
         
         for(var i = 0; i < rows.length; i++){
             var showRow = false;

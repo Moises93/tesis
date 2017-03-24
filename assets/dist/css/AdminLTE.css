@@ -26,6 +26,10 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+/*******/
+
+
+/*******/
 /* Layout */
 .wrapper {
   min-height: 100%;
@@ -4933,3 +4937,6 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+
+
+

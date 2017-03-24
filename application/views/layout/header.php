@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/datepicker/datepicker3.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
-
+<link rel="stylesheet" href="<?php echo base_url();?>assets/perfil.css">
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/CaptionHover/css/component.css">
 
@@ -136,4 +136,6 @@
         </ul>
       </div>
     </nav>
+
+ 
   </header>

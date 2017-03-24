@@ -49,6 +49,7 @@
                  </span>
                  <div class="info-box-content">
                   <span class="info-box-text"><b><?=$row->pas_nombre . " " . $row->pas_apellido;?></b> </span>
+                   <span class="info-box-text"><b><?=$j?></b> </span>
                     <span><?=$row->Escuela?></span>
                   
                  </div>
