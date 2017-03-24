@@ -379,4 +379,13 @@ public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
         return $this->db->get()->result();
 	}
 
+
+function actualizar_usuario2($id_usuario,$foto){
+		$data = array(
+			'usu_foto' => $foto
+		);
+			$this->db->where('id_usuario', $id_usuario);
+			return $this->db->update('usuario', $data);
+
+	}
 }

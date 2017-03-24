@@ -13,6 +13,7 @@ class Cusuario extends CI_Controller
     $this->load->library('form_validation');
  		$this->load->model('model_usuario');
     $this->load->model('model_pasante');
+    $this->load->model('model_empresa');
   }
 
 
@@ -107,8 +108,10 @@ class Cusuario extends CI_Controller
          $idUser=$this->session->userdata('id');
          $tipo =$this->session->userdata('tipo');
          $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+         $foto = null;
          $userData = array(
-               'user' => $rsu
+               'user' => $rsu,
+               'Foto' =>$foto
             );
             
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
@@ -134,6 +137,30 @@ class Cusuario extends CI_Controller
             echo('Ocurrio un error');
         }
     }
+
+      public function guardarUsuario(){
+          $idUser=$this->session->userdata('id');
+         $tipo =$this->session->userdata('tipo');
+         $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+         $foto = null;
+         $userData = array(
+               'user' => $rsu,
+               'Foto' =>$foto
+            );
+            
+            $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+            $data['user'] = $rsu;
+        $data1 = array();
+            foreach($_POST as $key => $value) {   
+               $data1[$key] = $value; 
+        }
+        $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$data1['usuario_foto']);
+
+         $this->load->view('layout/header',$userData);
+         $this->load->view('layout/vmenu',$data);
+         $this->load->view('contenido/perfil',$userData);
+         $this->load->view('layout/footer');    
+     }
     
 }
 
