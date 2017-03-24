@@ -23,14 +23,21 @@
 </style>
 <section class="content">
     <h2>Estudiantes</h2>
-  <div class="table-responsive">
-  <table class="table">
+
+ <div class="table-responsive">
+<div class="col-xs-6 col-md-4">
+   <input id="buscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" />
+   </div>
+   <br>
+   <br>
+   <br>
+  <table  id="tabla" class="table">
       <tbody>
         <?php $j = 0; foreach($Pasantes as $row){?>
-               <?php if($j % 5 == 0){ ?>
+               <?php if($j % 4 == 0){ ?>
                      <tr>
                <?php } ?>
-          <td class="grid cs-style-7">
+          <td  class="grid cs-style-7" >
             <figure>
              <div id="<?=$j?>" class="info-box" style="width: 250px;">
                  <span class="info-box-icon bg-aqua" style="height: 0px; line-height: 0px;">
@@ -42,6 +49,7 @@
                  </span>
                  <div class="info-box-content">
                   <span class="info-box-text"><b><?=$row->pas_nombre . " " . $row->pas_apellido;?></b> </span>
+                   <span class="info-box-text"><b><?=$j?></b> </span>
                     <span><?=$row->Escuela?></span>
                   
                  </div>
@@ -54,7 +62,7 @@
 
           </td>
 
-           <?php if($j+1 % 4 == 0){ ?>
+           <?php if($j+1 % 3 == 0){ ?>
                      </tr>
                <?php } ?>
         <?php $j++; } ?>
@@ -62,3 +70,4 @@
    </table>
    </div>
 </section>
+

@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/datepicker/datepicker3.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
-
+<link rel="stylesheet" href="<?php echo base_url();?>assets/perfil.css">
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/CaptionHover/css/component.css">
 
@@ -49,7 +49,9 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
   <![endif]-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -134,4 +136,6 @@
         </ul>
       </div>
     </nav>
+
+ 
   </header>

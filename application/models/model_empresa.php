@@ -127,4 +127,6 @@ class Model_empresa extends CI_Model
 		}
 		return FALSE;
 	}
+
+	
 }
