@@ -56,7 +56,7 @@
              </div>
              <figcaption>
                 <span>
-               <a href="">Evaluar</a>
+               <a href="">Evaluadr</a>
                </span>
               
             </figcaption>
@@ -66,6 +66,7 @@
 
            <?php if($j+1 % 3 == 0){ ?>
                      </tr>
+                   
                <?php } ?>
         <?php $j++; } ?>
      </tbody>
