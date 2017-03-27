@@ -295,6 +295,7 @@ class Profesor extends CI_controller
                 'fecha_inicio'   => $result['fecha_inicio'],
                 'fecha_final'    => $result['fecha_final'],
                 'cedula'         => $result['pas_cedula'],
+                'pas_id'         => $result['pas_id'],
                 'sexo'           => $result['pas_sexo'],
                 'nombre'         => $result['pas_nombre'],
                 'apellido'       => $result['pas_apellido'],
@@ -340,6 +341,7 @@ class Profesor extends CI_controller
     }
 
     public function evaluar(){
+        $this->load->model('model_pasantia');
         /*Esto siempre lo hago para cargar el menu dinamico a la vista*/
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
@@ -354,11 +356,15 @@ class Profesor extends CI_controller
             'Profesores' => $profesores,
             'Cantidad' =>$cant
         );
+        $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
+        $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
+        //print_r($quiz);
+        //exit();
         $data["message"] = NULL;
         @$data["message"]=$this->uri->segment(2);
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('profesor/evaluar');
+        $this->load->view('profesor/evaluar',$quiz);
         $this->load->view('profesor/footerProfesor');
     }
 

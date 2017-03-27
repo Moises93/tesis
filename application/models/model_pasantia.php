@@ -278,4 +278,73 @@ class Model_pasantia extends CI_Model
         }
         return FALSE;
     }
+
+    function obtenerPreguntas(){
+        $query = $this->db->get('pregunta');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
+    function obtenerRespuestas(){
+        $query = $this->db->get('respuesta');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
+    function guardarTest($Id,$respuesta,$preguntas){
+        $data = array(
+            'id' => $preguntas,
+            'pas_id' => $Id,
+            'respuestaid' => $respuesta
+        );
+        return $this->db->insert('evaluacion',$data);
+    }
+
+    function actualizarTest($Id,$respuesta,$preguntas)
+    {
+        $data = array(
+            'respuestaid' => $respuesta
+        );
+
+        $this->db->where('pas_id', $Id);
+        $this->db->where('id', $preguntas);
+        $this->db->update('evaluacion', $data);
+    }
+
+    function consultarTest($Id){
+        $this->db->select('*');
+        $this->db->from('evaluacion');
+        $this->db->where('pas_id',$Id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+    function sumarResutado($Id){
+        $this->db->select_sum('respuestaid');
+        $this->db->from('evaluacion');
+        $this->db->where('pas_id',$Id);
+        $query = $this->db->get();
+        return $query->row()->respuestaid;
+    }
+
+    function mostrarResultado($Id){
+        $this->db->select('pre.*,res.*');
+        $this->db->from('evaluacion eva ');
+        $this->db->join('pregunta pre', 'eva.id=pre.id');
+        $this->db->join('respuesta res', 'eva.respuestaid=res.respuestaid');
+        $this->db->where('eva.pas_id',$Id);
+        return $this->db->get()->result();
+    }
 }
