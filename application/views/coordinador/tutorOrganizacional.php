@@ -13,7 +13,7 @@
             <!-- /.box -->
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Asignar Tutor Organizacional</h3>
+                    <h3 class="box-title">Asignar Tutor Empresarial</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -24,7 +24,7 @@
                             <th>Cedula</th>
                             <th>Pasante</th>
                             <th>Escuela</th>
-                            <th>Tutor Organizacional</th>
+                            <th>Tutor Empresarial</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -58,14 +58,14 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <label class="col-sm-3 control-label">Organizacion</label></br>
+                            <label class="col-sm-3 control-label">Empresa</label></br>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control pull-right" id="organizacion" name="" required>
                                 <span  id= "organizacion" class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Tutor Organizacional</label>
+                            <label class="col-sm-3 control-label">Tutor Empresarial</label>
                             <div class="col-sm-9">
                                 <select id="cbTutorO" class="form-control" name="cbTutorO" required>
                                     <option value="-1">seleccione:</option>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Tutor Organizacional</label>
+                            <label class="col-sm-3 control-label">Tutor Empresarial</label>
                             <div class="col-sm-9">
                                 <select id="cbTutorOp" class="form-control" name="cbTutorOp" required>
                                     <option value="-1">seleccione:</option>

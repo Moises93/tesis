@@ -167,10 +167,10 @@
     <div class="modal-dialog"   >
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="pid1"><span class="label label-warning" id="qid1">1</span> Califica la habilidad para utilizar los recursos asignados</h3>
-                <h3 id="pid2"><span class="label label-warning" id="qid2">2</span> Califica el compromiso que asume el evaluado a fin de cumplir oportuna y adecuadamente con las funciones encomendadas</h3>
-                <h3 id="pid3"><span class="label label-warning" id="qid3">3</span> Califica el grado de la actuación laboral espontánea sin necesidad de instrucciones y supervisión</h3>
-                <h3 id="finish"> GRACIAS </h3>
+                <?php foreach ( $preguntas as $m): ?>
+                <h3 id="<?php echo 'pid'.$m['id'];?>"><span class="label label-warning" id="<?php echo 'qid'.$m['id'];?>"><?php echo $m['id'];?></span><?php echo $m['test'];?></h3>
+                <?php endforeach; ?>
+                <h3 id="finish"> El test ha terminado </h3>
             </div>
             <div class="modal-body">
                 <div class="col-xs-3 col-xs-offset-5">
@@ -185,15 +185,39 @@
                         <div class="blockG" id="rotateG_08"></div>
                     </div>
                 </div>
-
+                    <?php $cont=1;?>
                 <div class="quiz" id="quiz" data-toggle="buttons">
-                    <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="1">DEFICIENTE</label>
-                    <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">REGULAR</label>
-                    <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">BUENO</label>
-                    <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">MUY BUENO </label>
-                    <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="5">EXCELENTE</label>
+                    <?php foreach ( $respuestas as $r): ?>
+                        <?php $clase= 'element-animation'.$cont.' btn btn-lg btn-primary btn-block';?>
+                    <label class="<?php echo $clase;?>"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="<?php echo $r['respuestaid'];?>"><?php echo $r['valor'];?></label>
+                        <?php $cont=$cont+1;?>
+                    <?php endforeach; ?>
                 </div>
+                <button id="guardar" type="button" class="btn btn-primary"> <span class="badge">Guardar</span></button>
                 <h3 id="resultado"> El Resultado de la Evaluacion Fue : Muy Bueno  </h3>
+            </div>
+            <div class="modal-footer text-muted">
+                <span id="answer"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Mostrar Resultado-->
+<div class="modal  bs-example-modal-lg"  id="modalResultado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><span class="label label-warning" id="resul">*</span>RESULTADO</h3>
+            </div>
+            <div class="modal-body" id="resultados">
+                    <label id="p1" > </label></br>
+                    <label id="r1"> </label></br>
+                    <label id="p2"> </label></br>
+                    <label id="r2"> </label></br>
+                    <label id="p3"> </label></br>
+                    <label id="r3"> </label></br>
+                   
             </div>
             <div class="modal-footer text-muted">
                 <span id="answer"></span>
