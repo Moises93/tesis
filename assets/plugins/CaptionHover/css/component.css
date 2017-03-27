@@ -32,7 +32,7 @@
 	left: 0;
 	padding: 20px;
 	background: #2c3f52;
-	color: #ed4e6e;
+	color: #3c8dbc;
 }
 
 .grid figcaption h3 {
@@ -46,8 +46,7 @@
 	padding: 5px 10px;
 	border-radius: 2px;
 	display: inline-block;
-	background: #ed4e6e;
-	color: #fff;
+	
 }
 
 /* Caption Style 1 */
@@ -358,10 +357,29 @@
 	transition: opacity 0s;
 }
 
-.cs-style-7 figcaption a {
+
+
+
+.boton-cv a {
+	position: absolute;
+	bottom: 20px;
+	right: 170px;
+	background: #3c8dbc;
+	color: #fff;
+}
+.boton-perfil a {
+	position: absolute;
+	bottom: 20px;
+	right: 100px;
+	background: #E9DE4D;
+	color: #fff;
+}
+.boton-evaluar a {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+	background: #2DB563;
+	color: #fff;
 }
 
 .no-touch .cs-style-7 figure:hover figcaption h3,

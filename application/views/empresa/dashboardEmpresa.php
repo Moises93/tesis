@@ -48,15 +48,21 @@
                     <?php } ?>
                  </span>
                  <div class="info-box-content">
-                  <span class="info-box-text"><b><?=$row->pas_nombre . " " . $row->pas_apellido;?></b> </span>
-                   <span class="info-box-text"><b><?=$j?></b> </span>
+                  <span class="info-box-text"><b><?=$row->pas_apellido . " " . $row->pas_nombre;?></b> </span>
+                    <span><?=$row->usu_correo?></span>
                     <span><?=$row->Escuela?></span>
                 
                  </div>
              </div>
              <figcaption>
-                <span>
-               <a href="">Evaluadr</a>
+                <span class="boton-cv">
+                  <a href="">CV</a>
+               </span>
+                <span class="boton-perfil">
+                  <a   href="">Perfil</a>
+               </span>
+                <span class="boton-evaluar">
+                  <a   href="">Evaluar</a>
                </span>
               
             </figcaption>
