@@ -51,12 +51,14 @@
                   <span class="info-box-text"><b><?=$row->pas_nombre . " " . $row->pas_apellido;?></b> </span>
                    <span class="info-box-text"><b><?=$j?></b> </span>
                     <span><?=$row->Escuela?></span>
-                  
+                
                  </div>
              </div>
              <figcaption>
-                <span></span>
-              <a href="">Perfil</a>
+                <span>
+               <a href="">Evaluar</a>
+               </span>
+              
             </figcaption>
           </figure>
 
