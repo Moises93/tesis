@@ -13,6 +13,7 @@ class Cusuario extends CI_Controller
     $this->load->library('form_validation');
  		$this->load->model('model_usuario');
     $this->load->model('model_pasante');
+    $this->load->model('model_pasantia');
     $this->load->model('model_empresa');
   }
 
@@ -36,9 +37,13 @@ class Cusuario extends CI_Controller
           $this->load->view('pasante/vpasante');
           $this->load->view('layout/footer');
       }elseif($tipo==5){
+          $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
+          $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
           $rsu=$this->model_pasante->getPostulados();
           $pasantes = array(
-              'Pasantes' => $rsu
+              'Pasantes' => $rsu,
+              'preguntas' => $quiz['preguntas'],
+              'respuestas' => $quiz['respuestas'],
           );
           $this->load->view('empresa/dashboardEmpresa',$pasantes);
           $this->load->view('empresa/footerEmpresa');

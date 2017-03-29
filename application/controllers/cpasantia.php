@@ -82,6 +82,7 @@ class Cpasantia extends CI_controller
                 'fecha_inicio'   => $result['fecha_inicio'],
                 'fecha_final'    => $result['fecha_final'],
                 'cedula'         => $result['pas_cedula'],
+                'pas_id'         => $result['pas_id'],
                 'sexo'           => $result['pas_sexo'],
                 'nombre'         => $result['pas_nombre'],
                 'apellido'       => $result['pas_apellido'],

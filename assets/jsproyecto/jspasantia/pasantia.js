@@ -84,7 +84,7 @@ $('#agregarPasantia').click(function () {
     var estatus=0;
     var tutorA='';
     var tutorE='';
-    $('#tabPasantias').DataTable({
+    var table=$('#tabPasantias').DataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
         },
@@ -99,7 +99,12 @@ $('#agregarPasantia').click(function () {
             "type":"POST",
             dataSrc: ''
         },'columns': [
-            {data: 'id_pasantia','sClass':'dt-body-center'},
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
             {"render": function ( data, type, row ) {
                var estatus=parseInt(row.estatus);
                 if(estatus==1){
@@ -183,10 +188,107 @@ $('#agregarPasantia').click(function () {
         ],
 
     });
+    $('#tabPasantias tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this rowf
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    });
 
 });
+/*aqui programamos la vista de los requisitos*/
 
+
+
+function format ( d ) {
+    // `d` is the original data object for the row
+    var actividades = '';
+    var descarga = '';
+    var sizeAct='';
+    var forAct='';
+    if(d.requisitos != null) {
+        for(var i=0;i<d.requisitos.length;i++){
+            if(d.requisitos[i].requisito == 'planActividades'){
+                actividades=d.requisitos[i].nombre_archivo+d.requisitos[i].formato
+                sizeAct='['+d.requisitos[i].size+'KB]';
+                forAct=d.requisitos[i].formato;
+                /* descarga=baseurl+'/documentos/'+actividades;*/
+                descarga=baseurl+'cpasante/downloads/'+actividades;
+            }
+
+        }
+
+    }else{
+        actividades='No se encuentra';
+        descarga='#';
+    }
+    /*   descarga=baseurl+'cpasante/downloads/'+actividades;*/
+    /* PDFObject.embed(baseurl+"/documentos/"+actividades,"#aqui"); ya no lo uso*/
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+        '<td><strong>Plan de Actividades:<strong> &nbsp;</td>'+
+        '<td>'+actividades+'&nbsp;'+sizeAct+' &nbsp;<a id="aqui" class= "view-pdf" href="'+ descarga+'"target="_blank">'+
+        '<span  class="fa fa-download" </span></a>' +
+        '</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td><strong>Informe Final:<strong></td>'+
+        '<td>No enviado </td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td><strong>Resultado de Evaluación:<strong></td>'+
+        '<td>&nbsp;<a href="#" title="mostrar" data-toggle="modal" ' +
+        'data-target="#modalResultado" ' +
+        'onClick="mostrarResultado(\'' + d.pas_id + '\');">' +
+        '<span  class="fa fa-bookmark" </span> </a>' +
+        '           </td>'+
+        '</tr>'+
+
+        '</table>';
+
+}
+mostrarResultado = function(idPa){
+    $('#p1').empty().append('');
+    $('#r1').empty().append('');
+    $('#p2').empty().append('');
+    $('#r2').empty().append('');
+    $('#p3').empty().append('');
+    $('#r3').empty().append('');
+    $.post(baseurl + "cpasantia/mostrarResultado",
+        {
+            paId:idPa
+        },
+        function(data){
+            var p = JSON.parse(data);
+            var pre='#p';
+            var res='#r';
+            if(p.length>1) {
+                for (var i = 0; i < p.length; i++) {
+                    pre = pre.concat(p[i].id);
+                    res = res.concat(p[i].id);
+                    $(pre).html(p[i].id + ')' + p[i].test + '</br>');
+                    $(res).html('R-' + p[i].valor + '</br>');
+                    pre = '#p';
+                    res = '#r';
+                }
+            }else{
+                $('#p1').html('<strong>Este Pasante aun no ha sido evaluado por su tutor Empresarial</strong>');
+            }
+
+
+        });
+
+
+};
 selPasantia = function(idPas){
 
     $('#idPasantia').val(idPas);

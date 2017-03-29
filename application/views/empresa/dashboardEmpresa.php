@@ -56,14 +56,16 @@
              </div>
              <figcaption>
                 <span class="boton-cv">
-                  <a href="">CV</a>
+                  <a href="<?php echo base_url();?>cpasante/downloads/cv-<?php echo$row->usu_login;?>.pdf" target="_blank">CV</a>
                </span>
                 <span class="boton-perfil">
                   <a   href="">Perfil</a>
                </span>
-                <span class="boton-evaluar">
-                  <a   href="">Evaluar</a>
-               </span>
+                 
+             <span class="boton-evaluar">
+                  <a href="#" title="Aprobar Pasante" data-target="#modalEvaluacion" data-toggle="modal" onClick="evaluarPasante(<?=$row->pas_id?>)" >
+                      Evaluar</a>
+              
               
             </figcaption>
           </figure>
@@ -79,4 +81,45 @@
    </table>
    </div>
 </section>
+
+<!-- Modal de evaluacion-->
+<div class="modal  bs-example-modal-lg"  id="modalEvaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"   >
+        <div class="modal-content">
+            <div class="modal-header">
+                <?php foreach ( $preguntas as $m): ?>
+                    <h3 id="<?php echo 'pid'.$m['id'];?>"><span class="label label-warning" id="<?php echo 'qid'.$m['id'];?>"><?php echo $m['id'];?></span><?php echo $m['test'];?></h3>
+                <?php endforeach; ?>
+                <h3 id="finish"> El test ha terminado </h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-3 col-xs-offset-5">
+                    <div id="loadbar" style="display: none;">
+                        <div class="blockG" id="rotateG_01"></div>
+                        <div class="blockG" id="rotateG_02"></div>
+                        <div class="blockG" id="rotateG_03"></div>
+                        <div class="blockG" id="rotateG_04"></div>
+                        <div class="blockG" id="rotateG_05"></div>
+                        <div class="blockG" id="rotateG_06"></div>
+                        <div class="blockG" id="rotateG_07"></div>
+                        <div class="blockG" id="rotateG_08"></div>
+                    </div>
+                </div>
+                <?php $cont=1;?>
+                <div class="quiz" id="quiz" data-toggle="buttons">
+                    <?php foreach ( $respuestas as $r): ?>
+                        <?php $clase= 'element-animation'.$cont.' btn btn-lg btn-primary btn-block';?>
+                        <label class="<?php echo $clase;?>"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="<?php echo $r['respuestaid'];?>"><?php echo $r['valor'];?></label>
+                        <?php $cont=$cont+1;?>
+                    <?php endforeach; ?>
+                </div>
+                <button id="guardar" type="button" class="btn btn-primary"> <span class="badge">Guardar</span></button>
+                <h3 id="resultado"> El Resultado de la Evaluacion Fue : Muy Bueno  </h3>
+            </div>
+            <div class="modal-footer text-muted">
+                <span id="answer"></span>
+            </div>
+        </div>
+    </div>
+</div>
 

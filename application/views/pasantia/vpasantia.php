@@ -40,7 +40,7 @@ Gestion Pasantias
                                         <table id="tabPasantias" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th></th>
                                                 <th>Progreso</th>
                                                 <th>Pasante</th>
                                                 <th>Periodo</th>
@@ -338,7 +338,28 @@ Gestion Pasantias
 
 </div>
 
+<!--Mostrar Resultado-->
+<div class="modal  bs-example-modal-lg"  id="modalResultado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><span class="label label-warning" id="resul">*</span>RESULTADO</h3>
+            </div>
+            <div class="modal-body" id="resultados">
+                <label id="p1" > </label></br>
+                <label id="r1"> </label></br>
+                <label id="p2"> </label></br>
+                <label id="r2"> </label></br>
+                <label id="p3"> </label></br>
+                <label id="r3"> </label></br>
 
+            </div>
+            <div class="modal-footer text-muted">
+                <span id="answer"></span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Fin  modal Pasantia-->
 <script type="text/javascript">

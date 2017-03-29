@@ -320,6 +320,7 @@ class Model_pasantia extends CI_Model
     }
 
     function consultarTest($Id){
+        $data=array();
         $this->db->select('*');
         $this->db->from('evaluacion');
         $this->db->where('pas_id',$Id);

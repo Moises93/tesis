@@ -110,21 +110,7 @@
                         <td> </td>
                         <td id="periodop" class="h5">periodo</td>
                     </tr>
-
-                    <!--<tr>
-                        <td class="h6"><strong>Pendiente</strong></td>
-                        <td> </td>
-                        <td id="pendiente" class="h5">pendiente</td>
-                    </tr>
-
-                    <tr>
-                        <td class="btn-mais-info text-primary">
-                            <i class="open_info fa fa-plus-square-o"></i>
-                            <i class="open_info hide fa fa-minus-square-o"></i> Pendiente
-                        </td>
-                        <td> </td>
-                        <td  id="pendiente"  class="h5"></td>
-                    </tr>-->
+                    
 
                     </tbody>
                 </table>

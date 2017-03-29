@@ -157,9 +157,16 @@ class Cpasante extends CI_controller
 
         $filename = "test.pdf";
         $route = base_url().'documentos/'.$name;
-
-            header('Content-type: application/pdf');
+        if(file_exists ('documentos/'.$name)){
+             header('Content-type: application/pdf');
             readfile($route);
+           // echo 'ahora si ';
+        }else{
+           // echo $route;
+            //Mejorar creando una pagina de errores que redireccione al dasboard del usuario ( obteniendo los datos con la variable sseion)
+            echo "Este Archivo no existe, solicite una nueva carga del documento";
+        }
+
        
     }
 

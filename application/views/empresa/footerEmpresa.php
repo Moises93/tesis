@@ -234,6 +234,7 @@
 <script src="<?php echo base_url();?>assets/jsproyecto/bootstrapValidator.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/jsempresa/registroEmpresa.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/jsempresa/usuarioEmpresa.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/jsempresa/evaluarPasante.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
 <!--<script>

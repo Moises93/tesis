@@ -120,8 +120,7 @@ $(document).ready(function(e) {
                                  'onClick="evaluarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
                                  '\'' + row.pas_id + '\');"><span  class="fa fa-flag-checkered" </span></a>' ;
                         }else{
-                             evaluar ='<a href="#" title="Aprobar Pasante" data-toggle="modal" ' +
-                                 'data-target="#modalEditProfesor" ' +
+                             evaluar ='<a href="#" title="Aprobar Pasante"  ' +
                                  'onClick="aprobarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
                                  '\'' + row.requisitos + '\');"><span  class="fa fa-check-circle-o" </span></a>' ;
                         }
