@@ -14,6 +14,7 @@ class Empresa extends CI_controller
     $this->load->model('model_empresa');
     $this->load->model('model_usuario');
     $this->load->model('model_pasante');
+    $this->load->model('model_pasantia');
   }
 
   public function index(){
@@ -227,10 +228,15 @@ class Empresa extends CI_controller
             $userData = array(
                'user' => $rsu
             );
-
+             $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
+             $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
             $rsul = $this->model_pasante->getPasantesporEmpresa($rsu[0]->Id);
+            $principal=1;
             $pasantes = array(
-               'Pasantes' => $rsul
+               'Pasantes' => $rsul,
+                'preguntas' => $quiz['preguntas'],
+                'respuestas' => $quiz['respuestas'],
+                'principal' =>$principal
             );
              $data['menu'] =$this->model_usuario->menuPermisos($idUser);
              $data['user'] = $rsu;

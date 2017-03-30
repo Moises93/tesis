@@ -40,10 +40,13 @@ class Cusuario extends CI_Controller
           $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
           $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
           $rsu=$this->model_pasante->getPostulados();
+          $principal=0;
+
           $pasantes = array(
               'Pasantes' => $rsu,
               'preguntas' => $quiz['preguntas'],
               'respuestas' => $quiz['respuestas'],
+              'principal' =>$principal
           );
           $this->load->view('empresa/dashboardEmpresa',$pasantes);
           $this->load->view('empresa/footerEmpresa');

@@ -20,6 +20,10 @@ class Model_documentos extends CI_Model
         $this->db->insert('documentos_requeridos', $data);
         return ($this->db->affected_rows() != 1) ? false : true;
     }
+    public function guardarDocumentoBiblioteca($data){
+        $this->db->insert('documentos', $data);
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
     
     public function buscarRequisitos($idUser){
 
@@ -82,6 +86,16 @@ class Model_documentos extends CI_Model
             return FALSE;
         }
     }
+    public function existeDocumento($name){
+
+        $this->db->where('nombredoc=',$name);
+        $query = $this->db->get('documentos doc');
+        if ($query->num_rows() > 0) {
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
 
    public function actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser){
        $datas = array(
@@ -94,6 +108,11 @@ class Model_documentos extends CI_Model
         $this->db->where('id_usuario', $idUser);
         $this->db->where('requisito', $requisito);
         return $this->db->update('documentos_requeridos', $datas);
+    }
+    public function actualizarDocumentoBiblioteca($datas){
+   
+        $this->db->where('nombredoc', $datas['nombredoc']);
+        return $this->db->update('documentos', $datas);
     }
 
     public function requisitosPasante($pasId){

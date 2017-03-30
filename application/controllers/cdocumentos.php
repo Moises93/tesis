@@ -45,9 +45,9 @@ class Cdocumentos extends CI_controller
         $login=$this->session->userdata('Login');
         $idUser=$this->session->userdata('id');
         $archivo = 'archivo';
-        $config['upload_path'] = "documentos/";
-        $config['file_name'] = $login.$titulo;
-        $config['allowed_types'] = "*";
+        $config['upload_path'] = "biblioteca/";
+       // $config['file_name'] = $login.$titulo;
+        $config['allowed_types'] = "pdf|doc";
         $config['overwrite']=true; //sobreescrie archivos
         $config['max_size'] = "50000";
         $config['max_width'] = "2000";
@@ -67,21 +67,87 @@ class Cdocumentos extends CI_controller
         $data['uploadSuccess'] = $this->upload->data();
         $tipo= $data['uploadSuccess']['file_type'];
         $size= $data['uploadSuccess']['file_size'];
-        print_r($data['uploadSuccess']);
-       // echo $data['uploadSuccess']['file_size'];
-
+        $name=$data['uploadSuccess']['raw_name'];
+     //   print_r($data['uploadSuccess']);
+      //  echo $data['uploadSuccess']['raw_name'];
+      //  exit();
        $datas = array(
-            'titulo' => $this->input->post('titulo'),
-            'descripcion' => $this->input->post('descripcion'),
-            'tamanio' =>$size,
-            'tipo' =>$tipo,
-            'nombre_archivo' =>$this->input->post('titulo'),
+            'size' =>$size,
+            'formato' =>$tipo,
+            'nombredoc' =>$name,
             'id_usuario'=>$idUser
         );
-        print_r($datas);
-        $this->model_documentos->guardarDocumento($datas);
+    //    print_r($datas);
+        $valor=$this->model_documentos->existeDocumento($name); 
+       if($valor == true){
+           $this->model_documentos->actualizarDocumentoBiblioteca($datas);
+       }else{ 
+            $this->model_documentos->guardarDocumentoBiblioteca($datas);
+       }
+        redirect('/cdocumentos/subir_documentos', 'refresh');
 
-        //redirect('/cdocumentos/subir_documentos', 'refresh');
+
+    }
+    public function cargarMultiplesArchivos() {
+
+
+        $titulo=$this->input->post('descripcion');
+        $login=$this->session->userdata('Login');
+        $idUser=$this->session->userdata('id');
+        $archivo = 'archivo';
+        $config['upload_path'] = "biblioteca/";
+       // $config['file_name'] = $login.$titulo;
+        $config['allowed_types'] = "pdf|doc";
+        $config['overwrite']=true; //sobreescrie archivos
+        $config['max_size'] = "50000";
+        $config['max_width'] = "2000";
+        $config['max_height'] = "2000";
+
+        $this->load->library('upload', $config);
+        $files = $_FILES;
+        $cpt = count($_FILES['userfile']['name']); //userfile nombre del input en la vista
+        for($i=0; $i<$cpt; $i++)
+        {
+            $_FILES['userfile']['name']= $files['userfile']['name'][$i];
+            $_FILES['userfile']['type']= $files['userfile']['type'][$i];
+            $_FILES['userfile']['tmp_name']= $files['userfile']['tmp_name'][$i];
+            $_FILES['userfile']['error']= $files['userfile']['error'][$i];
+            $_FILES['userfile']['size']= $files['userfile']['size'][$i];
+
+            $this->upload->initialize($config);
+            $this->upload->do_upload();
+            if (!$this->upload->do_upload())
+            {
+                $errors = $this->upload->display_errors();
+                flashMsg($errors);
+            }
+            else
+            {
+                $data['uploadSuccess'] = $this->upload->data();
+                $tipo= $data['uploadSuccess']['file_type'];
+                $size= $data['uploadSuccess']['file_size'];
+                $name=$data['uploadSuccess']['raw_name'];
+                //   print_r($data['uploadSuccess']);
+                //  echo $data['uploadSuccess']['raw_name'];
+                //  exit();
+                $datas = array(
+                    'size' =>$size,
+                    'formato' =>$tipo,
+                    'nombredoc' =>$name,
+                    'id_usuario'=>$idUser
+                );
+                //    print_r($datas);
+                $valor=$this->model_documentos->existeDocumento($name);
+                if($valor == true){
+                    $this->model_documentos->actualizarDocumentoBiblioteca($datas);
+                }else{
+                    $this->model_documentos->guardarDocumentoBiblioteca($datas);
+                }
+
+            }
+        }
+
+       redirect('/cdocumentos/subir_documentos', 'refresh');
 
 
     }

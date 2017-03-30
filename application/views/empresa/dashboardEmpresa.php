@@ -34,7 +34,7 @@
   <table  id="tabla" class="table">
       <tbody>
         <?php $j = 0; foreach($Pasantes as $row){?>
-               <?php if($j % 4 == 0){ ?>
+               <?php if($j % 3 == 0){ ?>
                      <tr>
                <?php } ?>
           <td  class="grid cs-style-7" >
@@ -49,7 +49,7 @@
                  </span>
                  <div class="info-box-content">
                   <span class="info-box-text"><b><?=$row->pas_apellido . " " . $row->pas_nombre;?></b> </span>
-                    <span><?=$row->usu_correo?></span>
+                    <span><?=$row->usu_correo?></span></br>
                     <span><?=$row->Escuela?></span>
                 
                  </div>
@@ -61,18 +61,18 @@
                 <span class="boton-perfil">
                   <a   href="">Perfil</a>
                </span>
-                 
+                 <?php if($principal != 0){ ?>
              <span class="boton-evaluar">
                   <a href="#" title="Aprobar Pasante" data-target="#modalEvaluacion" data-toggle="modal" onClick="evaluarPasante(<?=$row->pas_id?>)" >
                       Evaluar</a>
-              
-              
+
+                 <?php } ?>
             </figcaption>
           </figure>
 
           </td>
 
-           <?php if($j+1 % 3 == 0){ ?>
+           <?php if($j+1 % 2 == 0){ ?>
                      </tr>
                    
                <?php } ?>

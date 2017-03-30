@@ -1,5 +1,20 @@
 cedula;nombre;apellido;sexo;correo;escuela;login;clave;tipo
-v123456;victor;hernandez;f;m@g.com;1;hernandez;123456;pasante
-v123456;laura;bullones;f;m@g.com;1;lbullones;123456;profesor
-v123456;pedro;carmona;m;m@g.com;1;pcarmoa;123456;profesor
-v111111;jose;castaneda;m;c@g.com;1;jcastaneda;123456;profesor
+v123456;victor;gonzales;m;m@g.com;1;vgonzalez;123456;pasante
+v123456;rosmery;malvaes;f;m@g.com;1;rmalvaes;123456;pasante
+v123456;sherly;rubio;f;m@g.com;1;srubio;123456;pasante
+v111111;antonio;garcia;m;c@g.com;1;agarcia;123456;pasante
+v111114;augusto;san pedro;m;c@g.com;1;asanpedro;123456;pasante
+v123456;ernesto;gonzales;m;c@g.com;1;egonzales;123456;pasante
+v123256;pedro;perez;m;c@g.com;1;pperez;123456;pasante
+v123546;jose;rojas;m;c@g.com;1;jrojas;123456;pasante
+v343546;carlos;ignacio;m;c@g.com;1;cignacio;123456;pasante
+v5523546;tiburcio;flores;m;c@g.com;1;tflores;123456;pasante
+v2123546;maria;yanez;f;c@g.com;1;myanez;123456;pasante
+v2345632;ana;leticia;f;c@g.com;1;aleticia;123456;pasante
+v2215632;ana;randolfo;f;c@g.com;1;arandolfo;123456;pasante
+v2215633;ana;garces;f;c@g.com;1;agarces;123456;pasante
+v2215645;alejandra;lopez;f;c@g.com;1;alopez;123456;pasante
+v2246633;alexandra;franco;f;c@g.com;1;afranco;123456;pasante
+v2215676;roxana;blanco;f;c@g.com;1;rblanco;123456;pasante
+v2223456;sandra;violeta;f;c@g.com;1;svioleta;123456;pasante
+v2215214;paula;paris;f;c@g.com;1;pparis;123456;pasante
