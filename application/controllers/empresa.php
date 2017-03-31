@@ -15,6 +15,7 @@ class Empresa extends CI_controller
     $this->load->model('model_usuario');
     $this->load->model('model_pasante');
     $this->load->model('model_pasantia');
+    $this->load->library('pagination');
   }
 
   public function index(){
@@ -34,7 +35,6 @@ class Empresa extends CI_controller
         'Habilidades' =>$habilidades,
         'Foto' => $foto
       );
-
   	 $this->load->view('layout/registerheader');
      $this->load->view('registroempresa/index',$data);
   }

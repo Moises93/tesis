@@ -79,6 +79,14 @@
         <?php $j++; } ?>
      </tbody>
    </table>
+   <div id="pagination" class="text-center">
+        <ul class="pagination">
+
+          <?php foreach ($links as $link) {
+                        echo "<li>". $link."</li>";
+          } ?>
+        </ul>
+    </div>
    </div>
 </section>
 

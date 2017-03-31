@@ -15,6 +15,7 @@ class Cusuario extends CI_Controller
     $this->load->model('model_pasante');
     $this->load->model('model_pasantia');
     $this->load->model('model_empresa');
+    $this->load->library('pagination');
   }
 
 
@@ -37,17 +38,43 @@ class Cusuario extends CI_Controller
           $this->load->view('pasante/vpasante');
           $this->load->view('layout/footer');
       }elseif($tipo==5){
+        //Deberiamos separa estas secciones en funciones mas pequeñas.
+        //Configuracion Paginacion
+         $total = $this->model_pasante->getCountPostulados();
+          $config = array();
+          $config["base_url"] = base_url() . "cusuario/inicio";
+          $config["total_rows"] = $total[0]->Total;
+          $config["per_page"] = 9;
+          $config['use_page_numbers'] = TRUE;
+          $config['num_links'] = 4;
+          $config['cur_tag_open'] = '&nbsp;<a class="active">';
+          $config['cur_tag_close'] = '</a>';
+          $config['next_link'] = '>';
+          $config['prev_link'] = '<';
+          $this->pagination->initialize($config);
+            if($this->uri->segment(3)){
+              $page = (int)($this->uri->segment(3))-1 ;
+              $page *= $config["per_page"];
+            }
+            else{
+              $page = 1;
+            }
+        //Fin Configuracion Paginacion
+        //Traer Postulados Paginados
+            $rsu =$this->model_pasante->getPostulados($config["per_page"], $page);
+            $str_links = $this->pagination->create_links();
+            
+        //Fin de Traer Postulados Paginados
           $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
           $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
-          $rsu=$this->model_pasante->getPostulados();
           $principal=0;
-
           $pasantes = array(
               'Pasantes' => $rsu,
               'preguntas' => $quiz['preguntas'],
               'respuestas' => $quiz['respuestas'],
               'principal' =>$principal
           );
+          $pasantes['links'] = explode('&nbsp;',$str_links);
           $this->load->view('empresa/dashboardEmpresa',$pasantes);
           $this->load->view('empresa/footerEmpresa');
           }elseif(true){ 
