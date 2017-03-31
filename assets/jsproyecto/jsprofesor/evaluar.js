@@ -119,14 +119,17 @@ $(document).ready(function(e) {
                                  'data-target="#modalEvaluacion" ' +
                                  'onClick="evaluarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
                                  '\'' + row.pas_id + '\');"><span  class="fa fa-flag-checkered" </span></a>' ;
+                            return evaluar + masInfo;
                         }else{
                              evaluar ='<a href="#" title="Aprobar Pasante"  ' +
                                  'onClick="aprobarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
                                  '\'' + row.requisitos + '\');"><span  class="fa fa-check-circle-o" </span></a>' ;
-                        }
-                        return evaluar + masInfo+
 
-                           '&nbsp;<a href="#" onclick="window.open(\''+baseurl+'cdocumentos/generarConstancia/' + row.id_pasantia + '\',\'_blank\',\'fullscreen=yes\'); return false;\"><i class="fa fa-print" aria-hidden="true"></i></a>';
+                            return evaluar + masInfo+
+
+                                '&nbsp;<a href="#" onclick="window.open(\''+baseurl+'cdocumentos/generarConstancia/' + row.id_pasantia + '\',\'_blank\',\'fullscreen=yes\'); return false;\"><i class="fa fa-print" aria-hidden="true"></i></a>';
+
+                        }
 
                     }else{
                         return '<span style="color:green" title="Pasante Aprobado" class="fa fa-check" </span>' +

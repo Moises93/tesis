@@ -28,9 +28,11 @@ class Cpasantia extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
+        $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
-        $this->load->view('pasantia/vpasantia');
+        $this->load->view('pasantia/vpasantia',$quiz);
         $this->load->view('pasantia/footerPasantia');
     }
 

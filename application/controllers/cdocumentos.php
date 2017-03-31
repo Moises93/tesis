@@ -37,6 +37,23 @@ class Cdocumentos extends CI_controller
         $this->load->view('contenido/footerAdmin');
 
     }
+    public function biblioteca(){
+
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('documentos/biblioteca');
+        $this->load->view('documentos/footerDocumentos');
+
+    }
 
     public function cargar_archivo() {
         
@@ -152,6 +169,22 @@ class Cdocumentos extends CI_controller
 
     }
 
+    public function visualizarDocumentos($name){
+
+        $filename = "test.pdf";
+        $route = base_url().'biblioteca/'.$name;
+        if(file_exists ('biblioteca/'.$name)){
+            header('Content-type: application/pdf');
+            readfile($route);
+            // echo 'ahora si ';
+        }else{
+            // echo $route;
+            //Mejorar creando una pagina de errores que redireccione al dasboard del usuario ( obteniendo los datos con la variable sseion)
+            echo "Este Archivo no se encuentra";
+        }
+
+
+    }
     public function generarConstancia($id){
         //$ide['ide']=$id;
         $datos['info']=$this->model_pasantia->obtenerPasantiaActiva($id);
@@ -261,6 +294,12 @@ class Cdocumentos extends CI_controller
         ///require "/path/to/file";
         $pdf->Output($_SERVER['DOCUMENT_ROOT'].'tesis/application/documentos/'.$nombre.'.pdf', 'F');
         //ob_end_flush();
+    }
+
+    public function obtenerDocumentos(){
+        $dato = $this->model_documentos->obtenerDocumentos();
+        header('Content-Type: application/json');
+        echo json_encode($dato);
     }
 }
 

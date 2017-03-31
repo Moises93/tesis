@@ -124,4 +124,10 @@ class Model_documentos extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function obtenerDocumentos(){
+        $this->db->select('*');
+        $this->db->from('documentos');
+        return $this->db->get()->result();
+    }
+
 }

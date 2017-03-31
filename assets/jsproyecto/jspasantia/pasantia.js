@@ -2,6 +2,14 @@
  * Created by Moises on 28-02-2017.
  */
 $(document).ready(function(e) {
+    $('#qid2').fadeOut();
+    $('#pid2').fadeOut();
+    $('#qid3').fadeOut();
+    $('#pid3').fadeOut();
+    $('#finish').fadeOut();
+    $('#guardar').fadeOut();
+    $('#resultado').fadeOut();
+    $('#volver').fadeOut();
 
     document.getElementById('escuelao').style.display='none';
     document.getElementById('labOrg').style.display='none';
@@ -169,19 +177,30 @@ $('#agregarPasantia').click(function () {
                     }else{
                         tutorE="No asignado";
                     }
-                    return '<a href="#"  data-toggle="modal" ' +
+                    return '<a href="#" title="Editar"  data-toggle="modal" ' +
                         'data-target="#modalEditPasantia" ' +
                         'onClick="selPasantia(\'' + row.id_pasantia + '\');">' +
                         '<span class="glyphicon glyphicon-edit" </span></a>' +
 
-                        '&nbsp;&nbsp;<a href="#"  data-toggle="modal" ' +
+                        '&nbsp;&nbsp;<a href="#" title="Información "  data-toggle="modal" ' +
                         'data-target="#modalInfoPasantia" ' +
                         'onClick="selInfo(\'' + row.cedula + '\',\'' + row.nombre + '\',\'' + row.apellido + '\',\'' + row.sexo + '\',' +
                         '\'' + row.fecha_inicio + '\',\'' + row.fecha_final + '\',\'' + row.correo + '\',\'' + row.empresa + '\',' +
                         '\'' + tutorA + '\',\'' + tutorE + '\',\'' + row.telefono + '\',\'' + row.escuela + '\',' +
                         '\'' + row.universidad + '\',\'' + row.modalidad + '\',\'' + row.estatus + '\',\'' + row.foto + '\');">'+
-                        '<i class="fa fa-search" aria-hidden="true"></i></a>';
-                        
+                        '<i class="fa fa-search" aria-hidden="true"></i></a>'+
+
+                        '&nbsp;&nbsp;<a href="#" title="Evaluar Pasante" data-toggle="modal" ' +
+                        'data-target="#modalEvaluacion" ' +
+                        'onClick="evaluarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
+                        '\'' + row.pas_id + '\');"><span  class="fa fa-flag-checkered" </span></a>'+
+
+                        '&nbsp;&nbsp;<a href="#" title="Aprobar Pasante"  ' +
+                        'onClick="aprobarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
+                        '\'' + row.requisitos + '\');"><span  class="fa fa-check-circle-o" </span></a>' +
+
+                        '&nbsp;&nbsp;<a href="#" title="Generar Constancia" onclick="window.open(\''+baseurl+'cdocumentos/generarConstancia/' + row.id_pasantia + '\',\'_blank\',\'fullscreen=yes\'); return false;\"><i class="fa fa-print" aria-hidden="true"></i></a>';
+
                 }
             }
 
@@ -431,7 +450,135 @@ $('#actualizarPasantia').click(function(){
 });
 
 
+aprobarPasante = function(idPas,estatus,requisitos){
 
+    if(estatus < 4){
+        alert('El Tutor empresarial aun no ha Evaluado');
+    }else{
+        $.post(baseurl + "cpasantia/aprobarPasantia",
+            {
+                estatus:estatus,
+                idPasantia:idPas
+            },
+            function(data){
+                alert(data);
+                location.reload();
+            });
+    }
+};
+
+
+evaluarPasante = function(idPas,estatus,pas){
+    var contador=1;
+    var loading = $('#loadbar').hide();
+    var choice='';
+    var respuesta= new Array();
+    var preguntas= new Array();
+    $(document)
+        .ajaxStart(function () {
+            loading.show();
+        }).ajaxStop(function () {
+        loading.hide();
+    });
+    $("label.btn").on('click',function () {
+        if(contador == 1){
+            choice = $(this).find('input:radio').val();
+            $('#loadbar').show();
+            $('#qid1').fadeOut();
+            $('#pid1').fadeOut();
+
+            $('#quiz').fadeOut();
+            setTimeout(function(){
+                $( "#answer" ).html(  $(this).checking(choice) );
+                $('#qid2').show();
+                $('#pid2').show();
+                $('#quiz').show();
+                $('#loadbar').fadeOut();
+                /* something else */
+            }, 1500);
+            contador=contador+1;
+        }else if(contador==2){
+            choice = $(this).find('input:radio').val();
+            $('#loadbar').show();
+            $('#qid2').fadeOut();
+            $('#pid2').fadeOut();
+            $('#quiz').fadeOut();
+            setTimeout(function(){
+                $( "#answer" ).html(  $(this).checking(choice) );
+                $('#qid3').show();
+                $('#pid3').show();
+                $('#quiz').show();
+                $('#loadbar').fadeOut();
+                /* something else */
+            }, 1500);
+            contador=contador+1;
+        }else if(contador==3){
+            choice = $(this).find('input:radio').val();
+            $('#loadbar').show();
+            $('#qid3').fadeOut();
+            $('#pid3').fadeOut();
+            $('#quiz').fadeOut();
+            setTimeout(function(){
+                $( "#answer" ).html(  $(this).checking(choice) );
+                $('#finish').show();
+                $('#guardar').show();
+                $('#volver').show();
+                $('#loadbar').fadeOut();
+                /* something else */
+            }, 1500);
+        }
+
+
+
+    });
+
+    $("#guardar").on('click',function () {
+        console.log(respuesta);
+        console.log(preguntas);
+        $('#loadbar').show();
+        $('#guardar').fadeOut();
+
+        var jsonResp = JSON.stringify(respuesta);
+        var jsonP = JSON.stringify(preguntas);
+
+        $.post(baseurl+"cpasantia/guardarTest",
+            {
+                respuesta: jsonResp,
+                preguntas: jsonP,
+                paId :pas
+            },
+            function(data){
+                //var p = JSON.parse(data);
+                console.log("data",data);
+                setTimeout(function(){
+                    $('#resultado').html('<h3> El Resultado de la Evaluacion Fue :'+ data+' </h3>');
+                    $('#resultado').show();
+                    $('#loadbar').fadeOut();
+                    /* something else */
+                }, 1500);
+            });
+
+
+
+    });
+
+    $("#volver").on('click',function () {
+
+        evaluarPasante(1,1,1);
+
+    });
+
+    $ques = 1;
+
+    $.fn.checking = function(ck) {
+        respuesta.push(parseInt(ck));
+        preguntas.push($ques);
+        $ques=$ques+1;
+        return ck;
+
+    };
+
+};
 
 
 

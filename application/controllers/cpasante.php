@@ -170,6 +170,7 @@ class Cpasante extends CI_controller
        
     }
 
+
     public function esPasante(){
         $idPas= $this->input->post('estudiante');
         $resul=$this->model_pasante->esPasante($idPas);
@@ -194,6 +195,23 @@ class Cpasante extends CI_controller
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('pasante/estudiantes');
+        $this->load->view('contenido/footerAdmin');
+    }
+
+    public function pasantia(){
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /* print_r($re);
+         exit();*/
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('pasante/pasantia');
         $this->load->view('contenido/footerAdmin');
     }
 
