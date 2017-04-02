@@ -13,7 +13,7 @@ if( isset ($mensaje )) {
 }
 ?>
 
-
+<!--
 <div class="container">
     <h2>Formatos de Pasantias</h2>
     <p>Descarga los formatos de pasantia haciendo click</p>
@@ -36,13 +36,15 @@ if( isset ($mensaje )) {
         </div>
     </div>
 </div>
-
+-->
 <div class="container">
+    <h2>Trámites de Pasantia</h2>
+    <p>Descarga los formatos de pasantia desde tu pagina de Inicio</p></br></br>
     <div class="row form-group">
-        <div class="col-xs-12">
+        <div class="col-xs-11">
             <ul class="nav nav-pills nav-justified thumbnail setup-panel">
                 <li class="active"><a href="#step-1">
-                        <h4 class="list-group-item-heading">CV</h4>
+                        <h4 class="list-group-item-heading">Curriculum</h4>
                         <p class="list-group-item-text">First step description</p>
                     </a></li>
                 <li class="disabled"><a href="#step-2">
@@ -53,15 +55,20 @@ if( isset ($mensaje )) {
                         <h4 class="list-group-item-heading">Plan de Actividades</h4>
                         <p class="list-group-item-text">Third step description</p>
                     </a></li>
+                <li class="disabled"><a href="#step-4">
+                        <h4 class="list-group-item-heading">Informe Final</h4>
+                        <p class="list-group-item-text">Third step description</p>
+                    </a></li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-11">
             <div class="col-md-12 well setup-content text-center" id="step-1">
                 <h1 class="text-center"> PASO 1</h1>
-                <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
-                    la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
+                <div style="text-align: justify;" class="panel-body">Sube tu Curriculum para que todos lo vean y puedan contactarte</br>
+                    <p style="text-align: justify;"><strong>Sintesis Curricular </strong>(Tamaño máximo 250Kb)</br>
+                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.pdf,.ppt,.pptx)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
                         <table>
                             <tr>
@@ -74,14 +81,14 @@ if( isset ($mensaje )) {
                             if($cv != "0") {
                                 echo "<tr>";
                                 echo " <td><input type='submit' value='cambiar' ></td>";?>
-                                <input type="hidden" id="pasos1" value="1">;
+                                <input type="hidden" id="pasos1" value="1">
                                 <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $cv;?>"><?php echo $cv;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";
                             }else{
                                 ?>
                               
-                                <input type="hidden" id="paso1" value="<?php echo $cv;?>">;
+                                <input type="hidden" id="paso1" value="<?php echo $cv;?>">
                                 <?php
 
                                 echo" <tr>";
@@ -101,11 +108,12 @@ if( isset ($mensaje )) {
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-11">
             <div class="col-md-12 well setup-content text-center" id="step-2">
                 <h1 class="text-center"> PASO 2</h1>
-                <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
-                    la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
+                <div style="text-align: justify;" class="panel-body">Sube tu Carta de aceptacion y asi inicia en el sistema tu gestion de pasantia</br>
+                    <p style="text-align: justify;"><strong>Carta de Aceptaci&oacute;n </strong>(Tamaño máximo 1Mb)</br>
+                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
                         <table>
                             <tr>
@@ -120,7 +128,7 @@ if( isset ($mensaje )) {
                                 
                                 echo " <td><input type='submit' value='cambiar' ></td>";
                                 ?>
-                                <input type="hidden" id="pasos2" value="1">;
+                                <input type="hidden" id="pasos2" value="1">
                                 <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $aceptacion;?>"><?php echo $aceptacion;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";
@@ -147,11 +155,12 @@ if( isset ($mensaje )) {
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-11">
             <div class="col-md-12 well setup-content text-center" id="step-3">
                 <h1 class="text-center"> PASO 3</h1>
-                <div class="panel-body">Descarga la carta de postulaci&oacute;n de pasant&iacute;as llenala con tus datos y llevala a
-                    la coordinaci&oacute;n de pasantias para ser sellada y firmada luego a la empresa donde deseas postularte.</br>
+                <div style="text-align: justify;" class="panel-body">Sube tu plan de actividades para poder ser evaluado</br>
+                    <p style="text-align: justify;"><strong>Plan de Actividades </strong>(Tamaño máximo 1Mb)</br>
+                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
                         <table>
                             <tr>
@@ -164,7 +173,49 @@ if( isset ($mensaje )) {
                             if($actividades != "0") {
                                 echo "<tr>";
                                 echo " <td><input type='submit' value='cambiar' ></td>";?>
+                                <input type="hidden" id="pasos3" value="1">
                                 <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $actividades;?>"><?php echo $actividades;?> Descargar</a></td>
+                                <?php
+                                echo "</tr>";
+
+
+                            }else{
+                                echo" <tr>";
+                                echo " <td><input type='submit' value='subir' ></td>";
+                                echo   "</tr>";
+                            }
+                            ?>
+
+                        </table>
+
+
+                    </form>
+                </div>
+                <button id="activate-step-4" class="btn btn-primary btn-lg">Activate Step 4</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-11">
+            <div class="col-md-12 well setup-content text-center" id="step-4">
+                <h1 class="text-center"> PASO 4</h1>
+                <div style="text-align: justify;" class="panel-body">Sube tu Informe Final y concluye con los requisitos exigidos, Recuerda
+                    valorar los libros que te ayudaron en la seccion de biblioteca</br>
+                    <p style="text-align: justify;"><strong>Informe Final</strong>(Tamaño máximo 8Mb)</br>
+                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.pdf)</p>
+                    <form method="post" action="cargar_requisito" enctype="multipart/form-data">
+                        <table>
+                            <tr>
+                                <td><input type=hidden name="requisito" value="informeFinal"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="file" name="requisitos"></td></br>
+                            </tr>
+                            <?php
+                            if($informeFinal != "0") {
+                                echo "<tr>";
+                                echo " <td><input type='submit' value='cambiar' ></td>"?>
+                                <td>&nbsp; <a href="<?php echo base_url();?>cpasante/downloads/<?php echo $informeFinal;?>"><?php echo $informeFinal;?> Descargar</a></td>
                                 <?php
                                 echo "</tr>";
 

@@ -65,11 +65,24 @@ class Model_documentos extends CI_Model
             }
         }else{
             $cv=0;
+        }  
+        
+        $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
+        $this->db->where('doc.id_usuario', $idUser);
+        $this->db->where("(doc.requisito='informeFinal')",NULL,FALSE);
+        $query = $this->db->get('documentos_requeridos doc');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key => $object) {
+                $if =   $object['name'];
+            }
+        }else{
+            $if=0;
         }
         $array = array(
             "aceptacion" => $aceptacion,
             "actividades" => $actividades,
-            "cv" => $cv
+            "cv" => $cv,
+            "informeFinal" => $if
         );
         return $array;
 
@@ -108,7 +121,7 @@ class Model_documentos extends CI_Model
         $this->db->where('id_usuario', $idUser);
         $this->db->where('requisito', $requisito);
         return $this->db->update('documentos_requeridos', $datas);
-    }
+   }
     public function actualizarDocumentoBiblioteca($datas){
    
         $this->db->where('nombredoc', $datas['nombredoc']);
@@ -128,6 +141,60 @@ class Model_documentos extends CI_Model
         $this->db->select('*');
         $this->db->from('documentos');
         return $this->db->get()->result();
+    }
+
+    function consultarValoracion($idUser,$iddoc){
+        $data=array();
+        $this->db->select('valor');
+        $this->db->from('valoracion_libros');
+        $this->db->where('iddoc',$iddoc);
+        $this->db->where('id_usuario',$idUser);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
+    function actualizarValoracionLibros($iddoc,$valor,$idUser)
+    {
+        $data = array(
+            'valor' => $valor
+        );
+
+        $this->db->where('iddoc', $iddoc);
+        $this->db->where('id_usuario', $idUser);
+        $this->db->update('valoracion_libros', $data);
+    }
+
+    function guardarValoracionLibros($iddoc,$valor,$idUser){
+        $data = array(
+            'iddoc' => $iddoc,
+            'id_usuario' => $idUser,
+            'valor' => $valor
+        );
+        return $this->db->insert('valoracion_libros',$data);
+    }
+
+    function consultarRating($iddoc){
+
+        $this->db->select('AVG(valor) promedio, count(iddoc) votos');
+        $this->db->from('valoracion_libros');
+        $this->db->where('iddoc',$iddoc);
+        $query = $this->db->get();
+        $rating = round($query->row()->promedio,1);
+        $votos=$query->row()->votos;
+        $data=array(
+            'rating' => $rating,
+            'votos' =>$votos
+        );
+        return $data;
+    }
+    function actualizarRating($dato,$iddoc){
+        $this->db->where('iddoc', $iddoc);
+        $this->db->update('documentos', $dato);
     }
 
 }

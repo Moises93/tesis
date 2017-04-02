@@ -170,10 +170,24 @@ class Cdocumentos extends CI_controller
     }
 
     public function visualizarDocumentos($name){
-
         $filename = "test.pdf";
         $route = base_url().'biblioteca/'.$name;
         if(file_exists ('biblioteca/'.$name)){
+            header('Content-type: application/pdf');
+            readfile($route);
+            // echo 'ahora si ';
+        }else{
+            // echo $route;
+            //Mejorar creando una pagina de errores que redireccione al dasboard del usuario ( obteniendo los datos con la variable sseion)
+            echo "Este Archivo no se encuentra";
+        }
+
+
+    } 
+    public function verRequisito($name){
+        $filename = "test.pdf";
+        $route = base_url().'documentos/'.$name;
+        if(file_exists ('documentos/'.$name)){
             header('Content-type: application/pdf');
             readfile($route);
             // echo 'ahora si ';
@@ -298,8 +312,28 @@ class Cdocumentos extends CI_controller
 
     public function obtenerDocumentos(){
         $dato = $this->model_documentos->obtenerDocumentos();
-        header('Content-Type: application/json');
+       // header('Content-Type: application/json'); no sirve en el servidor
         echo json_encode($dato);
+    }
+
+    public function valorarLibros(){
+        $iddoc = $this->input->post('iddoc');
+        $valor = $this->input->post('valor');
+        $idUser=$this->session->userdata('id');
+
+        $existe=$this->model_documentos->consultarValoracion($idUser,$iddoc);
+        if(count($existe)>0){
+            $this->model_documentos->actualizarValoracionLibros($iddoc,$valor,$idUser);
+        }else{
+            $this->model_documentos->guardarValoracionLibros($iddoc,$valor,$idUser);
+        }
+      $this->actualizarRating($iddoc);
+    }
+
+    public function actualizarRating($iddoc){
+        $dato=$this->model_documentos->consultarRating($iddoc);
+        $this->model_documentos->actualizarRating($dato,$iddoc);
+      //  print_r($dato);
     }
 }
 

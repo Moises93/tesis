@@ -365,3 +365,8 @@ label .glyphicon {
         background-color: #FFF
     }
 }
+#colorstar { color: #ee8b2d;}
+#colorstrellas { color: #ee8b2d;}
+.badForm {color: #FF0000;}
+.goodForm {color: #00FF00;}
+.evaluation { margin-left:30px;}

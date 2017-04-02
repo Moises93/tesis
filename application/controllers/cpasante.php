@@ -149,25 +149,22 @@ class Cpasante extends CI_controller
     }
 
     public function downloads($name){
-
-       // $data = file_get_contents(base_url().'documentos/'.$name);
-        //force_download($name,$data);
+        $data = file_get_contents(base_url().'documentos/'.$name);
+        force_download($name,$data);
        //  header('content-type: application/pdf');
        // readfile(base_url().'documentos/'.$name);
 
-        $filename = "test.pdf";
-        $route = base_url().'documentos/'.$name;
-        if(file_exists ('documentos/'.$name)){
-             header('Content-type: application/pdf');
-            readfile($route);
+      //  $filename = "test.pdf";
+      //  $route = base_url().'documentos/'.$name;
+      //  if(file_exists ('documentos/'.$name)){
+          //   header('Content-type: application/pdf');
+       //     readfile($route);
            // echo 'ahora si ';
-        }else{
+     //   }else{
            // echo $route;
             //Mejorar creando una pagina de errores que redireccione al dasboard del usuario ( obteniendo los datos con la variable sseion)
-            echo "Este Archivo no existe, solicite una nueva carga del documento";
-        }
-
-       
+       //     echo "Este Archivo no existe, solicite una nueva carga del documento";
+      //  }
     }
 
 
@@ -212,7 +209,7 @@ class Cpasante extends CI_controller
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('pasante/pasantia');
-        $this->load->view('contenido/footerAdmin');
+        $this->load->view('pasante/footerPasante');
     }
 
     public function updEstudiante(){
@@ -232,6 +229,72 @@ class Cpasante extends CI_controller
             echo('Ocurrio un error');
         }
     }
+
+
+    public function miPasantia(){
+        $resultado=array();
+        $tutorE=array();
+        $idUser=$this->session->userdata('id');
+        /*Si es tipo prfesor muestro solo sus pasantes y si es usauario admin traigo todos*/
+
+          
+        
+            $idPas=$this->model_pasantia->obtenerPasnatiaDeEstudiante($idUser); //obtener Id-pasante
+
+
+            $result=$this->model_pasantia->obtenerPasantiaActiva($idPas);
+            $idPa=$result['pas_id'];
+            $pasantia =array(
+                'id_pasantia'    => $result['id_pasantia'],
+                'modalidad'      => $result['modalidad'],
+                'estatus'        => $result['estatus'],
+                'fecha_inicio'   => $result['fecha_inicio'],
+                'fecha_final'    => $result['fecha_final'],
+                'cedula'         => $result['pas_cedula'],
+                'pas_id'         => $result['pas_id'],
+                'sexo'           => $result['pas_sexo'],
+                'nombre'         => $result['pas_nombre'],
+                'apellido'       => $result['pas_apellido'],
+                'telefono'       => $result['pas_telefono'],
+                'login'          => $result['usu_login'],
+                'correo'         => $result['usu_correo'],
+                'foto'           => $result['usu_foto'],
+                'escuela'        => $result['esc_nombre'],
+                'orgaca'         => $result['orgaca'],
+                'universidad'    => 'Universidad de Carabobo',
+                'empresa_id'     => $result['emp_id'],
+                'empresa'        => $result['emp_nombre'],
+                'id_escuela'     => $result['id_escuela'],
+                'TutorEmp'       => 0,
+                'integrantes'    => null,
+
+            );
+
+           // $requisitos=$this->model_pasantia->consultarRequisitos($idPa);
+            $integrantes =  $this->model_pasantia->getIntegrantesPas($idPas);
+           /* if(count($requisitos)>0) {
+           //     $pasantia['requisitos']=$requisitos;
+           // }*/
+            if(count($tutorE)>0) {
+                foreach ($tutorE as $val){
+                    if($result['id_pasantia']==$val){
+                        $pasantia['TutorEmp']=$val;
+                        /*$acumulador = $val s eme ocurre ir gaurdando en un acumulador y validar que ya no este  no me acuerdo(hasta ahora sirve)
+                    */
+                    }
+
+                }
+
+            }
+            if( count($integrantes) > 0){
+                $pasantia['integrantes']=$integrantes;
+            }
+            array_push($resultado, $pasantia);
+
+        echo json_encode($resultado);
+
+    }
+
 
 }
 

@@ -63,12 +63,16 @@ class Model_profesor extends CI_Model
 		}
 		$query->free_result();
 		return $data;
-	} 
+	}
+	
 
 	function getProfesor($pro_id){
 		$data = array();
+		$this->db->select('*');
+		$this->db->from('profesor pro');
+		$this->db->join('usuario usu', 'usu.id_usuario=pro.id_usuario');
 		$this->db->where('pro.pro_id', $pro_id);
-		$query = $this->db->get('profesor pro');
+		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			foreach ($query->result_array() as $row){
 				$data = $row;

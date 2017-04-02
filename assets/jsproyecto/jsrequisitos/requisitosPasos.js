@@ -5,6 +5,7 @@
 $(document).ready(function() {
     var pas=parseInt($('#pasos1').val());
     var pas2=parseInt($('#pasos2').val());
+    var pas3=parseInt($('#pasos3').val());
     var navListItems = $('ul.setup-panel li a'),
         allWells = $('.setup-content');
 
@@ -35,6 +36,11 @@ $(document).ready(function() {
         $('ul.setup-panel li a[href="#step-3"]').trigger('click');
         $('#activate-step-3').remove();
     }
+    if(pas3==1){
+        $('ul.setup-panel li:eq(3)').removeClass('disabled');
+        $('ul.setup-panel li a[href="#step-4"]').trigger('click');
+        $('#activate-step-4').remove();
+    }
     $('ul.setup-panel li.active a').trigger('click');
 
     // DEMO ONLY //
@@ -62,6 +68,20 @@ $(document).ready(function() {
         }else {
             $('ul.setup-panel li:eq(2)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+            $(this).remove();
+           // $(this).remove();
+           /* $('ul.setup-panel li:eq(2)').addClass('active');
+            $('ul.setup-panel li:eq(2)').show();
+            $('ul.setup-panel li:eq(1)').removeClass('active');*/
+        }
+    });
+    $('#activate-step-4').on('click', function(e) {
+        var pas=parseInt($('#paso3').val());
+        if(pas==0){
+            alert('debes subir el requisito para avanzar');
+        }else {
+            $('ul.setup-panel li:eq(3)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-4"]').trigger('click');
             $(this).remove();
            // $(this).remove();
            /* $('ul.setup-panel li:eq(2)').addClass('active');

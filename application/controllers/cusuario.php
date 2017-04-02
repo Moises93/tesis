@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
 
 /**
  *
@@ -6,16 +6,16 @@
  */
 class Cusuario extends CI_Controller
 {
-
+    
   function __construct()
   {
-    parent::__construct();
-    $this->load->library('form_validation');
- 		$this->load->model('model_usuario');
-    $this->load->model('model_pasante');
-    $this->load->model('model_pasantia');
-    $this->load->model('model_empresa');
-    $this->load->library('pagination');
+        parent:: __construct();
+        $this->load->library('form_validation');
+        $this->load->model('model_usuario');
+        $this->load->model('model_pasante');
+        $this->load->model('model_pasantia');
+        $this->load->model('model_empresa');
+        $this->load->library('pagination');
   }
 
 

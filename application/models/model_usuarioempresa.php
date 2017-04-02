@@ -43,8 +43,11 @@ class Model_usuarioempresa extends CI_Model
 	 */
 	function obtenerUsuarioE($id){
 		$data = array();
+		$this->db->select('*');
+		$this->db->from('usuario_empresa u');
+		$this->db->join('usuario usu', 'usu.id_usuario=u.id_usuario');
 		$this->db->where('u.idusuario_empresa', $id);
-		$query = $this->db->get('usuario_empresa u');
+		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			foreach ($query->result_array() as $row){
 				$data = $row;

@@ -166,16 +166,22 @@ class Model_pasantia extends CI_Model
                         $dato = $this->model_profesor->getProfesor($idPro);
                         $info = array(
                             'id' =>$dato['pro_id'],
+                            'usuario' =>$dato['id_usuario'],
                             'nombre' =>$dato['pro_nombre'],
-                            'apellido' =>$dato['pro_apellido']
+                            'apellido' =>$dato['pro_apellido'],
+                            'correo' =>$dato['usu_correo'],
+                            'foto' =>$dato['usu_foto'],
                         );
                     }else if($row['idusuario_empresa']>0){
                        $idEmp= $row['idusuario_empresa'];
                         $dato = $this->model_usuarioempresa->obtenerUsuarioE($idEmp);
                         $info = array(
                             'id' =>$dato['idusuario_empresa'],
+                            'usuario' =>$dato['id_usuario'],
                             'nombre' =>$dato['uem_nombre'],
-                            'apellido' =>$dato['uem_apellido']
+                            'apellido' =>$dato['uem_apellido'],
+                            'correo' =>$dato['usu_correo'],
+                            'foto' =>$dato['usu_foto'],
                         );
                     }
 
@@ -348,4 +354,15 @@ class Model_pasantia extends CI_Model
         $this->db->where('eva.pas_id',$Id);
         return $this->db->get()->result();
     }
+    function obtenerPasnatiaDeEstudiante($id){
+        $this->db->select('pas.id_pasantia');
+        $this->db->from('pasantia pas');
+        $this->db->join('pasante pa', 'pas.pas_id=pa.pas_id');
+        $this->db->join('usuario usu', 'usu.id_usuario=pa.id_usuario');
+        $this->db->where('usu.id_usuario',$id);
+        $query = $this->db->get();
+        return $query->row()->id_pasantia;
+    }
+
+
 }
