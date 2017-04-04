@@ -127,6 +127,78 @@ class Model_empresa extends CI_Model
 		}
 		return FALSE;
 	}
+	function consultarValoracion($idUser,$idemp){
+		$data=array();
+		$this->db->select('valor');
+		$this->db->from('valoracion_empresa');
+		$this->db->where('emp_id',$idemp);
+		$this->db->where('id_usuario',$idUser);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function actualizarValoracionEmpresa($idemp,$valor,$idUser,$comentario)
+	{
+		$data = array(
+			'valor' => $valor,
+			'comentario' =>$comentario
+		);
 
-	
+		$this->db->where('emp_id', $idemp);
+		$this->db->where('id_usuario', $idUser);
+		$this->db->update('valoracion_empresa', $data);
+	}
+
+	function guardarValoracionEmpresa($idemp,$valor,$idUser,$comentario){
+		$data = array(
+			'emp_id' => $idemp,
+			'id_usuario' => $idUser,
+			'valor' => $valor,
+			'comentario' =>$comentario
+		);
+		return $this->db->insert('valoracion_empresa',$data);
+	}
+
+	function consultarRating($idemp){
+
+		$this->db->select('AVG(valor) promedio, count(emp_id) votos');
+		$this->db->from('valoracion_empresa');
+		$this->db->where('emp_id',$idemp);
+		$query = $this->db->get();
+		$rating = round($query->row()->promedio,1);
+		$votos=$query->row()->votos;
+		$data=array(
+			'rating' => $rating,
+			'votos' =>$votos,
+			'emp_id'=>$idemp
+		);
+		return $data;
+	}
+	function actualizarRating($dato,$idemp){
+		$data=array();
+		$this->db->select('*');
+		$this->db->from('rating_empresa');
+		$this->db->where('emp_id',$idemp);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+
+		echo 'query';
+		print_r($data);
+		if(count($data)>0){
+			$this->db->where('emp_id', $idemp);
+			$this->db->update('rating_empresa', $dato);
+		}else{
+			$this->db->insert('rating_empresa',$dato);
+		}
+
+	}
+
 }

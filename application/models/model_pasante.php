@@ -51,9 +51,19 @@ class Model_pasante extends CI_Model
         else{
             return array();
         }
+    }
 
 
-
+    function getPostuladosEstudiantes($escuela) {
+         $this->db->select('pas.pas_id,pas.pas_nombre,pas.pas_apellido,usu.usu_login');
+         $this->db->from('pasante pas');
+         $this->db->join('usuario usu', 'pas.id_usuario = usu.id_usuario','left');
+         $this->db->join('pasantia pa', 'pas.pas_id = pa.pas_id','left');
+         $this->db->join('escuela esc', 'pas.id_escuela = esc.id_escuela');
+         $this->db->where('pa.pas_id IS NULL',null,false);
+         $this->db->where('pas.id_escuela',$escuela);
+        $query= $this->db->get()->result();
+        return $query;
     }
  /*busco aquellos que no aparezcan en la tabla pasantia y me traigo datos de usuario para el login*/
     function getCountPostulados() {

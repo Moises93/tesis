@@ -26,7 +26,13 @@ class Cpasante extends CI_controller
     /*obtengo todos los estudiantes que aun no han empezado pasantias*/
     public function getPostulados(){
         $dato = $this->model_pasante->getPostulados();
-        
+        echo json_encode($dato);
+    }
+    /*obtengo todos los estudiantes que aun no han empezado pasantias*/
+    public function getPostuladosEstudiantes(){
+        $escuela=$this->input->post('escuelaid');
+        $dato = $this->model_pasante->getPostuladosEstudiantes($escuela);
+
         echo json_encode($dato);
     }
     /*obtengo todos los estudiantes que  han empezado pasantias*/

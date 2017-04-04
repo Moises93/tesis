@@ -246,5 +246,34 @@ class Empresa extends CI_controller
             $this->load->view('empresa/footerEmpresa');
     }
 
+    public function valorarEmpresa(){
+        $idemp = $this->input->post('idemp');
+        $valor = $this->input->post('valor');
+        $comentario = $this->input->post('comentario');
+        $idUser=$this->session->userdata('id');
+
+        $existe=$this->model_empresa->consultarValoracion($idUser,$idemp);
+        if(count($existe)>0){
+            $this->model_empresa->actualizarValoracionEmpresa($idemp,$valor,$idUser,$comentario);
+        }else{
+            $this->model_empresa->guardarValoracionEmpresa($idemp,$valor,$idUser,$comentario);
+        }
+        $this->actualizarRating($idemp);
+    }
+    public function actualizarRating($idemp){
+
+        $dato=$this->model_empresa->consultarRating($idemp);
+        print_r($dato);
+        $this->model_empresa->actualizarRating($dato,$idemp);
+      
+      /*  if(count($dato)>0){
+        
+        } else{
+            $this->model_empresa->guardarValoracionEmpresa($idemp,$valor,$idUser,$comentario);
+        }*/
+    
+        //  print_r($dato);
+    }
+
 }
 ?>

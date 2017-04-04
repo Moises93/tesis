@@ -26,20 +26,6 @@ $.post(baseurl + "empresa/getEmpresa",
     });
 
 
-//$('#cbPostulados').empty().append('<option value="-1">seleccione:</option>');
-/*muestro el login de acces del pasante que es Unico y evitar confuncion por nombres repetidos*/
-
-
-    $.post(baseurl + "cpasante/getPostulados",
-        function(data) {
-            var p = JSON.parse(data);
-            $.each(p, function (i, item) {
-                $('#cbPostulados').append('<option value="'+item.pas_id+'">'+item.usu_login+'</option>'
-
-                );
-            });
-        });
-
     $('#duracion').daterangepicker(
         {
             locale: {
@@ -62,14 +48,18 @@ $('#agregarPasantia').click(function () {
     var fecha = $('#reservation').val().split('-');
     var fechaIni=fecha[0];
     var fechaFin=fecha[1];
+    var nombreEmpresa=  $('#cbEmpresa').find("option:selected").text();
+    //attr("name");
     /*var fechaIni=fecha[0].replace("/","-");
     var fechaFin=fecha[1].replace("/","-");*/
 
-    
-    
-        if(orgaca<0){
-            orgaca=null;
-        }
+    if(nombreEmpresa=='Universidad de carabobo' || nombreEmpresa=='Universidad de Carabobo'){
+        orgaca=parseInt('1');
+    }else{
+        orgaca=null;
+    }
+
+
     
         $.post(baseurl + "cpasantia/agregarPasantia",
             {
@@ -82,10 +72,10 @@ $('#agregarPasantia').click(function () {
                 fechaFin: fechaFin
             },
             function (data) {
-                if (data) {
+
                     alert("Insercion exitosa");
                     location.reload();
-                }
+
             });
 
 });
@@ -155,11 +145,11 @@ $('#agregarPasantia').click(function () {
             }},
             
             {"render": function ( data, type, row ) {
-                if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0){
+             //   if(row.orgaca == null || row.orgaca =='0' || row.orgaca == 'undefined' || row.orgaca == 0){
                     return '<span>' + row.empresa +'</span>';
-                }else{
-                    return '<span>' + row.universidad +' </span>&emsp;' ;
-                }
+              //  }else{
+                 //   return '<span>' + row.universidad +' </span>&emsp;' ;
+               // }
             }},
             
             {data: 'escuela'},
@@ -379,11 +369,33 @@ $.post(baseurl + "empresa/getEmpresa",
     function(data) {
         var p = JSON.parse(data);
         $.each(p, function (i, item) {
-            $('#cbEmpresam').append('<option value="'+item.emp_id+'">'+item.emp_nombre+'</option>'
+            $('#cbEmpresam').append('<option name="'+item.emp_nombre+'" value="'+item.emp_id+'">'+item.emp_nombre+'</option>'
 
             );
         });
     });
+
+function mostrarEstudiantes(){
+
+    $('#cbPostulados').empty().append('<option value="-1">seleccione:</option>');
+    /*muestro el login de acces del pasante que es Unico y evitar confuncion por nombres repetidos*/
+
+    escuela=$("#escuela option:selected").val();
+    
+    $.post(baseurl + "cpasante/getPostuladosEstudiantes",
+        {
+            escuelaid: escuela,
+        },
+        function(data) {
+            var p = JSON.parse(data);
+            $.each(p, function (i, item) {
+                $('#cbPostulados').append('<option value="'+item.pas_id+'">'+item.usu_login+'</option>'
+
+                );
+            });
+        });
+
+}
 
 function  mostrarOrg() {
     idOrg=$("#cbOrganizacion option:selected").val();

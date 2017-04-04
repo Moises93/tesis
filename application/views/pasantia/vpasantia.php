@@ -91,7 +91,7 @@ Gestion Pasantias
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Escuela</label>
-                                                    <select id="escuela" class="form-control" name="escuela" onchange="" required>
+                                                    <select id="escuela" class="form-control" name="escuela" onchange="mostrarEstudiantes()" required>
                                                         <option value="-1">seleccione:</option>
                                                         <option value="1">Computacion</option>
                                                     </select>
@@ -115,7 +115,6 @@ Gestion Pasantias
                                                         <select id="cbOrganizacion" class="form-control" name="cbOrganizacion" onchange="mostrarOrg();" required>
                                                             <option value="-1">seleccione:</option>
                                                             <option value="1">Empresa</option>
-                                                            <option value="2">Universidad</option>
                                                         </select>
                                                     <span  id= "nombreP" class="help-block"></span>
                                                 </div>
@@ -139,7 +138,7 @@ Gestion Pasantias
                                           <div class="col-sm-10">
                                                  <div class="box-footer">
                                                 <!--<button type="submit" class="btn btn-default">Cancel</button>-->
-                                                <button class="btn btn-info pull-right" id="agregarPasantia">Agregar</button>
+                                                <id class="btn btn-info pull-right" id="agregarPasantia">Agregar</id>
     
                                                 </div>
                                           </div>
