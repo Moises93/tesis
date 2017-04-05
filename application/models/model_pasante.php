@@ -88,9 +88,8 @@ class Model_pasante extends CI_Model
             return array();
         }
 
-
-
     }
+
      function getPasantesporEmpresa($id) {
         $sql = "SELECT pas.pas_id, pas.pas_cedula, pas.pas_nombre,pas.pas_apellido ,pas.pas_sexo, pas.id_usuario, es.esc_nombre as Escuela ,us.id_usuario, us.usu_correo, us.usu_foto, us.usu_estatus, us.usu_login
              from pasante as pas";

@@ -42,6 +42,40 @@ class Model_empresa extends CI_Model
 		return $data;
 	}
 
+	function getEmpresaPorId($id) {
+
+		$data = array();
+		$this->db->select('*');
+		$this->db->from('empresa emp');
+		$this->db->join('ubicacion ubi', 'emp.emp_id = ubi.emp_id');
+		$this->db->join('pais pai', 'ubi.pais_id = pai.id');
+		$this->db->join('estado est', 'ubi.estado_id=est.id');
+		$this->db->join('rating_empresa remp', 'emp.emp_id = remp.emp_id','left');
+		$this->db->where('emp.emp_id', $id);
+		$query =  $this->db->get();
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
+	function getComentariosEmpresa($id){
+		$data = array();
+		$this->db->select('*');
+		$this->db->from('valoracion_empresa vemp');
+		$this->db->join('usuario usu', 'usu.id_usuario=vemp.id_usuario');
+		$this->db->where('emp_id', $id);
+		$query =  $this->db->get();
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
 	function getUsuarioEmpresa() {
 		$data = array();
 		$this->db->select('*');
@@ -190,8 +224,6 @@ class Model_empresa extends CI_Model
 			}
 		}
 
-		echo 'query';
-		print_r($data);
 		if(count($data)>0){
 			$this->db->where('emp_id', $idemp);
 			$this->db->update('rating_empresa', $dato);
@@ -200,5 +232,56 @@ class Model_empresa extends CI_Model
 		}
 
 	}
+
+	/*busco aquellos que no aparezcan en la tabla pasantia y me traigo datos de usuario para el login*/
+	function getCountPostulados() {
+		$sql = "SELECT count(emp.emp_id) as Total from empresa as emp";
+
+
+// Ejecuta Consulta
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+
+	}
+
+	function getEmpresaPaginada($limit,$offset) {
+		//$this->db->get()->result();
+		$sql = "SELECT * from empresa emp";
+		$sql = $sql . " join ubicacion ubi on emp.emp_id = ubi.emp_id ";
+		$sql = $sql . " join pais pai on ubi.pais_id = pai.id";
+		$sql = $sql . " join estado est on ubi.estado_id=est.id";
+		$sql = $sql . " LIMIT $offset, $limit";
+
+// Ejecuta Consulta
+		$query = $this->db->query($sql);
+		if ($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+
+
+		/*$data = array();
+		$this->db->select('*');
+		$this->db->from('empresa emp');
+		$this->db->join('ubicacion ubi', 'emp.emp_id = ubi.emp_id');
+		$this->db->join('pais pai', 'ubi.pais_id = pai.id');
+		$this->db->join('estado est', 'ubi.estado_id=est.id');
+		$query =  $this->db->get($limit,$offset);
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row;
+			}
+		}
+		$query->free_result();
+		return $data;*/
+	}
+
 
 }

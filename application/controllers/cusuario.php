@@ -74,12 +74,12 @@ class Cusuario extends CI_Controller
               'respuestas' => $quiz['respuestas'],
               'principal' =>$principal
           );
-          $pasantes['links'] = explode('&nbsp;',$str_links);
-          $this->load->view('empresa/dashboardEmpresa',$pasantes);
-          $this->load->view('empresa/footerEmpresa');
+              $pasantes['links'] = explode('&nbsp;',$str_links);
+              $this->load->view('empresa/dashboardEmpresa',$pasantes);
+              $this->load->view('empresa/footerEmpresa');
           }elseif(true){ 
-          $this->load->view('contenido/vPrueba');
-          $this->load->view('layout/footer');
+              $this->load->view('contenido/vPrueba');
+              $this->load->view('layout/footer');
         }   
   }
     public function login()

@@ -150,10 +150,9 @@ function recargarTabla() {
                                         idMenu: id,
                                     },
                                     function (data) {
-                                        console.log("la data",data);
-                                        if (data) {
+                                      
                                             location.reload();
-                                        }
+
                                     });
                             }
 
@@ -184,11 +183,11 @@ function recargarTabla() {
                 mtxtClase: clase
             },
             function (data) {
-                if (data) {
+
                     $('#mbtnCerrarModalP').click();
 
                     location.reload();
-                }
+
             });
 
     });
