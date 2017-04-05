@@ -17,6 +17,7 @@ class Cpasante extends CI_controller
         $this->load->model('model_documentos');
         $this->load->model('model_pasantia');
         $this->load->helper('download');
+        $this->load->library('pagination');
     }
    /*obtengo todos los estudiantes pasantes y no pasantes*/
     public function getEstudiantes(){
@@ -298,6 +299,61 @@ class Cpasante extends CI_controller
             array_push($resultado, $pasantia);
 
         echo json_encode($resultado);
+
+    }
+
+    function listarEstudiante(){
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+        $userData = array(
+            'user' => $rsu
+        );
+
+        //Deberiamos separa estas secciones en funciones mas pequeñas.
+        //Configuracion Paginacion
+        $total = $this->model_pasante->getCountPostulados();
+        $config = array();
+        $config["base_url"] = base_url() . "cpasante/listarEstudiante";
+        $config["total_rows"] = $total[0]->Total;
+        $config["per_page"] = 9;
+        $config['use_page_numbers'] = TRUE;
+        $config['num_links'] = 4;
+        $config['cur_tag_open'] = '&nbsp;<a class="active">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = '>';
+        $config['prev_link'] = '<';
+        $this->pagination->initialize($config);
+        if($this->uri->segment(3)){
+            $page = (int)($this->uri->segment(3))-1 ;
+            $page *= $config["per_page"];
+        }
+        else{
+            $page = 1;
+        }
+        //Fin Configuracion Paginacion
+        //Traer Postulados Paginados
+        $rsul =$this->model_pasante->getPostulados($config["per_page"], $page);
+        $str_links = $this->pagination->create_links();
+
+        //Fin de Traer Postulados Paginados
+        $quiz['preguntas']=$this->model_pasantia->obtenerPreguntas();
+        $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
+        $principal=0;
+        $pasantes = array(
+            'Pasantes' => $rsul,
+            'preguntas' => $quiz['preguntas'],
+            'respuestas' => $quiz['respuestas'],
+            'principal' =>$principal
+        );
+        $pasantes['links'] = explode('&nbsp;',$str_links);
+
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $data['user'] = $rsu;
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$data);
+        $this->load->view('empresa/dashboardEmpresa',$pasantes);
+        $this->load->view('empresa/footerEmpresa');
 
     }
 

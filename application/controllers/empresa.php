@@ -281,7 +281,7 @@ class Empresa extends CI_controller
 
         //Fin de Traer Postulados Paginados
         $principal=0;
-        $pasantes = array(
+        $empresas = array(
             'Empresa' => $rsul,
             'principal' =>$principal
         );
@@ -290,7 +290,7 @@ class Empresa extends CI_controller
         $data['user'] = $rsu;
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$data);
-        $this->load->view('empresa/listaEmpresas',$pasantes);
+        $this->load->view('empresa/listaEmpresas',$empresas);
         $this->load->view('empresa/footerEmpresa');
     }
 
@@ -344,7 +344,7 @@ class Empresa extends CI_controller
             'Empresa' => $empresas,
             'Comentarios' =>$comentarios
         );
-    
+
 
       //  exit();
         $this->load->view('layout/header',$userData);
