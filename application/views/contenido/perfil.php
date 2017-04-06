@@ -56,8 +56,8 @@
     </div>
     <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <div class="hidden-xs">Stars</div>
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <div class="hidden-xs">Usuario</div>
             </button>
         </div>
         <div class="btn-group" role="group">
@@ -83,6 +83,7 @@
 		<form class="form-horizontal" action="<?=base_url('cusuario/guardarUsuario')?>" role="form" method="post" enctype="multipart/form-data">
   <input type="hidden" id="usuario_foto" name="usuario_foto" value="<?=$Foto?>" /> 
   <input type="hidden" id="idUsuario" name="idUsuario" value="<?=$user[0]->id_usuario?>" /> 
+  <input type="hidden" id="idTipo" name="idTipo" value="<?=$user[0]->id_tipo?>" /> 
 				<div class="form-group">
 					    <label class="col-sm-2 control-label" for="formGroup">Nombre de Usuario</label>
 					    <div class="col-sm-2">
@@ -91,16 +92,16 @@
 					  </div>
  
 					<div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup">Nombre</label>
+					    <label class="col-sm-2 control-label" for="nombreUsuario">Nombre</label>
 					    <div class="col-sm-4">
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->Nombre?>">
+					      <input class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" value="<?=$user[0]->Nombre?>">
 					    </div>
 					  </div>
  
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup">Apellidos</label>
+					    <label class="col-sm-2 control-label" for="apellidoUsuario">Apellidos</label>
 					    <div class="col-sm-4">
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->Apellido?>">
+					      <input class="form-control" type="text" id="apellidoUsuario" name="apellidoUsuario" value="<?=$user[0]->Apellido?>">
 					    </div>
 					  </div>
  
@@ -115,10 +116,10 @@
 					  </div>
  
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup" id="tel">Correo electrónico</label>
+					    <label class="col-sm-2 control-label" for="emailUsuario" id="email">Correo electrónico</label>
 					    <div class="input-group col-sm-3">
 					      <span class="input-group-addon">@</span>
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->usu_correo?>">
+					      <input class="form-control" type="text" id="emailUsuario" name="emailUsuario" value="<?=$user[0]->usu_correo?>">
 					      
 					    </div>
 					  </div>					

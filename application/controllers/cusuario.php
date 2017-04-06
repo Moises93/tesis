@@ -174,27 +174,53 @@ class Cusuario extends CI_Controller
     }
 
       public function guardarUsuario(){
-          $idUser=$this->session->userdata('id');
+         $idUser=$this->session->userdata('id');
          $tipo =$this->session->userdata('tipo');
          $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
          $foto = null;
          $userData = array(
                'user' => $rsu,
                'Foto' =>$foto
-            );
-            
-            $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-            $data['user'] = $rsu;
-        $data1 = array();
-            foreach($_POST as $key => $value) {   
+          );  
+          $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+          $data['user'] = $rsu;
+          $data1 = array();
+          foreach($_POST as $key => $value) {   
                $data1[$key] = $value; 
-        }
-        $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$data1['usuario_foto']);
-
-         $this->load->view('layout/header',$userData);
-         $this->load->view('layout/vmenu',$data);
-         $this->load->view('contenido/perfil',$userData);
-         $this->load->view('layout/footer');    
+          }
+          $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$data1['usuario_foto']);
+          if($data1['idTipo'] == 6){
+            //Se desconocen los procedimientos
+          }elseif($data1['idTipo'] == 5){
+            $usuario_empresa = array(
+              'uem_nombre' => $data1['nombreUsuario'],
+              'uem_apellido' => $data1['nombreApellido'],
+            );
+          }elseif($data1['idTipo'] == 4){
+            $pasante = array(
+              'pas_nombre' => $data1['nombreUsuario'],
+              'pas_apellido' => $data1['nombreApellido'],
+            );
+          }elseif($data1['idTipo'] == 3){
+            $profesor = array(
+              'pro_nombre' => $data1['nombreUsuario'],
+              'pro_apellido' => $data1['nombreApellido'],
+            );
+          }elseif($data1['idTipo'] == 2){
+             $cordinador = array(
+              'ucor_nombre' => $data1['nombreUsuario'],
+              'ucor_apellido' => $data1['nombreApellido'],
+            );
+          }elseif($data1['idTipo'] == 1){
+             $cordinador = array(
+              'uadm_nombre' => $data1['nombreUsuario'],
+              'uadm_apellido' => $data1['nombreApellido'],
+            );
+          }
+          $this->load->view('layout/header',$userData);
+          $this->load->view('layout/vmenu',$data);
+          $this->load->view('contenido/perfil',$userData);
+          $this->load->view('layout/footer');    
      }
     
 }
