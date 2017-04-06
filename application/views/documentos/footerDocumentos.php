@@ -1,5 +1,6 @@
 </div>
 <!-- /.content-wrapper -->
+
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.3.6
@@ -10,6 +11,7 @@
 
 
 <!-- /.control-sidebar -->
+
 <!-- Add the sidebar's background. This div must be placed
      immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div>
@@ -33,6 +35,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/jsrequisitos/biblioteca.js"></script>
+<script src="<?php echo base_url();?>assets/jsproyecto/jsrequisitos/informes.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 
 

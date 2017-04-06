@@ -43,7 +43,7 @@
                 <strong>Nombre:&nbsp;</strong>
                 <span id="empresa"></span></br>
              
-                <strong>Valora la Empresa:&nbsp;</strong>
+                <strong>Valorar Empresa:&nbsp;</strong>
             
                 <a href="#" title="Valorar Empresa" data-toggle="modal"data-target="#modalValoracion"onClick="evaluarEmpresa();">
                 <span  class="fa fa-flag-checkered" </span></a>
@@ -123,7 +123,7 @@
                     <div id="colorstar" class="starrr ratable" ></div>
                     <span id="count">0</span>  <span id="texto">star(s) - </span><span id="meaning"> </span></br>
                     <span id="exito"></span>
-                    <strong id="comentatiot">Comentario</strong></br>
+                    <span  id="comentariot"><strong>Comentario</strong></span></br>
                     <input type="text" id="comentario" name="comentario"></br>
                     <button id="valorarb" type="button" onclick="valorarEmpresa()" class="btn criteria" data-color="info">Valorar</button>
 

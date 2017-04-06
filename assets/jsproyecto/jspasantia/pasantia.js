@@ -220,10 +220,14 @@ $('#agregarPasantia').click(function () {
 
 function format ( d ) {
     // `d` is the original data object for the row
-    var actividades = '';
-    var descarga = '';
+    var actividades = 'No se encuentra';
+    var descarga = '#';
+    var descargaInf = '#';
+    var informeFinal = 'No se encuentra';
     var sizeAct='';
+    var sizeActI='';
     var forAct='';
+    var forIn='';
     if(d.requisitos != null) {
         for(var i=0;i<d.requisitos.length;i++){
             if(d.requisitos[i].requisito == 'planActividades'){
@@ -233,35 +237,40 @@ function format ( d ) {
                 /* descarga=baseurl+'/documentos/'+actividades;*/
                 descarga=baseurl+'cpasante/downloads/'+actividades;
             }
-
+            if(d.requisitos[i].requisito == 'informeFinal'){
+                informeFinal=d.requisitos[i].nombre_archivo+d.requisitos[i].formato
+                sizeActI='['+d.requisitos[i].size+'KB]';
+                forIn=d.requisitos[i].formato;
+                /* descarga=baseurl+'/documentos/'+actividades;*/
+                descargaInf=baseurl+'cpasante/downloads/'+informeFinal;
+            }
         }
 
-    }else{
-        actividades='No se encuentra';
-        descarga='#';
     }
+
     /*   descarga=baseurl+'cpasante/downloads/'+actividades;*/
     /* PDFObject.embed(baseurl+"/documentos/"+actividades,"#aqui"); ya no lo uso*/
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-        '<td><strong>Plan de Actividades:<strong> &nbsp;</td>'+
-        '<td>'+actividades+'&nbsp;'+sizeAct+' &nbsp;<a id="aqui" class= "view-pdf" href="'+ descarga+'"target="_blank">'+
-        '<span  class="fa fa-download" </span></a>' +
-        '</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td><strong>Informe Final:<strong></td>'+
-        '<td>No enviado </td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td><strong>Resultado de Evaluación:<strong></td>'+
-        '<td>&nbsp;<a href="#" title="mostrar" data-toggle="modal" ' +
-        'data-target="#modalResultado" ' +
-        'onClick="mostrarResultado(\'' + d.pas_id + '\');">' +
-        '<span  class="fa fa-bookmark" </span> </a>' +
-        '           </td>'+
-        '</tr>'+
-
+                '<tr>'+
+                    '<td><strong>Plan de Actividades:<strong> &nbsp;</td>'+
+                    '<td>'+actividades+'&nbsp;'+sizeAct+' &nbsp;<a id="aqui" class= "view-pdf" href="'+ descarga+'"target="_blank">'+
+                    '<span  class="fa fa-download" </span></a>' +
+                    '</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td><strong>Informe Final:<strong></td>'+
+                    '<td>'+informeFinal+'&nbsp;'+sizeActI+' &nbsp;<a id="aqui" class= "view-pdf" href="'+ descargaInf+'"target="_blank">'+
+                    '<span  class="fa fa-download" </span></a>' +
+                    '</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td><strong>Resultado de Evaluación:<strong></td>'+
+                    '<td>&nbsp;<a href="#" title="mostrar" data-toggle="modal" ' +
+                    'data-target="#modalResultado" ' +
+                    'onClick="mostrarResultado(\'' + d.pas_id + '\');">' +
+                    '<span  class="fa fa-bookmark" </span> </a>' +
+                    '           </td>'+
+                '</tr>'+
         '</table>';
 
 }

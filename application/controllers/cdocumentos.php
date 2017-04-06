@@ -37,6 +37,24 @@ class Cdocumentos extends CI_controller
         $this->load->view('contenido/footerAdmin');
 
     }
+
+    public function informesFinales(){
+
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('documentos/informes');
+        $this->load->view('documentos/footerDocumentos');
+
+    }
     public function biblioteca(){
 
         $data['tipo'] = $this->model_usuario->getTipo();
@@ -183,7 +201,22 @@ class Cdocumentos extends CI_controller
         }
 
 
-    } 
+    }
+    public function visualizarInformes($name){
+        $filename = "test.pdf";
+        $route = base_url().'documentos/'.$name;
+        if(file_exists ('documentos/'.$name)){
+            header('Content-type: application/pdf');
+            readfile($route);
+            // echo 'ahora si ';
+        }else{
+            // echo $route;
+            //Mejorar creando una pagina de errores que redireccione al dasboard del usuario ( obteniendo los datos con la variable sseion)
+            echo "Este Archivo no se encuentra";
+        }
+
+
+    }
     public function verRequisito($name){
         $filename = "test.pdf";
         $route = base_url().'documentos/'.$name;
@@ -312,6 +345,11 @@ class Cdocumentos extends CI_controller
 
     public function obtenerDocumentos(){
         $dato = $this->model_documentos->obtenerDocumentos();
+       // header('Content-Type: application/json'); no sirve en el servidor
+        echo json_encode($dato);
+    }  
+    public function obtenerInformes(){
+        $dato = $this->model_documentos->obtenerInformes();
        // header('Content-Type: application/json'); no sirve en el servidor
         echo json_encode($dato);
     }

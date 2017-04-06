@@ -110,12 +110,13 @@ class Model_documentos extends CI_Model
         }
     }
 
-   public function actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser){
+   public function actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser,$titulo){
        $datas = array(
 
            'size' =>$size,
            'formato' =>$tipo,
-           'nombre_archivo' =>$nombre
+           'nombre_archivo' =>$nombre,
+           'titulo' =>$titulo
 
        );
         $this->db->where('id_usuario', $idUser);
@@ -140,6 +141,14 @@ class Model_documentos extends CI_Model
     public function obtenerDocumentos(){
         $this->db->select('*');
         $this->db->from('documentos');
+        return $this->db->get()->result();
+    }
+    public function obtenerInformes(){
+        $this->db->select('*');
+        $this->db->from('documentos_requeridos dre');
+        $this->db->join('usuario usu', 'dre.id_usuario = usu.id_usuario');
+        $this->db->join('pasante pas', 'pas.id_usuario=usu.id_usuario');
+        $this->db->where('dre.requisito', 'informeFinal');
         return $this->db->get()->result();
     }
 

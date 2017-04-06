@@ -245,7 +245,57 @@ class Empresa extends CI_controller
             $this->load->view('empresa/dashboardEmpresa',$pasantes);
             $this->load->view('empresa/footerEmpresa');
     }
+    
+    
+    public function listaEmpresas(){
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+        $userData = array(
+            'user' => $rsu
+        );
 
+        $total = $this->model_empresa->getCountPostulados();
+        $config = array();
+        $config["base_url"] = base_url() . "empresa/listaEmpresas";
+        $config["total_rows"] = $total[0]->Total;
+        $config["per_page"] = 9;
+        $config['use_page_numbers'] = TRUE;
+        $config['num_links'] = 4;
+        $config['cur_tag_open'] = '&nbsp;<a class="active">';
+        $config['cur_tag_close'] = '</a>';
+        $config['next_link'] = '>';
+        $config['prev_link'] = '<';
+        $this->pagination->initialize($config);
+        if($this->uri->segment(3)){
+            $page = (int)($this->uri->segment(3))-1 ;
+            $page *= $config["per_page"];
+        }
+        else{
+            $page = 1;
+        }
+        //Fin Configuracion Paginacion
+        //Traer Postulados Paginados
+        $rsul =$this->model_empresa->getEmpresaPaginada($config["per_page"], $page);
+        $str_links = $this->pagination->create_links();
+
+        //Fin de Traer Postulados Paginados
+        $principal=0;
+        $empresas = array(
+            'Empresa' => $rsul,
+            'principal' =>$principal
+        );
+        $empresas['links'] = explode('&nbsp;',$str_links);
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $data['user'] = $rsu;
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$data);
+        $this->load->view('empresa/listaEmpresas',$empresas);
+        $this->load->view('empresa/footerEmpresa');
+    }
+
+    
+    
     public function valorarEmpresa(){
         $idemp = $this->input->post('idemp');
         $valor = $this->input->post('valor');
@@ -273,6 +323,34 @@ class Empresa extends CI_controller
         }*/
     
         //  print_r($dato);
+    }
+    
+    public function perfilEmpresa($id){
+        /*cabecera y permisos de menu*/
+        $data['tipo'] = $this->model_usuario->getTipo();
+        /*Esto siempre lo hago para cargar el menu dinamico a la vista y el header*/
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $userData = array(
+            'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
+        );
+        /*****************************************************************/
+        $empresas= $this->model_empresa->getEmpresaPorId($id);
+        $comentarios= $this->model_empresa->getComentariosEmpresa($id);
+      // print_r($empresas);
+       //print_r($comentarios);
+        $perfil = array(
+            'Empresa' => $empresas,
+            'Comentarios' =>$comentarios
+        );
+
+
+      //  exit();
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$datas);
+        $this->load->view('empresa/perfilEmpresa',$perfil);
+        $this->load->view('contenido/footerAdmin');
     }
 
 }
