@@ -204,6 +204,8 @@ if( isset ($mensaje )) {
                     <p style="text-align: justify;"><strong>Informe Final</strong>(Tamaño máximo 8Mb)</br>
                         <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.pdf)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
+                        <span>Titulo del Informe Final</span>
+                        <input type=text name="titulo" ></br>
                         <table>
                             <tr>
                                 <td><input type=hidden name="requisito" value="informeFinal"></td>

@@ -285,7 +285,7 @@ class Empresa extends CI_controller
             'Empresa' => $rsul,
             'principal' =>$principal
         );
-        $pasantes['links'] = explode('&nbsp;',$str_links);
+        $empresas['links'] = explode('&nbsp;',$str_links);
         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
         $data['user'] = $rsu;
         $this->load->view('layout/header',$userData);

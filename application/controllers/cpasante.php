@@ -65,7 +65,13 @@ class Cpasante extends CI_controller
 
         $requisito=$this->input->post('requisito');
         $validador=$this->input->post('validaror');
+        $titulo=$this->input->post('titulo');
+      //  if(isset($titulo)){
+          //  echo 'hola' ;
+       /// }
 
+       // print_r($titulo);
+        //exit();
         $idUser=$this->session->userdata('id');
         $login=$this->session->userdata('Login');
 
@@ -105,7 +111,8 @@ class Cpasante extends CI_controller
                 'size' =>$size,
                 'formato' =>$tipo,
                 'nombre_archivo' =>$requisito."-".$login,
-                'id_usuario'=>$idUser
+                'id_usuario'=>$idUser,
+                'titulo' =>$titulo
             );
            // print_r($datas);
 
@@ -114,7 +121,7 @@ class Cpasante extends CI_controller
 
             if($val == 1){
                 $nombre=$requisito."-".$login;
-                $this->model_documentos->actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser);
+                $this->model_documentos->actualizarDocumentoR($requisito,$size,$tipo,$nombre,$idUser,$titulo);
 
             }else {
 
