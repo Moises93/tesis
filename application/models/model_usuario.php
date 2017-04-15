@@ -327,7 +327,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	}
 		 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioPasante($id){
-        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, pas.pas_telefono,pas.pas_nombre as Nombre, pas.pas_apellido as Apellido, es.esc_nombre');
+        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, pas.pas_telefono as Tel,pas.pas_nombre as Nombre, pas.pas_apellido as Apellido, es.esc_nombre');
 		$this->db->from('usuario us');
 		$this->db->join('pasante pas', 'us.id_usuario = pas.id_usuario');
 		$this->db->join('escuela es', 'pas.id_escuela = es.id_escuela');

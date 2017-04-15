@@ -133,4 +133,11 @@ class Model_pasante extends CI_Model
             $this->db->where('id_usuario', $id_usuario);
             return $this->db->update('pasante', $data);
     }
+
+    function getIdPasante($idUsuario){
+        $this->db->select('pas_id');
+        $this->db->from('pasante');
+        $this->db->where('id_usuario', $idUsuario);
+        return $this->db->get()->result();
+    }
 }

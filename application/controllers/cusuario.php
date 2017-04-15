@@ -17,6 +17,7 @@ class Cusuario extends CI_Controller
         $this->load->model('model_empresa');
         $this->load->model('model_profesor');
         $this->load->model('model_admin');
+        $this->load->model('model_habilidades');
         $this->load->library('pagination');
   }
 
@@ -149,7 +150,10 @@ class Cusuario extends CI_Controller
                'user' => $rsu,
                'Foto' =>$foto
           );
-            
+         if($tipo == 4){
+          $id_pasante = $this->model_pasante->getIdPasante($idUser);
+          $userData['Habilidades'] = $this->model_habilidades->getTodosHabilidadesNoPasante($id_pasante[0]->pas_id);
+         }
          $data['menu'] =$this->model_usuario->menuPermisos($idUser);
          $data['user'] = $rsu;
          $this->load->view('layout/header',$userData);
@@ -243,6 +247,34 @@ class Cusuario extends CI_Controller
           $this->load->view('layout/vmenu',$data);
           $this->load->view('contenido/perfil',$userData);
           $this->load->view('layout/footer');    
+     }
+
+
+     public function guardarHabilidades(){
+         $idUser=$this->session->userdata('id');
+         $tipo =$this->session->userdata('tipo');
+         $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+         $foto = null;
+         $userData = array(
+               'user' => $rsu,
+               'Foto' =>$foto
+          );  
+          $data_us['menu'] =$this->model_usuario->menuPermisos($idUser);
+          $data_us['user'] = $rsu;
+        $data = array();
+        foreach($_POST as $key => $value) {   
+               $data[$key] = $value; 
+        }
+        $id_pasante = $this->model_pasante->getIdPasante($data['idUsuario']);
+        foreach ($data['habilidadId'] as $row) {
+            $datos['id_habilidad'] = $row;
+            $datos['pas_id'] = $id_pasante[0]->pas_id;
+            $this->model_habilidades->crearHabilidadPasante($datos);
+        }
+        $this->load->view('layout/header',$userData);
+          $this->load->view('layout/vmenu',$data_us);
+          $this->load->view('contenido/perfil',$userData);
+          $this->load->view('layout/footer'); 
      }
     
 }

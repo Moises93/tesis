@@ -6,6 +6,7 @@
   <title>SISPAS</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bootstrap/css/bootstrap-treeview.min.css">
@@ -36,13 +37,16 @@
 
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/CaptionHover/css/component.css">
 
+
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <link rel="stylesheet" href="<?=asset_url("plugins/select2/select2.min.css")?>">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/toastr/toastr.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/quiz.css">
-    <script src="<?php echo base_url();?>assets/plugins/CaptionHover/js/modernizr.custom.js"></script>
-  <script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
+
+    <!--  Select2 -->
+  <link rel="stylesheet" href="<?=asset_url("plugins/select2/select2.min.css")?>">
+
+  
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

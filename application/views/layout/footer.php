@@ -220,8 +220,13 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>assets/jsproyecto/usuario.js"></script>
+
+<script src="<?php echo base_url();?>assets/plugins/select2/select2.full.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/CaptionHover/js/modernizr.custom.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/toastr/toastr.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    $(".select2").select2();
 $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
     // $(".tab").addClass("active"); // instead of this do the below 
