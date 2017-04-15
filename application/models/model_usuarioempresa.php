@@ -56,4 +56,9 @@ class Model_usuarioempresa extends CI_Model
 		$query->free_result();
 		return $data;
 	}
+
+	function actualizar_usuario_empresa($id_usuario,$data){
+		$this->db->where('id_usuario', $id_usuario);
+		return $this->db->update('usuario_empresa', $data);
+	}
 }

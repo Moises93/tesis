@@ -8,6 +8,7 @@
  */
 ?>
 <script type="text/javascript">
+
 	
     function cargarimagen(evt) {
         var files = evt.target.files;
@@ -56,13 +57,13 @@
     </div>
     <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <div class="hidden-xs">Stars</div>
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <div class="hidden-xs">Usuario</div>
             </button>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">Favorites</div>
+            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                <div class="hidden-xs">Aptitudes Academicas</div>
             </button>
         </div>
         <div class="btn-group" role="group">
@@ -83,6 +84,7 @@
 		<form class="form-horizontal" action="<?=base_url('cusuario/guardarUsuario')?>" role="form" method="post" enctype="multipart/form-data">
   <input type="hidden" id="usuario_foto" name="usuario_foto" value="<?=$Foto?>" /> 
   <input type="hidden" id="idUsuario" name="idUsuario" value="<?=$user[0]->id_usuario?>" /> 
+  <input type="hidden" id="idTipo" name="idTipo" value="<?=$user[0]->id_tipo?>" /> 
 				<div class="form-group">
 					    <label class="col-sm-2 control-label" for="formGroup">Nombre de Usuario</label>
 					    <div class="col-sm-2">
@@ -91,16 +93,16 @@
 					  </div>
  
 					<div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup">Nombre</label>
+					    <label class="col-sm-2 control-label" for="nombreUsuario">Nombre</label>
 					    <div class="col-sm-4">
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->Nombre?>">
+					      <input class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" value="<?=$user[0]->Nombre?>">
 					    </div>
 					  </div>
  
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup">Apellidos</label>
+					    <label class="col-sm-2 control-label" for="apellidoUsuario">Apellidos</label>
 					    <div class="col-sm-4">
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->Apellido?>">
+					      <input class="form-control" type="text" id="apellidoUsuario" name="apellidoUsuario" value="<?=$user[0]->Apellido?>">
 					    </div>
 					  </div>
  
@@ -109,16 +111,16 @@
  
 					    <div class="input-group col-sm-3">
 					      <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-					      <input class="form-control" type="text" id="formGroup">
+					      <input class="form-control" type="text" id="telefonoUsuario" name="telefonoUsuario" value="<?=$user[0]->Tel?>">
 					      
 					    </div>
 					  </div>
  
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label" for="formGroup" id="tel">Correo electrónico</label>
+					    <label class="col-sm-2 control-label" for="emailUsuario" id="email">Correo electrónico</label>
 					    <div class="input-group col-sm-3">
 					      <span class="input-group-addon">@</span>
-					      <input class="form-control" type="text" id="formGroup" value="<?=$user[0]->usu_correo?>">
+					      <input class="form-control" type="text" id="emailUsuario" name="emailUsuario" value="<?=$user[0]->usu_correo?>">
 					      
 					    </div>
 					  </div>					
@@ -142,8 +144,7 @@
 					      
 							<button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</button>
 							
-							<button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</button>
- 
+ <a  class="btn btn-lg btn-danger pull-right feditar glyphicon glyphicon-remove-circle" href="<?=base_url('cusuario/inicio')?>" >Cancelar</a>
  
 					    </div>
 					  </div>
@@ -153,7 +154,32 @@
 		</form>	
         </div>
         <div class="tab-pane fade in" id="tab2">
+        <?php if ($user[0]->id_tipo == 4) { ?>
+        <form class="form-horizontal" action="<?=base_url('cusuario/guardarHabilidades')?>" role="form" method="post" enctype="multipart/form-data">
+         <input type="hidden" id="idUsuario" name="idUsuario" value="<?=$user[0]->id_usuario?>" /> 
           <h3>This is tab 2</h3>
+          <div>
+                                   <label>Habilidades</label>
+                                      
+                                      <select class="form-control select2" multiple="multiple" data-placeholder="Habilidad" style="width: 100%;" id="habilidadId" name="habilidadId[]" required>
+                                          <?php foreach($Habilidades as $row): ?>
+                                           <option value="<?=$row->id_habilidad?>"><?=$row->descripcion?></option>
+                                       <?php endforeach;?>
+                                     </select>
+                                  </div>
+                                  <br><br>
+                                    <div class="form-group">
+              <label class="col-sm-2 control-label" for="formGroup"></label>
+              <div class="col-sm-4">
+                
+              <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</button>
+              
+ <a  class="btn btn-lg btn-danger pull-right feditar glyphicon glyphicon-remove-circle" href="<?=base_url('cusuario/inicio')?>" >Cancelar</a>
+ 
+              </div>
+            </div>
+        </form>
+        <?php } ?>
         </div>
         <div class="tab-pane fade in" id="tab3">
           <h3>This is tab 3</h3>

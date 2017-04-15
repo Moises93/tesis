@@ -149,8 +149,8 @@ class Cusuario extends CI_Controller
                'Foto' =>$foto
             );
             
-         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-         $data['user'] = $rsu;
+            $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+            $data['user'] = $rsu;
          $this->load->view('layout/header',$userData);
          $this->load->view('layout/vmenu',$data);
          $this->load->view('contenido/perfil',$userData);

@@ -161,4 +161,10 @@ class Model_admin extends CI_Model
         }
     }
 
+
+    function actualizar_usuario_admin($id_usuario,$data){
+        $this->db->where('id_usuario', $id_usuario);
+        return $this->db->update('usuario_administrador', $data);
+    }
+
 }

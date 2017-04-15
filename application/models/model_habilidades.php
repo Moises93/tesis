@@ -33,4 +33,27 @@ class Model_habilidades extends CI_Model
 			return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
 
 	}
+
+	public function crearHabilidadPasante($data){
+		$this->db->insert('habilidad_pasante', $data);
+		return ($this->db->affected_rows() != 1) ? false : $this->db->insert_id();
+	}
+
+	public function getTodosHabilidadesNoPasante($id){
+		$sql = "SELECT *
+from habilidad h
+where h.id_habilidad not in (
+    select id_habilidad
+    from habilidad_pasante
+    where pas_id = $id
+
+) and id_escuela = 1";
+		$rs = $this->db->query($sql);
+		if($rs->num_rows() > 0){
+			return $rs->result();
+		}
+		else{
+			return array();	
+		}
+	}
 }

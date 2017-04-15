@@ -133,6 +133,9 @@ class Model_profesor extends CI_Model
 		$this->db->insert('profesor',$data);
 	}
 
-
+    function actualizar_profesor($id_usuario,$data){
+            $this->db->where('id_usuario', $id_usuario);
+            return $this->db->update('profesor', $data);
+    }
 
 }
