@@ -329,7 +329,12 @@ class cadministrador extends CI_Controller{
 
         return $this->model_usuario->agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$id_usuario);
     }
-/*Agregar pasantes por CSV */
+/*function importcsv
+* Dentro de esta funcion gusrado en BD los usuarios tipo profesor y pasante
+* que esten en el archivo csv , ya sea separado por comas , o punto y coma ;
+*  tambien se guardan los permisos de menu basicos de acuerdo al tipo de usuario
+*
+*/
     function importcsv() {
         $data['error'] = '';    //initialize image upload error array to empty
         $config['upload_path'] = "documentos/";
@@ -357,8 +362,14 @@ class cadministrador extends CI_Controller{
                     $data =$this->model_usuario->obtenerIdUsuarios($row['login']);
                     $id_usuario =$data->id_usuario;
                     if($row['tipo']=='pasante'){
+                        $clave=array('reqMenu','empMenu'); // claves de menu para guardar permisos.
                         $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
                                                          $row['escuela'],$id_usuario);
+                        foreach($clave as $cla){
+                            $idMen=$this->model_admin->obtenerMenuId($cla); //consulto el idMenu por la clave
+                            $menu=$idMen->id_menu;
+                            $this->model_admin->guardarPermisos($id_usuario,$menu);
+                        }
                     }else if($row['tipo']=='profesor'){
                         $this->model_profesor->agregarProfesor($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
                             $row['escuela'],$id_usuario);

@@ -206,4 +206,20 @@ class Model_documentos extends CI_Model
         $this->db->update('documentos', $dato);
     }
 
+    function usuarios(){
+        $this->db->distinct();
+        $this->db->select('id_usuario');
+        $this->db->from('valoracion_libros');
+        return $this->db->get()->result();
+      //  $query=$this->db->get();
+       // return $query->result();
+    }
+    function usuariosValoracion($idUsu){
+        $this->db->select('*');
+        $this->db->from('valoracion_libros');
+        $this->db->where('id_usuario',$idUsu);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }

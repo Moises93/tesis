@@ -7,6 +7,22 @@
  */
 ?>
 
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- /.box -->
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Recomendación</h3>
+                </div>
+                <div class="box-body">
+                    <li>Libro1</li>
+                    <li>Libro2</li>
+                </div>
+             </div>
+         </div>
+    </div>
+</section>
 
 <section class="content">
     <div class="row">
