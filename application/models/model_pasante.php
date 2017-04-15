@@ -128,4 +128,9 @@ class Model_pasante extends CI_Model
         }
         return FALSE;
     }
+
+    function actualizar_pasante($id_usuario,$data){
+            $this->db->where('id_usuario', $id_usuario);
+            return $this->db->update('pasante', $data);
+    }
 }

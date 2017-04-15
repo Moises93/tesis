@@ -110,7 +110,7 @@
  
 					    <div class="input-group col-sm-3">
 					      <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-					      <input class="form-control" type="text" id="formGroup">
+					      <input class="form-control" type="text" id="telefonoUsuario" name="telefonoUsuario" value="<?=$user[0]->Tel?>">
 					      
 					    </div>
 					  </div>
@@ -143,8 +143,7 @@
 					      
 							<button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</button>
 							
-							<button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</button>
- 
+ <a  class="btn btn-lg btn-danger pull-right feditar glyphicon glyphicon-remove-circle" href="<?=base_url('cusuario/inicio')?>" >Cancelar</a>
  
 					    </div>
 					  </div>

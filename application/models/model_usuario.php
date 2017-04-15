@@ -287,7 +287,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
     /* Desarrollada el 13-02-2017*/
 	public function obtener_todousuarioEmpresa($id){
         $this->db->select('us.id_usuario, us.id_tipo, us.usu_login, 
-           	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, ue.uem_nombre as Nombre, ue.uem_apellido as Apellido, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
+           	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, ue.uem_nombre as Nombre, ue.uem_apellido as Apellido, ue.uem_telefono as Tel, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
             e.emp_foto, e.emp_id as Id');
 		$this->db->from('usuario us');
 		$this->db->join('usuario_empresa ue', 'us.id_usuario = ue.id_usuario');
@@ -299,7 +299,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 
 	 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioAdministrador($id){
-        $this->db->select('us.id_usuario, us.usu_login, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, ua.uadm_nombre as Nombre, ua.uadm_apellido as Apellido');
+        $this->db->select('us.id_usuario, us.usu_login, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, ua.uadm_telefono as Tel,ua.uadm_nombre as Nombre, ua.uadm_apellido as Apellido');
 		$this->db->from('usuario us');
 		$this->db->join('usuario_administrador ua', 'us.id_usuario = ua.id_usuario');
 		$this->db->where('us.id_usuario',$id);
@@ -308,7 +308,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 
 	 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioCoordinador($id){
-        $this->db->select('us.id_usuario, us.usu_login, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, uc.ucor_nombre as Nombre, uc.ucor_apellido as Apellido, es.esc_nombre');
+        $this->db->select('us.id_usuario, us.usu_login, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, uc.ucor_telefono as Tel,uc.ucor_nombre as Nombre, uc.ucor_apellido as Apellido, es.esc_nombre');
 		$this->db->from('usuario us');
 		$this->db->join('usuario_coordinador uc', 'us.id_usuario = uc.id_usuario');
 		$this->db->join('escuela es', 'es.id_escuela = uc.id_escuela');
@@ -317,7 +317,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	}
 		 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioProfesor($id){
-        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, prf.pro_id,es.esc_nombre, tp.pro_tipo');
+        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto,prf.pro_telefono as Tel, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, prf.pro_id,es.esc_nombre, tp.pro_tipo');
 		$this->db->from('usuario us');
 		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
 		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');
@@ -327,7 +327,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
 	}
 		 /* Desarrollada el 16-02-2017*/
 	public function obtener_todousuarioPasante($id){
-        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, pas.pas_nombre as Nombre, pas.pas_apellido as Apellido, es.esc_nombre');
+        $this->db->select('us.id_usuario, us.usu_login,  us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, pas.pas_telefono,pas.pas_nombre as Nombre, pas.pas_apellido as Apellido, es.esc_nombre');
 		$this->db->from('usuario us');
 		$this->db->join('pasante pas', 'us.id_usuario = pas.id_usuario');
 		$this->db->join('escuela es', 'pas.id_escuela = es.id_escuela');
@@ -380,12 +380,13 @@ public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
 	}
 
 
-function actualizar_usuario2($id_usuario,$foto){
-		$data = array(
-			'usu_foto' => $foto
-		);
+function actualizar_usuario2($id_usuario,$data){
 			$this->db->where('id_usuario', $id_usuario);
 			return $this->db->update('usuario', $data);
+	}
 
+	function actualizar_usuario_coordinador($id_usuario,$data){
+		$this->db->where('id_usuario', $id_usuario);
+		return $this->db->update('usuario_coordinador', $data);
 	}
 }
