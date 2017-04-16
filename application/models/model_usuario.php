@@ -371,7 +371,7 @@ public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
 }
     /*Obtener Profesores */ 
     public function obtener_Profesores(){
-        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, prf.pro_id, prf.pro_cedula,prf.pro_telefono, prf.pro_sexo, es.esc_nombre, tp.pro_tipo');
+        $this->db->select('us.id_usuario, us.id_tipo, us.usu_estatus, us.usu_correo, us.usu_foto, prf.pro_nombre as Nombre, prf.pro_apellido as Apellido, prf.pro_id, prf.pro_cedula,prf.pro_telefono as Tel, prf.pro_sexo, es.esc_nombre, tp.pro_tipo');
 		$this->db->from('usuario us');
 		$this->db->join('profesor prf', 'us.id_usuario = prf.id_usuario');
 		$this->db->join('escuela es', 'prf.id_escuela = es.id_escuela');
@@ -380,13 +380,21 @@ public function agregarPasante($cedula,$nombre,$apellido,$sexo,$escuela,$data){
 	}
 
 
-function actualizar_usuario2($id_usuario,$data){
+    public function actualizar_usuario2($id_usuario,$data){
 			$this->db->where('id_usuario', $id_usuario);
 			return $this->db->update('usuario', $data);
 	}
 
-	function actualizar_usuario_coordinador($id_usuario,$data){
+	public function actualizar_usuario_coordinador($id_usuario,$data){
 		$this->db->where('id_usuario', $id_usuario);
 		return $this->db->update('usuario_coordinador', $data);
 	}
+
+	public function getIdEmpresa($id){
+		$this->db->select('emp_id');
+		$this->db->from('usuario_empresa');
+		$this->db->where('id_usuario', $id);
+		return $this->db->get()->result();
+	}
+
 }

@@ -60,7 +60,7 @@ class Empresa extends CI_controller
 
      public function guardarEmpresa(){
 
-         exit();
+         
             $data = array();
             foreach($_POST as $key => $value) {   
                $data[$key] = $value; 

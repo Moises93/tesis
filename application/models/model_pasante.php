@@ -140,4 +140,34 @@ class Model_pasante extends CI_Model
         $this->db->where('id_usuario', $idUsuario);
         return $this->db->get()->result();
     }
+
+    public function getRecomendadosEmpresa($id){
+        $sql = "SELECT pas.pas_id, count(*) as Total, 
+             pas.pas_cedula, pas.pas_nombre,pas.pas_apellido 
+             ,pas.pas_sexo, pas.id_usuario
+             ,es.esc_nombre as Escuela ,us.id_usuario,
+             us.usu_correo, us.usu_foto, us.usu_estatus,
+             us.usu_login 
+             from pasante as pas";
+
+        $sql = $sql . " join escuela es on pas.id_escuela = es.id_escuela ";
+        $sql = $sql . " left join usuario us on us.id_usuario = pas.id_usuario";
+        $sql = $sql . " left join pasantia pasan on pas.pas_id = pasan.pas_id";
+        $sql = $sql . " left join habilidad_pasante hp on pas.pas_id = hp.pas_id";
+        $sql = $sql . " where pasan.pas_id is null and us.usu_estatus = 1";
+        $sql = $sql . " and hp.id_habilidad in (
+                        select id_habilidad from habilidad_empresa
+                        where emp_id = $id
+                        ) group by pas.pas_id
+                         order by Total DESC
+                         LIMIT 0, 3";
+        // Ejecuta Consulta
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }
+        else{
+            return array();
+        }
+    }
 }
