@@ -133,13 +133,15 @@ class Cpasante extends CI_controller
                          $estatusActual=$valo[0]->estatus;
                          /*En caso de que ya exista el registro en pasantia debo verificar su estatus si es 1 aumento a 2 de lo contrario
                          dejo el estatus actual,valido: para el caso en que el estudiante cambie el plan de actividades despues de haber
-                         avanzado con el informe u evaluaciones*/
-                         if($estatusActual<2){
+                         avanzado con el informe u evaluaciones ... .si pero cuando va a remplazar no entra esta condicion*/
+                         /*if($estatusActual<2){
                              $estatus=2;
-                         }else{$estatus=$estatusActual;}
+                         }else{$estatus=$estatusActual;}*/
+                         $estatus= $estatusActual+1;
                          $this->model_pasantia->actualizarEstatusPasantia($idPas, $estatus); //validar si existe la pasantia,en caso que exista validar que eñ estatus sea menor a 2
                      }
                  }
+
             }
 
 

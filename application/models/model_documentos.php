@@ -205,5 +205,41 @@ class Model_documentos extends CI_Model
         $this->db->where('iddoc', $iddoc);
         $this->db->update('documentos', $dato);
     }
+    function librosRecomendados($iddocs){
+        $sql = "SELECT * from documentos where iddoc in($iddocs)";
+        //$sql = $sql . " where iddoc in('.$iddocs.')";
+        $query = $this->db->query($sql);
+        //echo $sql;
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }
+        else{
+            return array();
+        }
+
+
+
+        /*$this->db->select('*');
+        $this->db->from('documentos');
+        $this->db->where('iddoc IN','('.$iddocs.')');
+        return $this->db->get()->result();*/
+
+    }
+
+    function usuarios(){
+        $this->db->distinct();
+        $this->db->select('id_usuario');
+        $this->db->from('valoracion_libros');
+        return $this->db->get()->result();
+      //  $query=$this->db->get();
+       // return $query->result();
+    }
+    function usuariosValoracion($idUsu){
+        $this->db->select('*');
+        $this->db->from('valoracion_libros');
+        $this->db->where('id_usuario',$idUsu);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 }

@@ -3,7 +3,7 @@
 	#Activación de Rewrite
 	RewriteEngine on	
 	
-	RewriteCond $1 !^(index\.php|resources|robots\.txt)
+	RewriteCond $1 !^(index\.php|resources|documentos|robots\.txt)
 
 	#Verificamos si es un directorio o archivo
 	RewriteCond %{REQUEST_FILENAME} !-f

@@ -2,6 +2,7 @@
  * Created by Moises on 30-03-2017.
  */
 $(document).ready(function(e) {
+  
 
 $('#tblBiblioteca').DataTable({
     "language": {
@@ -82,6 +83,35 @@ $('#tblBiblioteca').DataTable({
 
   ///  "order": [[ 1, "asc" ]],
 });
+
+    $.post(baseurl + "cdocumentos/kVecinos",
+        function(data){
+           console.log(data);
+            var p = JSON.parse(data);
+            console.log(p);
+            libros=p.length;
+            if(libros ==1){
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $('#titulo2').fadeOut();
+                $('#titulo3').fadeOut();
+            }else if(libros ==2){
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+
+                $('#titulo3').fadeOut();
+            }else if(libros ==3){
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+
+            }
+            for(var i=0;i<p.length;i++){
+                nombre=p[i].nombredoc;
+                $("#libro"+(i+1)).text(''+nombre+'');
+                
+            }
+
+        });
 });
 
 infoLibro = function(nombreLibro,iddoc){

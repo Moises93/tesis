@@ -46,7 +46,7 @@
     <!--  Select2 -->
   <link rel="stylesheet" href="<?=asset_url("plugins/select2/select2.min.css")?>">
 
-  
+<script src="<?php echo base_url();?>assets/plugins/CaptionHover/js/modernizr.custom.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

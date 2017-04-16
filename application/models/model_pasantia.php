@@ -237,7 +237,7 @@ class Model_pasantia extends CI_Model
     }
     /*Dado el id de un profesor retorna el ID de las pasantias , en la que es tutor academico*/
     public function obtenerPasantiasEmpresariales($idPro){
-        $resul=array(
+        $data=array(
         );
         $this->db->select('pa.id_pasantia,pas.pas_id');
         $this->db->from('pasantia pa');
@@ -286,6 +286,7 @@ class Model_pasantia extends CI_Model
     }
 
     function obtenerPreguntas(){
+        $data=array();
         $query = $this->db->get('pregunta');
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row){
@@ -296,6 +297,7 @@ class Model_pasantia extends CI_Model
         return $data;
     }
     function obtenerRespuestas(){
+        $data=array();
         $query = $this->db->get('respuesta');
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row){
