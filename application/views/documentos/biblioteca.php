@@ -13,11 +13,37 @@
             <!-- /.box -->
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Recomendación</h3>
+                    <h3 class="box-title">Recomendación para ti</h3>
                 </div>
                 <div class="box-body">
-                    <li>Libro1</li>
-                    <li>Libro2</li>
+                    <table class="table table-condensed table-bordered" style="border: 0;">
+                        <thead>
+                        <tr>
+                            <th id="titulo1" style="border: 0;width: 100px;""></th>
+                            <th id="titulo2"style="border: 0;width: 100px;""></th>
+                            <th id="titulo3"style="border: 0;width: 100px;""></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Single event in a single day -->
+                        <tr>
+                            <td style="border: 0;width: 100px;" >
+                             <span id="libro"></span>
+                              <span id="libro1" style=" width:-5px;height: inherit; display: flex;"></span>
+                            </td>
+                            <td style="border: 0; width: 100px;"" >
+                                <span id="libroa"></span>
+                                <span id="libro2" style=" width:-5px;height: inherit; display: flex;"></span>
+                            </td>
+                            <td style="border: 0;width: 100px;"">
+                                <span id="librob"></span>
+                                <span id="libro3" style=" width:-5px;height: inherit; display: flex;"></span>
+                            </td>
+                        </tr>
+    
+                       </tbody>
+                  </table>
+
                 </div>
              </div>
          </div>

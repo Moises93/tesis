@@ -373,6 +373,21 @@ class Cdocumentos extends CI_controller
         $this->model_documentos->actualizarRating($dato,$iddoc);
       //  print_r($dato);
     }
+    public function kVecinos(){
+        $ids=array();
+        $iddocs='';
+        $ids=$this->recomendacion();
+        for( $x = 0; $x < count($ids); $x++ ){
+            $iddocs .=  $ids[$x]. ',';
+        }
+        $iddocs= substr($iddocs, 0, -1);
+      //  echo $iddocs;
+
+       $documentos=$this->model_documentos->librosRecomendados($iddocs);
+       // print_r($documentos);
+        echo json_encode($documentos);
+       // return $documentos;
+    }
 
     public function recomendacion(){
         $item=array();
@@ -401,15 +416,15 @@ class Cdocumentos extends CI_controller
             $usuarios[] = $row->id_usuario;
         }
 
-
-        echo '<pre>';
-       print_r($matriz);
+       /* echo '<pre>';
+        print_r($matriz);
         echo  '</pre>';
+        echo 'USUARIOS';
         echo '<pre>';
-       print_r($usuarios);
-        echo  '</pre>';
-
-      /*  foreach ($usuarios as $dato){
+        print_r($usuarios);
+        echo  '</pre>';*/
+        //Lleno la matriz con las valoraciones de los usuarios
+        foreach ($usuarios as $dato){
             $valoracion=$this->model_documentos->usuariosValoracion($dato);
             foreach ($valoracion as $row){
                 $c=0;
@@ -434,93 +449,7 @@ class Cdocumentos extends CI_controller
                 $matriz[$fila][$columna]=$row->valor;
 
             }
-        }*/
-        $filas=6;
-        $columnas=12;
-        $matriz[0][0]=1;
-        $matriz[1][0]=-1;
-        $matriz[2][0]=1;
-        $matriz[3][0]=-1;
-        $matriz[4][0]=2;
-        $matriz[5][0]=-1;
-
-        $matriz[0][1]=2;
-        $matriz[1][1]=-1;
-        $matriz[2][1]=-1;
-        $matriz[3][1]=1;
-        $matriz[4][1]=-1;
-        $matriz[5][1]=-1;
-
-        $matriz[0][2]=-1;
-        $matriz[1][2]=1;
-        $matriz[2][2]=-1;
-        $matriz[3][2]=4;
-        $matriz[4][2]=5;
-        $matriz[5][2]=5;
-
-        $matriz[0][3]=-1;
-        $matriz[1][3]=5;
-        $matriz[2][3]=2;
-        $matriz[3][3]=4;
-        $matriz[4][3]=-1;
-        $matriz[5][3]=2;
-
-        $matriz[0][4]=2;
-        $matriz[1][4]=-1;
-        $matriz[2][4]=-1;
-        $matriz[3][4]=-1;
-        $matriz[4][4]=1;
-        $matriz[5][4]=1;
-
-        $matriz[0][5]=-1;
-        $matriz[1][5]=5;
-        $matriz[2][5]=1;
-        $matriz[3][5]=-1;
-        $matriz[4][5]=-1;
-        $matriz[5][5]=-1;
-
-        $matriz[0][6]=3;
-        $matriz[1][6]=3;
-        $matriz[2][6]=-1;
-        $matriz[3][6]=3;
-        $matriz[4][6]=1;
-        $matriz[5][6]=-1;
-
-        $matriz[0][7]=4;
-        $matriz[1][7]=1;
-        $matriz[2][7]=3;
-        $matriz[3][7]=-1;
-        $matriz[4][7]=-1;
-        $matriz[5][7]=4;
-
-        $matriz[0][8]=-1;
-        $matriz[1][8]=-1;
-        $matriz[2][8]=4;
-        $matriz[3][8]=5;
-        $matriz[4][8]=-1;
-        $matriz[5][8]=-1;
-
-        $matriz[0][9]=4;
-        $matriz[1][9]=5;
-        $matriz[2][9]=-1;
-        $matriz[3][9]=4;
-        $matriz[4][9]=-1;
-        $matriz[5][9]=1;
-
-        $matriz[0][10]=1;
-        $matriz[1][10]=2;
-        $matriz[2][10]=-1;
-        $matriz[3][10]=-1;
-        $matriz[4][10]=2;
-        $matriz[5][10]=-1;
-
-        $matriz[0][11]=-1;
-        $matriz[1][11]=1;
-        $matriz[2][11]=-1;
-        $matriz[3][11]=1;
-        $matriz[4][11]=1;
-        $matriz[5][11]=2;
-
+        }
 
         $matrizItemsComunes =$this->crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas);
         $matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
@@ -528,26 +457,31 @@ class Cdocumentos extends CI_controller
         $idUser=$this->session->userdata('id');
         $band=false;
         $c=0;
+        //$idUser=3;
       //  echo 'idUSER'.$idUser;
-        while($band==false){
+        while($band==false && $c<$filas){
             if($usuarios[$c]==$idUser){
                 $posFila=$c;
                 $band=true;
             }
             $c=$c+1;
         }
-        $posFila=1;
-        /*consulto los vecimos de mayor siilitud del usuario*/
-        $vecinos= $this->vecinos($matrizMSD,$posFila);
-        $estimacion= $this->Estimacion($matriz,$vecinos,$posFila,$columnas);
-        $recomendacion=$this->itemRecomendados($estimacion);
-        /* echo '<pre>';
-        print_r($valoracion);
-        echo  '</pre>';
-        echo $valoracion[0]->iddoc;
-        echo '<pre>';
-        print_r($matriz);
-        echo  '</pre>';*/
+        if($band==false){
+      //   echo"HAGO UNA RECOMENDACION ALEATORIA";
+            for($x=0;$x<3;$x++){
+                $aleatorio=rand(0, $columnas-1);
+                $recomendacion[]=$item[$aleatorio];
+            }
+
+        }else{
+            //   $posFila=1;
+            /*consulto los vecimos de mayor siilitud del usuario*/
+            $vecinos= $this->vecinos($matrizMSD,$posFila);
+            $estimacion= $this->Estimacion($matriz,$vecinos,$posFila,$columnas);
+            $recomendacion=$this->itemRecomendados($estimacion,$item);
+        }
+
+        return $recomendacion;
     }
     public function crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas){
        $matrizItemsComunes[][]=0;
@@ -573,10 +507,10 @@ class Cdocumentos extends CI_controller
                 }
 			}
 		}
-        echo "ITEM COMUNES";
+     /*   echo "ITEM COMUNES";
         echo '<pre>';
         print_r($matrizItemsComunes);
-        echo  '</pre>';
+        echo  '</pre>';*/
         return $matrizItemsComunes;
 
     }
@@ -589,8 +523,6 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
         $max = 0;
         $min = 6; // ponemos como minimo este valor porque es mayor que el
             // maximo permitido
-       // $matrizMSD[][]=0;
-
         for ($u1 = 0; $u1 < $filas; $u1++) {
             for ($u2 = $u1 + 1; $u2 < $filas; $u2++) {
                 $lista = $matrizItemsComunes[$u1][$u2];
@@ -620,62 +552,24 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
                 }
             }
         }
-    echo "MSD";
-    echo '<pre>';
-    print_r($matrizMSD);
-    echo  '</pre>';
-   // echo count($matrizMSD[0]);
-    $val=count($matrizMSD);
-    $val2=$val;
-  //  echo $matrizMSD[5][0];
-  /*  echo 'valor general';
-    echo $val;
-    echo'</br>';
-    echo'</br>';*/
+        $val=count($matrizMSD);
+        $val2=$val;
 
-    for($i=0;$i<$val;$i++){
-
-      /*  echo 'valor1';
-        echo $val2;
-        echo'</br>';*/
-        $f=$i+1;
-        for($j=0;$j<$val2;$j++){
-        //    echo $f;
-          //  echo $i;
-            $matrizMSD[$f][$i]=$matrizMSD[$i][$f];
-            $f=$f+1;
+        for($i=0;$i<$val;$i++){
+            $f=$i+1;
+            for($j=0;$j<$val2;$j++){
+                $matrizMSD[$f][$i]=$matrizMSD[$i][$f];
+                $f=$f+1;
+            }
+            $val2=$val2-1;
         }
-        $val2=$val2-1;
 
-    }
-
-   /* $matrizMSD[1][0]=$matrizMSD[0][1];
-     $matrizMSD[2][0]=$matrizMSD[0][2];
-     $matrizMSD[3][0]=$matrizMSD[0][3];
-     $matrizMSD[4][0]=$matrizMSD[0][4];
-     $matrizMSD[5][0]=$matrizMSD[0][5];
-
-    $matrizMSD[2][1]=$matrizMSD[1][2];
-    $matrizMSD[3][1]=$matrizMSD[1][3];
-    $matrizMSD[4][1]=$matrizMSD[1][4];
-    $matrizMSD[5][1]=$matrizMSD[1][5];
-
-    $matrizMSD[3][2]=$matrizMSD[2][3];
-    $matrizMSD[4][2]=$matrizMSD[2][4];
-    $matrizMSD[5][2]=$matrizMSD[2][5];
-
-    $matrizMSD[4][3]=$matrizMSD[3][4];
-    $matrizMSD[5][3]=$matrizMSD[3][5];
-
-    $matrizMSD[5][4]=$matrizMSD[4][5];*/
-
-
-    echo "MSD COMPLETADA";
-    echo '<pre>';
-    print_r($matrizMSD);
-    echo  '</pre>';
-    return $matrizMSD;
-    //echo $matrizMSD[1][0];
+        /*echo "MSD COMPLETADA";
+        echo '<pre>';
+        print_r($matrizMSD);
+        echo  '</pre>';*/
+        return $matrizMSD;
+        //echo $matrizMSD[1][0];
 	}
 
     /**
@@ -683,10 +577,10 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
      */
 
     public function vecinos($matrizMSD,$idUser){
-        echo "USUARIO A RECOMENDAR";
+       /* echo "USUARIO A RECOMENDAR";
         echo '<pre>';
         print_r($matrizMSD[$idUser]);
-        echo  '</pre>';
+        echo  '</pre>';*/
 
         $arrayVecinos= $matrizMSD[$idUser];
         for($j=0;$j<2;$j++) {
@@ -704,7 +598,7 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
             $vecinos[] = $pos;
         }
 
-        echo "USUARIO A RECOMENDAR ordenado";
+        /*echo "USUARIO A RECOMENDAR ordenado";
         echo '<pre>';
         print_r($vecinos);
         echo  '</pre>';
@@ -720,10 +614,10 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
 
     public function Estimacion($matriz,$vecinos,$posFila,$columnas){
        $estimaciones=array();
-        echo "MATRIZ";
+       /* echo "MATRIZ";
         echo '<pre>';
         print_r($matriz);
-        echo  '</pre>';
+        echo  '</pre>';*/
 
 
        for($i=0;$i<$columnas;$i++){
@@ -752,10 +646,10 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
            }
        }
 
-         echo "ESTIMACION DE UN USUARIO DADO";
+        /* echo "ESTIMACION DE UN USUARIO DADO";
         echo '<pre>';
         print_r($estimaciones);
-        echo  '</pre>';
+        echo  '</pre>';*/
 return $estimaciones;
 
 
@@ -763,8 +657,9 @@ return $estimaciones;
 
 
     }
-    public function itemRecomendados($estimacion){
+    public function itemRecomendados($estimacion,$columnas){
         $pos=0;
+        $posicionItem=array();
         $recomendacion=array();
         for($j=0;$j<3;$j++) {
             $mayor=0;
@@ -778,14 +673,23 @@ return $estimaciones;
 
             }
             $estimacion[$pos]=-1;
-            $recomendacion[] = $pos;
+            $posicionItem[] = $pos;
         }
 
+        foreach ($posicionItem as $row){
+            $recomendacion[]=$columnas[$row];
+        }
 
-        echo "TE RECOMIENDO LOS SIGUIENTES IfTEM";
+      /*  echo "TE RECOMIENDO LOS SIGUIENTES IfTEM";
+        echo '<pre>';
+        print_r($posicionItem);
+        echo  '</pre>';
+
+
+        echo "ESTOS SON LOS ID";
         echo '<pre>';
         print_r($recomendacion);
-        echo  '</pre>';
+        echo  '</pre>';*/
         return $recomendacion;
 
     }
