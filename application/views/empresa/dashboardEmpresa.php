@@ -24,6 +24,42 @@
 <section class="content">
     <h2>Estudiantes</h2>
 
+<h3>Recomendados Para ti</h3>
+    <table>
+    <tr>
+    <?php foreach($Recomendados as $row){?>
+       <td class="grid cs-style-7"> <figure>
+             <div  class="info-box" style="width: 250px;">
+                 <span class="info-box-icon bg-aqua" style="height: 0px; line-height: 0px;">
+                   <?php if (empty($row->usu_foto)) { ?>
+                       <img src="<?=asset_url("img/noPerfil.png")?>" alt="80" height="90px"> 
+                    <?php } else { ?>
+                        <img src="<?=$row->usu_foto?>"  alt="80" height="90px"> 
+                    <?php } ?>
+                 </span>
+                 <div class="info-box-content">
+                  <span class="info-box-text"><b><?=$row->pas_apellido . " " . $row->pas_nombre;?></b> </span>
+                    <span><?=$row->usu_correo?></span></br>
+                    <span><?=$row->Escuela?></span>
+                 </div>
+             </div>
+             <figcaption>
+                <span class="boton-cv">
+                  <a href="<?php echo base_url();?>cpasante/downloads/cv-<?php echo$row->usu_login;?>.pdf" target="_blank">CV</a>
+               </span>
+                <span class="boton-perfil">
+                  <a   href="">Perfil</a>
+               </span>
+             <span class="boton-evaluar">
+                  <a href="#" title="Aprobar Pasante" data-target="#modalEvaluacion" data-toggle="modal" >
+                      Evaluar</a>
+
+            </figcaption>
+          </figure></td>
+          <?php } ?>
+    </tr>
+    </table>
+   
  <div class="table-responsive">
 <div class="col-xs-6 col-md-4">
    <input id="buscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" />

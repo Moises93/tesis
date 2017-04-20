@@ -60,6 +60,10 @@ class Cusuario extends CI_Controller
               $page = 1;
             }
         //Fin Configuracion Paginacion
+        //Recomendados
+            $idempresa = $this->model_usuario->getIdEmpresa($idUser);
+            $rsu_recomendados = $this->model_pasante->getRecomendadosEmpresa($idempresa[0]->emp_id);
+        //Fin Recomendados
         //Traer Postulados Paginados
             $rsu =$this->model_pasante->getPostulados($config["per_page"], $page);
             $str_links = $this->pagination->create_links();
@@ -69,6 +73,7 @@ class Cusuario extends CI_Controller
           $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
           $principal=0;
           $pasantes = array(
+              'Recomendados' =>$rsu_recomendados,
               'Pasantes' => $rsu,
               'preguntas' => $quiz['preguntas'],
               'respuestas' => $quiz['respuestas'],
