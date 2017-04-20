@@ -178,32 +178,104 @@ class Cusuario extends CI_Controller
         }
     }
 
-      public function guardarUsuario(){
-          $idUser=$this->session->userdata('id');
-         $tipo =$this->session->userdata('tipo');
-         $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
-         $foto = null;
-         $userData = array(
-               'user' => $rsu,
-               'Foto' =>$foto
-            );
-            
-            $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-            $data['user'] = $rsu;
+    public function guardarUsuario(){
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+        $foto = null;
+        $userData = array(
+            'user' => $rsu,
+            'Foto' =>$foto
+        );
+        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $data['user'] = $rsu;
         $data1 = array();
-            foreach($_POST as $key => $value) {   
-               $data1[$key] = $value; 
+        foreach($_POST as $key => $value) {
+            $data1[$key] = $value;
         }
-        $perfil=array();
-       $perfil['usu_foto']= $data1['usuario_foto'];
+        if($data1['usuario_foto']!=null or $data1['usuario_foto'] != ''){
+            $usuario_foto = array (
+                'usu_foto' =>$data1['usuario_foto']
+            );
+            $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$usuario_foto );
+        }
+        if($data1['emailUsuario']!=null or $data1['emailUsuario'] != ''){
+            $usuario_foto = array (
+                'usu_correo' =>$data1['emailUsuario']
+            );
+            $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$usuario_foto );
+        }
+        if($data1['idTipo'] == 6){
+            //Se desconocen los procedimientos
+        }elseif($data1['idTipo'] == 5){
+            $usuario_empresa = array(
+                'uem_nombre' => $data1['nombreUsuario'],
+                'uem_apellido' => $data1['apellidoUsuario'],
+                'uem_telefono' => $data1['telefonoUsuario']
+            );
+            $this->model_empresa->actualizar_usuario_empresa($data1['idUsuario'],$usuario_empresa);
+        }elseif($data1['idTipo'] == 4){
+            $pasante = array(
+                'pas_nombre' => $data1['nombreUsuario'],
+                'pas_apellido' => $data1['apellidoUsuario'],
+                'pas_telefono' => $data1['telefonoUsuario']
+            );
+            $this->model_pasante->actualizar_pasante($data1['idUsuario'],$pasante);
+        }elseif($data1['idTipo'] == 3){
+            $profesor = array(
+                'pro_nombre' => $data1['nombreUsuario'],
+                'pro_apellido' => $data1['apellidoUsuario'],
+                'pro_telefono' => $data1['telefonoUsuario']
+            );
+            $this->model_profesor->actualizar_profesor($data1['idUsuario'],$profesor);
+        }elseif($data1['idTipo'] == 2){
+            $cordinador = array(
+                'ucor_nombre' => $data1['nombreUsuario'],
+                'ucor_apellido' => $data1['apellidoUsuario'],
+                'ucor_telefono' => $data1['telefonoUsuario']
+            );
+            $this->model_usuario->actualizar_usuario_coordinador($data1['idUsuario'],$cordinador);
+        }elseif($data1['idTipo'] == 1){
+            $administrador = array(
+                'uadm_nombre' => $data1['nombreUsuario'],
+                'uadm_apellido' => $data1['apellidoUsuario'],
+                'uadm_telefono' => $data1['telefonoUsuario']
+            );
+            $this->model_admin->actualizar_usuario_admin($data1['idUsuario'],$administrador);
+        }
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$data);
+        $this->load->view('contenido/perfil',$userData);
+        $this->load->view('layout/footer');
+    }
 
-        $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$perfil);
 
-         $this->load->view('layout/header',$userData);
-         $this->load->view('layout/vmenu',$data);
-         $this->load->view('contenido/perfil',$userData);
-         $this->load->view('layout/footer');    
-     }
+    public function guardarHabilidades(){
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+        $foto = null;
+        $userData = array(
+            'user' => $rsu,
+            'Foto' =>$foto
+        );
+        $data_us['menu'] =$this->model_usuario->menuPermisos($idUser);
+        $data_us['user'] = $rsu;
+        $data = array();
+        foreach($_POST as $key => $value) {
+            $data[$key] = $value;
+        }
+        $id_pasante = $this->model_pasante->getIdPasante($data['idUsuario']);
+        foreach ($data['habilidadId'] as $row) {
+            $datos['id_habilidad'] = $row;
+            $datos['pas_id'] = $id_pasante[0]->pas_id;
+            $this->model_habilidades->crearHabilidadPasante($datos);
+        }
+        $this->load->view('layout/header',$userData);
+        $this->load->view('layout/vmenu',$data_us);
+        $this->load->view('contenido/perfil',$userData);
+        $this->load->view('layout/footer');
+    }
     
 }
 
