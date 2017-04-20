@@ -189,7 +189,10 @@ class Cusuario extends CI_Controller
             foreach($_POST as $key => $value) {   
                $data1[$key] = $value; 
         }
-        $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$data1['usuario_foto']);
+        $perfil=array();
+       $perfil['usu_foto']= $data1['usuario_foto'];
+
+        $rsu2 = $this->model_usuario->actualizar_usuario2($data1['idUsuario'],$perfil);
 
          $this->load->view('layout/header',$userData);
          $this->load->view('layout/vmenu',$data);

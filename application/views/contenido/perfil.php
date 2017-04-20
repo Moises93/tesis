@@ -82,7 +82,7 @@
 		<br /><br />
  
 		<form class="form-horizontal" action="<?=base_url('cusuario/guardarUsuario')?>" role="form" method="post" enctype="multipart/form-data">
-  <input type="hidden" id="usuario_foto" name="usuario_foto" value="<?=$Foto?>" /> 
+  <input type="hidden" id="usuario_foto" name="usuario_foto" value="<?=$Foto?>" />
   <input type="hidden" id="idUsuario" name="idUsuario" value="<?=$user[0]->id_usuario?>" /> 
   <input type="hidden" id="idTipo" name="idTipo" value="<?=$user[0]->id_tipo?>" /> 
 				<div class="form-group">

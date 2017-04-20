@@ -45,19 +45,19 @@ if( isset ($mensaje )) {
             <ul class="nav nav-pills nav-justified thumbnail setup-panel">
                 <li class="active"><a href="#step-1">
                         <h4 class="list-group-item-heading">Curriculum</h4>
-                        <p class="list-group-item-text">First step description</p>
+                        <p class="list-group-item-text"></p>
                     </a></li>
                 <li class="disabled"><a href="#step-2">
                         <h4 class="list-group-item-heading">Carta de Aceptacion</h4>
-                        <p class="list-group-item-text">Second step description</p>
+                        <p class="list-group-item-text"></p>
                     </a></li>
                 <li class="disabled"><a href="#step-3">
                         <h4 class="list-group-item-heading">Plan de Actividades</h4>
-                        <p class="list-group-item-text">Third step description</p>
+                        <p class="list-group-item-text"></p>
                     </a></li>
                 <li class="disabled"><a href="#step-4">
                         <h4 class="list-group-item-heading">Informe Final</h4>
-                        <p class="list-group-item-text">Third step description</p>
+                        <p class="list-group-item-text"></p>
                     </a></li>
             </ul>
         </div>
@@ -136,7 +136,7 @@ if( isset ($mensaje )) {
 
                             }else{
                                 ?>
-                                <input type="hidden" id="paso2" value="<?php echo $aceptacion;?>">;
+                                <input type="hidden" id="paso2" value="<?php echo $aceptacion;?>">
                                 <?php
                                 echo" <tr>";
                                 echo " <td><input type='submit' value='subir' ></td>";
@@ -150,7 +150,7 @@ if( isset ($mensaje )) {
                     </form>
                 </div>
 
-                <button id="activate-step-3" class="btn btn-primary btn-lg">Activate Step 3</button>
+                <button id="activate-step-3" class="btn btn-primary btn-lg">Siguiente</button>
             </div>
         </div>
     </div>
@@ -191,7 +191,7 @@ if( isset ($mensaje )) {
 
                     </form>
                 </div>
-                <button id="activate-step-4" class="btn btn-primary btn-lg">Activate Step 4</button>
+                <button id="activate-step-4" class="btn btn-primary btn-lg">Siguiente</button>
             </div>
         </div>
     </div>

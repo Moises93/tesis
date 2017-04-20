@@ -58,9 +58,9 @@
                 <span class="boton-cv">
                   <a href="<?php echo base_url();?>cpasante/downloads/cv-<?php echo$row->usu_login;?>.pdf" target="_blank">CV</a>
                </span>
-                <span class="boton-perfil">
+                <!--<span class="boton-perfil">
                   <a   href="">Perfil</a>
-               </span>
+               </span>-->
                  <?php if($principal != 0){ ?>
              <span class="boton-evaluar">
                   <a href="#" title="Aprobar Pasante" data-target="#modalEvaluacion" data-toggle="modal" onClick="evaluarPasante(<?=$row->pas_id?>)" >

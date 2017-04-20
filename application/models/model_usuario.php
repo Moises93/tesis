@@ -287,7 +287,7 @@ function permisosUsuarioHijos($idMenu,$idUser){
     /* Desarrollada el 13-02-2017*/
 	public function obtener_todousuarioEmpresa($id){
         $this->db->select('us.id_usuario, us.id_tipo, us.usu_login, 
-           	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, ue.uem_nombre as Nombre, ue.uem_apellido as Apellido, ue.uem_telefono as Tel, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
+           	us.usu_clave, us.usu_estatus, us.usu_correo, us.usu_foto, ue.idusuario_empresa, ue.uem_nombre as Nombre, ue.uem_apellido as Apellido, ue.uem_telefono as Tel, ue.uem_cedula, tue.tuem_tipo, e.emp_nombre as Institucion, 
             e.emp_foto, e.emp_id as Id');
 		$this->db->from('usuario us');
 		$this->db->join('usuario_empresa ue', 'us.id_usuario = ue.id_usuario');

@@ -90,6 +90,16 @@ $('#tblBiblioteca').DataTable({
             var p = JSON.parse(data);
             console.log(p);
             libros=p.length;
+
+            for(var i=0;i<p.length;i++){
+                nombre=p[i].nombredoc;
+                formato = p[i].formato.split("/");
+                extencion = formato[1];
+                descarga=baseurl+'cdocumentos/visualizarDocumentos/'+nombre+'.'+extencion;
+                //$("#libro"+(i+1)).text(''+nombre+'');
+                $("#libro"+(i+1)).html(nombre+'&nbsp;<a href="'+ descarga+'"target="_blank" <span class="fa fa-search" aria-hidden="true"></span></a>');
+
+            }
             if(libros ==1){
                 $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
                 $('#titulo2').fadeOut();
@@ -105,11 +115,7 @@ $('#tblBiblioteca').DataTable({
                 $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
 
             }
-            for(var i=0;i<p.length;i++){
-                nombre=p[i].nombredoc;
-                $("#libro"+(i+1)).text(''+nombre+'');
-                
-            }
+
 
         });
 });

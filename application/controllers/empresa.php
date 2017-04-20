@@ -220,6 +220,64 @@ class Empresa extends CI_controller
         }
     }
 
+    public function obtenerPasantes(){
+        $resultado=array();
+        $idUser=$this->session->userdata('id');
+        $tipo =$this->session->userdata('tipo');
+        /*Si es tipo prfesor muestro solo sus pasantes y si es usauario admin traigo todos*/
+
+            $rsu=$this->model_usuario->obtenerDataHeader($tipo,$idUser);
+            $idUe= $rsu[0]->idusuario_empresa;
+
+            $pas=$this->model_empresa->obtenerPasantias($idUe);
+
+
+        foreach ($pas as $pas => $row){
+            $idPa=$row['pas_id']; //obtener Id-pasante
+            $idPas=$row['id_pasantia'];  //obtener Id_Pasantia
+            $result=$this->model_pasantia->obtenerPasantiaActiva($idPas);
+            $pasantia =array(
+                'id_pasantia'    => $result['id_pasantia'],
+                'modalidad'      => $result['modalidad'],
+                'estatus'        => $result['estatus'],
+                'fecha_inicio'   => $result['fecha_inicio'],
+                'fecha_final'    => $result['fecha_final'],
+                'cedula'         => $result['pas_cedula'],
+                'pas_id'         => $result['pas_id'],
+                'sexo'           => $result['pas_sexo'],
+                'nombre'         => $result['pas_nombre'],
+                'apellido'       => $result['pas_apellido'],
+                'telefono'       => $result['pas_telefono'],
+                'login'          => $result['usu_login'],
+                'correo'         => $result['usu_correo'],
+                'foto'           => $result['usu_foto'],
+                'escuela'        => $result['esc_nombre'],
+                'orgaca'         => $result['orgaca'],
+                'universidad'    => 'Universidad de Carabobo',
+                'empresa_id'     => $result['emp_id'],
+                'empresa'        => $result['emp_nombre'],
+                'id_escuela'     => $result['id_escuela'],
+                'TutorEmp'       => 0,
+                'integrantes'    => null,
+                'requisitos'     => null
+
+            );
+
+            $requisitos=$this->model_pasantia->consultarRequisitos($idPa);
+            $integrantes =  $this->model_pasantia->getIntegrantesPas($idPas);
+            if(count($requisitos)>0) {
+                $pasantia['requisitos']=$requisitos;
+            }
+   
+            if( count($integrantes) > 0){
+                $pasantia['integrantes']=$integrantes;
+            }
+            array_push($resultado, $pasantia);
+        }
+        echo json_encode($resultado);
+
+    }
+
     //Ultima actualizacion el dia 15-03-2017//
     public function misPasantes(){
             $idUser=$this->session->userdata('id');
@@ -242,7 +300,7 @@ class Empresa extends CI_controller
              $data['user'] = $rsu;
             $this->load->view('layout/header',$userData);
             $this->load->view('layout/vmenu',$data);
-            $this->load->view('empresa/dashboardEmpresa',$pasantes);
+            $this->load->view('empresa/misPasantes',$quiz);
             $this->load->view('empresa/footerEmpresa');
     }
     

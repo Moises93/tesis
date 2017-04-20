@@ -283,5 +283,26 @@ class Model_empresa extends CI_Model
 		return $data;*/
 	}
 
+	public function obtenerPasantias($idUe){
+		$data=array(
+		);
+		$this->db->select('pa.id_pasantia,pas.pas_id');
+		$this->db->from('pasantia pa');
+		$this->db->join('integrantes_pasantia ipa', 'ipa.id_pasantia = pa.id_pasantia');
+		$this->db->join('pasante pas', 'pa.pas_id = pas.pas_id');
+		$this->db->join('empresa emp', 'pa.emp_id = emp.emp_id','left');
+		$this->db->where('ipa.idusuario_empresa',$idUe);
+		$this->db->where('ipa.tipo',2);
+		$query = $this->db->get();
+		//return $query->row(); debe haber alguna forma de evitarme el ciclo
+		if ($query->num_rows() > 0) {
+			foreach ($query->result_array() as $row){
+				$data[] = $row; //hago esto porque espero recibir una sola sola pasantia ya que consulto por id especifico
+			}
+		}
+		$query->free_result();
+		return $data;
+	}
+
 
 }
