@@ -126,7 +126,7 @@ class Cpasante extends CI_controller
             }else {
 
                 $this->model_documentos->guardarDocumento($datas);
-                 if($requisito =='planActividades'){
+                 if($requisito =='planActividades' || $requisito=='informeFinal'){
                      $valo=$this->model_pasantia->existePasantia($idUser);
                      if(count($valo)>0) {
                          $idPas=$valo[0]->id_pasantia;

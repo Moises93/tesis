@@ -89,10 +89,10 @@
     </div><!-- .col-md-3 -->
     <div class="clearfix"></div>
 </br>
-    <div class="col-md-6">
-        <strong>Actividades Pendientes:</strong>
-        <span>Informe Final, Evaluació Tutor Empresarial</span>
-    </div><!-- .col-md-6 -->
+        <!-- <div class="col-md-6">
+             <strong>Actividades Pendientes:</strong>
+             <span>Informe Final, Evaluació Tutor Empresarial</span>
+         </div> .col-md-6 -->
 </div>
 </div>
 

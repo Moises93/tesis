@@ -176,23 +176,28 @@ class Cpasantia extends CI_controller
         $data = $this->input->post('respuesta');
         $datas = $this->input->post('preguntas');
         $Id=  $this->input->post('paId');
+        $IdPas=  $this->input->post('idpas');
+        $estatus=  $this->input->post('estatus');
+        $estatus=$estatus+1;
+
+
         $respuesta=json_decode($data);
         $preguntas=json_decode($datas);
         $a=count($respuesta);
-     
       //has un select dentro del civlo consultanfo con el idpas si count mayor a o haz update sino insert
         $existe=$this->model_pasantia->consultarTest($Id);
-
+        $valor=count($existe);
         for ($i=0;$i<$a;$i++){
-            if(count($existe)>0){
-                $this->model_pasantia->actualizarTest($Id,$respuesta[$i],$preguntas[$i]);   
+            if($valor>0){
+                $this->model_pasantia->actualizarTest($Id,$respuesta[$i],$preguntas[$i]);
+
             }else{
-                $this->model_pasantia->guardarTest($Id,$respuesta[$i],$preguntas[$i]);
+               $this->model_pasantia->guardarTest($Id,$respuesta[$i],$preguntas[$i]);
+                $this->model_pasantia->actualizarEstatusPasantia($IdPas,$estatus);
             }
         }
 
-        $puntaje=$this->model_pasantia->sumarResutado($Id);
-        $promedio=$puntaje/$a;
+        $promedio=$this->model_pasantia->sumarResutado($Id);
         if($promedio>=1 && $promedio<2){
             echo 'Deficiente';
         }else if($promedio>=2 && $promedio<3){
@@ -202,7 +207,7 @@ class Cpasantia extends CI_controller
         }else if($promedio>=4 && $promedio<5){
             echo 'Muy Bueno';
         }else if($promedio==5){
-            echo 'Exclente';
+            echo 'Excelente';
         }
 
 

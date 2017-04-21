@@ -81,7 +81,7 @@ $(document).ready(function(e) {
             },
             {data: 'esc_nombre'},
             {data: 'usu_correo'},
-            {data: 'pro_telefono'},
+            {data: 'Tel'},
             {orderable: 'true',
                 render: function (data,type,row) {
                     return '<a href="#" data-toggle="modal" ' +
@@ -149,7 +149,11 @@ selProfesor = function(idPro,correo,telefono,idUser){
     $('#idProfesor').val(idPro);
     $('#idUsuario').val(idUser);
     $('#correo').val(correo);
-    $('#telefono').val(telefono);
+    if(telefono =="undefined"){
+        $('#telefono').val('');
+    }else{
+        $('#telefono').val(telefono);
+    }
 
 
 };

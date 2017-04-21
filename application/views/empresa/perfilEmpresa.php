@@ -333,7 +333,7 @@
 
 
                             </div>
-                            <div class="review-block-title">Me encanto trabajar Aqui!!</div>
+                            <div class="review-block-title">Comentario:</div>
                             <div class="review-block-description"><?=$row['comentario']?></div>
                         </div>
                     </div>

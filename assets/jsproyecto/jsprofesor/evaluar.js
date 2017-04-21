@@ -351,7 +351,9 @@ evaluarPasante = function(idPas,estatus,pas){
             {
                 respuesta: jsonResp,
                 preguntas: jsonP,
-                paId :pas
+                paId :pas,
+                idpas: idPas,
+                estatus: estatus
             },
             function(data){
                 //var p = JSON.parse(data);

@@ -277,57 +277,57 @@ evaluarPasante = function(idPas,estatus,pas){
         }).ajaxStop(function () {
         loading.hide();
     });
-    $("label.btn").on('click',function () {
-        if(contador == 1){
-            choice = $(this).find('input:radio').val();
-            $('#loadbar').show();
-            $('#qid1').fadeOut();
-            $('#pid1').fadeOut();
+        $("label.btn").on('click',function () {
+            if(contador == 1){
+                choice = $(this).find('input:radio').val();
+                $('#loadbar').show();
+                $('#qid1').fadeOut();
+                $('#pid1').fadeOut();
 
-            $('#quiz').fadeOut();
-            setTimeout(function(){
-                $( "#answer" ).html(  $(this).checking(choice) );
-                $('#qid2').show();
-                $('#pid2').show();
-                $('#quiz').show();
-                $('#loadbar').fadeOut();
-                /* something else */
-            }, 1500);
-            contador=contador+1;
-        }else if(contador==2){
-            choice = $(this).find('input:radio').val();
-            $('#loadbar').show();
-            $('#qid2').fadeOut();
-            $('#pid2').fadeOut();
-            $('#quiz').fadeOut();
-            setTimeout(function(){
-                $( "#answer" ).html(  $(this).checking(choice) );
-                $('#qid3').show();
-                $('#pid3').show();
-                $('#quiz').show();
-                $('#loadbar').fadeOut();
-                /* something else */
-            }, 1500);
-            contador=contador+1;
-        }else if(contador==3){
-            choice = $(this).find('input:radio').val();
-            $('#loadbar').show();
-            $('#qid3').fadeOut();
-            $('#pid3').fadeOut();
-            $('#quiz').fadeOut();
-            setTimeout(function(){
-                $( "#answer" ).html(  $(this).checking(choice) );
-                $('#finish').show();
-                $('#guardar').show();
-                $('#volver').show();
-                $('#loadbar').fadeOut();
-                /* something else */
-            }, 1500);
-        }
+                $('#quiz').fadeOut();
+                setTimeout(function(){
+                    $( "#answer" ).html(  $(this).checking(choice) );
+                    $('#qid2').show();
+                    $('#pid2').show();
+                    $('#quiz').show();
+                    $('#loadbar').fadeOut();
+                    /* something else */
+                }, 1500);
+                contador=contador+1;
+            }else if(contador==2){
+                choice = $(this).find('input:radio').val();
+                $('#loadbar').show();
+                $('#qid2').fadeOut();
+                $('#pid2').fadeOut();
+                $('#quiz').fadeOut();
+                setTimeout(function(){
+                    $( "#answer" ).html(  $(this).checking(choice) );
+                    $('#qid3').show();
+                    $('#pid3').show();
+                    $('#quiz').show();
+                    $('#loadbar').fadeOut();
+                    /* something else */
+                }, 1500);
+                contador=contador+1;
+            }else if(contador==3){
+                choice = $(this).find('input:radio').val();
+                $('#loadbar').show();
+                $('#qid3').fadeOut();
+                $('#pid3').fadeOut();
+                $('#quiz').fadeOut();
+                setTimeout(function(){
+                    $( "#answer" ).html(  $(this).checking(choice) );
+                    $('#finish').show();
+                    $('#guardar').show();
+                    $('#volver').show();
+                    $('#loadbar').fadeOut();
+                    /* something else */
+                }, 1500);
+            }
 
 
 
-    });
+        });
 
     $("#guardar").on('click',function () {
         console.log(respuesta);
@@ -342,7 +342,9 @@ evaluarPasante = function(idPas,estatus,pas){
             {
                 respuesta: jsonResp,
                 preguntas: jsonP,
-                paId :pas
+                paId :pas,
+                idpas: idPas,
+                estatus: estatus
             },
             function(data){
                 //var p = JSON.parse(data);

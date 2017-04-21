@@ -451,9 +451,108 @@ class Cdocumentos extends CI_controller
             }
         }
 
-        $matrizItemsComunes =$this->crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas);
-        $matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
-        /*consulto el usuario a quien voy a recomendar en este caso es el de la ssesion*/
+       /* echo 'MATRIZ DE ENTRADA';
+        echo '<pre>';
+     print_r($matriz);
+     echo  '</pre>';*/
+
+       /*  $filas=6;
+  $columnas=12;
+  $matriz[0][0]=1;
+  $matriz[1][0]=-1;
+  $matriz[2][0]=1;
+  $matriz[3][0]=-1;
+  $matriz[4][0]=2;
+  $matriz[5][0]=-1;
+
+  $matriz[0][1]=2;
+  $matriz[1][1]=-1;
+  $matriz[2][1]=-1;
+  $matriz[3][1]=1;
+  $matriz[4][1]=-1;
+  $matriz[5][1]=-1;
+
+  $matriz[0][2]=-1;
+  $matriz[1][2]=1;
+  $matriz[2][2]=-1;
+  $matriz[3][2]=4;
+  $matriz[4][2]=5;
+  $matriz[5][2]=5;
+
+  $matriz[0][3]=-1;
+  $matriz[1][3]=5;
+  $matriz[2][3]=2;
+  $matriz[3][3]=4;
+  $matriz[4][3]=-1;
+  $matriz[5][3]=2;
+
+  $matriz[0][4]=2;
+  $matriz[1][4]=-1;
+  $matriz[2][4]=-1;
+  $matriz[3][4]=-1;
+  $matriz[4][4]=1;
+  $matriz[5][4]=1;
+
+  $matriz[0][5]=-1;
+  $matriz[1][5]=5;
+  $matriz[2][5]=1;
+  $matriz[3][5]=-1;
+  $matriz[4][5]=-1;
+  $matriz[5][5]=-1;
+
+  $matriz[0][6]=3;
+  $matriz[1][6]=3;
+  $matriz[2][6]=-1;
+  $matriz[3][6]=3;
+  $matriz[4][6]=1;
+  $matriz[5][6]=-1;
+
+  $matriz[0][7]=4;
+  $matriz[1][7]=1;
+  $matriz[2][7]=3;
+  $matriz[3][7]=-1;
+  $matriz[4][7]=-1;
+  $matriz[5][7]=4;
+
+  $matriz[0][8]=-1;
+  $matriz[1][8]=-1;
+  $matriz[2][8]=4;
+  $matriz[3][8]=5;
+  $matriz[4][8]=-1;
+  $matriz[5][8]=-1;
+
+  $matriz[0][9]=4;
+  $matriz[1][9]=5;
+  $matriz[2][9]=-1;
+  $matriz[3][9]=4;
+  $matriz[4][9]=-1;
+  $matriz[5][9]=1;
+
+  $matriz[0][10]=1;
+  $matriz[1][10]=2;
+  $matriz[2][10]=-1;
+  $matriz[3][10]=-1;
+  $matriz[4][10]=2;
+  $matriz[5][10]=-1;
+
+  $matriz[0][11]=-1;
+  $matriz[1][11]=1;
+  $matriz[2][11]=-1;
+  $matriz[3][11]=1;
+  $matriz[4][11]=1;
+  $matriz[5][11]=2;*/
+
+
+
+
+
+
+
+
+
+  $matrizItemsComunes =$this->crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas);
+$matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
+/*consulto el usuario a quien voy a recomendar en este caso es el de la ssesion*/
         $idUser=$this->session->userdata('id');
         $band=false;
         $c=0;
@@ -507,7 +606,7 @@ class Cdocumentos extends CI_controller
                 }
 			}
 		}
-     /*   echo "ITEM COMUNES";
+      /*echo "ITEM COMUNES";
         echo '<pre>';
         print_r($matrizItemsComunes);
         echo  '</pre>';*/
@@ -549,11 +648,17 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
                     }
                     $similitud = 1.0 - ((1.0 / $bxy) * $sum);
                     $matrizMSD[$u1][$u2] = $similitud;
+                }else{
+                    $matrizMSD[$u1][$u2] = -1; //sino hay concidencio lleno con -1 . y completo la matriz
                 }
             }
         }
         $val=count($matrizMSD);
         $val2=$val;
+    /*echo "MSD casi COMPLETADA";
+        echo '<pre>';
+        print_r($matrizMSD);
+        echo  '</pre>';*/
 
         for($i=0;$i<$val;$i++){
             $f=$i+1;

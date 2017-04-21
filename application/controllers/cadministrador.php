@@ -361,7 +361,7 @@ class cadministrador extends CI_Controller{
                     $this->model_usuario->insertar($row['login'],$row['clave'],$tipou,$row['correo']);
                     $data =$this->model_usuario->obtenerIdUsuarios($row['login']);
                     $id_usuario =$data->id_usuario;
-                    if($row['tipo']=='pasante'){
+                    if($row['tipo']=='estudiante'){
                         $clave=array('reqMenu','empMenu'); // claves de menu para guardar permisos.
                         $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
                                                          $row['escuela'],$id_usuario);

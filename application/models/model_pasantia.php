@@ -341,11 +341,14 @@ class Model_pasantia extends CI_Model
         return $data;
     }
     function sumarResutado($Id){
-        $this->db->select_sum('respuestaid');
+  
+
+        $this->db->select('AVG(respuestaid) promedio');
         $this->db->from('evaluacion');
         $this->db->where('pas_id',$Id);
         $query = $this->db->get();
-        return $query->row()->respuestaid;
+        $promedio = round($query->row()->promedio,1);
+        return $promedio;
     }
 
     function mostrarResultado($Id){

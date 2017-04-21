@@ -25,6 +25,7 @@
     <h2>Estudiantes</h2>
 
 <h3>Recomendados Para ti</h3>
+
     <table>
     <tr>
     <?php foreach($Recomendados as $row){?>
