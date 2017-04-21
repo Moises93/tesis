@@ -12,9 +12,9 @@
     <div id="miPasantia" class="panel-body" style="display: none;  alt:300px;">
     <div class="col-md-3">
         <div class="media">
-            <a href="#" class="pull-left">
+            <!--<a href="#" class="pull-left">
                 <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
-            </a>
+            </a>-->
             <div class="media-body" style="display: inline-table;">
 
                <h4 class="title">
@@ -31,9 +31,9 @@
 
     <div class="col-md-3">
         <div class="media">
-            <a href="#" class="pull-left">
+            <!--<a href="#" class="pull-left">
                 <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
-            </a>
+            </a>-->
             <div class="media-body" style="display: inline-table;">
 
                 <h4 class="title">
@@ -53,9 +53,9 @@
     </div><!-- .col-md-3 -->
     <div class="col-md-3">
         <div class="media">
-            <a href="#" class="pull-left">
-                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
-            </a>
+            <!--<a href="#" class="pull-left">
+                 <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
+             </a>-->
             <div class="media-body" style="display: inline-table;">
 
                 <h4 class="title">
@@ -71,9 +71,9 @@
     </div><!-- .col-md-3 -->
     <div class="col-md-3">
         <div class="media">
-            <a href="#" class="pull-left">
-                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
-            </a>
+            <!--<a href="#" class="pull-left">
+                  <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" width="150px" alt="150px" class="media-photo">
+              </a>-->
             <div class="media-body" style="display: inline-table;">
 
                 <h4 class="title">

@@ -359,7 +359,7 @@ evaluarPasante = function(idPas,estatus,pas){
                 //var p = JSON.parse(data);
                 //console.log("data",data);
                 setTimeout(function(){
-                    $('#resultado').html('<h3> El Resultado de la Evaluacion Fue :'+ data+' </h3>');
+                    $('#resultado').html('<h3> El Resultado de la Evaluación Fue: '+ data+' </h3>');
                     $('#resultado').show();
                     $('#loadbar').fadeOut();
                     /* something else */

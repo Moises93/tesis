@@ -23,7 +23,7 @@
 </style>
 <section class="content">
     <h2>Estudiantes</h2>
-
+    <?php if($Tipo == 5){?>
 <h3>Recomendados Para ti</h3>
 
     <table>
@@ -60,7 +60,7 @@
           <?php } ?>
     </tr>
     </table>
-   
+    <?php } ?>
  <div class="table-responsive">
 <div class="col-xs-6 col-md-4">
    <input id="buscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" />

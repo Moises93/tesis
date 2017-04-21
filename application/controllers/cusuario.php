@@ -10,12 +10,15 @@ class Cusuario extends CI_Controller
   function __construct()
   {
         parent:: __construct();
+
         $this->load->library('form_validation');
+        $this->load->model('model_habilidades');
         $this->load->model('model_usuario');
         $this->load->model('model_pasante');
         $this->load->model('model_pasantia');
         $this->load->model('model_empresa');
         $this->load->library('pagination');
+
   }
 
 
@@ -73,6 +76,7 @@ class Cusuario extends CI_Controller
           $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
           $principal=0;
           $pasantes = array(
+              'Tipo' =>$tipo,
               'Recomendados' =>$rsu_recomendados,
               'Pasantes' => $rsu,
               'preguntas' => $quiz['preguntas'],
@@ -153,7 +157,10 @@ class Cusuario extends CI_Controller
                'user' => $rsu,
                'Foto' =>$foto
             );
-            
+        if($tipo == 4){
+            $id_pasante = $this->model_pasante->getIdPasante($idUser);
+            $userData['Habilidades'] = $this->model_habilidades->getTodosHabilidadesNoPasante($id_pasante[0]->pas_id);
+        }
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
             $data['user'] = $rsu;
          $this->load->view('layout/header',$userData);

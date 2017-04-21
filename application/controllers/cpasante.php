@@ -350,6 +350,7 @@ class Cpasante extends CI_controller
         $quiz['respuestas']=$this->model_pasantia->obtenerRespuestas();
         $principal=0;
         $pasantes = array(
+            'Tipo'      =>$tipo,
             'Pasantes' => $rsul,
             'preguntas' => $quiz['preguntas'],
             'respuestas' => $quiz['respuestas'],
