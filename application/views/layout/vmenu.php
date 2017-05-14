@@ -40,10 +40,17 @@
             <ul class="sidebar-menu" >
                 <li class="header">MENU PRINCIPAL</li>
 
-                <?php foreach ( $menu as $m): ?>
+                <?php
+
+                foreach ( $menu as $m): ?>
                   <?php if($m['hijos'] != null){ ?>
-                    <li class="treeview">
+                        <?php if($padre==intval($m['id_menu'])){?>
+                    <li class="treeview active">
+                        <?php }else{ ?>
+                            <li class="treeview">
+                        <?php } ?>
                         <a href="<?php echo $m['url'];?>">
+
                             <i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span>
                           <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -51,7 +58,13 @@
                         </a>
                         <ul class="treeview-menu">
                             <?php foreach ( $m['hijos'] as $s): ?>
-                                <li><a href="<?php echo base_url() .$s['url'] ?>"><i class="<?php echo $s['clase'];?>"></i> <?php echo $s['nombre'];?></a></li>
+                               <?php if($hijo == $s['url']){?>
+
+                                <li  class="active"><a href="<?php echo base_url() .$s['url'] ?>"><i class="<?php echo $s['clase'];?>"></i> <?php echo $s['nombre'];?></a></li>
+                               <?php }else{ ?>
+                                    <li><a href="<?php echo base_url() .$s['url'] ?>"><i class="<?php echo $s['clase'];?>"></i> <?php echo $s['nombre'];?></a></li>
+
+                                <?php } ?>
                             <?php endforeach; ?>
                         </ul>
                     </li>

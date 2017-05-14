@@ -29,6 +29,9 @@ class cadministrador extends CI_Controller{
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+
+        $datas['hijo']='cadministrador/mantenimiento_usuarios';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
@@ -142,6 +145,10 @@ class cadministrador extends CI_Controller{
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
+
+        $datas['hijo']='cadministrador/crear_usuario';
+
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
@@ -166,7 +173,8 @@ class cadministrador extends CI_Controller{
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
 
-
+        $datas['hijo']='cadministrador/gestionEstudiante';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
 
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -187,6 +195,9 @@ class cadministrador extends CI_Controller{
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
         /*****************************************************************/
+        $datas['hijo']='cadministrador/permisos';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
+
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('menu/vpermisos');
@@ -206,6 +217,9 @@ class cadministrador extends CI_Controller{
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
         /*****************************************************************/
+        $datas['hijo']='cadministrador/mtoMenu';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
+
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('menu/vmtoMenu');
@@ -233,6 +247,10 @@ class cadministrador extends CI_Controller{
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
         /*****************************************************************/
+
+        $datas['hijo']='cadministrador/insertarU';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
+
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('usuario/vcrear_usuario');
@@ -358,8 +376,8 @@ class cadministrador extends CI_Controller{
                     $tipo=  $this->model_admin->consultarTipoUsuario($row['tipo']);
                     $tipou=$tipo->id_tipo;
                     
-                    $this->model_usuario->insertar($row['login'],$row['clave'],$tipou,$row['correo']);
-                    $data =$this->model_usuario->obtenerIdUsuarios($row['login']);
+                    $this->model_usuario->insertar($row['usuario'],$row['clave'],$tipou,$row['correo']);
+                    $data =$this->model_usuario->obtenerIdUsuarios($row['usuario']);
                     $id_usuario =$data->id_usuario;
                     if($row['tipo']=='estudiante'){
                         $clave=array('reqMenu','empMenu'); // claves de menu para guardar permisos.
@@ -413,6 +431,8 @@ class cadministrador extends CI_Controller{
         );
         /*hasta aqui , mando la data a la vista para procesarla*/
 
+        $datas['hijo']='cadministrador/gestionEmpresa';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
 
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -432,6 +452,9 @@ class cadministrador extends CI_Controller{
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
         /*****************************************************************/
+        $datas['hijo']='cadministrador/verRequisitos';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
+
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('contenido/verRequisitos');

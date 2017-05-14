@@ -37,6 +37,14 @@ class Model_admin extends CI_Model
         }
         return $data;
     }
+    function obtenerIdPadres($url){
+        $data = array();
+        $this->db->select('m.id_padre');
+        $this->db->from('menu m');
+        $this->db->where('m.url',$url);
+        $query= $this->db->get();
+        return $query->row()->id_padre;
+    }
 
     function obtenerHijosDePadre($id_menu){
   

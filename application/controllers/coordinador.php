@@ -76,7 +76,9 @@ class Coordinador extends CI_controller
         $idUser=$this->session->userdata('id');
         $tipo =$this->session->userdata('tipo');
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
-        $userData = array(
+        
+     // print_r($datas);
+      $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
         /*****************************************************************/

@@ -37,6 +37,9 @@ class Profesor extends CI_controller
          );
         $data["message"] = NULL;
         @$data["message"]=$this->uri->segment(2);
+        $datas['hijo']='profesor/gestionProfesor';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
+
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
         $this->load->view('profesor/vprofesor');

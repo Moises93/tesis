@@ -1,2 +1,2 @@
-cedula;nombre;apellido;sexo;correo;escuela;login;clave;tipo
-v123456;Carlos;Alvarez;m;calvarez@uc.com;1;calvarez;123456;pasante
+cedula;nombre;apellido;sexo;correo;escuela;usuario;clave;tipo
+v123456;gertrudis;Arias;F;varias@uc .com;1;varias;123456;estudiante
