@@ -17,6 +17,7 @@ class Cusuario extends CI_Controller
         $this->load->model('model_pasante');
         $this->load->model('model_pasantia');
         $this->load->model('model_empresa');
+         $this->load->model('model_admin');
         $this->load->library('pagination');
 
   }
@@ -32,6 +33,9 @@ class Cusuario extends CI_Controller
             
       $data['menu'] =$this->model_usuario->menuPermisos($idUser);
       $data['user'] = $rsu;
+      $data['hijo']='cusuario/inicio';
+      $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
+
       //print_r($this->session->userdata());
       $this->load->view('layout/header',$userData);
       $this->load->view('layout/vmenu',$data);

@@ -352,6 +352,8 @@ class Profesor extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='profesor/evaluar';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $profesores = $this->model_usuario->obtener_Profesores();
         $cant = count($profesores);

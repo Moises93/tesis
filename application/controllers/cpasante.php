@@ -13,6 +13,7 @@ class Cpasante extends CI_controller
         parent::__construct();
         # code...paren
         $this->load->model('model_usuario');
+        $this->load->model('model_admin');
         $this->load->model('model_pasante');
         $this->load->model('model_documentos');
         $this->load->model('model_pasantia');
@@ -50,6 +51,8 @@ class Cpasante extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='cpasante/requisitos';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         $re=$this->model_documentos->buscarRequisitos($idUser);
 
        /* print_r($re);
@@ -202,8 +205,8 @@ class Cpasante extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
-        /* print_r($re);
-         exit();*/
+        $datas['hijo']='cpasante/listarEstudiantes';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -360,6 +363,8 @@ class Cpasante extends CI_controller
 
         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
         $data['user'] = $rsu;
+        $data['hijo']='cpasante/listarEstudiante';
+        $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$data);
         $this->load->view('empresa/dashboardEmpresa',$pasantes);

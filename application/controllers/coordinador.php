@@ -14,6 +14,7 @@ class Coordinador extends CI_controller
         # code...paren
         $this->load->model('model_usuario');
         $this->load->model('model_pasantia');
+         $this->load->model('model_admin');
         $this->load->model('model_profesor');
         $this->load->helper('download');
     }
@@ -29,6 +30,8 @@ class Coordinador extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='coordinador/gestionCoordinador';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -61,6 +64,8 @@ class Coordinador extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='coordinador/asignarTutores';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -78,9 +83,11 @@ class Coordinador extends CI_controller
         $datas['menu'] =$this->model_usuario->menuPermisos($idUser);
         
      // print_r($datas);
-      $userData = array(
+       $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='coordinador/tutorOganizacional';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);

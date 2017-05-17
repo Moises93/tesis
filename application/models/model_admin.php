@@ -43,7 +43,14 @@ class Model_admin extends CI_Model
         $this->db->from('menu m');
         $this->db->where('m.url',$url);
         $query= $this->db->get();
-        return $query->row()->id_padre;
+
+        if ($query->num_rows() > 0) {
+             return $query->row()->id_padre;
+        }else{
+
+            return 0;
+        }
+       
     }
 
     function obtenerHijosDePadre($id_menu){

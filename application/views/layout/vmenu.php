@@ -44,7 +44,7 @@
 
                 foreach ( $menu as $m): ?>
                   <?php if($m['hijos'] != null){ ?>
-                        <?php if($padre==intval($m['id_menu'])){?>
+                        <?php  if($padre==intval($m['id_menu'])){?>
                     <li class="treeview active">
                         <?php }else{ ?>
                             <li class="treeview">
@@ -69,7 +69,12 @@
                         </ul>
                     </li>
                   <?php }else{ ?>
-                    <li><a href="<?php echo base_url() .$m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
+                     <?php if($hijo == $m['url']){?>
+                            <li  class="active"><a href="<?php echo base_url() .$m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
+                         <?php }else{ ?>
+                                <li><a href="<?php echo base_url() .$m['url'];?>"><i class="<?php echo $m['clase'];?>"></i> <span><?php echo $m['nombre'];?></span></a></li>
+                             <?php } ?>
+                             
                   <?php } ?>
                 <?php endforeach; ?>
 

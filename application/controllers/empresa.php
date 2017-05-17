@@ -14,6 +14,7 @@ class Empresa extends CI_controller
     $this->load->model('model_empresa');
     $this->load->model('model_usuario');
     $this->load->model('model_pasante');
+     $this->load->model('model_admin');
     $this->load->model('model_pasantia');
     $this->load->library('pagination');
   }
@@ -346,6 +347,8 @@ class Empresa extends CI_controller
         $empresas['links'] = explode('&nbsp;',$str_links);
         $data['menu'] =$this->model_usuario->menuPermisos($idUser);
         $data['user'] = $rsu;
+        $data['hijo']='empresa/listaEmpresas';
+        $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$data);
         $this->load->view('empresa/listaEmpresas',$empresas);

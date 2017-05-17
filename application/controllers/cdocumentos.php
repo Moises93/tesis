@@ -30,6 +30,8 @@ class Cdocumentos extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='cdocumentos/subir_documentos';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -48,6 +50,8 @@ class Cdocumentos extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+         $datas['hijo']='cdocumentos/informesFinales';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
@@ -65,6 +69,8 @@ class Cdocumentos extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='Cdocumentos/biblioteca';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);
