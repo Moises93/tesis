@@ -82,10 +82,11 @@ class Cdocumentos extends CI_controller
     public function cargar_archivo() {
         
         
+        $linea=$this->input->post('cbLineas');
         $titulo=$this->input->post('descripcion');
         $login=$this->session->userdata('Login');
         $idUser=$this->session->userdata('id');
-        $archivo = 'archivo';
+        $archivo = 'archivo'; //debe coincidir con el name del input tipe file // este nombre es importante
         $config['upload_path'] = "biblioteca/";
        // $config['file_name'] = $login.$titulo;
         $config['allowed_types'] = "pdf|doc";
@@ -116,7 +117,9 @@ class Cdocumentos extends CI_controller
             'size' =>$size,
             'formato' =>$tipo,
             'nombredoc' =>$name,
-            'id_usuario'=>$idUser
+            'id_usuario'=>$idUser,
+            'descripcion' =>$titulo,
+            'id_linea' =>$linea
         );
     //    print_r($datas);
         $valor=$this->model_documentos->existeDocumento($name); 
@@ -129,6 +132,7 @@ class Cdocumentos extends CI_controller
 
 
     }
+    
     public function cargarMultiplesArchivos() {
 
 
@@ -208,6 +212,7 @@ class Cdocumentos extends CI_controller
 
 
     }
+
     public function visualizarInformes($name){
         $filename = "test.pdf";
         $route = base_url().'documentos/'.$name;
@@ -223,6 +228,7 @@ class Cdocumentos extends CI_controller
 
 
     }
+
     public function verRequisito($name){
         $filename = "test.pdf";
         $route = base_url().'documentos/'.$name;
@@ -238,6 +244,7 @@ class Cdocumentos extends CI_controller
 
 
     }
+
     public function generarConstancia($id){
         //$ide['ide']=$id;
         $datos['info']=$this->model_pasantia->obtenerPasantiaActiva($id);
@@ -353,7 +360,8 @@ class Cdocumentos extends CI_controller
         $dato = $this->model_documentos->obtenerDocumentos();
        // header('Content-Type: application/json'); no sirve en el servidor
         echo json_encode($dato);
-    }  
+    }
+
     public function obtenerInformes(){
         $dato = $this->model_documentos->obtenerInformes();
        // header('Content-Type: application/json'); no sirve en el servidor
@@ -379,6 +387,7 @@ class Cdocumentos extends CI_controller
         $this->model_documentos->actualizarRating($dato,$iddoc);
       //  print_r($dato);
     }
+    
     public function kVecinos(){
         $ids=array();
         $iddocs='';
@@ -463,105 +472,97 @@ class Cdocumentos extends CI_controller
      echo  '</pre>';*/
 
        /*  $filas=6;
-  $columnas=12;
-  $matriz[0][0]=1;
-  $matriz[1][0]=-1;
-  $matriz[2][0]=1;
-  $matriz[3][0]=-1;
-  $matriz[4][0]=2;
-  $matriz[5][0]=-1;
+      $columnas=12;
+      $matriz[0][0]=1;
+      $matriz[1][0]=-1;
+      $matriz[2][0]=1;
+      $matriz[3][0]=-1;
+      $matriz[4][0]=2;
+      $matriz[5][0]=-1;
 
-  $matriz[0][1]=2;
-  $matriz[1][1]=-1;
-  $matriz[2][1]=-1;
-  $matriz[3][1]=1;
-  $matriz[4][1]=-1;
-  $matriz[5][1]=-1;
+      $matriz[0][1]=2;
+      $matriz[1][1]=-1;
+      $matriz[2][1]=-1;
+      $matriz[3][1]=1;
+      $matriz[4][1]=-1;
+      $matriz[5][1]=-1;
 
-  $matriz[0][2]=-1;
-  $matriz[1][2]=1;
-  $matriz[2][2]=-1;
-  $matriz[3][2]=4;
-  $matriz[4][2]=5;
-  $matriz[5][2]=5;
+      $matriz[0][2]=-1;
+      $matriz[1][2]=1;
+      $matriz[2][2]=-1;
+      $matriz[3][2]=4;
+      $matriz[4][2]=5;
+      $matriz[5][2]=5;
 
-  $matriz[0][3]=-1;
-  $matriz[1][3]=5;
-  $matriz[2][3]=2;
-  $matriz[3][3]=4;
-  $matriz[4][3]=-1;
-  $matriz[5][3]=2;
+      $matriz[0][3]=-1;
+      $matriz[1][3]=5;
+      $matriz[2][3]=2;
+      $matriz[3][3]=4;
+      $matriz[4][3]=-1;
+      $matriz[5][3]=2;
 
-  $matriz[0][4]=2;
-  $matriz[1][4]=-1;
-  $matriz[2][4]=-1;
-  $matriz[3][4]=-1;
-  $matriz[4][4]=1;
-  $matriz[5][4]=1;
+      $matriz[0][4]=2;
+      $matriz[1][4]=-1;
+      $matriz[2][4]=-1;
+      $matriz[3][4]=-1;
+      $matriz[4][4]=1;
+      $matriz[5][4]=1;
 
-  $matriz[0][5]=-1;
-  $matriz[1][5]=5;
-  $matriz[2][5]=1;
-  $matriz[3][5]=-1;
-  $matriz[4][5]=-1;
-  $matriz[5][5]=-1;
+      $matriz[0][5]=-1;
+      $matriz[1][5]=5;
+      $matriz[2][5]=1;
+      $matriz[3][5]=-1;
+      $matriz[4][5]=-1;
+      $matriz[5][5]=-1;
 
-  $matriz[0][6]=3;
-  $matriz[1][6]=3;
-  $matriz[2][6]=-1;
-  $matriz[3][6]=3;
-  $matriz[4][6]=1;
-  $matriz[5][6]=-1;
+      $matriz[0][6]=3;
+      $matriz[1][6]=3;
+      $matriz[2][6]=-1;
+      $matriz[3][6]=3;
+      $matriz[4][6]=1;
+      $matriz[5][6]=-1;
 
-  $matriz[0][7]=4;
-  $matriz[1][7]=1;
-  $matriz[2][7]=3;
-  $matriz[3][7]=-1;
-  $matriz[4][7]=-1;
-  $matriz[5][7]=4;
+      $matriz[0][7]=4;
+      $matriz[1][7]=1;
+      $matriz[2][7]=3;
+      $matriz[3][7]=-1;
+      $matriz[4][7]=-1;
+      $matriz[5][7]=4;
 
-  $matriz[0][8]=-1;
-  $matriz[1][8]=-1;
-  $matriz[2][8]=4;
-  $matriz[3][8]=5;
-  $matriz[4][8]=-1;
-  $matriz[5][8]=-1;
+      $matriz[0][8]=-1;
+      $matriz[1][8]=-1;
+      $matriz[2][8]=4;
+      $matriz[3][8]=5;
+      $matriz[4][8]=-1;
+      $matriz[5][8]=-1;
 
-  $matriz[0][9]=4;
-  $matriz[1][9]=5;
-  $matriz[2][9]=-1;
-  $matriz[3][9]=4;
-  $matriz[4][9]=-1;
-  $matriz[5][9]=1;
+      $matriz[0][9]=4;
+      $matriz[1][9]=5;
+      $matriz[2][9]=-1;
+      $matriz[3][9]=4;
+      $matriz[4][9]=-1;
+      $matriz[5][9]=1;
 
-  $matriz[0][10]=1;
-  $matriz[1][10]=2;
-  $matriz[2][10]=-1;
-  $matriz[3][10]=-1;
-  $matriz[4][10]=2;
-  $matriz[5][10]=-1;
+      $matriz[0][10]=1;
+      $matriz[1][10]=2;
+      $matriz[2][10]=-1;
+      $matriz[3][10]=-1;
+      $matriz[4][10]=2;
+      $matriz[5][10]=-1;
 
-  $matriz[0][11]=-1;
-  $matriz[1][11]=1;
-  $matriz[2][11]=-1;
-  $matriz[3][11]=1;
-  $matriz[4][11]=1;
-  $matriz[5][11]=2;*/
+      $matriz[0][11]=-1;
+      $matriz[1][11]=1;
+      $matriz[2][11]=-1;
+      $matriz[3][11]=1;
+      $matriz[4][11]=1;
+      $matriz[5][11]=2;*/
 
-
-
-
-
-
-
-
-
-  $matrizItemsComunes =$this->crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas);
-$matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
-/*consulto el usuario a quien voy a recomendar en este caso es el de la ssesion*/
-        $idUser=$this->session->userdata('id');
-        $band=false;
-        $c=0;
+      $matrizItemsComunes =$this->crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas);
+      $matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
+      /*consulto el usuario a quien voy a recomendar en este caso es el de la ssesion*/
+            $idUser=$this->session->userdata('id');
+            $band=false;
+            $c=0;
         //$idUser=3;
       //  echo 'idUSER'.$idUser;
         while($band==false && $c<$filas){
@@ -588,6 +589,7 @@ $matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
 
         return $recomendacion;
     }
+    
     public function crearMatrizItemsComunesEntreUsuarios($matriz,$filas,$columnas){
        $matrizItemsComunes[][]=0;
         for ($u = 0; $u  < $filas; $u++) {
@@ -617,13 +619,12 @@ $matrizMSD=$this->calculoMSD($filas,$matrizItemsComunes,$matriz);
         print_r($matrizItemsComunes);
         echo  '</pre>';*/
         return $matrizItemsComunes;
-
     }
 
     /**
      * Algoritmo que se encarga de calcular el MSD (diferencia media cuadrática)
      */
-public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
+    public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
         $bxy = 0; // numero de items comunes
         $max = 0;
         $min = 6; // ponemos como minimo este valor porque es mayor que el
@@ -692,7 +693,6 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
         echo '<pre>';
         print_r($matrizMSD[$idUser]);
         echo  '</pre>';*/
-
         $arrayVecinos= $matrizMSD[$idUser];
         for($j=0;$j<2;$j++) {
             $mayor=-10;
@@ -708,7 +708,6 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
             $arrayVecinos[$pos]=-1;
             $vecinos[] = $pos;
         }
-
         /*echo "USUARIO A RECOMENDAR ordenado";
         echo '<pre>';
         print_r($vecinos);
@@ -718,9 +717,7 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
         echo '<pre>';
         print_r($matrizMSD[$idUser]);
         echo  '</pre>';*/
-
         return $vecinos;
-
     }
 
     public function Estimacion($matriz,$vecinos,$posFila,$columnas){
@@ -761,13 +758,9 @@ public function calculoMSD($filas,$matrizItemsComunes,$matriz) {
         echo '<pre>';
         print_r($estimaciones);
         echo  '</pre>';*/
-return $estimaciones;
-
-
-
-
-
+        return $estimaciones;
     }
+
     public function itemRecomendados($estimacion,$columnas){
         $pos=0;
         $posicionItem=array();
@@ -804,9 +797,7 @@ return $estimaciones;
         return $recomendacion;
 
     }
-
 }
-
 
 
 ?>

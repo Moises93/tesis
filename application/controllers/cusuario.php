@@ -167,6 +167,8 @@ class Cusuario extends CI_Controller
         }
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
             $data['user'] = $rsu;
+            $data['hijo']='cusuario/perfil';
+            $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
          $this->load->view('layout/header',$userData);
          $this->load->view('layout/vmenu',$data);
          $this->load->view('contenido/perfil',$userData);

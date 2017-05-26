@@ -182,4 +182,12 @@ class Model_admin extends CI_Model
         return $this->db->update('usuario_administrador', $data);
     }
 
+        function getLineas($escuela) {
+         $this->db->select('*');
+         $this->db->from('linea_investigacion linv');
+         $this->db->where('linv.id_escuela',$escuela);
+        $query= $this->db->get()->result();
+        return $query;
+    }
+
 }

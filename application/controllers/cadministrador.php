@@ -467,6 +467,20 @@ class cadministrador extends CI_Controller{
         echo json_encode($dato);
     }
 
+     public function getEscuela(){
+        $dato = $this->model_admin->getTodasEscuela();
+        echo json_encode($dato);
+
+
+    }
+
+        public function getLineas(){
+        $escuela=$this->input->post('escuelaid');
+        $dato = $this->model_admin->getLineas($escuela);
+
+        echo json_encode($dato);
+    }
+
 
 
 }

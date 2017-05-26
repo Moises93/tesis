@@ -222,8 +222,8 @@ class Cpasante extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
-        /* print_r($re);
-         exit();*/
+        $datas['hijo']='cpasante/pasantia';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);

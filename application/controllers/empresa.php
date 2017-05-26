@@ -299,6 +299,8 @@ class Empresa extends CI_controller
             );
              $data['menu'] =$this->model_usuario->menuPermisos($idUser);
              $data['user'] = $rsu;
+             $data['hijo']='empresa/misPasantes';
+             $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
             $this->load->view('layout/header',$userData);
             $this->load->view('layout/vmenu',$data);
             $this->load->view('empresa/misPasantes',$quiz);
@@ -396,6 +398,8 @@ class Empresa extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $datas['hijo']='empresa/listaEmpresas';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         /*****************************************************************/
         $empresas= $this->model_empresa->getEmpresaPorId($id);
         $comentarios= $this->model_empresa->getComentariosEmpresa($id);
