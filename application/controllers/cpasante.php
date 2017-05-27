@@ -51,11 +51,16 @@ class Cpasante extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $idEscuela=$this->obtenerIdEscuela($idUser);
+        if($idEscuela == 0){
+            //error no te han creado la pasantia
+            $idEscuela=1; 
+        }
         $datas['hijo']='cpasante/requisitos';
         $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         $re=$this->model_documentos->buscarRequisitos($idUser);
-
-       /* print_r($re);
+        $re['escuela']=$idEscuela;
+        /* print_r($re);
         exit();*/
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
@@ -63,9 +68,18 @@ class Cpasante extends CI_controller
         $this->load->view('pasante/vrequisitos',$re);
         $this->load->view('contenido/footerAdmin');
     }
+    public function obtenerIdEscuela($idUser){
+        return $this->model_pasante->obtenerIdEscuela($idUser);
+        
+    }
 
+    public function obtenerIdPasante($idUser){
+        return $this->model_pasante->obtenerIdPasante($idUser);
+        
+    }
+  
     public function cargar_requisito() {
-
+        $linea=$this->input->post('cbLineasr');
         $requisito=$this->input->post('requisito');
         $validador=$this->input->post('validaror');
         $titulo=$this->input->post('titulo');
@@ -77,7 +91,9 @@ class Cpasante extends CI_controller
         //exit();
         $idUser=$this->session->userdata('id');
         $login=$this->session->userdata('Login');
-
+        $idPas=$this->obtenerIdPasante($idUser);
+       
+        $this->model_pasante->actualizarLineaPasantia($idPas,$linea);
 
 
         $archivo = 'requisitos';
@@ -147,7 +163,6 @@ class Cpasante extends CI_controller
 
             }
 
-
         //redirect('/cdocumentos/subir_documentos', 'refresh');
         }
 
@@ -157,8 +172,17 @@ class Cpasante extends CI_controller
         $userData = array(
             'user' => $this->model_usuario->obtenerDataHeader($tipo,$idUser)
         );
+        $idEscuela=$this->obtenerIdEscuela($idUser);
+        if($idEscuela == 0){
+            //error no te han creado la pasantia
+            $idEscuela=1; 
+        }
+        $datas['hijo']='cpasante/cargar_requisito';
+        $datas['padre']=$this->model_admin->obtenerIdPadres($datas['hijo']);
         $re=$this->model_documentos->buscarRequisitos($idUser);
         $re['mensaje']=$info;
+          $re['escuela']=$idEscuela;
+
         /*****************************************************************/
         $this->load->view('layout/header',$userData);
         $this->load->view('layout/vmenu',$datas);

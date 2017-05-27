@@ -103,7 +103,7 @@ if( isset ($mensaje )) {
                     </form>
                 </div>
 
-                <button id="activate-step-2" class="btn btn-primary btn-lg">Avanzar al siguiente paso</button>
+                <button id="activate-step-2" class="btn btn-primary btn-lg">Siguiente</button>
             </div>
         </div>
     </div>
@@ -167,8 +167,22 @@ if( isset ($mensaje )) {
                                 <td><input type=hidden name="requisito" value="planActividades"></td>
                             </tr>
                             <tr>
+                                           <?php if( $escuela !=null ){?>
+                                               <input type="hidden" id="vescuela" value="<?php echo $escuela;?>">
+                                            <?php } ?>
+                                                <div class="form-group">
+                                                    <label>* Linea de Investigación</label>
+                                                    <select id="cbLineasr" class="form-control" name="cbLineasr" required>
+                                                        <option value="-1">seleccione:</option>
+                                                    </select>
+
+                                              
+                                            </div>
+                            </tr>
+                            <tr>
                                 <td colspan="2"><input type="file" name="requisitos"></td></br>
                             </tr>
+                            <tr>
                             <?php
                             if($actividades != "0") {
                                 echo "<tr>";
@@ -185,7 +199,7 @@ if( isset ($mensaje )) {
                                 echo   "</tr>";
                             }
                             ?>
-
+                            </tr>
                         </table>
 
 

@@ -8,7 +8,7 @@ $.post(baseurl + "cadministrador/getEscuela",
 
             );
         });
-        $('#cescuela').append('<option value="5">General</option>');
+        $('#cescuela').append('<option value="6">General</option>');
     });
 
 
@@ -37,3 +37,25 @@ function mostrarLineas(){
     
 
 }
+
+$(document).ready(function(e) {
+	  var escuela=parseInt($('#vescuela').val());
+		 if(escuela ==0){
+		 		alert('Tu pasantia aun no ha sido registrada al sistema');
+		 }else{
+		 		   $.post(baseurl + "cadministrador/getLineas",
+	        {
+	            escuelaid: escuela,
+	        },
+	        function(data) {
+	            var p = JSON.parse(data);
+	            $.each(p, function (i, item) {
+	                $('#cbLineasr').append('<option value="'+item.id_linea+'">'+item.nombre+'</option>'
+
+	                );
+	            });
+	        });
+		 }
+
+
+});

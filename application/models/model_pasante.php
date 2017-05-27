@@ -115,6 +115,45 @@ class Model_pasante extends CI_Model
         return $this->db->get()->result();
 
     }
+    function obtenerIdEscuela($idUser){
+        $this->db->select('id_escuela');
+        $this->db->from('pasante pas ');
+        $this->db->where('pas.id_usuario', $idUser);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+             return $query->row()->id_escuela;
+        }
+        else{
+            return 0;
+        }
+       
+    }
+      function obtenerIdPasante($idUser){
+        $this->db->select('pas_id');
+        $this->db->from('pasante pas ');
+        $this->db->where('pas.id_usuario', $idUser);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+             return $query->row()->pas_id;
+        }
+        else{
+            return 0;
+        }
+       
+    }
+    function getIdLinea($idPas){
+        $this->db->select('id_linea');
+        $this->db->from('pasantia');
+        $this->db->where('pas_id', $idPas);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+             return $query->row()->id_linea;
+        }
+        else{
+            return 0;
+        }
+       
+    }
 
     function actualizar_telefono($pas_id,$pas_telefono){
         $data = array(
@@ -129,17 +168,35 @@ class Model_pasante extends CI_Model
         return FALSE;
     }
 
+
+
     function actualizar_pasante($id_usuario,$data){
             $this->db->where('id_usuario', $id_usuario);
             return $this->db->update('pasante', $data);
     }
 
-    function getIdPasante($idUsuario){
+    function actualizarLineaPasantia($idPas,$linea){
+         $data = array(
+            'id_linea' => $linea
+        );
+            $this->db->where('pas_id', $idPas);
+            return $this->db->update('pasantia', $data);
+    }
+
+   /* function getIdPasante($idUsuario){
         $this->db->select('pas_id');
         $this->db->from('pasante');
         $this->db->where('id_usuario', $idUsuario);
-        return $this->db->get()->result();
-    }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+             return $this->db->get()->result();
+        }
+        else{
+            return 0;
+        }
+    }*/
+
+
 
     public function getRecomendadosEmpresa($id){
         $sql = "SELECT pas.pas_id, count(*) as Total, 

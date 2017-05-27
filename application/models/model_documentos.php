@@ -167,6 +167,39 @@ class Model_documentos extends CI_Model
         return $data;
     }
 
+    function consultarDocumentoVisto($idUser,$iddoc){
+        $data=array();
+        $this->db->select('*');
+        $this->db->from('documentos_vistos');
+        $this->db->where('id_usuario',$idUser);
+        $this->db->where('iddoc',$iddoc);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row){
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+    function obtenerDocumentoVistos($idUser){
+        $this->db->select('iddoc');
+        $this->db->from('documentos_vistos dcv');
+        $this->db->where('dcv.id_usuario', $idUser);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+             return $query->row();
+        }
+        else{
+            return 0;
+        }
+       
+    }
+    function eliminarDocumentoVisto($iddoc,$idUser){
+        $this->db->where('id_usuario',$idUser);
+        $this->db->where('iddoc',$iddoc);
+        $this->db->delete('documentos_vistos');
+    }
+
     function actualizarValoracionLibros($iddoc,$valor,$idUser)
     {
         $data = array(
@@ -177,7 +210,7 @@ class Model_documentos extends CI_Model
         $this->db->where('id_usuario', $idUser);
         $this->db->update('valoracion_libros', $data);
     }
-
+    
     function guardarValoracionLibros($iddoc,$valor,$idUser){
         $data = array(
             'iddoc' => $iddoc,
@@ -185,6 +218,14 @@ class Model_documentos extends CI_Model
             'valor' => $valor
         );
         return $this->db->insert('valoracion_libros',$data);
+    }
+
+      function guardarDocumentoVisto($iddoc,$idUser){
+        $data = array(
+            'iddoc' => $iddoc,
+            'id_usuario' => $idUser,
+        );
+        return $this->db->insert('documentos_vistos',$data);
     }
 
     function consultarRating($iddoc){

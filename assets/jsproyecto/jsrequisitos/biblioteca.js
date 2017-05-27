@@ -72,7 +72,7 @@ $('#tblBiblioteca').DataTable({
                 var formato = row.formato.split("/");
                 var extencion = formato[1];
                 var descarga=baseurl+'cdocumentos/visualizarDocumentos/'+row.nombredoc+'.'+extencion;
-                return '<a href="'+ descarga+'"target="_blank" <span class="fa fa-search" aria-hidden="true"></span></a> '+
+                return '<a href="'+ descarga+'"target="_blank" onClick="libroVisto(\'' + row.iddoc + '\');"><span class="fa fa-search" aria-hidden="true"></span></a> '+
                     '&nbsp;&nbsp;<a href="#" title="Valorar Libro" data-toggle="modal" ' +
                     'data-target="#modalValoracion" ' +
                     'onClick="infoLibro(\'' + row.nombredoc + '\',\'' + row.iddoc + '\');"><span  class="fa fa-star" </span></a>' ;
@@ -86,7 +86,7 @@ $('#tblBiblioteca').DataTable({
 
     $.post(baseurl + "cdocumentos/kVecinos",
         function(data){
-           console.log(data);
+          //console.log(data);
             var p = JSON.parse(data);
             console.log(p);
             libros=p.length;
@@ -131,6 +131,19 @@ $('#nombreLibro').text(nombreLibro);
     $('#texto').show();
     $('#exito').fadeOut();
 
+ //alert('aqui valoro');
+};
+
+
+libroVisto = function(iddoc){
+//alert(iddoc);
+    $.post(baseurl + "cdocumentos/libroVisto",
+        {
+            id:iddoc,
+        },
+        function(data){
+
+        });
  //alert('aqui valoro');
 };
 valorarLibro= function(){

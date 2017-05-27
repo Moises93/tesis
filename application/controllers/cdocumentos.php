@@ -17,6 +17,7 @@ class Cdocumentos extends CI_controller
         $this->load->model('model_admin');
         $this->load->model('model_documentos');
         $this->load->model('model_pasantia');
+         $this->load->model('model_pasante');
         $this->load->helper('url');
     }
 
@@ -89,9 +90,9 @@ class Cdocumentos extends CI_controller
         $archivo = 'archivo'; //debe coincidir con el name del input tipe file // este nombre es importante
         $config['upload_path'] = "biblioteca/";
        // $config['file_name'] = $login.$titulo;
-        $config['allowed_types'] = "pdf|doc";
+        $config['allowed_types'] = "pdf|doc|docx";
         $config['overwrite']=true; //sobreescrie archivos
-        $config['max_size'] = "50000";
+        $config['max_size'] = "150000";
         $config['max_width'] = "2000";
         $config['max_height'] = "2000";
 
@@ -375,13 +376,30 @@ class Cdocumentos extends CI_controller
 
         $existe=$this->model_documentos->consultarValoracion($idUser,$iddoc);
         if(count($existe)>0){
+               
             $this->model_documentos->actualizarValoracionLibros($iddoc,$valor,$idUser);
         }else{
+             $esVisto= $this->model_documentos->consultarDocumentoVisto($idUser,$iddoc);
+                if(count($esVisto)>0){
+                    $this->model_documentos->eliminarDocumentoVisto($iddoc,$idUser);
+                }
             $this->model_documentos->guardarValoracionLibros($iddoc,$valor,$idUser);
         }
       $this->actualizarRating($iddoc);
     }
-
+    
+    public function libroVisto(){
+          $iddoc = $this->input->post('id');
+          $idUser= $this->session->userdata('id');
+          $existe= $this->model_documentos->consultarValoracion($idUser,$iddoc);
+          if(count($existe)<1){
+                $esVisto= $this->model_documentos->consultarDocumentoVisto($idUser,$iddoc);
+                if(count($esVisto)<1){
+                    $this->model_documentos->guardarDocumentoVisto($iddoc,$idUser);
+                }
+          }
+          
+    }
     public function actualizarRating($iddoc){
         $dato=$this->model_documentos->consultarRating($iddoc);
         $this->model_documentos->actualizarRating($dato,$iddoc);
@@ -391,6 +409,14 @@ class Cdocumentos extends CI_controller
     public function kVecinos(){
         $ids=array();
         $iddocs='';
+        $idUser=$this->session->userdata('id');
+        $docVistos=$this->model_documentos->obtenerDocumentoVistos($idUser);
+        $idPasante=$this->model_pasante->obtenerIdPasante($idUser);
+        //evaluar esta condicion o validar en la funcion fnal
+        //if($idPasante!=0){
+        $lineaInvestigacion= $this->model_pasante->getIdLinea($idPasante);
+        //}
+       // $this->adaptativa($docVistos,$lineaInvestigacion,$idUser);
         $ids=$this->recomendacion();
         for( $x = 0; $x < count($ids); $x++ ){
             $iddocs .=  $ids[$x]. ',';
@@ -403,7 +429,9 @@ class Cdocumentos extends CI_controller
         echo json_encode($documentos);
        // return $documentos;
     }
-
+    public function adaptativa(){
+        echo 'hola';
+    }
     public function recomendacion(){
         $item=array();
         $fila=0;
@@ -573,12 +601,13 @@ class Cdocumentos extends CI_controller
             $c=$c+1;
         }
         if($band==false){
+
       //   echo"HAGO UNA RECOMENDACION ALEATORIA";
             for($x=0;$x<3;$x++){
                 $aleatorio=rand(0, $columnas-1);
                 $recomendacion[]=$item[$aleatorio];
             }
-
+/**En inspecion ya que puedo validar fuera de este metodo si el usuario valoro o no con una consulta sql asi no recorro una matriz****/
         }else{
             //   $posFila=1;
             /*consulto los vecimos de mayor siilitud del usuario*/
