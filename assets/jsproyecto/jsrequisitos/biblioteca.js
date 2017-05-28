@@ -78,7 +78,7 @@ $('#tblBiblioteca').DataTable({
                     'onClick="infoLibro(\'' + row.nombredoc + '\',\'' + row.iddoc + '\');"><span  class="fa fa-star" </span></a>' ;
             }
         },
-
+ 
     ],
 
   ///  "order": [[ 1, "asc" ]],
@@ -114,6 +114,17 @@ $('#tblBiblioteca').DataTable({
                 $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
                 $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
 
+            }else if(libros ==4){
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+            }else if(libros ==5){
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#librod").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
             }
 
 

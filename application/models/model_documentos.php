@@ -167,6 +167,31 @@ class Model_documentos extends CI_Model
         return $data;
     }
 
+     //Funcion usada en la recomendacion
+    //return  IdDoc de los documentos valorados por usuarios de esa empresa
+      function getDocEmpresa($empId){
+        $this->db->distinct();
+        $this->db->select('val.iddoc');
+        $this->db->from('valoracion_libros val');
+        $this->db->join('pasante pas', 'pas.id_usuario=val.id_usuario');
+        $this->db->join('pasantia pa', 'pas.pas_id=pa.pas_id');
+        $this->db->where('pa.emp_id', $empId);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            foreach ($query->result_array() as $row){
+                //echo $row;
+                $data[] = $row['iddoc'];
+            }
+            return $data;
+        
+          
+        }
+        else{
+            return 0;
+        }
+
+    }
+//busco un documento visto en especifico
     function consultarDocumentoVisto($idUser,$iddoc){
         $data=array();
         $this->db->select('*');
@@ -181,13 +206,63 @@ class Model_documentos extends CI_Model
         }
         return $data;
     }
+    //obtengo todos los documentos vistos
     function obtenerDocumentoVistos($idUser){
+        $data=array();
         $this->db->select('iddoc');
         $this->db->from('documentos_vistos dcv');
         $this->db->where('dcv.id_usuario', $idUser);
         $query = $this->db->get();
         if ($query->num_rows() > 0){
-             return $query->row();
+            foreach ($query->result_array() as $row){
+                //echo $row;
+                $data[] = $row['iddoc'];
+            }
+            return $data;
+        
+          
+        }
+        else{
+            return 0;
+        }
+       
+    }
+
+    function obtenerDocsLinea($idLinea){
+        $data=array();
+        $this->db->select('iddoc');
+        $this->db->from('documentos doc');
+        $this->db->where('doc.id_linea', $idLinea);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            foreach ($query->result_array() as $row){
+                //echo $row;
+                $data[] = $row['iddoc'];
+            }
+            return $data;
+        
+          
+        }
+        else{
+            return 0;
+        }
+       
+    }
+    function obtenerDocsLineaGeneral(){
+        $data=array();
+        $this->db->select('doc.iddoc');
+        $this->db->from('documentos doc');
+        $this->db->join('linea_investigacion inv', 'doc.id_linea=inv.id_linea');
+        $this->db->where('inv.id_escuela', 6);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            foreach ($query->result_array() as $row){
+                //echo $row;
+                $data[] = $row['iddoc'];
+            }
+            return $data;
+        
+          
         }
         else{
             return 0;
@@ -275,12 +350,32 @@ class Model_documentos extends CI_Model
       //  $query=$this->db->get();
        // return $query->result();
     }
+    //esta funcion la uso para llenar la matriz en k-vecinos 
     function usuariosValoracion($idUsu){
         $this->db->select('*');
         $this->db->from('valoracion_libros');
         $this->db->where('id_usuario',$idUsu);
         $query = $this->db->get();
         return $query->result();
+    }
+    //esta funcion la uso en la recomendacion para validaciones
+    function usuarioValoracion($idUsu){
+        $data=array();
+        $this->db->select('iddoc');
+        $this->db->from('valoracion_libros');
+        $this->db->where('id_usuario',$idUsu);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            foreach ($query->result() as $row){
+                //echo $row;
+                $data[] = $row->iddoc;
+            }
+            return $data;
+            
+        }
+        else{
+            return 0;
+        }
     }
 
 }

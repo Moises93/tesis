@@ -27,17 +27,25 @@
                         <tbody>
                         <!-- Single event in a single day -->
                         <tr>
-                            <td style="border: 0;width: 100px;" >
+                            <td style="border: 0;width: 60px;" >
                              <span id="libro"></span>
                               <span id="libro1" style=" width:-5px;height: inherit; display: flex;"></span>
                             </td>
-                            <td style="border: 0; width: 100px;"" >
+                            <td style="border: 0; width: 60px;"" >
                                 <span id="libroa"></span>
                                 <span id="libro2" style=" width:-5px;height: inherit; display: flex;"></span>
                             </td>
-                            <td style="border: 0;width: 100px;"">
+                            <td style="border: 0;width: 60px;"">
                                 <span id="librob"></span>
                                 <span id="libro3" style=" width:-5px;height: inherit; display: flex;"></span>
+                            </td>
+                            <td style="border: 0;width: 60px;"">
+                                <span id="libroc"></span>
+                                <span id="libro4" style=" width:-5px;height: inherit; display: flex;"></span>
+                            </td>
+                            <td style="border: 0;width: 60px;"">
+                                <span id="librod"></span>
+                                <span id="libro5" style=" width:-5px;height: inherit; display: flex;"></span>
                             </td>
                         </tr>
     

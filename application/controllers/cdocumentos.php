@@ -408,30 +408,272 @@ class Cdocumentos extends CI_controller
     
     public function kVecinos(){
         $ids=array();
+        $docLineaInvestigacion=0;
+        $docValoradosMismaEmpresa=0;
         $iddocs='';
         $idUser=$this->session->userdata('id');
+
+        //echo 'idUser'.$idUser;
         $docVistos=$this->model_documentos->obtenerDocumentoVistos($idUser);
         $idPasante=$this->model_pasante->obtenerIdPasante($idUser);
         //evaluar esta condicion o validar en la funcion fnal
-        //if($idPasante!=0){
-        $lineaInvestigacion= $this->model_pasante->getIdLinea($idPasante);
-        //}
-       // $this->adaptativa($docVistos,$lineaInvestigacion,$idUser);
-        $ids=$this->recomendacion();
-        for( $x = 0; $x < count($ids); $x++ ){
-            $iddocs .=  $ids[$x]. ',';
+        //if($idPasante!=0){ if(idPasante ==0 recomienda generales  y ya)
+        if($idPasante!=0){
+            $valores= $this->model_pasante->getIdLinea($idPasante); //consulto linea de investigacion y empresa.
+            $lineaInvestigacion=$valores->id_linea;
+            $empId=$valores->emp_id;
+            $docLineaInvestigacion=$this->model_documentos->obtenerDocsLinea($lineaInvestigacion);
+            $docValoradosMismaEmpresa= $this->model_documentos->getDocEmpresa($empId);
         }
-        $iddocs= substr($iddocs, 0, -1);
-      //  echo $iddocs;
+    
+        $docLineaGeneral=$this->model_documentos->obtenerDocsLineaGeneral();
+        $valor=$this->model_documentos->usuarioValoracion($idUser);
+        //verifico si el usuario ha hecho valoraciones en caso afirmativo ejecuto el K-vecionos
+        if($valor != 0){
+            $nn=3; //cantidad de recomendaciones que retornara
+            $recAdaptativa= $this->adaptativa($docVistos,$docLineaInvestigacion,$docValoradosMismaEmpresa,$docLineaGeneral,$nn);
+        
+            $ids=$this->recomendacion();
 
-       $documentos=$this->model_documentos->librosRecomendados($iddocs);
-       // print_r($documentos);
-        echo json_encode($documentos);
+             /*print_r($recAdaptativa);echo '<br/>';
+             print_r($ids);echo'<br/>';   
+   
+            exit();*/
+            foreach ($recAdaptativa as $value) {
+                $ids[]=$value;
+            }
+
+                for( $x = 0; $x < count($ids); $x++ ){
+                    $iddocs .=  $ids[$x]. ',';
+                }
+                $iddocs= substr($iddocs, 0, -1);
+              //  echo $iddocs;
+
+               $documentos=$this->model_documentos->librosRecomendados($iddocs);
+               // print_r($documentos);
+                echo json_encode($documentos);
        // return $documentos;
+        }else{
+            $nn=5;
+            $recAdaptativa= $this->adaptativa($docVistos,$docLineaInvestigacion,$docValoradosMismaEmpresa,$docLineaGeneral,$nn);
+        
+                for( $x = 0; $x < count($recAdaptativa); $x++ ){
+                    $iddocs .=  $recAdaptativa[$x]. ',';
+                }
+                $iddocs= substr($iddocs, 0, -1);
+
+
+               $documentos=$this->model_documentos->librosRecomendados($iddocs);
+               // print_r($documentos);
+                echo json_encode($documentos);
+        }
+
+     
     }
-    public function adaptativa(){
-        echo 'hola';
+    public function adaptativa($docVistos,$docLineaInvestigacion,$docValoradosMismaEmpresa,$docLineaGeneral,$nn){
+        $recomendacion=array();
+        $lineas=array();
+        $empresa=array();
+        $general=array();
+        $band=0;
+        $vectorDePesos=array();
+        $vectorDeDocs=array();
+       /* echo "<br/>";
+        echo'DOC VISTOS';
+        print_r($docVistos);echo "<br/>";
+            echo'DOC Linea';
+        print_r($docLineaInvestigacion);echo "<br/>";
+            echo'DOC Empresa';
+        print_r($docValoradosMismaEmpresa);echo "<br/>";
+            echo'DOC general';
+        print_r($docLineaGeneral);echo "<br/>";
+*/
+
+
+        if($docVistos != 0){
+            foreach ($docVistos as $value) {
+                $vectorDePesos[]=0.1;
+                $vectorDeDocs[]=$value;
+            }
+
+        }
+  /*      echo' Primera Asignacion documentos vistos'.'<br />';
+        print_r($vectorDePesos);echo "<br/>";
+        print_r($vectorDeDocs);echo "<br/>";
+*/
+        
+        if($docLineaInvestigacion!=0){
+            if(count($vectorDeDocs>0)){
+               // echo 'tamaño recomendaciom'.count($vectorDeDocs);
+               // echo 'tamaño line'.count($docLineaInvestigacion);
+                for ($i=0; $i <count($docLineaInvestigacion) ; $i++) {
+                    for ($j=0; $j <count($vectorDeDocs) ; $j++) { 
+                        if($docLineaInvestigacion[$i]== $vectorDeDocs[$j]){
+                             $band=1;
+                            $vectorDePesos[$j]=$vectorDePesos[$j]+0.3;
+                        }
+                     } 
+                     if($band==0){
+                         array_push($vectorDePesos,+0.3);
+                         array_push($lineas, $docLineaInvestigacion[$i]);
+                      }else{
+                        $band=0;
+                     }      
+                }
+            }else{
+                foreach ($docLineaInvestigacion as $value) {
+                    $vectorDePesos[]=0.3;
+                    $vectorDeDocs[]=$value;
+                }
+            }
+            foreach ($lineas as $value) {
+                $vectorDeDocs[]=$value;
+            }
+
+         
+        }
+  /*      echo' Segunda Asignacion documentos Linea'.'<br />';
+        print_r($vectorDePesos);echo "<br/>";
+        print_r($vectorDeDocs);echo "<br/>";
+    */   
+        if($docValoradosMismaEmpresa!=0){
+            if(count($vectorDeDocs>0)){
+                for ($i=0; $i < count($docValoradosMismaEmpresa) ; $i++) {
+                    for ($j=0; $j <count($vectorDeDocs) ; $j++) { 
+                        if($docValoradosMismaEmpresa[$i]== $vectorDeDocs[$j]){
+                           $band=1;
+                            $vectorDePesos[$j]=$vectorDePesos[$j]+0.3;
+                        }  
+                     }
+                     if($band==0){
+                        array_push($vectorDePesos,0.3);
+                        $empresa[] =$docValoradosMismaEmpresa[$i];   
+                     }else{
+                        $band=0;
+                     } 
+                     
+                           
+                }
+            }else{
+                foreach ($docValoradosMismaEmpresa as $value) {
+                     $vectorDePesos[]=0.3;
+                     $vectorDeDocs[]=$value;
+                }
+            }
+           
+            foreach ($empresa as $value) {
+                $vectorDeDocs[]=$value;
+            }
+            // print_r($recomendacion);
+        }
+      /*  echo' Tercera Asignacion documentos Empresa'.'<br />';
+        print_r($vectorDePesos);echo "<br/>";
+        print_r($vectorDeDocs);echo "<br/>";*/
+        if($docLineaGeneral!=0){
+            if(count($vectorDeDocs>0)){
+                for ($i=0; $i <count($docLineaGeneral) ; $i++) {
+                    for ($j=0; $j <count($vectorDeDocs) ; $j++) { 
+                        if($docLineaGeneral[$i]== $vectorDeDocs[$j]){
+                            $band=1;
+                           $vectorDePesos[$j]=$vectorDePesos[$j]+0.3;
+                        }
+                        
+                     } 
+                     if($band==0){
+                      array_push($vectorDePesos,0.3);
+                            array_push($general, $docLineaGeneral[$i]);
+                    }else{
+                        $band=0;
+                     } 
+                           
+                }
+            }else{
+                foreach ($docLineaGeneral as $value){
+                    $vectorDePesos[]=0.3;
+                    $vectorDeDocs[]=$value;
+                }
+            }
+            foreach ($general as $value) {
+                $vectorDeDocs[]=$value;
+            }
+        }
+        /*echo' cuarta Asignacion documentos Generales'.'<br />';
+        print_r($vectorDePesos);echo "<br/>";
+        print_r($vectorDeDocs);echo "<br/>";*/
+
+        $resultado=array();
+        $resultado=$this->ordenamientoInsercion($vectorDePesos,$vectorDeDocs);
+    
+        /*echo' Documentos con mayor peso'.'<br />';
+        print_r($resultado);echo "<br/>";*/
+         /***
+         * Nota: Consulto el array de las valoraciones dell usuario para descartar esos documentos
+         * ya que no es logico recomendar un documento ya valorado por el usuario
+         *
+         **/
+
+         $idUser=$this->session->userdata('id');
+         $valorados=$this->model_documentos->usuarioValoracion($idUser);
+       // print_r($valorados);echo '<br />';
+         //print_r($resultado);echo '<br />';
+        //exit();
+         if($valorados!=0){
+            $igual=0;
+            $p=0;
+              for ($i=0; $i <count($resultado) ; $i++) { 
+                 for ($j=0; $j <count($valorados) ; $j++) { 
+                    if($valorados[$j]==$resultado[$i]){
+                        $igual=1;
+                    }
+                 }
+                 if($igual==0){
+                    $recomendacion[$p]=$resultado[$i];
+                    $p=$p+1;
+                 }else{
+                    $igual=0;
+                 }
+              }
+          
+         }else{
+            $recomendacion=$resultado;
+         }
+      
+    // el array de recomendacion CONTIENE todas las recomendaciones en orden de mayor a menor para el usuarios
+          //a efectos de este sistema solo recomendamos 5 posibles opciones entre las que estan las recomendaciones
+          //realizadas por K-vecinos, la variable que define el retorno en $nn
+        $mejoresResultados=array();
+        for ($i=0; $i <$nn ; $i++) { 
+            $mejoresResultados[]=$recomendacion[$i]; 
+                         
+        }
+        /*foreach ($resultado as $value) {
+            $recomendacion[]=floor($value);
+        }
+         echo' Recomendación Final'.'<br />';*/
+       // print_r($recomendacion);echo "<br/>";
+        return $mejoresResultados;
     }
+    public function ordenamientoInsercion($vectorDePesos,$vectorDeDocs){
+       $n=count($vectorDePesos);
+
+        for ($i = 1; $i < $n; $i++)
+        {
+                 $temp1 = $vectorDePesos[$i];
+                 $temp2= $vectorDeDocs[$i];
+                 $j = $i - 1;
+                 while ($j >= 0 && $vectorDePesos[$j] < $temp1)
+                 {
+                          $vectorDePesos[$j + 1] = $vectorDePesos[$j];
+                           $vectorDeDocs[$j + 1] = $vectorDeDocs[$j];
+                          $j--;
+                 }
+ 
+                 $vectorDePesos[$j + 1] = $temp1;
+                 $vectorDeDocs[$j + 1] = $temp2;
+        }
+        return $vectorDeDocs;
+    }
+
     public function recomendacion(){
         $item=array();
         $fila=0;

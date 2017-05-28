@@ -141,19 +141,21 @@ class Model_pasante extends CI_Model
         }
        
     }
+
     function getIdLinea($idPas){
-        $this->db->select('id_linea');
+        $this->db->select('id_linea,emp_id');
         $this->db->from('pasantia');
         $this->db->where('pas_id', $idPas);
         $query = $this->db->get();
         if ($query->num_rows() > 0){
-             return $query->row()->id_linea;
+             return $query->row();
         }
         else{
             return 0;
         }
        
     }
+    
 
     function actualizar_telefono($pas_id,$pas_telefono){
         $data = array(
