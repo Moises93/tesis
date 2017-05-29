@@ -363,6 +363,13 @@ class Cdocumentos extends CI_controller
         echo json_encode($dato);
     }
 
+
+    public function obtenerDocumentosLineas(){
+        $dato = $this->model_documentos->obtenerDocumentosLineas();
+       // header('Content-Type: application/json'); no sirve en el servidor
+        echo json_encode($dato);
+    }
+
     public function obtenerInformes(){
         $dato = $this->model_documentos->obtenerInformes();
        // header('Content-Type: application/json'); no sirve en el servidor
@@ -642,16 +649,21 @@ class Cdocumentos extends CI_controller
           //a efectos de este sistema solo recomendamos 5 posibles opciones entre las que estan las recomendaciones
           //realizadas por K-vecinos, la variable que define el retorno en $nn
         $mejoresResultados=array();
-        for ($i=0; $i <$nn ; $i++) { 
-            $mejoresResultados[]=$recomendacion[$i]; 
+        if($nn>count($recomendacion)){
+            return $recomendacion;
+        }else{
+            for ($i=0; $i <$nn ; $i++) { 
+                $mejoresResultados[]=$recomendacion[$i]; 
                          
+            }
+            /*foreach ($resultado as $value) {
+                $recomendacion[]=floor($value);
+            }
+             echo' Recomendación Final'.'<br />';*/
+           // print_r($recomendacion);echo "<br/>";
+            return $mejoresResultados;
         }
-        /*foreach ($resultado as $value) {
-            $recomendacion[]=floor($value);
-        }
-         echo' Recomendación Final'.'<br />';*/
-       // print_r($recomendacion);echo "<br/>";
-        return $mejoresResultados;
+      
     }
     public function ordenamientoInsercion($vectorDePesos,$vectorDeDocs){
        $n=count($vectorDePesos);

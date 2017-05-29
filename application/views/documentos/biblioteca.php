@@ -73,6 +73,8 @@
                         <thead>
                         <tr>
                             <th>Documentos</th>
+                            <th>Linea de Investigación</th>
+                            <th>Escuela</th>
                             <th><em class="fa fa-eye"></em></th>
                          
 

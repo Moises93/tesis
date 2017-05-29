@@ -143,6 +143,13 @@ class Model_documentos extends CI_Model
         $this->db->from('documentos');
         return $this->db->get()->result();
     }
+    public function obtenerDocumentosLineas(){
+        $this->db->select('*');
+        $this->db->from('documentos doc');
+        $this->db->join('linea_investigacion linv', 'doc.id_linea = linv.id_linea');
+         $this->db->join('escuela esc', 'linv.id_escuela = esc.id_escuela','left');
+        return $this->db->get()->result();
+    }
     public function obtenerInformes(){
         $this->db->select('*');
         $this->db->from('documentos_requeridos dre');

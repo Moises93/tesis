@@ -13,10 +13,10 @@ $('#tblBiblioteca').DataTable({
     'info': true,
     'filter': true,
     'stateSave': true,
-    "ordering": false, //quito ordenamiento asc y desc  
+    "ordering": true, //quito ordenamiento asc y desc  
 
     'ajax': {
-        "url":baseurl+"cdocumentos/obtenerDocumentos",
+        "url":baseurl+"cdocumentos/obtenerDocumentosLineas",
         "type":"POST",
         dataSrc: ''
     },'columns': [
@@ -64,15 +64,35 @@ $('#tblBiblioteca').DataTable({
                             '<h4 class="title">'+row.nombredoc +
                             '</h4>'+ estrellas+
                             '<p >'+votos+' Valoraciones</p>'+
+                           '<p><strong>Descripción:</strong> '+row.descripcion+'</p>' 
                        '</div></div>';
             }
         },
+        {
+
+            "width":"20%",
+            data: 'nombre'
+        },
+        {   
+            "width":"15%",
+            //data: 'nombre'
+            "render": function (data, type, row) {
+                  nombre=row.esc_nombre;
+                  if(row.esc_nombre == 'null' || row.esc_nombre == null || row.esc_nombre == 'NULL'){
+                    nombre='General';
+                  }
+                  return nombre;
+
+            }
+        
+        },
+ 
         {
             "render": function (data, type, row) {
                 var formato = row.formato.split("/");
                 var extencion = formato[1];
                 var descarga=baseurl+'cdocumentos/visualizarDocumentos/'+row.nombredoc+'.'+extencion;
-                return '<a href="'+ descarga+'"target="_blank" onClick="libroVisto(\'' + row.iddoc + '\');"><span class="fa fa-search" aria-hidden="true"></span></a> '+
+                return '<a href="'+ descarga+'"target="_blank" onClick="libroVisto(\'' + row.iddoc + '\');"><span  title="Ver Libro" class="fa fa-search" aria-hidden="true"></span></a> '+
                     '&nbsp;&nbsp;<a href="#" title="Valorar Libro" data-toggle="modal" ' +
                     'data-target="#modalValoracion" ' +
                     'onClick="infoLibro(\'' + row.nombredoc + '\',\'' + row.iddoc + '\');"><span  class="fa fa-star" </span></a>' ;
@@ -97,7 +117,7 @@ $('#tblBiblioteca').DataTable({
                 extencion = formato[1];
                 descarga=baseurl+'cdocumentos/visualizarDocumentos/'+nombre+'.'+extencion;
                 //$("#libro"+(i+1)).text(''+nombre+'');
-                $("#libro"+(i+1)).html(nombre+'&nbsp;<a href="'+ descarga+'"target="_blank" <span class="fa fa-search" aria-hidden="true"></span></a>');
+                $("#libro"+(i+1)).html(nombre+'&nbsp;<a href="'+ descarga+'"target="_blank" <span class="fa fa-search" title="Ver Libro" aria-hidden="true"></span></a>');
 
             }
             if(libros ==1){
@@ -105,7 +125,7 @@ $('#tblBiblioteca').DataTable({
                 $('#titulo2').fadeOut();
                 $('#titulo3').fadeOut();
             }else if(libros ==2){
-                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px; width:20px"></a>');
                 $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
 
                 $('#titulo3').fadeOut();
@@ -120,11 +140,11 @@ $('#tblBiblioteca').DataTable({
                 $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
                 $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
             }else if(libros ==5){
-                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#librod").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
+                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
+                $("#librod").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
             }
 
 
