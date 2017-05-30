@@ -33,7 +33,7 @@ $.post(baseurl + "empresa/getEmpresa",
             }
         },
         function(start, end, label) {
-            alert("A new date range was chosen: " + start.format('DD-MM-YYY') + ' to ' + end.format('DD-MM-YYY'));
+           // alert("A new date range was chosen: " + start.format('DD-MM-YYY') + ' to ' + end.format('DD-MM-YYY'));
         });
 
 
@@ -73,7 +73,7 @@ $('#agregarPasantia').click(function () {
             },
             function (data) {
 
-                    alert("Insercion exitosa");
+                    alertify.success("Operación realizada con éxito");
                     location.reload();
 
             });
@@ -180,14 +180,14 @@ $('#agregarPasantia').click(function () {
                         '\'' + row.universidad + '\',\'' + row.modalidad + '\',\'' + row.estatus + '\',\'' + row.foto + '\');">'+
                         '<i class="fa fa-search" aria-hidden="true"></i></a>'+
 
-                        '&nbsp;&nbsp;<a href="#" title="Evaluar Pasante" data-toggle="modal" ' +
+                       /* '&nbsp;&nbsp;<a href="#" title="Evaluar Pasante" data-toggle="modal" ' +
                         'data-target="#modalEvaluacion" ' +
                         'onClick="evaluarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
                         '\'' + row.pas_id + '\');"><span  class="fa fa-flag-checkered" </span></a>'+
 
                         '&nbsp;&nbsp;<a href="#" title="Aprobar Pasante"  ' +
                         'onClick="aprobarPasante(\'' + row.id_pasantia + '\',\'' + row.estatus + '\',' +
-                        '\'' + row.requisitos + '\');"><span  class="fa fa-check-circle-o" </span></a>' +
+                        '\'' + row.requisitos + '\');"><span  class="fa fa-check-circle-o" </span></a>' +*/
 
                         '&nbsp;&nbsp;<a href="#" title="Generar Constancia" onclick="window.open(\''+baseurl+'cdocumentos/generarConstancia/' + row.id_pasantia + '\',\'_blank\',\'fullscreen=yes\'); return false;\"><i class="fa fa-print" aria-hidden="true"></i></a>';
 
@@ -464,7 +464,7 @@ $('#actualizarPasantia').click(function(){
             idPasantia:idPasantia
         },
         function(data){
-            alert(data);
+              alertify.success("Operación realizada con éxito");
             $('#mbtnCerrarModal').click();
             location.reload();
         });
@@ -474,7 +474,7 @@ $('#actualizarPasantia').click(function(){
 aprobarPasante = function(idPas,estatus,requisitos){
 
     if(estatus < 4){
-        alert('El Tutor empresarial aun no ha Evaluado');
+        alertify.error('El Tutor empresarial aun no ha Evaluado');
     }else{
         $.post(baseurl + "cpasantia/aprobarPasantia",
             {
@@ -482,7 +482,7 @@ aprobarPasante = function(idPas,estatus,requisitos){
                 idPasantia:idPas
             },
             function(data){
-                alert(data);
+                alertify.success("Operación realizada con éxito");
                 location.reload();
             });
     }

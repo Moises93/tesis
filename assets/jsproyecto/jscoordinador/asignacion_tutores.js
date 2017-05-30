@@ -143,7 +143,8 @@ $('#mbtnUpdTutor').click(function () {
     var tutorA =$('select[name=cbTutorA]').val();
     var tipo= 1; // nota
     if(tutorA=='-1'){
-        alert('Debe ingresar un tutor o cancelar la operación');
+        alertify.alert("Debe ingresar un tutor o cancelar la operación");
+       // alert('Debe ingresar un tutor o cancelar la operación');
     }else{
         $.post(baseurl + "coordinador/agregarTutorA",
             {
@@ -154,7 +155,8 @@ $('#mbtnUpdTutor').click(function () {
             function (data) {
                 if (data) {
                     $('#mbtnCerrarModal').click();
-                    alert(data);
+
+                    alertify.success("Operación realizada con éxito"); 
                     location.reload();
                 }
             });
@@ -193,7 +195,7 @@ $('#mbtnUpdTutorOp').click(function () {
     var tutorA =$('select[name=cbTutorOp]').val();
     var tipo= 2; // siempre va ser 2 porque 2 significa tutorAcademico en la tabla integrantes_pasantias(aplica para esta funcion)
     if(tutorA=='-1'){
-        alert('Debe ingresar un tutor o cancelar la operación');
+        alertify.alert('Debe ingresar un tutor o cancelar la operación');
     }else{
         $.post(baseurl + "coordinador/agregarTutorA",
             {
@@ -204,7 +206,7 @@ $('#mbtnUpdTutorOp').click(function () {
             function (data) {
                 if (data) {
                     $('#mbtnCerrarModal').click();
-                    alert(data);
+                      alertify.success("Operación realizada con éxito"); 
                     location.reload();
                 }
             });
@@ -218,7 +220,7 @@ $('#mbtnUpdTutorO').click(function () {
     var tutorO =$('select[name=cbTutorO]').val();
     var tipo= 2; // siempre va ser 2 porque 2 significa tutorOrganizacional en la tabla integrantes_pasantias(aplica para esta funcion)
     if(tutorO=='-1'){
-        alert('Debe ingresar un tutor o cancelar la operación');
+          alertify.alert('Debe ingresar un tutor o cancelar la operación');
     }else{
         $.post(baseurl + "coordinador/agregarTutorO",
             {
@@ -229,7 +231,7 @@ $('#mbtnUpdTutorO').click(function () {
             function (data) {
                 if (data) {
                     $('#mbtnCerrarModal').click();
-                    alert(data);
+                       alertify.success("Operación realizada con éxito"); 
                     location.reload();
                 }
             });

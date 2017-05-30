@@ -96,7 +96,6 @@ $('#agregarUe').click(function () {
     alert(tipo);
     alert(empresa);*/
 
-alert(telefono);
 
     if(cedula != '' && nombre != '' && login != '') {
         $.post(baseurl + "empresa/agregarUsuarioE",
@@ -239,7 +238,7 @@ $('#UpdUsuarioEmpresa').click(function(){
                         usuario: idUsuario
                     },
                     function (data) {
-                        alert(data);
+                        alertify.success("Operación realizada con éxito");
                         $('#mbtnCerrarModalUe').click();
                         location.reload();
 
@@ -276,7 +275,7 @@ $('#mbtnUpdClave').click(function(){
                 clave: clave
             },
             function (data) {
-                alert(data);
+                alertify.success("Operación realizada con éxito");
                 $('#mbtnCerrarModal').click();
                 location.reload();
 

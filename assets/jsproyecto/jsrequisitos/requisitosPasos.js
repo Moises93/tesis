@@ -48,7 +48,9 @@ $(document).ready(function() {
 
         var pas=parseInt($('#paso1').val());
         if(pas==0){
-            alert('debes subir el requisito para avanzar');
+                alertify.alert("Debes subir el requisito para avanzar");
+                
+            //alert('debes subir el requisito para avanzar');
         }else{
             $('ul.setup-panel li:eq(1)').removeClass('disabled');
            // $(this).remove();
@@ -64,7 +66,11 @@ $(document).ready(function() {
     $('#activate-step-3').on('click', function(e) {
         var pas=parseInt($('#paso2').val());
         if(pas==0){
-            alert('debes subir el requisito para avanzar');
+            alertify.alert("Debes subir el requisito para avanzar", function () {
+                    //aqui introducimos lo que haremos tras cerrar la alerta.
+                    //por ejemplo -->  location.href = 'http://www.google.es/';  <-- Redireccionamos a GOOGLE.
+                });
+            //alert('debes subir el requisito para avanzar');s
         }else {
             $('ul.setup-panel li:eq(2)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
@@ -78,7 +84,7 @@ $(document).ready(function() {
     $('#activate-step-4').on('click', function(e) {
         var pas=parseInt($('#paso3').val());
         if(pas==0){
-            alert('debes subir el requisito para avanzar');
+             alertify.alert("Debes subir el requisito para avanzar");
         }else {
             $('ul.setup-panel li:eq(3)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-4"]').trigger('click');

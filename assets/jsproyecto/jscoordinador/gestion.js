@@ -100,10 +100,10 @@ asignarCoordinador = function(idEscuela,proId,idUser){
         function(data){
             data=data.trim();
             if(data =='true'){
-                alert('operacion Exitosa');
+                alertify.success("Operación realizada con éxito");
                 location.reload();
             }else if(data == 'false'){
-                alert('Ya existe un coordinador asignado a esta escuela')
+                alertify.error('Ya existe un coordinador asignado a esta escuela')
             }
         });
 
@@ -119,7 +119,7 @@ quitarCoordinador = function(idEscuela,proId,idUser){
             idUser:user
         },
         function(data){
-            alert(data);
+            alertify.success("Operación realizada con éxito");
             location.reload();
         });
 

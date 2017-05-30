@@ -66,9 +66,9 @@ if( isset ($mensaje )) {
         <div class="col-xs-11">
             <div class="col-md-12 well setup-content text-center" id="step-1">
                 <h1 class="text-center"> PASO 1</h1>
-                <div style="text-align: justify;" class="panel-body">Sube tu Curriculum para que todos lo vean y puedan contactarte</br>
-                    <p style="text-align: justify;"><strong>Sintesis Curricular </strong>(Tamaño máximo 250Kb)</br>
-                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.pdf,.ppt,.pptx)</p>
+                <div style="text-align: justify;" class="panel-body">Sube tu Currículo para que todos lo vean y puedan contactarte</br>
+                    <p style="text-align: justify;"><strong>Síntesis Curricular </strong>(Tamaño máximo 250Kb)</br>
+                        <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.ppt,.pptx)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
                         <table>
                             <tr>
@@ -111,7 +111,7 @@ if( isset ($mensaje )) {
         <div class="col-xs-11">
             <div class="col-md-12 well setup-content text-center" id="step-2">
                 <h1 class="text-center"> PASO 2</h1>
-                <div style="text-align: justify;" class="panel-body">Sube tu Carta de aceptacion y asi inicia en el sistema tu gestion de pasantia</br>
+                <div style="text-align: justify;" class="panel-body">Sube tu Carta de aceptación y así inicia en el sistema tu gestión de pasantía</br>
                     <p style="text-align: justify;"><strong>Carta de Aceptaci&oacute;n </strong>(Tamaño máximo 1Mb)</br>
                         <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">
@@ -214,7 +214,7 @@ if( isset ($mensaje )) {
             <div class="col-md-12 well setup-content text-center" id="step-4">
                 <h1 class="text-center"> PASO 4</h1>
                 <div style="text-align: justify;" class="panel-body">Sube tu Informe Final y concluye con los requisitos exigidos, Recuerda
-                    valorar los libros que te ayudaron en la seccion de biblioteca</br>
+                    valorar los libros que te ayudaron en la sección de biblioteca</br>
                     <p style="text-align: justify;"><strong>Informe Final</strong>(Tamaño máximo 8Mb)</br>
                         <strong>Formatos permitidos:</strong>(.pdf,.doc,.docx,.pdf)</p>
                     <form method="post" action="cargar_requisito" enctype="multipart/form-data">

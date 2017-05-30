@@ -47,7 +47,7 @@
 
             <div class="modal-header bg-blue">
                 <button type="button" id="mbtnCerrarModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Actualizar Tutor</h4>
+                <h4 class="modal-title" id="myModalLabel">Asignar Tutor</h4>
             </div>
 
             <div class="modal-body">
@@ -72,7 +72,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="mbtnCerrarModal" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-info" id="mbtnUpdTutor">Actualizar</button>
+                <button type="button" class="btn btn-info" id="mbtnUpdTutor">Asignar</button>
             </div>
         </div>
     </div>

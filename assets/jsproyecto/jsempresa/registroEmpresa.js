@@ -119,7 +119,7 @@ $('#actualizarEmpresa').click(function(){
             },
             function (data) {
                 $('#mbtnCerrarModal1').click();
-                alert(data);
+                alertify.success("Operación realizada con éxito");
 
                 location.reload();
 

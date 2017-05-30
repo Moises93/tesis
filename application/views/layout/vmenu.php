@@ -7,6 +7,21 @@
            <!-- <div class="pull-left image">-->
            <div class="pull-left ">
                 <!--<img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">  width="50" height="50"-->
+                <?php $tipo='hola';
+            
+                         if($user[0]->id_tipo==1) {
+                             $tipo='Administrador';
+                         }else if ($user[0]->id_tipo==2){
+                             $tipo='Coordinador';
+                         }else if ($user[0]->id_tipo==3){
+                            $tipo='Profesor';
+                         }else if ($user[0]->id_tipo==4){
+                            $tipo='Estudiante';
+                         }else if ($user[0]->id_tipo==5){
+                            $tipo='Empresa';
+                         }
+                  
+                ?>
                 <?php if (empty($user[0]->usu_foto)) { ?>
                        <a title="Inicio" href="<?php echo base_url();?>"><img src="<?=asset_url("img/noPerfil.png")?>" width="50" height="50" alt="User Image" class="img-circle"> </a>
                     <?php } else { ?>
@@ -14,7 +29,7 @@
                     <?php } ?>
             </div>
             <div class="pull-left info">
-                <p><?=$user[0]->Nombre?></p>
+                <p><?=$user[0]->Nombre.'<br/>('.$tipo.')'?></p>
                 <a href="#"><i class="fa fa-circle text-success"></i></a>
             </div>
         </div>

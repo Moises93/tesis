@@ -140,7 +140,7 @@ function recargarTabla() {
                         function (data) {
                             var mu = JSON.parse(data);
                             if (mu.length>0) {
-                                alert("tiene permisos no puede eliminar");
+                               alertify.error("tiene permisos no puede eliminar");
                             }else{
                                 var idMenu=id;
                                 console.log("antes",idMenu);
@@ -228,7 +228,6 @@ $('#agregarMenu').click(function () {
     var clase = $('#clase').val();
     //var clase = $('#mtxtClase').val();
 
-alert(nombre);
    /* alert(padre);
     alert(clase);
     alert(url);*/

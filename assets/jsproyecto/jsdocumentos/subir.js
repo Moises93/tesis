@@ -41,7 +41,7 @@ function mostrarLineas(){
 $(document).ready(function(e) {
 	  var escuela=parseInt($('#vescuela').val());
 		 if(escuela ==0){
-		 		alert('Tu pasantia aun no ha sido registrada al sistema');
+		 		alertify.error('Tu pasantia aun no ha sido registrada al sistema');
 		 }else{
 		 		   $.post(baseurl + "cadministrador/getLineas",
 	        {

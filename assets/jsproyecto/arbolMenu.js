@@ -71,7 +71,7 @@ function buscarPermiso() {
 function guardarP(){
 var i=1;
     var menus = [];
-  alert("el usuario:"+idUser);
+  //alert("el usuario:"+idUser);
     $("#tblPermisos tbody tr").each(function (index)
     {
         if( $('#miCheck_'+i).is(':checked') ) {

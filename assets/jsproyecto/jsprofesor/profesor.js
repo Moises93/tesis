@@ -178,7 +178,7 @@ $('#actualizarProfesor').click(function(){
                 idpro:idpro
             },
             function(data){
-                alert(data);
+                alertify.success("Operación realizada con éxito");
                 $('#mbtnCerrarModal').click();
                 location.reload();
             });
@@ -198,10 +198,7 @@ $('#agregarProfesor').click(function () {
    var email = $('#emailP').val();
    var login = $('#loginP').val();
    var password = $('#pswP').val();
-   //alert(nombre);
-   /* alert(padre);
-    alert(clase);
-    alert(url);*/
+
     $.post(baseurl + "profesor/crearProfesor",
         {
             cedula: cedula,

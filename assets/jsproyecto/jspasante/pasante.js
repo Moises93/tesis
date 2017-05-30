@@ -236,7 +236,7 @@ $('#agregarPasante').click(function () {
                 }
             });
     }else{
-        alert("debe rellenar todos los datos!");
+        alertify.error("debe rellenar todos los datos!");
     }
 
 });
@@ -324,7 +324,7 @@ $('#mbtnUpdEstudiante').click(function(){
                             idpas:idpas
                         },
                         function(data){
-                            alert(data);
+                              alertify.success("Operación realizada con éxito");
                             $('#mbtnCerrarModal').click();
                             location.reload();
                         });
@@ -345,7 +345,7 @@ $('#mbtnUpdClave').click(function(){
                 clave: clave
             },
             function (data) {
-                alert(data);
+                  alertify.success("Operación realizada con éxito");
                 $('#mbtnCerrarModal').click();
                 location.reload();
 

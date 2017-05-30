@@ -216,7 +216,7 @@ function format ( d ) {
 aprobarPasante = function(idPas,estatus,requisitos){
 
     if(estatus < 4){
-        alert('El Tutor empresarial aun no ha Evaluado');
+        alertify.error('El Tutor empresarial aun no ha Evaluado');
     }else{
         $.post(baseurl + "cpasantia/aprobarPasantia",
             {
@@ -224,7 +224,7 @@ aprobarPasante = function(idPas,estatus,requisitos){
                 idPasantia:idPas
             },
             function(data){
-                alert(data);
+                alertify.success("Operación realizada con éxito");
                 location.reload();
             });
     }

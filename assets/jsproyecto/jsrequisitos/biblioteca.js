@@ -162,12 +162,11 @@ $('#nombreLibro').text(nombreLibro);
     $('#texto').show();
     $('#exito').fadeOut();
 
- //alert('aqui valoro');
 };
 
 
 libroVisto = function(iddoc){
-//alert(iddoc);
+
     $.post(baseurl + "cdocumentos/libroVisto",
         {
             id:iddoc,
@@ -175,7 +174,7 @@ libroVisto = function(iddoc){
         function(data){
 
         });
- //alert('aqui valoro');
+ 
 };
 valorarLibro= function(){
 var valor=  document.getElementById("count").innerHTML;
