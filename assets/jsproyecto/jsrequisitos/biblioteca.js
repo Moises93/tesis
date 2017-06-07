@@ -135,16 +135,16 @@ $('#tblBiblioteca').DataTable({
                 $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
 
             }else if(libros ==4){
-                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
-                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;"></a>');
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px;width:40px"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px; width:40px"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px; width:40px"></a>');
+                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: 12px; width:40px"></a>');
             }else if(libros ==5){
-                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
-                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
-                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
-                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
-                $("#librod").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:40px"></a>');
+                $("#libro").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:45px"></a>');
+                $("#libroa").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:45px"></a>');
+                $("#librob").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:45px"></a>');
+                $("#libroc").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:45px"></a>');
+                $("#librod").html('<a href="#" class="pull-left"><img src='+baseurl+'assets/img/book.png class="media-photo"style="margin-top: -5px; width:45px"></a>');
             }
 
 

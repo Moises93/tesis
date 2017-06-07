@@ -163,7 +163,7 @@ class Cusuario extends CI_Controller
             );
         if($tipo == 4){
             $id_pasante = $this->model_pasante->getIdPasante($idUser);
-            $userData['Habilidades'] = $this->model_habilidades->getTodosHabilidadesNoPasante($id_pasante[0]->pas_id);
+            $userData['Habilidades'] = $this->model_habilidades->getTodosHabilidadesNoPasante($id_pasante);
         }
             $data['menu'] =$this->model_usuario->menuPermisos($idUser);
             $data['user'] = $rsu;
@@ -200,8 +200,10 @@ class Cusuario extends CI_Controller
             'user' => $rsu,
             'Foto' =>$foto
         );
-        $data['menu'] =$this->model_usuario->menuPermisos($idUser);
-        $data['user'] = $rsu;
+           $data['menu'] =$this->model_usuario->menuPermisos($idUser);
+            $data['user'] = $rsu;
+            $data['hijo']='cusuario/guardarUsuario';
+            $data['padre']=$this->model_admin->obtenerIdPadres($data['hijo']);
         $data1 = array();
         foreach($_POST as $key => $value) {
             $data1[$key] = $value;

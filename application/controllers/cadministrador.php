@@ -289,8 +289,8 @@ class cadministrador extends CI_Controller{
        // print_r($menu);
         $menus = count($menu);
       //  echo($menus);
-        print_r($permisos);
-        echo($resultado);
+        //print_r($permisos);
+       // echo($resultado);
       
 
       if($menus>0){
@@ -373,6 +373,7 @@ class cadministrador extends CI_Controller{
             if ($this->csvimport->get_array($file_path)) {
                 $csv_array = $this->csvimport->get_array($file_path);
                 foreach ($csv_array as $row) {
+                    //Mejora:validar cabeceras del archivo csv para determinar si el archivo es valido o no
                     $tipo=  $this->model_admin->consultarTipoUsuario($row['tipo']);
                     $tipou=$tipo->id_tipo;
                     
@@ -380,7 +381,7 @@ class cadministrador extends CI_Controller{
                     $data =$this->model_usuario->obtenerIdUsuarios($row['usuario']);
                     $id_usuario =$data->id_usuario;
                     if($row['tipo']=='estudiante'){
-                        $clave=array('reqMenu','empMenu'); // claves de menu para guardar permisos.
+                        $clave=array('reqMenu','empMenu','docReco'); // claves de menu para guardar permisos.
                         $this->model_usuario->agregarPasante($row['cedula'],$row['nombre'],$row['apellido'],$row['sexo'],
                                                          $row['escuela'],$id_usuario);
                         foreach($clave as $cla){

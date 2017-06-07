@@ -427,10 +427,19 @@ class Cdocumentos extends CI_controller
         //if($idPasante!=0){ if(idPasante ==0 recomienda generales  y ya)
         if($idPasante!=0){
             $valores= $this->model_pasante->getIdLinea($idPasante); //consulto linea de investigacion y empresa.
-            $lineaInvestigacion=$valores->id_linea;
-            $empId=$valores->emp_id;
-            $docLineaInvestigacion=$this->model_documentos->obtenerDocsLinea($lineaInvestigacion);
-            $docValoradosMismaEmpresa= $this->model_documentos->getDocEmpresa($empId);
+            //print_r($valores);
+            if($valores!= null){
+                if($valores->id_linea !=0 ){
+                  $lineaInvestigacion=$valores->id_linea;
+                  $docLineaInvestigacion=$this->model_documentos->obtenerDocsLinea($lineaInvestigacion);  
+                }
+                
+                if($valores->emp_id !=0 ){
+                     $empId=$valores->emp_id;
+                     $docValoradosMismaEmpresa= $this->model_documentos->getDocEmpresa($empId);
+                }
+               
+            }
         }
     
         $docLineaGeneral=$this->model_documentos->obtenerDocsLineaGeneral();
@@ -444,6 +453,8 @@ class Cdocumentos extends CI_controller
 
              /*print_r($recAdaptativa);echo '<br/>';
              print_r($ids);echo'<br/>';   
+
+
    
             exit();*/
             foreach ($recAdaptativa as $value) {
@@ -461,6 +472,7 @@ class Cdocumentos extends CI_controller
                 echo json_encode($documentos);
        // return $documentos;
         }else{
+
             $nn=5;
             $recAdaptativa= $this->adaptativa($docVistos,$docLineaInvestigacion,$docValoradosMismaEmpresa,$docLineaGeneral,$nn);
         
@@ -504,10 +516,10 @@ class Cdocumentos extends CI_controller
             }
 
         }
-  /*      echo' Primera Asignacion documentos vistos'.'<br />';
+       /* echo' Primera Asignacion documentos vistos'.'<br />';
         print_r($vectorDePesos);echo "<br/>";
-        print_r($vectorDeDocs);echo "<br/>";
-*/
+        print_r($vectorDeDocs);echo "<br/>";*/
+
         
         if($docLineaInvestigacion!=0){
             if(count($vectorDeDocs>0)){
@@ -539,10 +551,10 @@ class Cdocumentos extends CI_controller
 
          
         }
-  /*      echo' Segunda Asignacion documentos Linea'.'<br />';
+     /*   echo' Segunda Asignacion documentos Linea'.'<br />';
         print_r($vectorDePesos);echo "<br/>";
-        print_r($vectorDeDocs);echo "<br/>";
-    */   
+        print_r($vectorDeDocs);echo "<br/>";*/
+      
         if($docValoradosMismaEmpresa!=0){
             if(count($vectorDeDocs>0)){
                 for ($i=0; $i < count($docValoradosMismaEmpresa) ; $i++) {
@@ -573,7 +585,7 @@ class Cdocumentos extends CI_controller
             }
             // print_r($recomendacion);
         }
-      /*  echo' Tercera Asignacion documentos Empresa'.'<br />';
+     /*  echo' Tercera Asignacion documentos Empresa'.'<br />';
         print_r($vectorDePesos);echo "<br/>";
         print_r($vectorDeDocs);echo "<br/>";*/
         if($docLineaGeneral!=0){
@@ -604,7 +616,7 @@ class Cdocumentos extends CI_controller
                 $vectorDeDocs[]=$value;
             }
         }
-        /*echo' cuarta Asignacion documentos Generales'.'<br />';
+      /*  echo' cuarta Asignacion documentos Generales'.'<br />';
         print_r($vectorDePesos);echo "<br/>";
         print_r($vectorDeDocs);echo "<br/>";*/
 
@@ -656,11 +668,11 @@ class Cdocumentos extends CI_controller
                 $mejoresResultados[]=$recomendacion[$i]; 
                          
             }
-            /*foreach ($resultado as $value) {
+         /*   foreach ($resultado as $value) {
                 $recomendacion[]=floor($value);
-            }
-             echo' Recomendación Final'.'<br />';*/
-           // print_r($recomendacion);echo "<br/>";
+            }*/
+           /* echo' Recomendación Final'.'<br />';
+             print_r($recomendacion);echo "<br/>";*/
             return $mejoresResultados;
         }
       
@@ -713,7 +725,7 @@ class Cdocumentos extends CI_controller
             $usuarios[] = $row->id_usuario;
         }
 
-       /* echo '<pre>';
+       /*echo '<pre>';
         print_r($matriz);
         echo  '</pre>';
         echo 'USUARIOS';
@@ -897,7 +909,7 @@ class Cdocumentos extends CI_controller
                 }
 			}
 		}
-      /*echo "ITEM COMUNES";
+     /*echo "ITEM COMUNES";
         echo '<pre>';
         print_r($matrizItemsComunes);
         echo  '</pre>';*/
@@ -959,7 +971,7 @@ class Cdocumentos extends CI_controller
             $val2=$val2-1;
         }
 
-        /*echo "MSD COMPLETADA";
+       /* echo "MSD COMPLETADA";
         echo '<pre>';
         print_r($matrizMSD);
         echo  '</pre>';*/

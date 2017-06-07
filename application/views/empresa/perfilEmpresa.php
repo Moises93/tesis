@@ -141,12 +141,12 @@
                                     </button>
                                 <?php }?>
                     </div>
-
+                    <!--asset_url("img/".$row->emp_foto) jj  row['emp_foto']-->
                     <div class="col-xs-3 column-two">
                         <?php if (empty($row['emp_foto'])) { ?>
                             <img src="<?=asset_url("img/noPerfil.png")?>" alt="180" height="90px">
-                        <?php } else { ?>
-                            <img src="<?=$row['emp_foto']?>"  alt="180" height="90px">
+                        <?php } else { ?> 
+                            <img src="<?=asset_url("img/".$row['emp_foto'])?>"  alt="180" height="90px">
                         <?php } ?>
                     </div>
                 </div>
@@ -240,7 +240,7 @@
                             <?php } ?>
 
                             <div class="review-block-name"><a href="#"><?=$row['usu_login']?></a></div>
-                            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+                            <div class="review-block-date"><br/></div>
                         </div>
                         <div class="col-sm-9">
                             <div class="review-block-rate">

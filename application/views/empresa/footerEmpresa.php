@@ -252,10 +252,17 @@
   });
 </script>-->
   <script>
+
   $(document).ready(function(e) {
-       document.querySelector("#buscar").onkeyup = function(){
+      /* document.querySelector("#buscar").onkeyup = function(){
         $TableFilter("#tabla", this.value);
-    }
+    }*/ 
+    $(".select2").select2();
+$(".btn-pref .btn").click(function () {
+    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+    // $(".tab").addClass("active"); // instead of this do the below 
+    $(this).removeClass("btn-default").addClass("btn-primary");   
+});
     
     $TableFilter = function(id, value){
         var rows = document.querySelectorAll(id + ' tbody td');

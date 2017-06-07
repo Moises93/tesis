@@ -44,7 +44,7 @@
                     <?php if (empty($row->emp_foto)) { ?>
                         <img src="<?=asset_url("img/noPerfil.png")?>" alt="80" height="90px">
                     <?php } else { ?>
-                        <img src="<?=$row->emp_foto?>"  alt="80" height="90px">
+                        <img src="<?=asset_url("img/".$row->emp_foto)?>"  alt="80" height="90px">
                     <?php } ?>
                  </span>
                             <div class="info-box-content">

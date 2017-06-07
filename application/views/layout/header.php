@@ -89,7 +89,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <?php if (empty($user[0]->usu_foto)) { ?>
+                    <?php  
+                    if (empty($user[0]->usu_foto)) { ?>
                        <img src="<?=asset_url("img/noPerfil.png")?>" class="img-circle" width="20" height="20" alt=""> 
                     <?php } else { ?>
                         <img src="<?=$user[0]->usu_foto?>" class="img-circle" width="20" height="20" alt=""> 

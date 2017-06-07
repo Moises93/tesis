@@ -151,7 +151,7 @@ class Model_pasante extends CI_Model
              return $query->row();
         }
         else{
-            return 0;
+            return null;
         }
        
     }
@@ -185,18 +185,33 @@ class Model_pasante extends CI_Model
             return $this->db->update('pasantia', $data);
     }
 
-   /* function getIdPasante($idUsuario){
+   function getIdPasante($idUsuario){
+
         $this->db->select('pas_id');
         $this->db->from('pasante');
         $this->db->where('id_usuario', $idUsuario);
         $query = $this->db->get();
         if ($query->num_rows() > 0){
-             return $this->db->get()->result();
+            return $query->row()->pas_id;
         }
         else{
             return 0;
         }
-    }*/
+    }
+
+       function getUserPasante($idPas){
+
+        $this->db->select('id_usuario');
+        $this->db->from('pasante');
+        $this->db->where('pas_id', $idPas);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            return $query->row()->id_usuario;
+        }
+        else{
+            return 0;
+        }
+    }
 
 
 

@@ -6,6 +6,7 @@ $(document).ready(function() {
     var pas=parseInt($('#pasos1').val());
     var pas2=parseInt($('#pasos2').val());
     var pas3=parseInt($('#pasos3').val());
+    var pas4=parseInt($('#pasos4').val());
     var navListItems = $('ul.setup-panel li a'),
         allWells = $('.setup-content');
 
@@ -41,10 +42,15 @@ $(document).ready(function() {
         $('ul.setup-panel li a[href="#step-4"]').trigger('click');
         $('#activate-step-4').remove();
     }
+     if(pas4==1){
+        $('ul.setup-panel li:eq(4)').removeClass('disabled');
+        $('ul.setup-panel li a[href="#step-5"]').trigger('click');
+        $('#activate-step-5').remove();
+    }
     $('ul.setup-panel li.active a').trigger('click');
 
     // DEMO ONLY //
-    $('#activate-step-2').on('click', function(e) {
+    $('#activate-step-1').on('click', function(e) {
 
         var pas=parseInt($('#paso1').val());
         if(pas==0){
@@ -63,7 +69,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#activate-step-3').on('click', function(e) {
+    $('#activate-step-2').on('click', function(e) {
         var pas=parseInt($('#paso2').val());
         if(pas==0){
             alertify.alert("Debes subir el requisito para avanzar", function () {
@@ -81,7 +87,7 @@ $(document).ready(function() {
             $('ul.setup-panel li:eq(1)').removeClass('active');*/
         }
     });
-    $('#activate-step-4').on('click', function(e) {
+    $('#activate-step-3').on('click', function(e) {
         var pas=parseInt($('#paso3').val());
         if(pas==0){
              alertify.alert("Debes subir el requisito para avanzar");
@@ -95,5 +101,21 @@ $(document).ready(function() {
             $('ul.setup-panel li:eq(1)').removeClass('active');*/
         }
     });
+  $('#activate-step-4').on('click', function(e) {
+        var pas=parseInt($('#paso4').val());
+        if(pas==0){
+             alertify.alert("Debes subir el requisito para avanzar");
+        }else {
+            $('ul.setup-panel li:eq(4)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-5"]').trigger('click');
+            $(this).remove();
+           // $(this).remove();
+           /* $('ul.setup-panel li:eq(2)').addClass('active');
+            $('ul.setup-panel li:eq(2)').show();
+            $('ul.setup-panel li:eq(1)').removeClass('active');*/
+        }
+    });
+
+
 });
 

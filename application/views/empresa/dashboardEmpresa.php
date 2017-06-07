@@ -24,11 +24,12 @@
 <section class="content">
     <h2>Estudiantes</h2>
     <?php if($Tipo == 5){?>
-<h3>Recomendados Para ti</h3>
+
 
     <table>
     <tr>
-    <?php foreach($Recomendados as $row){?>
+    <?php  foreach($Recomendados as $row){?>
+      <h3>Recomendados Para ti</h3>
        <td class="grid cs-style-7"> <figure>
              <div  class="info-box" style="width: 250px;">
                  <span class="info-box-icon bg-aqua" style="height: 0px; line-height: 0px;">

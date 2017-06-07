@@ -14,6 +14,7 @@ class Cpasantia extends CI_controller
         # code...paren
         $this->load->model('model_usuario');
         $this->load->model('model_admin');
+        $this->load->model('model_pasante');
         $this->load->model('model_ubicacion');
         $this->load->model('model_habilidades');
         $this->load->model('model_pasantia');
@@ -50,7 +51,7 @@ class Cpasantia extends CI_controller
 
         $requisitos=$this->model_documentos->requisitosPasante($estudiante);
 
-        if(count($requisitos)>2) {
+        if(count($requisitos)>3) {
             $estatus=2; //requisitos, carta Aceptacion, actividades y cv listos.
         }else{
             $estatus=1; //por defecto inserto estatus 1 =iniciada
@@ -59,6 +60,14 @@ class Cpasantia extends CI_controller
         if($empresa < 0 ){
             $empresa=null;
         }
+        $id_usuario=$this->model_pasante->getUserPasante($estudiante);
+         $clave=array('miPasan');
+         foreach($clave as $cla){
+                            $idMen=$this->model_admin->obtenerMenuId($cla); //consulto el idMenu por la clave
+                            $menu=$idMen->id_menu;
+                            $this->model_admin->guardarPermisos($id_usuario,$menu);
+                        }
+
         return $this->model_pasantia->agregarPasantia($modalidad,$empresa,$orgaca,$escuela,
         $estudiante,$fechaIni,$fechaFin,$estatus);
 

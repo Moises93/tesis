@@ -78,11 +78,25 @@ class Model_documentos extends CI_Model
         }else{
             $if=0;
         }
+
+        $this->db->select('CONCAT (doc.nombre_archivo,'.',doc.formato) AS name',false);
+        $this->db->where('doc.id_usuario', $idUser);
+        $this->db->where("(doc.requisito='cartaPostulacion')",NULL,FALSE);
+        $query = $this->db->get('documentos_requeridos doc');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key => $object) {
+                $cp =   $object['name'];
+            }
+        }else{
+            $cp=0;
+        }
+
         $array = array(
             "aceptacion" => $aceptacion,
             "actividades" => $actividades,
             "cv" => $cv,
-            "informeFinal" => $if
+            "informeFinal" => $if,
+            "postulacion" =>$cp
         );
         return $array;
 

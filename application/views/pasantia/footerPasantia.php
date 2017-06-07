@@ -53,7 +53,7 @@
                 }
             },
             function(start, end, label) {
-                alert("A new date range was chosen: " + start.format('DD-MM-YYY') + ' to ' + end.format('DD-MM-YYY'));
+               // alert("A new date range was chosen: " + start.format('DD-MM-YYY') + ' to ' + end.format('DD-MM-YYY'));
             });
     
 

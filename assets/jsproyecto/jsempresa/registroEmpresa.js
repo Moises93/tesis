@@ -57,7 +57,7 @@ $('#tblEmpresa').DataTable({
         {data: 'emp_correo'},
         {orderable: 'true',
             render: function (data,type,row) {
-                console.log(row);
+                //console.log(row);
                 return '<a href="#" data-toggle="modal" ' +
                     'data-target="#modalEditEmpresa" ' +
                     'onClick="selEmpresa(\'' + row.emp_id + '\',\'' + row.emp_rif + '\',\'' + row.emp_nombre + '\',\'' + row.emp_telefono + '\',\'' + row.emp_correo + '\');"><span class="glyphicon glyphicon-edit" </span></a>';
